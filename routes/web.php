@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\auth\AdminAuthController;
 use App\Http\Controllers\admin\LoginController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,8 +20,6 @@ use Illuminate\Support\Facades\Route;
 //     return ro
 // });
 
-Route::get('/admin', [LoginController::class, 'index']);
-Route::post('login', [LoginController::class, 'login'])->name('login');
-
-
-Route::get('dashboard_admin', [AdminController::class, 'index'])->name('dashboard_admin');
+Route::get('admin', [AdminAuthController::class, 'index']);
+Route::post('loginAdmin', [AdminAuthController::class, 'login'])->name('loginAdmin');
+Route::get('adminDashboard', [AdminController::class, 'index'])->name('adminDashboard')->middleware('admin');

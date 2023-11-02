@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\admin\auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
@@ -8,8 +8,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
-class LoginController extends Controller
+class AdminAuthController extends Controller
 {
+
+    public function __construct()
+    {
+        date_default_timezone_set('Asia/Jakarta');
+    }
     function index()
     {
         return view('admin.auth.login');
@@ -21,10 +26,15 @@ class LoginController extends Controller
             $validator = Validator::make($request->all(), [
                 'email' => 'required|email',
                 'password' => 'required|string'
+            ], [
+                'email.required' => 'Email tidak boleh kosong',
+                'email.email' => 'Email tidak valid',
+                'password.required' => 'Password tidak boleh kosong',
+                'password.string' => 'Password hanya boleh berupa huruf dan angka',
             ]);
 
             if ($validator->fails()) {
-                return redirect('/admin')->with('failed', $validator->errors()->first());
+                return redirect()->back()->with('failed', $validator->errors()->first())->withInput();
             }
 
             $email = $request->input('email');
@@ -34,13 +44,13 @@ class LoginController extends Controller
                 if (Hash::check($password, $validate['password'])) {
                     return redirect('dashboard_admin');
                 } else {
-                    return redirect('/admin')->with('failed', 'Kata sandi salah');
+                    return redirect()->back()->with('failed', 'Kata sandi salah')->withInput();
                 }
             } else {
-                return redirect('/admin')->with('failed', 'Email belum terdaftar');
+                return redirect()->back()->with('failed', 'Email tidak terdaftar')->withInput();
             }
         } catch (\Throwable $th) {
-            return redirect('/admin')->with('failed', $th->getMessage());
+            return redirect()->back()->with('failed', 'Terjadi kesalahan')->withInput();
         }
     }
 }
