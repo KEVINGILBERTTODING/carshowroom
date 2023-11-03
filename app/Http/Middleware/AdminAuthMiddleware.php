@@ -16,7 +16,7 @@ class AdminAuthMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         if (session('login') != true && session('role') != 'admin') {
-            return redirect()->route('/');
+            return redirect('/');
         }
         return $next($request);
     }

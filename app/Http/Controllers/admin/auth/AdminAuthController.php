@@ -42,7 +42,10 @@ class AdminAuthController extends Controller
             $validate = Admin::where('email', $email)->first();
             if ($validate) {
                 if (Hash::check($password, $validate['password'])) {
-                    return redirect('dashboard_admin');
+                    $request = session()->push('login', true);
+                    $request = session()->push('role', 'admin');
+                    $request = session()->put('admin_id', $validate['admin_id']);
+                    return redirect()->route('adminDashboard');
                 } else {
                     return redirect()->back()->with('failed', 'Kata sandi salah')->withInput();
                 }
