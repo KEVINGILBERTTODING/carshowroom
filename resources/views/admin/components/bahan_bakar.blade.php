@@ -76,8 +76,7 @@
 
                             </li>
                             <li class="submenu-item  ">
-                                <a href="form-element-checkbox.html" class="submenu-link">Body</a>
-
+                                <a href="{{ route('body') }}" class="submenu-link">Body</a>
                             </li>
 
                             <li class="submenu-item  ">
@@ -93,8 +92,7 @@
 
                             </li>
                             <li class="submenu-item  ">
-                                <a href="form-element-textarea.html" class="submenu-link">Tangki</a>
-
+                                <a href="{{ route('tangki') }}" class="submenu-link">Kapasitas Tangki</a>
                             </li>
                             <li class="submenu-item  ">
                                 <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>

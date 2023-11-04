@@ -3,8 +3,10 @@
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\auth\AdminAuthController;
 use App\Http\Controllers\admin\components\BahanBakarController;
+use App\Http\Controllers\admin\components\BodyController;
 use App\Http\Controllers\admin\components\KapasitasPenumpangController;
 use App\Http\Controllers\admin\components\MerkController;
+use App\Http\Controllers\admin\components\TangkiController;
 use App\Http\Controllers\admin\components\TransmisiController;
 use App\Http\Controllers\admin\components\WarnaController;
 use Illuminate\Support\Facades\Route;
@@ -71,3 +73,19 @@ Route::get('transmisi', [TransmisiController::class, 'index'])->name('transmisi'
 Route::post('tambahTransmisi', [TransmisiController::class, 'tambah'])->name('tambahTransmisi')->middleware('admin');
 Route::post('updateTransmisi', [TransmisiController::class, 'update'])->name('updateTransmisi')->middleware('admin');
 Route::get('hapusTransmisi/{transmisiId}', [TransmisiController::class, 'hapus'])->name('hapusTransmisi')->middleware('admin');
+
+
+// Body
+
+Route::get('body', [BodyController::class, 'index'])->name('body')->middleware('admin');
+Route::post('tambahBody', [BodyController::class, 'tambah'])->name('tambahBody')->middleware('admin');
+Route::post('updateBody', [BodyController::class, 'update'])->name('updateBody')->middleware('admin');
+Route::get('hapusBody/{bodyId}', [BodyController::class, 'hapus'])->name('hapusBody')->middleware('admin');
+
+
+// Kapasitas tangki
+
+Route::get('tangki', [TangkiController::class, 'index'])->name('tangki')->middleware('admin');
+Route::post('tambahTangki', [TangkiController::class, 'tambah'])->name('tambahTangki')->middleware('admin');
+Route::post('updateTangki', [TangkiController::class, 'update'])->name('updateTangki')->middleware('admin');
+Route::get('hapusTangki/{tangkiId}', [TangkiController::class, 'hapus'])->name('hapusTangki')->middleware('admin');

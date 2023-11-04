@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Merk Mobil</title>
+    <title>Admin - Kapasitas Tangki</title>
 @endsection
 
 @section('sidebar')
@@ -83,19 +83,20 @@
                                 <a href="form-element-input-group.html" class="submenu-link">Kapasitas mesin</a>
 
                             </li>
-                            <li class="submenu-item  ">
+                            <li class="submenu-item ">
                                 <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>
-
                             </li>
-                            <li class="submenu-item active  ">
+                            <li class="submenu-item   ">
                                 <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
 
                             </li>
-                            <li class="submenu-item  ">
+                            <li class="submenu-item active ">
                                 <a href="{{ route('tangki') }}" class="submenu-link">Kapasitas Tangki</a>
+
                             </li>
                             <li class="submenu-item  ">
                                 <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
+
                             </li>
 
                             <li class="submenu-item">
@@ -170,14 +171,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Merk Mobil</h3>
+                <h3>Daftar Kapasitas Tangki</h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('adminDashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Merk Mobil</li>
+                        <li class="breadcrumb-item active" aria-current="page">Kapasitas Tangki</li>
                     </ol>
                 </nav>
             </div>
@@ -187,9 +188,9 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Table Merk Mobil
+                    Table Kapasitas Tangki
                 </h5>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-end mt-2">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_insert">Tambah
                     </button>
                 </div>
@@ -202,7 +203,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Merk Mobil</th>
+                                <th>Kapasitas Tangki</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -211,17 +212,17 @@
                                 $no = 1;
                             @endphp
 
-                            @foreach ($dataMerk as $dw)
+                            @foreach ($dataTangki as $dw)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $dw->merk }}</td>
+                                    <td>{{ $dw->tangki }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <button style="margin-right: 10px" class="btn btn-warning"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#modal_update_{{ $dw->merk_id }}"><i
+                                                data-bs-target="#modal_update_{{ $dw->tangki_id }}"><i
                                                     class="fa-regular fa-pen-to-square"></i></button>
-                                            <button data-merk_id="{{ $dw->merk_id }}"
+                                            <button data-tangki_id="{{ $dw->tangki_id }}"
                                                 class="btn btn-danger btnDelete"><i
                                                     class="fa-regular fa-trash-can"></i></a>
                                             </button>
@@ -232,28 +233,29 @@
                                     </td>
                                 </tr>
 
-                                <!--Modal ubah merk -->
-                                <div class="modal fade text-left modal-borderless" id="modal_update_{{ $dw->merk_id }}"
+                                <!--Modal ubah tangki -->
+                                <div class="modal fade text-left modal-borderless" id="modal_update_{{ $dw->tangki_id }}"
                                     tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Ubah Nama Merk Mobil</h5>
+                                                <h5 class="modal-title">Ubah Kapasitas Tangki</h5>
                                                 <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                                                     aria-label="Close">
                                                     <i data-feather="x"></i>
                                                 </button>
                                             </div>
-                                            <form action="{{ route('updateMerk') }}" method="post">
+                                            <form action="{{ route('updateTangki') }}" method="post">
                                                 @csrf
                                                 <div class="modal-body">
 
                                                     <div class="form-group">
-                                                        <label for="basicInput">Nama Merk Mobil</label>
+                                                        <label for="basicInput">Kapasitas Tangki</label>
                                                         <input type="text" hidden readonly class="form-control mt-2"
-                                                            value="{{ $dw->merk_id }}" name="merk_id" id="basicInput">
+                                                            value="{{ $dw->tangki_id }}" name="tangki_id"
+                                                            id="basicInput">
                                                         <input type="text" class="form-control mt-2"
-                                                            value="{{ $dw->merk }}" name="merk" id="basicInput">
+                                                            value="{{ $dw->tangki }}" name="tangki" id="basicInput">
                                                     </div>
 
 
@@ -279,25 +281,25 @@
                     </table>
                 </div>
 
-                <!--Modal tambah merk -->
+                <!--Modal tambah tangki -->
                 <div class="modal fade text-left modal-borderless" id="modal_insert" tabindex="-1" role="dialog"
                     aria-labelledby="myModalLabel1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Tambah Nama Merk Mobil</h5>
+                                <h5 class="modal-title">Tambah Kapasitas Tangki</h5>
                                 <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                                     aria-label="Close">
                                     <i data-feather="x"></i>
                                 </button>
                             </div>
-                            <form action="{{ route('tambahMerk') }}" method="post">
+                            <form action="{{ route('tambahTangki') }}" method="post">
                                 @csrf
                                 <div class="modal-body">
 
                                     <div class="form-group">
-                                        <label for="basicInput">Nama Merk Mobil</label>
-                                        <input type="text" class="form-control mt-2" name="merk" id="basicInput">
+                                        <label for="basicInput">Kapasitas Tangki</label>
+                                        <input type="text" class="form-control mt-2" name="tangki" id="basicInput">
                                     </div>
 
 
@@ -326,7 +328,7 @@
 @section('js')
     <script>
         $(document).on('click', '.btnDelete', function() {
-            var merk_id = $(this).data('merk_id');
+            var tangki_id = $(this).data('tangki_id');
             Swal.fire({
                 title: 'Konfirmasi Hapus Data',
                 text: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -341,7 +343,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    window.location.href = '/hapusMerk/' + merk_id;
+                    window.location.href = '/hapusTangki/' + tangki_id;
 
                 }
             });
