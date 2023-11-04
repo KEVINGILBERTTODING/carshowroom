@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Merk Mobil</title>
+    <title>Admin - Kapasitas Mesin</title>
 @endsection
 
 @section('sidebar')
@@ -62,7 +62,7 @@
 
 
 
-                    <li class="sidebar-title">Komponen Mobil</li>
+                    <li class="sidebar-title">Komponen Mesin</li>
 
                     <li class="sidebar-item  has-sub active">
                         <a href="#" class='sidebar-link'>
@@ -78,14 +78,14 @@
                                 <a href="{{ route('body') }}" class="submenu-link">Body</a>
                             </li>
 
-                            <li class="submenu-item  ">
+                            <li class="submenu-item active ">
                                 <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>
 
                             </li>
-                            <li class="submenu-item active  ">
+                            <li class="submenu-item ">
+                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>
+                            </li>
+                            <li class="submenu-item   ">
                                 <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
 
                             </li>
@@ -94,6 +94,7 @@
                             </li>
                             <li class="submenu-item  ">
                                 <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
+
                             </li>
 
                             <li class="submenu-item">
@@ -168,14 +169,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Merk Mobil</h3>
+                <h3>Daftar Kapasitas Mesin</h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('adminDashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Merk Mobil</li>
+                        <li class="breadcrumb-item active" aria-current="page">Kapasitas Mesin</li>
                     </ol>
                 </nav>
             </div>
@@ -185,9 +186,9 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Table Merk Mobil
+                    Table Kapasitas Mesin
                 </h5>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-end mt-2">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_insert">Tambah
                     </button>
                 </div>
@@ -200,7 +201,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Merk Mobil</th>
+                                <th>Kapasitas Mesin</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -209,18 +210,17 @@
                                 $no = 1;
                             @endphp
 
-                            @foreach ($dataMerk as $dw)
+                            @foreach ($dataMesin as $dw)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $dw->merk }}</td>
+                                    <td>{{ $dw->kapasitas }}</td>
                                     <td>
                                         <div class="d-flex">
                                             <button style="margin-right: 10px" class="btn btn-warning"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#modal_update_{{ $dw->merk_id }}"><i
+                                                data-bs-target="#modal_update_{{ $dw->km_id }}"><i
                                                     class="fa-regular fa-pen-to-square"></i></button>
-                                            <button data-merk_id="{{ $dw->merk_id }}"
-                                                class="btn btn-danger btnDelete"><i
+                                            <button data-km_id="{{ $dw->km_id }}" class="btn btn-danger btnDelete"><i
                                                     class="fa-regular fa-trash-can"></i></a>
                                             </button>
 
@@ -230,28 +230,29 @@
                                     </td>
                                 </tr>
 
-                                <!--Modal ubah merk -->
-                                <div class="modal fade text-left modal-borderless" id="modal_update_{{ $dw->merk_id }}"
+                                <!--Modal ubah kapasitas mesin -->
+                                <div class="modal fade text-left modal-borderless" id="modal_update_{{ $dw->km_id }}"
                                     tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Ubah Nama Merk Mobil</h5>
+                                                <h5 class="modal-title">Ubah Kapasitas Mesin</h5>
                                                 <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                                                     aria-label="Close">
                                                     <i data-feather="x"></i>
                                                 </button>
                                             </div>
-                                            <form action="{{ route('updateMerk') }}" method="post">
+                                            <form action="{{ route('updateKapasitasMesin') }}" method="post">
                                                 @csrf
                                                 <div class="modal-body">
 
                                                     <div class="form-group">
-                                                        <label for="basicInput">Nama Merk Mobil</label>
+                                                        <label for="basicInput">Kapasitas Mesin</label>
                                                         <input type="text" hidden readonly class="form-control mt-2"
-                                                            value="{{ $dw->merk_id }}" name="merk_id" id="basicInput">
+                                                            value="{{ $dw->km_id }}" name="km_id" id="basicInput">
                                                         <input type="text" class="form-control mt-2"
-                                                            value="{{ $dw->merk }}" name="merk" id="basicInput">
+                                                            value="{{ $dw->kapasitas }}" name="kapasitas"
+                                                            id="basicInput">
                                                     </div>
 
 
@@ -277,25 +278,26 @@
                     </table>
                 </div>
 
-                <!--Modal tambah merk -->
+                <!--Modal tambah kapasitas mesin -->
                 <div class="modal fade text-left modal-borderless" id="modal_insert" tabindex="-1" role="dialog"
                     aria-labelledby="myModalLabel1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Tambah Nama Merk Mobil</h5>
+                                <h5 class="modal-title">Tambah Kapasitas Mesin</h5>
                                 <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                                     aria-label="Close">
                                     <i data-feather="x"></i>
                                 </button>
                             </div>
-                            <form action="{{ route('tambahMerk') }}" method="post">
+                            <form action="{{ route('tambahKapasitasMesin') }}" method="post">
                                 @csrf
                                 <div class="modal-body">
 
                                     <div class="form-group">
-                                        <label for="basicInput">Nama Merk Mobil</label>
-                                        <input type="text" class="form-control mt-2" name="merk" id="basicInput">
+                                        <label for="basicInput">Kapasitas Mesin</label>
+                                        <input type="text" class="form-control mt-2" name="kapasitas"
+                                            id="basicInput">
                                     </div>
 
 
@@ -324,7 +326,7 @@
 @section('js')
     <script>
         $(document).on('click', '.btnDelete', function() {
-            var merk_id = $(this).data('merk_id');
+            var km_id = $(this).data('km_id');
             Swal.fire({
                 title: 'Konfirmasi Hapus Data',
                 text: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -339,7 +341,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    window.location.href = '/hapusMerk/' + merk_id;
+                    window.location.href = '/hapusKapasitasMesin/' + km_id;
 
                 }
             });

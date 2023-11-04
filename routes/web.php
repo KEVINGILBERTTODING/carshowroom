@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\auth\AdminAuthController;
 use App\Http\Controllers\admin\components\BahanBakarController;
 use App\Http\Controllers\admin\components\BodyController;
+use App\Http\Controllers\admin\components\KapasitasMesinController;
 use App\Http\Controllers\admin\components\KapasitasPenumpangController;
 use App\Http\Controllers\admin\components\MerkController;
 use App\Http\Controllers\admin\components\TangkiController;
@@ -89,3 +90,12 @@ Route::get('tangki', [TangkiController::class, 'index'])->name('tangki')->middle
 Route::post('tambahTangki', [TangkiController::class, 'tambah'])->name('tambahTangki')->middleware('admin');
 Route::post('updateTangki', [TangkiController::class, 'update'])->name('updateTangki')->middleware('admin');
 Route::get('hapusTangki/{tangkiId}', [TangkiController::class, 'hapus'])->name('hapusTangki')->middleware('admin');
+
+
+
+// kapasitas mesin
+
+Route::get('kapasitasMesin', [KapasitasMesinController::class, 'index'])->name('kapasitasMesin')->middleware('admin');
+Route::post('tambahKapasitasMesin', [KapasitasMesinController::class, 'tambah'])->name('tambahKapasitasMesin')->middleware('admin');
+Route::post('updateKapasitasMesin', [KapasitasMesinController::class, 'update'])->name('updateKapasitasMesin')->middleware('admin');
+Route::get('hapusKapasitasMesin/{kmId}', [KapasitasMesinController::class, 'hapus'])->name('hapusKapasitasMesin')->middleware('admin');

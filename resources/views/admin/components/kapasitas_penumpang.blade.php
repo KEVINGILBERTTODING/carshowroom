@@ -72,16 +72,14 @@
 
                         <ul class="submenu ">
                             <li class="submenu-item  ">
-                                <a href="form-element-select.html" class="submenu-link">Bahan bakar</a>
-
+                                <a href="{{ route('bahanBakar') }}" class="submenu-link">Bahan bakar</a>
                             </li>
                             <li class="submenu-item  ">
                                 <a href="{{ route('body') }}" class="submenu-link">Body</a>
                             </li>
 
                             <li class="submenu-item  ">
-                                <a href="form-element-input-group.html" class="submenu-link">Kapasitas mesin</a>
-
+                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
                             </li>
                             <li class="submenu-item active ">
                                 <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>

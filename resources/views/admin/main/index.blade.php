@@ -80,7 +80,7 @@
                             </li>
 
                             <li class="submenu-item  ">
-                                <a href="form-element-input-group.html" class="submenu-link">Kapasitas mesin</a>
+                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
 
                             </li>
                             <li class="submenu-item  ">
