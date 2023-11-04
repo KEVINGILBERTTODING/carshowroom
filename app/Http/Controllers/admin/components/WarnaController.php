@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin\components;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\WarnaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -15,8 +16,11 @@ class WarnaController extends Controller
     }
     function index()
     {
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+
         $dataWarna = WarnaModel::get();
         $data = [
+            'dataAdmin' => $dataAdmin,
             'dataWarna' => $dataWarna
         ];
 

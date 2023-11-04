@@ -17,13 +17,16 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
+    if (session('login') == true && session('role') == 'admin') {
+        return redirect()->route('adminDashboard');
+    }
     return view('welcome');
 });
 
 
 // admin
-Route::get('admin', [AdminAuthController::class, 'index']);
-Route::post('loginAdmin', [AdminAuthController::class, 'login'])->name('loginAdmin');
+Route::get('admin', [AdminAuthController::class, 'index'])->middleware('authAdmin');
+Route::post('loginAdmin', [AdminAuthController::class, 'login'])->name('loginAdmin')->middleware('authAdmin');
 Route::get('adminDashboard', [AdminController::class, 'index'])->name('adminDashboard')->middleware('admin');
 Route::get('warna', [WarnaController::class, 'index'])->name('warna')->middleware('admin');
 Route::post('tambahWarna', [WarnaController::class, 'tambah'])->name('tambahWarna')->middleware('admin');
