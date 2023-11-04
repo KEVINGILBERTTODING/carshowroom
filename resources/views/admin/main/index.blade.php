@@ -72,7 +72,7 @@
 
                         <ul class="submenu ">
                             <li class="submenu-item  ">
-                                <a href="form-element-select.html" class="submenu-link">Bahan bakar</a>
+                                <a href="{{ route('bahanBakar') }}" class="submenu-link">Bahan bakar</a>
 
                             </li>
                             <li class="submenu-item  ">
