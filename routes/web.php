@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\auth\AdminAuthController;
-use App\Http\Controllers\admin\LoginController;
+use App\Http\Controllers\admin\components\WarnaController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +20,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+// admin
 Route::get('admin', [AdminAuthController::class, 'index']);
 Route::post('loginAdmin', [AdminAuthController::class, 'login'])->name('loginAdmin');
 Route::get('adminDashboard', [AdminController::class, 'index'])->name('adminDashboard')->middleware('admin');
+Route::get('warna', [WarnaController::class, 'index'])->name('warna')->middleware('admin');
+Route::post('tambahWarna', [WarnaController::class, 'tambah'])->name('tambahWarna')->middleware('admin');
+Route::post('updateWarna', [WarnaController::class, 'update'])->name('updateWarna')->middleware('admin');
+Route::get('hapusWarna/{warnaId}', [WarnaController::class, 'hapus'])->name('hapusWarna')->middleware('admin');

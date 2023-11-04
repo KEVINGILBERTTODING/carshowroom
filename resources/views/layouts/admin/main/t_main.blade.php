@@ -15,10 +15,10 @@
         type="image/png">
     <link rel="stylesheet" href="{{ asset('template/admin/assets/compiled/css/app.css') }}">
     <link rel="stylesheet" href="{{ asset('template/admin/assets/compiled/css/app-dark.css') }}">
-
-
-
+    <link rel="stylesheet"
+        href="{{ asset('template/admin/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/admin/assets/compiled/css/iconly.css') }}">
+
 </head>
 
 <body>
@@ -31,11 +31,19 @@
                 @yield('content')
             </div>
             <footer>
-                @yield('footer')
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2023 &copy; Mazer</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart-fill icon-mid"></i></span>
+                            by <a href="https://saugi.me">Saugi</a></p>
+                    </div>
+                </div>
             </footer>
         </div>
     </div>
-    @yield('js')
+
     <script src="{{ asset('template/admin/assets/static/js/components/dark.js') }}"></script>
     <script src="{{ asset('template/admin/assets/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('template/admin/assets/compiled/js/app.js') }}"></script>
@@ -46,7 +54,45 @@
     <script src="{{ asset('template/admin/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
     <script src="{{ asset('template/admin/assets/static/js/pages/dashboard.js') }}"></script>
 
+    <script src="{{ asset('template/admin/assets/extensions/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('template/admin/assets/extensions/datatables.net/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('template/admin/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}">
+    </script>
+    <script src="{{ asset('template/admin/assets/static/js/pages/datatables.js') }}"></script>
+    <script src="{{ asset('template/admin/assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>>
+    <script src="{{ asset('template/admin/assets/static/js/pages/sweetalert2.js') }}"></script>>
+    <script src="https://kit.fontawesome.com/142d239858.js" crossorigin="anonymous"></script>
+
+
 
 </body>
+@yield('js')
 
 </html>
+
+
+@if (session('failed'))
+    <script>
+        $(document).ready(function() {
+            var errorMessage = "{{ session('failed') }}";
+            Swal2.fire({
+                icon: "error",
+                title: "Gagal",
+                text: errorMessage,
+            })
+
+        });
+    </script>
+@elseif (session('success'))
+    <script>
+        $(document).ready(function() {
+            var successMessage = "{{ session('success') }}";
+            Swal2.fire({
+                icon: "success",
+                title: "Berhasil",
+                text: successMessage,
+
+            })
+        });
+    </script>
+@endif
