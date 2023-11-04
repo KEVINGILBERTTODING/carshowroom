@@ -56,4 +56,10 @@ class AdminAuthController extends Controller
             return redirect()->back()->with('failed', 'Terjadi kesalahan')->withInput();
         }
     }
+
+    function logOutAdmin()
+    {
+        session()->flush();
+        return redirect()->route('admin');
+    }
 }

@@ -5,11 +5,11 @@ namespace App\Http\Controllers\admin\components;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AppModel;
-use App\Models\WarnaModel;
+use App\Models\MerkModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class WarnaController extends Controller
+class MerkController extends Controller
 {
     public function __construct()
     {
@@ -19,23 +19,23 @@ class WarnaController extends Controller
     {
         $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
-        $dataWarna = WarnaModel::get();
+        $dataMerk = MerkModel::get();
         $data = [
             'dataAdmin' => $dataAdmin,
-            'dataWarna' => $dataWarna,
+            'dataMerk' => $dataMerk,
             'dataApp' => $dataApp
         ];
 
-        return view('admin.components.warna', $data);
+        return view('admin.components.merk', $data);
     }
 
     function tambah(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'warna' => 'required|string',
+            'merk' => 'required|string',
         ], [
-            'warna.required' => 'Nama warna tidak boleh kosong',
-            'warna.string' => 'Nama warna hanya boleh mengandung huruf',
+            'merk.required' => 'Nama merk tidak boleh kosong',
+            'merk.string' => 'Nama merk hanya boleh mengandung huruf',
         ]);
 
         if ($validator->fails()) {
@@ -44,32 +44,32 @@ class WarnaController extends Controller
 
         try {
             $data = [
-                'warna' => $request->input('warna'),
+                'merk' => $request->input('merk'),
                 'created_at' => date('Y-m-d H:i:s')
 
             ];
-            $insert = WarnaModel::insert($data);
+            $insert = MerkModel::insert($data);
             if ($insert) {
-                return redirect()->back()->with('success', 'Berhasil menambahkan warna baru');
+                return redirect()->back()->with('success', 'Berhasil menambahkan merk baru');
             } else {
-                return redirect()->back()->with('failed', 'Gagal menambahkan warna baru');
+                return redirect()->back()->with('failed', 'Gagal menambahkan merk baru');
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
     }
-    function hapus($warnaId)
+    function hapus($merkId)
     {
-        if ($warnaId == null || $warnaId == 0) {
+        if ($merkId == null || $merkId == 0) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
 
         try {
-            $delete = WarnaModel::where('warna_id', $warnaId)->delete();
+            $delete = MerkModel::where('merk_id', $merkId)->delete();
             if ($delete) {
-                return redirect()->back()->with('success', 'Berhasil menghapus warna');
+                return redirect()->back()->with('success', 'Berhasil menghapus merk');
             } else {
-                return redirect()->back()->with('failed', 'Gagal menghapus warna');
+                return redirect()->back()->with('failed', 'Gagal menghapus merk');
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
@@ -79,13 +79,13 @@ class WarnaController extends Controller
     function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'warna_id' => 'required|integer',
-            'warna' => 'required|string',
+            'merk_id' => 'required|integer',
+            'merk' => 'required|string',
         ], [
-            'warna_id.required' => 'Terjadi kesalahan',
-            'warna_id.integer' => 'Terjadi kesalahan',
-            'warna.required' => 'Nama warna tidak boleh kosong',
-            'warna.string' => 'Nama warna hanya boleh mengandung huruf',
+            'merk_id.required' => 'Terjadi kesalahan',
+            'merk_id.integer' => 'Terjadi kesalahan',
+            'merk.required' => 'Nama merk tidak boleh kosong',
+            'merk.string' => 'Nama merk hanya boleh mengandung huruf',
         ]);
 
         if ($validator->fails()) {
@@ -94,15 +94,15 @@ class WarnaController extends Controller
 
         try {
             $data = [
-                'warna' => $request->input('warna'),
+                'merk' => $request->input('merk'),
                 'updated_at' => date('Y-m-d H:i:s')
 
             ];
-            $update = WarnaModel::where('warna_id', $request->input('warna_id'))->update($data);
+            $update = MerkModel::where('merk_id', $request->input('merk_id'))->update($data);
             if ($update) {
-                return redirect()->back()->with('success', 'Berhasil mengubah warna');
+                return redirect()->back()->with('success', 'Berhasil mengubah merk');
             } else {
-                return redirect()->back()->with('failed', 'Gagal mengubah warna');
+                return redirect()->back()->with('failed', 'Gagal mengubah merk');
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');

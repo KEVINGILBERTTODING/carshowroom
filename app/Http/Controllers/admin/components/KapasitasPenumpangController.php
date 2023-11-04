@@ -5,11 +5,11 @@ namespace App\Http\Controllers\admin\components;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AppModel;
-use App\Models\WarnaModel;
+use App\Models\KapasitasPenumpangModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class WarnaController extends Controller
+class KapasitasPenumpangController extends Controller
 {
     public function __construct()
     {
@@ -19,23 +19,23 @@ class WarnaController extends Controller
     {
         $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
-        $dataWarna = WarnaModel::get();
+        $dataKapasitasPenumpang = KapasitasPenumpangModel::get();
         $data = [
             'dataAdmin' => $dataAdmin,
-            'dataWarna' => $dataWarna,
+            'dataMerk' => $dataKapasitasPenumpang,
             'dataApp' => $dataApp
         ];
 
-        return view('admin.components.warna', $data);
+        return view('admin.components.kapasitas_penumpang', $data);
     }
 
     function tambah(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'warna' => 'required|string',
+            'kapasitas' => 'required|string',
         ], [
-            'warna.required' => 'Nama warna tidak boleh kosong',
-            'warna.string' => 'Nama warna hanya boleh mengandung huruf',
+            'kapasitas.required' => 'Nama kapasitas tidak boleh kosong',
+            'kapasitas.string' => 'Nama kapasitas hanya boleh mengandung huruf',
         ]);
 
         if ($validator->fails()) {
@@ -44,32 +44,32 @@ class WarnaController extends Controller
 
         try {
             $data = [
-                'warna' => $request->input('warna'),
+                'kapasitas' => $request->input('kapasitas'),
                 'created_at' => date('Y-m-d H:i:s')
 
             ];
-            $insert = WarnaModel::insert($data);
+            $insert = KapasitasPenumpangModel::insert($data);
             if ($insert) {
-                return redirect()->back()->with('success', 'Berhasil menambahkan warna baru');
+                return redirect()->back()->with('success', 'Berhasil menambahkan kapasitas baru');
             } else {
-                return redirect()->back()->with('failed', 'Gagal menambahkan warna baru');
+                return redirect()->back()->with('failed', 'Gagal menambahkan kapasitas baru');
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
     }
-    function hapus($warnaId)
+    function hapus($kapasitasId)
     {
-        if ($warnaId == null || $warnaId == 0) {
+        if ($kapasitasId == null || $kapasitasId == 0) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
 
         try {
-            $delete = WarnaModel::where('warna_id', $warnaId)->delete();
+            $delete = KapasitasPenumpangModel::where('kp_id', $kapasitasId)->delete();
             if ($delete) {
-                return redirect()->back()->with('success', 'Berhasil menghapus warna');
+                return redirect()->back()->with('success', 'Berhasil menghapus kapasitas');
             } else {
-                return redirect()->back()->with('failed', 'Gagal menghapus warna');
+                return redirect()->back()->with('failed', 'Gagal menghapus kapasitas');
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
@@ -79,13 +79,13 @@ class WarnaController extends Controller
     function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'warna_id' => 'required|integer',
-            'warna' => 'required|string',
+            'kp_id' => 'required|integer',
+            'kapasitas' => 'required|string',
         ], [
-            'warna_id.required' => 'Terjadi kesalahan',
-            'warna_id.integer' => 'Terjadi kesalahan',
-            'warna.required' => 'Nama warna tidak boleh kosong',
-            'warna.string' => 'Nama warna hanya boleh mengandung huruf',
+            'kp_id.required' => 'Terjadi kesalahan',
+            'kp_id.integer' => 'Terjadi kesalahan',
+            'kapasitas.required' => 'Nama kapasitas tidak boleh kosong',
+            'kapasitas.string' => 'Nama kapasitas hanya boleh mengandung huruf',
         ]);
 
         if ($validator->fails()) {
@@ -94,15 +94,15 @@ class WarnaController extends Controller
 
         try {
             $data = [
-                'warna' => $request->input('warna'),
+                'kapasitas' => $request->input('kapasitas'),
                 'updated_at' => date('Y-m-d H:i:s')
 
             ];
-            $update = WarnaModel::where('warna_id', $request->input('warna_id'))->update($data);
+            $update = KapasitasPenumpangModel::where('kp_id', $request->input('kp_id'))->update($data);
             if ($update) {
-                return redirect()->back()->with('success', 'Berhasil mengubah warna');
+                return redirect()->back()->with('success', 'Berhasil mengubah kapasitas');
             } else {
-                return redirect()->back()->with('failed', 'Gagal mengubah warna');
+                return redirect()->back()->with('failed', 'Gagal mengubah kapasitas');
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');

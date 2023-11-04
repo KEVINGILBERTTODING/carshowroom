@@ -19,6 +19,8 @@
         href="{{ asset('template/admin/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/admin/assets/compiled/css/iconly.css') }}">
 
+    <link rel="stylesheet" href="{{ asset('template/admin/assets/extensions/sweetalert2/sweetalert2.min.css') }}">
+
 </head>
 
 <body>

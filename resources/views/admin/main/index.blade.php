@@ -10,7 +10,8 @@
             <div class="sidebar-header position-relative">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="logo">
-                        <a href="index.html"><img src="./assets/compiled/svg/logo.svg" alt="Logo" srcset=""></a>
+                        <a href="{{ route('adminDashboard') }}"><img src="{{ asset('data/app/img/' . $dataApp['logo']) }}"
+                                alt="Logo" srcset=""></a>
                     </div>
                     <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -66,7 +67,7 @@
                     <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-hexagon-fill"></i>
-                            <span>Data</span>
+                            <span>Data Komponen</span>
                         </a>
 
                         <ul class="submenu ">
@@ -84,10 +85,10 @@
 
                             </li>
                             <li class="submenu-item  ">
-                                <a href="form-element-textarea.html" class="submenu-link">Kapasitas penumpang</a>
+                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>
                             </li>
                             <li class="submenu-item  ">
-                                <a href="form-element-radio.html" class="submenu-link">Merk</a>
+                                <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
 
                             </li>
                             <li class="submenu-item  ">
@@ -142,7 +143,7 @@
                                 </div>
                                 <div class="user-img d-flex align-items-center">
                                     <div class="avatar avatar-md">
-                                        <img src="{{ asset('template/admin/assets/compiled/jpg/1.jpg') }}">
+                                        <img src="{{ asset('data/profile_photo/' . $dataAdmin['photo_profile']) }}">
                                     </div>
                                 </div>
                             </div>
@@ -156,8 +157,8 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#"><i
-                                        class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ route('logOutAdmin') }}"><i
+                                        class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</a></li>
                         </ul>
                     </div>
                 </div>
