@@ -96,8 +96,7 @@
 
                             </li>
                             <li class="submenu-item  ">
-                                <a href="form-element-textarea.html" class="submenu-link">Transmisi</a>
-
+                                <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
                             </li>
 
                             <li class="submenu-item active">
@@ -192,7 +191,7 @@
                 </h5>
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_insert">Tambah
-                        Warna</button>
+                    </button>
                 </div>
 
             </div>

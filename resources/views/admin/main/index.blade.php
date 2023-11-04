@@ -96,7 +96,7 @@
 
                             </li>
                             <li class="submenu-item  ">
-                                <a href="form-element-textarea.html" class="submenu-link">Transmisi</a>
+                                <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
 
                             </li>
 
