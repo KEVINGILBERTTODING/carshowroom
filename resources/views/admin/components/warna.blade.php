@@ -60,7 +60,7 @@
                     <li class="sidebar-title">Komponen Mobil</li>
                     <li class="sidebar-item  has-sub active">
                         <a href="#" class='sidebar-link'>
-                            <i class="bi bi-hexagon-fill"></i>
+                            <i class="bi bi-puzzle"></i>
                             <span>Data Komponen</span>
                         </a>
 
