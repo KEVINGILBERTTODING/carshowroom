@@ -106,3 +106,7 @@ Route::get('finance', [FinanceController::class, 'index'])->name('finance')->mid
 Route::post('tambahFinance', [FinanceController::class, 'tambah'])->name('tambahFinance')->middleware('admin');
 Route::post('ubahFinance', [FinanceController::class, 'ubah'])->name('ubahFinance')->middleware('admin');
 Route::get('hapusFinance/{financeId}', [FinanceController::class, 'hapus'])->name('hapusFinance')->middleware('admin');
+
+// profile admin
+Route::get('adminProfile', [AdminController::class, 'profil'])->name('adminProfile')->middleware('admin');
+Route::post('ubahFotoProfilAdmin', [AdminController::class, 'ubahFotoProfil'])->name('ubahFotoProfilAdmin')->middleware('admin');

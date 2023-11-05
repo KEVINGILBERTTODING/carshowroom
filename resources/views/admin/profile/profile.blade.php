@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Kapasitas Mesin</title>
+    <title>Admin - Profil</title>
 @endsection
 
 @section('sidebar')
@@ -64,10 +64,9 @@
 
                     <li class="sidebar-title">Komponen Mesin</li>
 
-                    <li class="sidebar-item  has-sub active">
+                    <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-puzzle"></i>
-
                             <span>Data Komponen</span>
                         </a>
 
@@ -79,7 +78,7 @@
                                 <a href="{{ route('body') }}" class="submenu-link">Body</a>
                             </li>
 
-                            <li class="submenu-item active ">
+                            <li class="submenu-item">
                                 <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
 
                             </li>
@@ -113,8 +112,14 @@
                             <i class="bi bi-wallet2"></i>
                             <span>Finance</span>
                         </a>
+                    </li>
 
-
+                    <li class="sidebar-title">Profil Saya</li>
+                    <li class="sidebar-item active ">
+                        <a href="{{ route('adminProfile') }}" class='sidebar-link'>
+                            <i class="bi bi-person"></i>
+                            <span>Profil</span>
+                        </a>
                     </li>
 
 
@@ -180,152 +185,122 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Kapasitas Mesin</h3>
-
+                <h3>Hai, {{ $dataAdmin['name'] }} !</h3>
+                <p class="section-lead">
+                    Ubah data diri Anda pada halaman ini.
+                </p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('adminDashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Kapasitas Mesin</li>
+                        <li class="breadcrumb-item active" aria-current="page">Profil</li>
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
     <section class="section">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">
-                    Table Kapasitas Mesin
-                </h5>
-                <div class="d-flex justify-content-end mt-2">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_insert">Tambah
-                    </button>
-                </div>
 
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table" id="table1">
-
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Kapasitas Mesin</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no = 1;
-                            @endphp
-
-                            @foreach ($dataMesin as $dw)
-                                <tr>
-                                    <td>{{ $no++ }}</td>
-                                    <td>{{ $dw->kapasitas }}</td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <button style="margin-right: 10px" class="btn btn-warning"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modal_update_{{ $dw->km_id }}"><i
-                                                    class="fa-regular fa-pen-to-square"></i></button>
-                                            <button data-km_id="{{ $dw->km_id }}" class="btn btn-danger btnDelete"><i
-                                                    class="fa-regular fa-trash-can"></i></a>
-                                            </button>
-
-                                        </div>
-
-
-                                    </td>
-                                </tr>
-
-                                <!--Modal ubah kapasitas mesin -->
-                                <div class="modal fade text-left modal-borderless" id="modal_update_{{ $dw->km_id }}"
-                                    tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Ubah Kapasitas Mesin</h5>
-                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <i data-feather="x"></i>
-                                                </button>
-                                            </div>
-                                            <form action="{{ route('updateKapasitasMesin') }}" method="post">
-                                                @csrf
-                                                <div class="modal-body">
-
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Kapasitas Mesin</label>
-                                                        <input type="text" hidden readonly class="form-control mt-2"
-                                                            value="{{ $dw->km_id }}" name="km_id" id="basicInput">
-                                                        <input type="text" class="form-control mt-2"
-                                                            value="{{ $dw->kapasitas }}" name="kapasitas"
-                                                            id="basicInput">
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light-primary"
-                                                        data-bs-dismiss="modal">
-                                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block">Batal</span>
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary ms-1">
-                                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block">Simpan Perubahan</span>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
+        <div class="section-body">
+            <div class="row mt-sm-4">
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="card-body py-4 px-4">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar avatar-xl">
+                                    <img src="{{ asset('data/profile_photo/' . $dataAdmin['photo_profile']) }}"
+                                        alt="Face 1">
                                 </div>
-                            @endforeach
-
-                        </tbody>
-                    </table>
-                </div>
-
-                <!--Modal tambah kapasitas mesin -->
-                <div class="modal fade text-left modal-borderless" id="modal_insert" tabindex="-1" role="dialog"
-                    aria-labelledby="myModalLabel1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Tambah Kapasitas Mesin</h5>
-                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                                    aria-label="Close">
-                                    <i data-feather="x"></i>
-                                </button>
+                                <div class="ms-3 name">
+                                    <h5 class="font-bold">{{ $dataAdmin['name'] }}</h5>
+                                    <h6 class="text-muted mb-0">{{ $dataAdmin['email'] }}</h6>
+                                    <button class="btn btn-sm mt-2 btn-warning" data-bs-target="#modal_update_photo"
+                                        data-bs-toggle="modal">Ubah
+                                        foto profil</button>
+                                </div>
                             </div>
-                            <form action="{{ route('tambahKapasitasMesin') }}" method="post">
-                                @csrf
-                                <div class="modal-body">
-
-                                    <div class="form-group">
-                                        <label for="basicInput">Kapasitas Mesin</label>
-                                        <input type="text" class="form-control mt-2" name="kapasitas"
-                                            id="basicInput">
-                                    </div>
-
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
-                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Batal</span>
-                                    </button>
-                                    <button type="submit" class="btn btn-primary ms-1">
-                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Simpan</span>
-                                    </button>
-                                </div>
-                            </form>
                         </div>
                     </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="card">
+
+                        {{-- <form action="{{ route('updateProfileDaskrimti') }}" method="post"> --}}
+                        @csrf
+
+                        <div class="card-body">
+                            <h4>Ubah Profil</h4>
+                            <div class="row mt-3">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Nama Lengkap</label>
+                                    <input type="text" name="name" class="form-control"
+                                        value="{{ $dataAdmin['name'] }}" required="Nama tidak boleh kosong">
+
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Email</label>
+                                    <input type="email" name="email" class="form-control"
+                                        value="{{ $dataAdmin['email'] }}" required="Email tidak boleh kosong">
+
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-md-5 col-12">
+                                    <label>Kata Sandi</label>
+                                    <input name="password" type="password" class="form-control" value="">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer d-flex text-right">
+                            <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
+                        </div>
+                        {{-- </form> --}}
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+
+        <!--Modal ubah profile photo-->
+        <div class="modal fade text-left modal-borderless" id="modal_update_photo" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ubah Foto Profil</h5>
+                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <form action="{{ route('ubahFotoProfilAdmin') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="basicInput">Foto Profil</label>
+                                <input type="file" required class="form-control mt-2" name="image" id="basicInput">
+                            </div>
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Batal</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary ms-1">
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Simpan</span>
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -335,27 +310,4 @@
 
 
 @section('js')
-    <script>
-        $(document).on('click', '.btnDelete', function() {
-            var km_id = $(this).data('km_id');
-            Swal.fire({
-                title: 'Konfirmasi Hapus Data',
-                text: 'Apakah Anda yakin ingin menghapus data ini?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal',
-                customClass: {
-                    confirmButton: 'confirm-button-class',
-                    cancelButton: 'cancel-button-class'
-                }
-            }).then((result) => {
-                if (result.isConfirmed) {
-
-                    window.location.href = '/hapusKapasitasMesin/' + km_id;
-
-                }
-            });
-        });
-    </script>
 @endsection

@@ -115,6 +115,14 @@
                         </a>
                     </li>
 
+                    <li class="sidebar-title">Profil Saya</li>
+                    <li class="sidebar-item ">
+                        <a href="{{ route('adminProfile') }}" class='sidebar-link'>
+                            <i class="bi bi-person"></i>
+                            <span>Profil</span>
+                        </a>
+                    </li>
+
 
 
 
