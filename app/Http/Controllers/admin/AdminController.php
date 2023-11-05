@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AppModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AdminController extends Controller
@@ -48,7 +49,7 @@ class AdminController extends Controller
             'image.max' => 'Ukuran Gambar tidak boleh lebih dari 2000 MB',
         ]);
         if ($validator->fails()) {
-            return redirect()->route('adminProfile')->with('failed', $validator->errors());
+            return redirect()->route('adminProfile')->with('failed', $validator->errors()->first());
         }
 
         try {
@@ -72,6 +73,88 @@ class AdminController extends Controller
             }
         } catch (\Throwable $th) {
             return redirect()->route('adminProfile')->with('failed', 'Terjadi kesalahan');
+        }
+    }
+
+    function ubahProfile(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'email' => 'required|email',
+
+        ], [
+            'name.required' => 'Nama tidak boleh kosong',
+            'name.string' => 'Nama hanya boleh mengandung huruf dan angka',
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Email tidak valid'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('adminProfile')->with('failed', $validator->errors()->first());
+        } else {
+            if (!empty($request->input('old_password')) || !empty($request->input('new_password'))) {
+
+
+                $validatorPassword = Validator::make($request->all(), [
+                    'old_password' => 'required|string|min:8',
+                    'new_password' => 'required|string|min:8',
+                ], [
+                    'old_password.required' => 'Password lama tidak boleh kosong',
+                    'old_password.string' => 'Password lama hanya boleh mengandung huruf dan angka',
+                    'old_password.min' => 'Panjang karakter password lama tidak boleh kurang dari 8 karakter',
+                    'new_password.required' => 'Password baru tidak boleh kosong',
+                    'new_password.string' => 'Password baru hanya boleh mengandung huruf dan angka',
+                    'new_password.min' => 'Panjang karakter password baru tidak boleh kurang dari 8 karakter',
+                ]);
+
+                if ($validatorPassword->fails()) {
+                    return redirect()->route('adminProfile')->with('failed', $validatorPassword->errors()->first());
+                }
+
+                $validatePassword = Admin::where('admin_id', session('admin_id'))->first();
+
+                if ($validatePassword) {
+                    if (Hash::check($request->input('old_password'), $validatePassword['password'])) {
+                        try {
+                            $data = [
+                                'name' => $request->input('name'),
+                                'email' => $request->input('email'),
+                                'password' => Hash::make($request->input('new_password')),
+                                'updated_at' => date('Y-m-d H:i:s')
+                            ];
+                            $update =  Admin::where('admin_id', session('admin_id'))->update($data);
+                            if ($update) {
+                                return redirect()->route('adminProfile')->with('success', 'Berhasil memperbaharui profil');
+                            } else {
+                                return redirect()->route('adminProfile')->with('failed', 'Gagal memperbaharui profil');
+                            }
+                        } catch (\Throwable $th) {
+                            return redirect()->route('adminProfile')->with('failed', 'Terjadi kesalahan');
+                        }
+                    } else {
+                        return redirect()->route('adminProfile')->with('failed', 'Password lama tidak sesuai');
+                    }
+                } else {
+                    return redirect()->route('adminProfile')->with('failed', 'Terjadi kesalahan');
+                }
+            } else {
+
+                try {
+                    $data = [
+                        'name' => $request->input('name'),
+                        'email' => $request->input('email'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ];
+                    $update =  Admin::where('admin_id', session('admin_id'))->update($data);
+                    if ($update) {
+                        return redirect()->route('adminProfile')->with('success', 'Berhasil memperbaharui profil');
+                    } else {
+                        return redirect()->route('adminProfile')->with('failed', 'Gagal memperbaharui profil');
+                    }
+                } catch (\Throwable $th) {
+                    return redirect()->route('adminProfile')->with('failed', 'Terjadi kesalahan');
+                }
+            }
         }
     }
 }

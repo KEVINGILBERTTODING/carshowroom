@@ -110,3 +110,4 @@ Route::get('hapusFinance/{financeId}', [FinanceController::class, 'hapus'])->nam
 // profile admin
 Route::get('adminProfile', [AdminController::class, 'profil'])->name('adminProfile')->middleware('admin');
 Route::post('ubahFotoProfilAdmin', [AdminController::class, 'ubahFotoProfil'])->name('ubahFotoProfilAdmin')->middleware('admin');
+Route::post('ubahProfilAdmin', [AdminController::class, 'ubahProfile'])->name('ubahProfilAdmin')->middleware('admin');

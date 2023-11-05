@@ -226,40 +226,46 @@
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
 
-                        {{-- <form action="{{ route('updateProfileDaskrimti') }}" method="post"> --}}
-                        @csrf
+                        <form action="{{ route('ubahProfilAdmin') }}" method="post">
+                            @csrf
+                            <div class="card-body">
+                                <h4>Ubah Profil</h4>
+                                <div class="row mt-3">
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Nama Admin</label>
+                                        <input type="text" name="name" class="form-control"
+                                            value="{{ $dataAdmin['name'] }}" required="Nama tidak boleh kosong">
 
-                        <div class="card-body">
-                            <h4>Ubah Profil</h4>
-                            <div class="row mt-3">
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Nama Lengkap</label>
-                                    <input type="text" name="name" class="form-control"
-                                        value="{{ $dataAdmin['name'] }}" required="Nama tidak boleh kosong">
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Email</label>
+                                        <input type="email" name="email" class="form-control"
+                                            value="{{ $dataAdmin['email'] }}" required="Email tidak boleh kosong">
+
+
+                                    </div>
 
                                 </div>
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Email</label>
-                                    <input type="email" name="email" class="form-control"
-                                        value="{{ $dataAdmin['email'] }}" required="Email tidak boleh kosong">
+                                <div class="row">
 
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Kata Sandi Lama</label>
+                                        <input name="old_password" type="password" class="form-control"
+                                            autocomplete="off">
+                                    </div>
 
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Kata Sandi Baru</label>
+                                        <input name="new_password" type="password" class="form-control"
+                                            autocomplete="off">
+                                    </div>
                                 </div>
 
                             </div>
-                            <div class="row">
-
-                                <div class="form-group col-md-5 col-12">
-                                    <label>Kata Sandi</label>
-                                    <input name="password" type="password" class="form-control" value="">
-                                </div>
+                            <div class="card-footer d-flex text-right">
+                                <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
                             </div>
-
-                        </div>
-                        <div class="card-footer d-flex text-right">
-                            <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
-                        </div>
-                        {{-- </form> --}}
+                        </form>
                     </div>
                 </div>
 
@@ -306,8 +312,4 @@
         </div>
 
     </section>
-@endsection
-
-
-@section('js')
 @endsection
