@@ -115,6 +115,14 @@
 
                     </li>
 
+                    <li class="sidebar-title">Profil Saya</li>
+                    <li class="sidebar-item ">
+                        <a href="{{ route('adminProfile') }}" class='sidebar-link'>
+                            <i class="bi bi-person"></i>
+                            <span>Profil</span>
+                        </a>
+                    </li>
+
 
                 </ul>
             </div>
@@ -157,14 +165,15 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                             style="min-width: 11rem;">
 
-                            <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-person me-2"></i>Profil
+                            <li><a class="dropdown-item" href="{{ route('adminProfile') }}"><i
+                                        class="icon-mid bi bi-person me-2"></i>Profil
                                     Saya</a></li>
 
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="#"><i
-                                        class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
+                            <li><a class="dropdown-item" href="{{ route('logOutAdmin') }}"><i
+                                        class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</a></li>
                         </ul>
                     </div>
                 </div>
