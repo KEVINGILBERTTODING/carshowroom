@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Transmisi</title>
+    <title>Admin - Finance</title>
 @endsection
 
 @section('sidebar')
@@ -62,9 +62,9 @@
 
 
 
-                    <li class="sidebar-title">Komponen Mobil</li>
+                    <li class="sidebar-title">Komponen Mesin</li>
 
-                    <li class="sidebar-item  has-sub active">
+                    <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-hexagon-fill"></i>
                             <span>Data Komponen</span>
@@ -74,18 +74,18 @@
                             <li class="submenu-item  ">
                                 <a href="{{ route('bahanBakar') }}" class="submenu-link">Bahan bakar</a>
                             </li>
-                            <li class="submenu-item active  ">
+                            <li class="submenu-item  ">
                                 <a href="{{ route('body') }}" class="submenu-link">Body</a>
-
                             </li>
 
-                            <li class="submenu-item  ">
+                            <li class="submenu-item ">
                                 <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
+
                             </li>
-                            <li class="submenu-item  ">
+                            <li class="submenu-item ">
                                 <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>
                             </li>
-                            <li class="submenu-item  ">
+                            <li class="submenu-item   ">
                                 <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
 
                             </li>
@@ -97,16 +97,18 @@
 
                             </li>
 
-                            <li class="submenu-item ">
+                            <li class="submenu-item">
                                 <a href="{{ route('warna') }}" class="submenu-link">Warna</a>
+
                             </li>
                         </ul>
 
 
                     </li>
 
+
                     <li class="sidebar-title">Pembayaran</li>
-                    <li class="sidebar-item  ">
+                    <li class="sidebar-item active ">
                         <a href="{{ route('finance') }}" class='sidebar-link'>
                             <i class="bi bi-wallet2"></i>
                             <span>Finance</span>
@@ -114,6 +116,7 @@
 
 
                     </li>
+
 
 
                 </ul>
@@ -178,14 +181,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Jenis Body</h3>
+                <h3>Daftar Perusahaan Finance</h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('adminDashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Body</li>
+                        <li class="breadcrumb-item active" aria-current="page">Finance</li>
                     </ol>
                 </nav>
             </div>
@@ -195,9 +198,9 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Table Jenis Body
+                    Table Daftar Perusahaan Finance
                 </h5>
-                <div class="d-flex justify-content-end">
+                <div class="d-flex justify-content-end mt-2">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_insert">Tambah
                     </button>
                 </div>
@@ -210,7 +213,12 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Jenis Body</th>
+                                <th>Gambar</th>
+                                <th>Nama Perusahaan</th>
+                                <th>Telepon</th>
+                                <th>Email</th>
+                                <th>Deskripsi</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -219,17 +227,29 @@
                                 $no = 1;
                             @endphp
 
-                            @foreach ($dataBody as $dw)
+                            @foreach ($dataFinance as $dw)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $dw->body }}</td>
+                                    <td><img style="width: 30%;" src="{{ asset('data/finance/img/' . $dw->image) }}"
+                                            alt="{{ $dw->nama_finance }}"></td>
+                                    <td>{{ $dw->nama_finance }}</td>
+                                    <td>{{ $dw->telepon }}</td>
+                                    <td>{{ $dw->email }}</td>
+                                    <td>{{ $dw->deskripsi }}</td>
+                                    <td>
+                                        @if ($dw->status == 1)
+                                            <span class="badge bg-primary">Aktif</span>
+                                        @else
+                                            <span class="badge bg-muted">Tidak Aktif</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="d-flex">
                                             <button style="margin-right: 10px" class="btn btn-warning"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#modal_update_{{ $dw->body_id }}"><i
+                                                data-bs-target="#modal_update_{{ $dw->finance_id }}"><i
                                                     class="fa-regular fa-pen-to-square"></i></button>
-                                            <button data-body_id="{{ $dw->body_id }}"
+                                            <button data-finance_id="{{ $dw->finance_id }}"
                                                 class="btn btn-danger btnDelete"><i
                                                     class="fa-regular fa-trash-can"></i></a>
                                             </button>
@@ -240,44 +260,95 @@
                                     </td>
                                 </tr>
 
-                                <!--Modal ubah jenis body -->
-                                <div class="modal fade text-left modal-borderless" id="modal_update_{{ $dw->body_id }}"
-                                    tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                <!--Modal ubah finance -->
+                                <div class="modal fade" id="modal_update_{{ $dw->finance_id }}" tabindex="-1"
+                                    role="dialog" aria-labelledby="modal_insert" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Ubah Jenis Body</h5>
+                                                <h5 class="modal-title">Ubah Perusahaan Finance</h5>
                                                 <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                                                     aria-label="Close">
                                                     <i data-feather="x"></i>
                                                 </button>
                                             </div>
-                                            <form action="{{ route('updateBody') }}" method="post">
-                                                @csrf
-                                                <div class="modal-body">
+
+                                            <div class="modal-body">
+                                                <form action="{{ route('ubahFinance') }}" method="post"
+                                                    enctype="multipart/form-data">
+                                                    @csrf
+                                                    <div class="form-group" hidden>
+                                                        <label for="basicInput">finance id</label>
+                                                        <input type="text" readonly required class="form-control mt-2"
+                                                            name="finance_id" value="{{ $dw->finance_id }}"
+                                                            id="basicInput">
+                                                    </div>
 
                                                     <div class="form-group">
-                                                        <label for="basicInput">Jenis Body</label>
-                                                        <input type="text" hidden readonly class="form-control mt-2"
-                                                            value="{{ $dw->body_id }}" name="body_id" id="basicInput">
+                                                        <label for="basicInput">Nama Perusahaan Finance</label>
+                                                        <input type="text" required class="form-control mt-2"
+                                                            name="nama_finance" value="{{ $dw->nama_finance }}"
+                                                            id="basicInput">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Telepon</label>
+                                                        <input type="text" required class="form-control mt-2"
+                                                            name="telepon" value="{{ $dw->telepon }}" id="basicInput">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Email</label>
+                                                        <input type="text" class="form-control mt-2" name="email"
+                                                            value="{{ $dw->email }}" id="basicInput">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Url Website</label>
                                                         <input type="text" class="form-control mt-2"
-                                                            value="{{ $dw->body }}" name="body" id="basicInput">
+                                                            name="url_website" value="{{ $dw->url_website }}"
+                                                            id="basicInput">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Url Facebook</label>
+                                                        <input type="text" class="form-control mt-2"
+                                                            name="url_facebook" value="{{ $dw->url_facebook }}"
+                                                            id="basicInput">
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Url Instagram</label>
+                                                        <input type="text" class="form-control mt-2"
+                                                            name="url_instagram" value="{{ $dw->url_instagram }}"
+                                                            id="basicInput">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Deskripsi</label>
+                                                        <textarea class="form-control mt-2" name="deskripsi" id="basicInput">{{ $dw->deskripsi }}</textarea>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Logo Perusahaan</label>
+                                                        <input type="file" accept=".jpg,.jpeg,.png"
+                                                            class="form-control mt-2" name="logo" id="basicInput">
+                                                        <p class="text-sm text-success mt-2">{{ $dw->image }}</p>
                                                     </div>
 
 
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light-primary"
-                                                        data-bs-dismiss="modal">
-                                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block">Batal</span>
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary ms-1">
-                                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block">Simpan Perubahan</span>
-                                                    </button>
-                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-light-primary"
+                                                    data-bs-dismiss="modal">
+                                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Batal</span>
+                                                </button>
+                                                <button type="submit" class="btn btn-primary ms-1">
+                                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                                    <span class="d-none d-sm-block">Simpan</span>
+                                                </button>
+                                            </div>
+
                                             </form>
+
                                         </div>
                                     </div>
                                 </div>
@@ -287,40 +358,82 @@
                     </table>
                 </div>
 
-                <!--Modal tambah jenis body -->
-                <div class="modal fade text-left modal-borderless" id="modal_insert" tabindex="-1" role="dialog"
-                    aria-labelledby="myModalLabel1" aria-hidden="true">
+
+                <div class="modal fade" id="modal_insert" tabindex="-1" role="dialog" aria-labelledby="modal_insert"
+                    aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title">Tambah Jenis Body</h5>
+                                <h5 class="modal-title">Tambah Perusahaan Finance</h5>
                                 <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                                     aria-label="Close">
                                     <i data-feather="x"></i>
                                 </button>
                             </div>
-                            <form action="{{ route('tambahBody') }}" method="post">
-                                @csrf
-                                <div class="modal-body">
+
+                            <div class="modal-body">
+                                <form action="{{ route('tambahFinance') }}" method="post"
+                                    enctype="multipart/form-data">
+                                    @csrf
 
                                     <div class="form-group">
-                                        <label for="basicInput">Jenis Body</label>
-                                        <input type="text" class="form-control mt-2" name="body" id="basicInput">
+                                        <label for="basicInput">Nama Perusahaan Finance</label>
+                                        <input type="text" required class="form-control mt-2" name="nama_finance"
+                                            id="basicInput">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="basicInput">Telepon</label>
+                                        <input type="text" required class="form-control mt-2" name="telepon"
+                                            id="basicInput">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="basicInput">Email</label>
+                                        <input type="text" class="form-control mt-2" name="email" id="basicInput">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="basicInput">Url Website</label>
+                                        <input type="text" class="form-control mt-2" name="url_website"
+                                            id="basicInput">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="basicInput">Url Facebook</label>
+                                        <input type="text" class="form-control mt-2" name="url_facebook"
+                                            id="basicInput">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="basicInput">Url Instagram</label>
+                                        <input type="text" class="form-control mt-2" name="url_instagram"
+                                            id="basicInput">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="basicInput">Deskripsi</label>
+                                        <textarea class="form-control mt-2" name="deskripsi" id="basicInput"></textarea>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="basicInput">Logo Perusahaan</label>
+                                        <input type="file" required accept=".jpg,.jpeg,.png" class="form-control mt-2"
+                                            name="logo" id="basicInput">
                                     </div>
 
 
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
-                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Batal</span>
-                                    </button>
-                                    <button type="submit" class="btn btn-primary ms-1">
-                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Simpan</span>
-                                    </button>
-                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                    <i class="bx bx-x d-block d-sm-none"></i>
+                                    <span class="d-none d-sm-block">Batal</span>
+                                </button>
+                                <button type="submit" class="btn btn-primary ms-1">
+                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                    <span class="d-none d-sm-block">Simpan</span>
+                                </button>
+                            </div>
+
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -334,7 +447,7 @@
 @section('js')
     <script>
         $(document).on('click', '.btnDelete', function() {
-            var body_id = $(this).data('body_id');
+            var finance_id = $(this).data('finance_id');
             Swal.fire({
                 title: 'Konfirmasi Hapus Data',
                 text: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -349,7 +462,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    window.location.href = '/hapusBody/' + body_id;
+                    window.location.href = '/hapusFinance/' + finance_id;
 
                 }
             });

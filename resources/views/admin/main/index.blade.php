@@ -61,7 +61,6 @@
                     </li>
 
 
-
                     <li class="sidebar-title">Komponen Mobil</li>
 
                     <li class="sidebar-item  has-sub">
@@ -106,6 +105,17 @@
 
 
                     </li>
+
+
+                    <li class="sidebar-title">Pembayaran</li>
+                    <li class="sidebar-item ">
+                        <a href="{{ route('finance') }}" class='sidebar-link'>
+                            <i class="bi bi-wallet2"></i>
+                            <span>Finance</span>
+                        </a>
+                    </li>
+
+
 
 
                 </ul>

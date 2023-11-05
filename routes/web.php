@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\components\MerkController;
 use App\Http\Controllers\admin\components\TangkiController;
 use App\Http\Controllers\admin\components\TransmisiController;
 use App\Http\Controllers\admin\components\WarnaController;
+use App\Http\Controllers\FinanceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -99,3 +100,9 @@ Route::get('kapasitasMesin', [KapasitasMesinController::class, 'index'])->name('
 Route::post('tambahKapasitasMesin', [KapasitasMesinController::class, 'tambah'])->name('tambahKapasitasMesin')->middleware('admin');
 Route::post('updateKapasitasMesin', [KapasitasMesinController::class, 'update'])->name('updateKapasitasMesin')->middleware('admin');
 Route::get('hapusKapasitasMesin/{kmId}', [KapasitasMesinController::class, 'hapus'])->name('hapusKapasitasMesin')->middleware('admin');
+
+// Finance
+Route::get('finance', [FinanceController::class, 'index'])->name('finance')->middleware('admin');
+Route::post('tambahFinance', [FinanceController::class, 'tambah'])->name('tambahFinance')->middleware('admin');
+Route::post('ubahFinance', [FinanceController::class, 'ubah'])->name('ubahFinance')->middleware('admin');
+Route::get('hapusFinance/{financeId}', [FinanceController::class, 'hapus'])->name('hapusFinance')->middleware('admin');

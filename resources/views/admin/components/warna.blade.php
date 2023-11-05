@@ -50,20 +50,14 @@
             <div class="sidebar-menu">
                 <ul class="menu">
                     <li class="sidebar-title">Menu</li>
-
                     <li class="sidebar-item  ">
                         <a href="{{ route('adminDashboard') }}" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
                         </a>
-
-
                     </li>
 
-
-
                     <li class="sidebar-title">Komponen Mobil</li>
-
                     <li class="sidebar-item  has-sub active">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-hexagon-fill"></i>
@@ -99,6 +93,16 @@
                                 <a href="{{ route('warna') }}" class="submenu-link">Warna</a>
                             </li>
                         </ul>
+
+
+                    </li>
+
+                    <li class="sidebar-title">Pembayaran</li>
+                    <li class="sidebar-item ">
+                        <a href="{{ route('finance') }}" class='sidebar-link'>
+                            <i class="bi bi-wallet2"></i>
+                            <span>Finance</span>
+                        </a>
 
 
                     </li>
