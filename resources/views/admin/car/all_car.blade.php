@@ -234,8 +234,8 @@
                     Table Daftar Seluruh Mobil
                 </h5>
                 <div class="d-flex justify-content-end mt-2">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_insert">Tambah
-                    </button>
+                    <a class="btn btn-primary" href="{{ route('tambahMobilBaru') }}">Tambah
+                    </a>
                 </div>
 
             </div>
@@ -290,9 +290,9 @@
                                         <div class="d-flex">
                                             <button style="margin-right: 10px" class="btn btn-warning"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#modal_update_{{ $dm->finance_id }}"><i
+                                                data-bs-target="#modal_update_{{ $dm->mobil_id }}"><i
                                                     class="fa-regular fa-pen-to-square"></i></button>
-                                            <button data-finance_id="{{ $dm->finance_id }}"
+                                            <button data-mobil_id="{{ $dm->mobil_id }}"
                                                 class="btn btn-danger btnDelete"><i
                                                     class="fa-regular fa-trash-can"></i></a>
                                             </button>
@@ -302,99 +302,6 @@
 
                                     </td>
                                 </tr>
-
-                                <!--Modal ubah finance -->
-                                <div class="modal fade" id="modal_update_{{ $dm->finance_id }}" tabindex="-1"
-                                    role="dialog" aria-labelledby="modal_insert" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Ubah Perusahaan Finance</h5>
-                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <i data-feather="x"></i>
-                                                </button>
-                                            </div>
-
-                                            <div class="modal-body">
-                                                <form action="{{ route('ubahFinance') }}" method="post"
-                                                    enctype="multipart/form-data">
-                                                    @csrf
-                                                    <div class="form-group" hidden>
-                                                        <label for="basicInput">finance id</label>
-                                                        <input type="text" readonly required class="form-control mt-2"
-                                                            name="finance_id" value="{{ $dm->finance_id }}"
-                                                            id="basicInput">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Nama Perusahaan Finance</label>
-                                                        <input type="text" required class="form-control mt-2"
-                                                            name="nama_finance" value="{{ $dm->nama_finance }}"
-                                                            id="basicInput">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Telepon</label>
-                                                        <input type="text" required class="form-control mt-2"
-                                                            name="telepon" value="{{ $dm->telepon }}" id="basicInput">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Email</label>
-                                                        <input type="text" class="form-control mt-2" name="email"
-                                                            value="{{ $dm->email }}" id="basicInput">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Url Website</label>
-                                                        <input type="text" class="form-control mt-2"
-                                                            name="url_website" value="{{ $dm->url_website }}"
-                                                            id="basicInput">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Url Facebook</label>
-                                                        <input type="text" class="form-control mt-2"
-                                                            name="url_facebook" value="{{ $dm->url_facebook }}"
-                                                            id="basicInput">
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Url Instagram</label>
-                                                        <input type="text" class="form-control mt-2"
-                                                            name="url_instagram" value="{{ $dm->url_instagram }}"
-                                                            id="basicInput">
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Deskripsi</label>
-                                                        <textarea class="form-control mt-2" name="deskripsi" id="basicInput">{{ $dm->deskripsi }}</textarea>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Logo Perusahaan</label>
-                                                        <input type="file" accept=".jpg,.jpeg,.png"
-                                                            class="form-control mt-2" name="logo" id="basicInput">
-                                                        <p class="text-sm text-success mt-2">{{ $dm->image }}</p>
-                                                    </div>
-
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-light-primary"
-                                                    data-bs-dismiss="modal">
-                                                    <i class="bx bx-x d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Batal</span>
-                                                </button>
-                                                <button type="submit" class="btn btn-primary ms-1">
-                                                    <i class="bx bx-check d-block d-sm-none"></i>
-                                                    <span class="d-none d-sm-block">Simpan</span>
-                                                </button>
-                                            </div>
-
-                                            </form>
-
-                                        </div>
-                                    </div>
-                                </div>
                             @endforeach
 
                         </tbody>
@@ -402,84 +309,7 @@
                 </div>
 
 
-                <div class="modal fade" id="modal_insert" tabindex="-1" role="dialog" aria-labelledby="modal_insert"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Tambah Perusahaan Finance</h5>
-                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                                    aria-label="Close">
-                                    <i data-feather="x"></i>
-                                </button>
-                            </div>
 
-                            <div class="modal-body">
-                                <form action="{{ route('tambahFinance') }}" method="post"
-                                    enctype="multipart/form-data">
-                                    @csrf
-
-                                    <div class="form-group">
-                                        <label for="basicInput">Nama Perusahaan Finance</label>
-                                        <input type="text" required class="form-control mt-2" name="nama_finance"
-                                            id="basicInput">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="basicInput">Telepon</label>
-                                        <input type="text" required class="form-control mt-2" name="telepon"
-                                            id="basicInput">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="basicInput">Email</label>
-                                        <input type="text" class="form-control mt-2" name="email" id="basicInput">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="basicInput">Url Website</label>
-                                        <input type="text" class="form-control mt-2" name="url_website"
-                                            id="basicInput">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="basicInput">Url Facebook</label>
-                                        <input type="text" class="form-control mt-2" name="url_facebook"
-                                            id="basicInput">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="basicInput">Url Instagram</label>
-                                        <input type="text" class="form-control mt-2" name="url_instagram"
-                                            id="basicInput">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="basicInput">Deskripsi</label>
-                                        <textarea class="form-control mt-2" name="deskripsi" id="basicInput"></textarea>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="basicInput">Logo Perusahaan</label>
-                                        <input type="file" required accept=".jpg,.jpeg,.png" class="form-control mt-2"
-                                            name="logo" id="basicInput">
-                                    </div>
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
-                                    <i class="bx bx-x d-block d-sm-none"></i>
-                                    <span class="d-none d-sm-block">Batal</span>
-                                </button>
-                                <button type="submit" class="btn btn-primary ms-1">
-                                    <i class="bx bx-check d-block d-sm-none"></i>
-                                    <span class="d-none d-sm-block">Simpan</span>
-                                </button>
-                            </div>
-
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -490,7 +320,7 @@
 @section('js')
     <script>
         $(document).on('click', '.btnDelete', function() {
-            var finance_id = $(this).data('finance_id');
+            var mobil_id = $(this).data('mobil_id');
             Swal.fire({
                 title: 'Konfirmasi Hapus Data',
                 text: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -505,7 +335,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    window.location.href = '/hapusFinance/' + finance_id;
+                    window.location.href = '/hapusMobil/' + mobil_id;
 
                 }
             });

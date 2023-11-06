@@ -197,4 +197,21 @@ class MobilController extends Controller
 
         return view('admin.car.all_car', $data);
     }
+
+    function hapus($mobilId)
+    {
+        if ($mobilId == null && $mobilId == 0) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+        try {
+            $delete = MobilModel::where('mobil_id', $mobilId)->delete();
+            if ($delete) {
+                return redirect()->back()->with('success', 'Berhasil menghapus data mobil');
+            } else {
+                return redirect()->back()->with('failed', 'Gagal menghapus data mobil');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
 }
