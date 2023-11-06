@@ -61,12 +61,40 @@
                     </li>
 
 
-                    <li class="sidebar-title">Komponen Mobil</li>
+                    <li class="sidebar-title">Data Master</li>
+
+                    <li class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-car-front"></i>
+                            <span>Data Mobil</span>
+                        </a>
+
+                        <ul class="submenu ">
+                            <li class="submenu-item  ">
+                                <a href="{{ route('tambahMobilBaru') }}" class="submenu-link">Tambah Mobil Baru</a>
+
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('body') }}" class="submenu-link">Semua Mobil</a>
+                            </li>
+
+                            <li class="submenu-item  ">
+                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Mobil Terjual</a>
+
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Mobil Tersedia</a>
+                            </li>
+
+                        </ul>
+
+
+                    </li>
 
                     <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-puzzle"></i>
-                            <span>Data Komponen</span>
+                            <span>Komponen Mobil</span>
                         </a>
 
                         <ul class="submenu ">
@@ -106,14 +134,14 @@
 
                     </li>
 
-
-                    <li class="sidebar-title">Pembayaran</li>
                     <li class="sidebar-item ">
                         <a href="{{ route('finance') }}" class='sidebar-link'>
                             <i class="bi bi-wallet2"></i>
                             <span>Finance</span>
                         </a>
                     </li>
+
+
 
                     <li class="sidebar-title">Profil Saya</li>
                     <li class="sidebar-item ">

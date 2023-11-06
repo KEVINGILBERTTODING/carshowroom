@@ -19,8 +19,11 @@
         href="{{ asset('template/admin/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" href="{{ asset('template/admin/assets/compiled/css/iconly.css') }}">
     <link rel="stylesheet" href="{{ asset('template/admin/assets/extensions/sweetalert2/sweetalert2.min.css') }}">
-
-
+    <link rel="stylesheet"
+        href="{{ asset('template/admin/assets/extensions/choices.js/public/assets/styles/choices.css') }}">
+    {{-- style year picker --}}
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/css/datepicker.min.css"
+        rel="stylesheet">
 </head>
 
 <body>
@@ -61,11 +64,17 @@
     <script src="{{ asset('template/admin/assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}">
     </script>
     <script src="{{ asset('template/admin/assets/static/js/pages/datatables.js') }}"></script>
-    <script src="{{ asset('template/admin/assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>>
-    <script src="{{ asset('template/admin/assets/static/js/pages/sweetalert2.js') }}"></script>>
+    <script src="{{ asset('template/admin/assets/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('template/admin/assets/static/js/pages/sweetalert2.js') }}"></script>
     <script src="https://kit.fontawesome.com/142d239858.js" crossorigin="anonymous"></script>
 
 
+
+    <script src="{{ asset('template/admin/assets/extensions/choices.js/public/assets/scripts/choices.js') }}"></script>
+    <script src="{{ asset('template/admin/assets/static/js/pages/form-element-select.js') }}"></script>
+
+    {{-- cdn year picker --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.2.0/js/bootstrap-datepicker.min.js"></script>
 
 
 </body>

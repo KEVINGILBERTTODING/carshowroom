@@ -62,12 +62,12 @@
 
 
 
-                    <li class="sidebar-title">Komponen Mesin</li>
+                    <li class="sidebar-title">Data Master</li>
 
                     <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-puzzle"></i>
-                            <span>Data Komponen</span>
+                            <span>Komponen Mobil</span>
                         </a>
 
                         <ul class="submenu ">
@@ -103,11 +103,6 @@
                             </li>
                         </ul>
 
-
-                    </li>
-
-
-                    <li class="sidebar-title">Pembayaran</li>
                     <li class="sidebar-item active ">
                         <a href="{{ route('finance') }}" class='sidebar-link'>
                             <i class="bi bi-wallet2"></i>
@@ -117,6 +112,9 @@
 
                     </li>
 
+
+
+                    </li>
                     <li class="sidebar-title">Profil Saya</li>
                     <li class="sidebar-item ">
                         <a href="{{ route('adminProfile') }}" class='sidebar-link'>

@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\components\MerkController;
 use App\Http\Controllers\admin\components\TangkiController;
 use App\Http\Controllers\admin\components\TransmisiController;
 use App\Http\Controllers\admin\components\WarnaController;
+use App\Http\Controllers\admin\MobilController;
 use App\Http\Controllers\FinanceController;
 use Illuminate\Support\Facades\Route;
 
@@ -111,3 +112,6 @@ Route::get('hapusFinance/{financeId}', [FinanceController::class, 'hapus'])->nam
 Route::get('adminProfile', [AdminController::class, 'profil'])->name('adminProfile')->middleware('admin');
 Route::post('ubahFotoProfilAdmin', [AdminController::class, 'ubahFotoProfil'])->name('ubahFotoProfilAdmin')->middleware('admin');
 Route::post('ubahProfilAdmin', [AdminController::class, 'ubahProfile'])->name('ubahProfilAdmin')->middleware('admin');
+
+// mobil
+Route::get('tambahMobilBaru', [MobilController::class, 'tambahMobil'])->name('tambahMobilBaru')->middleware('admin');

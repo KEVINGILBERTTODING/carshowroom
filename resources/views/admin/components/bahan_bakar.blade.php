@@ -67,7 +67,7 @@
                     <li class="sidebar-item  has-sub active">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-puzzle"></i>
-                            <span>Data Komponen</span>
+                            <span>Komponen Mobil</span>
                         </a>
 
                         <ul class="submenu active">
@@ -104,15 +104,15 @@
                             </li>
                         </ul>
 
-
-                    </li>
-
-                    <li class="sidebar-title">Pembayaran</li>
                     <li class="sidebar-item ">
                         <a href="{{ route('finance') }}" class='sidebar-link'>
                             <i class="bi bi-wallet2"></i>
                             <span>Finance</span>
                         </a>
+
+
+                    </li>
+
 
 
                     </li>
