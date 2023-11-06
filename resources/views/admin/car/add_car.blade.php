@@ -230,240 +230,269 @@
         </div>
     </div>
     <section class="section">
+        <form action="{{ route('insertMobil') }}" method="post" enctype="multipart/form-data">
 
-        <div class="section-body">
-            <div class="row mt-sm-4">
-                <div class="col-12 col-md-6 col-lg-6">
-                    <div class="card">
-                        <div class="card-body">
-                            <h4>Data Mobil</h4>
-                            <div class="row mt-3">
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Merk Mobil</label>
-                                    <select name="merk_id" class="form-control" required>
-                                    </select>
+            @csrf
+            <div class="section-body">
+                <div class="row mt-sm-4">
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h4>Data Mobil</h4>
+                                <div class="row mt-3">
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Merk Mobil</label>
+                                        <select name="merk_id" class="form-control" required>
+                                            @foreach ($dataMerk as $dm)
+                                                <option value="{{ $dm->merk_id }}">{{ $dm->merk }}</option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Jenis Mobil</label>
+                                        <select name="body_id" class="form-control" required>
+                                            @foreach ($dataBody as $db)
+                                                <option value="{{ $db->body_id }}">{{ $db->body }}</option>
+                                            @endforeach
+                                        </select>
+
+                                    </div>
+
 
                                 </div>
 
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Jenis Mobil</label>
-                                    <select name="body_id" class="form-control" required>
-                                    </select>
-
+                                <div class="form-group">
+                                    <label>Nama Model</label>
+                                    <input type="text" name="nama_model" class="form-control" required>
                                 </div>
+                                <div class="row">
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Nomor Plat</label>
+                                        <input name="no_plat" required type="text" class="form-control"
+                                            autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Nomor Mesin</label>
+                                        <input name="no_mesin" required type="text" class="form-control"
+                                            autocomplete="off">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Nomor Rangka</label>
+                                        <input name="no_rangka" required type="text" class="form-control"
+                                            autocomplete="off">
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Tahun</label>
+                                        <input type="text" required class="form-control" name="tahun"
+                                            id="datepicker" />
+
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Warna Mobil</label>
+                                        <select name="warna_id" required class="form-control" required>
+                                            @foreach ($dataWarna as $dw)
+                                                <option value="{{ $dw->warna_id }}">{{ $dw->warna }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Kapasitas Mesin</label>
+                                        <select name="km_id" required class="form-control" required>
+                                            @foreach ($dataKapasitasMesin as $km)
+                                                <option value="{{ $km->km_id }}">{{ $km->kapasitas }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Jenis Bahan Bakar</label>
+                                        <select name="bahan_bakar_id" required class="form-control" required>
+                                            @foreach ($dataBahanBakar as $dbb)
+                                                <option value="{{ $dbb->bahan_bakar_id }}">{{ $dbb->bahan_bakar }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Jenis Transmisi</label>
+                                        <select name="transmisi_id" required class="form-control" required>
+                                            @foreach ($dataTransmisi as $dtm)
+                                                <option value="{{ $dtm->transmisi_id }}">{{ $dtm->transmisi }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Kapasitas Penumpang</label>
+                                        <select name="kp_id" required class="form-control" required>
+                                            @foreach ($dataKapasitasPenumpang as $dkpm)
+                                                <option value="{{ $dkpm->kp_id }}">{{ $dkpm->kapasitas }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Kilometer yang telah ditempuh</label>
+                                        <input name="km" type="number" required class="form-control" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Kapasitas Tangki</label>
+                                        <select name="tangki_id" required class="form-control" required>
+                                            @foreach ($dataTangki as $dt)
+                                                <option value="{{ $dt->tangki_id }}">{{ $dt->tangki }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Harga Beli</label>
+                                        <input name="harga_beli" type="number" required class="form-control" required>
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Biaya Perbaikan</label>
+                                        <input name="biaya_perbaikan" type="number" required class="form-control"
+                                            required>
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Harga Jual</label>
+                                        <input name="harga_jual" type="number" required class="form-control" required>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Tanggal Masuk</label>
+                                        <input name="tanggal_masuk" type="date" required class="form-control"
+                                            required>
+                                    </div>
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Diskon</label>
+                                        <input name="diskon" type="number" required class="form-control">
+                                    </div>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Nama Pemilik</label>
+                                    <input name="nama_pemilik" type="text" required class="form-control" required>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Link Youtube</label>
+                                    <input name="url_youtube" type="text" required class="form-control" required>
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Deskripsi</label>
+                                    <textarea name="deskripsi" type="text" rows="3" required class="form-control"
+                                        placeholder="Tulis sesuatu..." required></textarea>
+                                </div>
+
+
 
 
                             </div>
-
-                            <div class="form-group">
-                                <label>Nama Model</label>
-                                <input type="text" name="nama_model" class="form-control" required>
-                            </div>
-                            <div class="row">
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Nomor Plat</label>
-                                    <input name="no_plat" required type="text" class="form-control"
-                                        autocomplete="off">
-                                </div>
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Nomor Mesin</label>
-                                    <input name="no_mesin" required type="text" class="form-control"
-                                        autocomplete="off">
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Nomor Rangka</label>
-                                    <input name="no_rangka" required type="text" class="form-control"
-                                        autocomplete="off">
-                                </div>
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Tahun</label>
-                                    <input type="text" required class="form-control" name="tahun"
-                                        id="datepicker" />
-
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Warna Mobil</label>
-                                    <select name="warna_id" required class="form-control" required>
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Kapasitas Mesin</label>
-                                    <select name="km_id" required class="form-control" required>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Jenis Bahan Bakar</label>
-                                    <select name="bahan_bakar_id" required class="form-control" required>
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Jenis Transmisi</label>
-                                    <select name="transmisi_id" required class="form-control" required>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Kapasitas Penumpang</label>
-                                    <select name="kp_id" required class="form-control" required>
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Kilometer yang telah ditempuh</label>
-                                    <input name="km" type="number" required class="form-control" required>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Kapasitas Tangki</label>
-                                    <select name="tangki_id" required class="form-control" required>
-                                    </select>
-                                </div>
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Harga Beli</label>
-                                    <input name="harga_beli" type="number" required class="form-control" required>
-
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Biaya Perbaikan</label>
-                                    <input name="biaya_perbaikan" type="number" required class="form-control" required>
-                                </div>
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Harga Jual</label>
-                                    <input name="harga_jual" type="number" required class="form-control" required>
-                                </div>
-                            </div>
-
-                            <div class="row">
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Tanggal Masuk</label>
-                                    <input name="tanggal_masuk" type="date" required class="form-control" required>
-                                </div>
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Diskon</label>
-                                    <input name="diskon" type="number" required class="form-control" required>
-                                </div>
-                            </div>
-
-                            <div class="form-group ">
-                                <label>Nama Pemilik</label>
-                                <input name="nama_pemilik" type="text" required class="form-control" required>
-                            </div>
-
-                            <div class="form-group ">
-                                <label>Link Youtube</label>
-                                <input name="url_youtube" type="text" required class="form-control" required>
-                            </div>
-
-                            <div class="form-group ">
-                                <label>Deskripsi</label>
-                                <textarea name="deskripsi" type="text" rows="3" required class="form-control"
-                                    placeholder="Tulis sesuatu..." required></textarea>
-                            </div>
-
-
-
-
                         </div>
                     </div>
-                </div>
-                <div class="col-12 col-md-6 col-lg-6">
-                    <div class="card">
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="card">
 
 
-                        <div class="card-body">
-                            <h4>Gambar Mobil</h4>
-                            <p class="text-sm text-warning">Ukuran gambar tidak boleh lebih dari 5 Mb.</p>
-                            <div class="row mt-3">
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Gambar depan</label>
-                                    <input type="file" accept=".png,.jpeg,jpg" required name="gambar1"
-                                        class="form-control">
+                            <div class="card-body">
+                                <h4>Gambar Mobil</h4>
+                                <p class="text-sm text-warning">Ukuran gambar tidak boleh lebih dari 5 Mb.</p>
+                                <div class="row mt-3">
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Gambar depan</label>
+                                        <input type="file" accept=".png,.jpeg,jpg" required name="gambar1"
+                                            class="form-control">
+
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Gambar samping kanan</label>
+                                        <input type="file" accept=".png,.jpeg,jpg" required name="gambar2"
+                                            class="form-control">
+
+                                    </div>
 
                                 </div>
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Gambar samping kanan</label>
-                                    <input type="file" accept=".png,.jpeg,jpg" required name="gambar2"
-                                        class="form-control">
+                                <div class="row">
 
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Gambar belakang</label>
+                                        <input type="file" accept=".png,.jpeg,jpg" required name="gambar3"
+                                            class="form-control">
+
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Gambar samping kiri</label>
+                                        <input type="file" accept=".png,.jpeg,jpg" required name="gambar4"
+                                            class="form-control">
+
+                                    </div>
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Gambar detail</label>
+                                        <input type="file" accept=".png,.jpeg,jpg" required name="gambar5"
+                                            class="form-control">
+
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Gambar detail</label>
+                                        <input type="file" accept=".png,.jpeg,jpg" required name="gambar6"
+                                            class="form-control">
+
+                                    </div>
                                 </div>
 
                             </div>
-                            <div class="row">
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Gambar belakang</label>
-                                    <input type="file" accept=".png,.jpeg,jpg" required name="gambar3"
-                                        class="form-control">
-
-                                </div>
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Gambar samping kiri</label>
-                                    <input type="file" accept=".png,.jpeg,jpg" required name="gambar4"
-                                        class="form-control">
-
-                                </div>
+                            <div class="card-footer d-flex justify-content-end">
+                                <button type="submit" class="btn btn-primary">Simpan Data</button>
                             </div>
-
-                            <div class="row">
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Gambar detail</label>
-                                    <input type="file" accept=".png,.jpeg,jpg" required name="gambar5"
-                                        class="form-control">
-
-                                </div>
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Gambar detail</label>
-                                    <input type="file" accept=".png,.jpeg,jpg" required name="gambar6"
-                                        class="form-control">
-
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="card-footer d-flex justify-content-end">
-                            <button type="submit" class="btn btn-primary">Simpan Data</button>
-                        </div>
-                        </form>
-                    </div>
-                </div>
+        </form>
+        </div>
+        </div>
 
 
 
-            </div>
+        </div>
         </div>
 
 

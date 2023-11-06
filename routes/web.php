@@ -115,3 +115,4 @@ Route::post('ubahProfilAdmin', [AdminController::class, 'ubahProfile'])->name('u
 
 // mobil
 Route::get('tambahMobilBaru', [MobilController::class, 'tambahMobil'])->name('tambahMobilBaru')->middleware('admin');
+Route::post('insertMobil', [MobilController::class, 'insertMobil'])->name('insertMobil')->middleware('admin');
