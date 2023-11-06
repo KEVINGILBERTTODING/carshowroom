@@ -64,6 +64,33 @@
 
                     <li class="sidebar-title">Data Master</li>
 
+
+                    <li class="sidebar-item  has-sub active">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-car-front"></i>
+                            <span>Data Mobil</span>
+                        </a>
+
+                        <ul class="submenu ">
+                            <li class="submenu-item  ">
+                                <a href="{{ route('tambahMobilBaru') }}" class="submenu-link">Tambah Mobil Baru</a>
+
+                            </li>
+                            <li class="submenu-item active ">
+                                <a href="{{ route('seluruhMobil') }}" class="submenu-link">Seluruh Mobil</a>
+                            </li>
+
+                            <li class="submenu-item  ">
+                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Mobil Terjual</a>
+
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Mobil Tersedia</a>
+                            </li>
+
+                        </ul>
+                    </li>
+
                     <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-puzzle"></i>
@@ -103,7 +130,7 @@
                             </li>
                         </ul>
 
-                    <li class="sidebar-item active ">
+                    <li class="sidebar-item ">
                         <a href="{{ route('finance') }}" class='sidebar-link'>
                             <i class="bi bi-wallet2"></i>
                             <span>Finance</span>
@@ -204,7 +231,7 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Table Daftar Perusahaan Finance
+                    Table Daftar Seluruh Mobil
                 </h5>
                 <div class="d-flex justify-content-end mt-2">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_insert">Tambah
@@ -220,9 +247,14 @@
                             <tr>
                                 <th>No</th>
                                 <th>Gambar</th>
+                                <th>No Plat</th>
                                 <th>Merk Mobil</th>
                                 <th>Model</th>
                                 <th>Tahun</th>
+                                <th>Harga Beli</th>
+                                <th>Biaya Perbaikan</th>
+                                <th>Harga Jual</th>
+                                <th>Diskon</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -235,17 +267,23 @@
                             @foreach ($dataMobil as $dm)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td><img style="width: 30%;" src="{{ asset('data/cars/' . $dm->gambar1) }}"
-                                            alt="{{ $dm->nama_finance }}"></td>
-                                    <td>{{ $dm->nama_finance }}</td>
-                                    <td>{{ $dm->telepon }}</td>
-                                    <td>{{ $dm->email }}</td>
-                                    <td>{{ $dm->deskripsi }}</td>
+                                    <td><img style="width: 50%;" src="{{ asset('data/cars/' . $dm->gambar1) }}"
+                                            alt="{{ $dm->nama_model }}"></td>
+                                    <td>{{ $dm->no_plat }}</td>
+                                    <td>{{ $dm->merk }}</td>
+                                    <td>{{ $dm->nama_model }}</td>
+                                    <td>{{ $dm->tahun }}</td>
+                                    <td>{{ $dm->harga_beli }}</td>
+                                    <td>{{ $dm->biaya_perbaikan }}</td>
+                                    <td>{{ $dm->harga_jual }}</td>
+                                    <td>{{ $dm->diskon }}</td>
                                     <td>
-                                        @if ($dm->status == 1)
-                                            <span class="badge bg-primary">Aktif</span>
+                                        @if ($dm->status_mobil == 1)
+                                            <span class="badge bg-success">Tersedia</span>
+                                        @elseif ($m->status_mobil == 0)
+                                            <span class="badge bg-danger">Terjual</span>
                                         @else
-                                            <span class="badge bg-muted">Tidak Aktif</span>
+                                            <span class="badge bg-warning">Booked</span>
                                         @endif
                                     </td>
                                     <td>

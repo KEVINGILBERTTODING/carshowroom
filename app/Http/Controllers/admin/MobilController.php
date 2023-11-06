@@ -180,4 +180,21 @@ class MobilController extends Controller
             return redirect()->back()->with('failed', $th->getMessage())->withInput();
         }
     }
+
+    function seluruhMobil()
+    {
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->select('mobil.*', 'merk.merk')
+            ->orderBy('mobil.mobil_id', 'desc')
+            ->get();
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataMobil' => $dataMobil
+        ];
+
+        return view('admin.car.all_car', $data);
+    }
 }

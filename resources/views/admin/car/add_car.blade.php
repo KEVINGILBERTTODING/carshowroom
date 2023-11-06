@@ -76,7 +76,7 @@
 
                             </li>
                             <li class="submenu-item  ">
-                                <a href="{{ route('body') }}" class="submenu-link">Semua Mobil</a>
+                                <a href="{{ route('seluruhMobil') }}" class="submenu-link">Seluruh Mobil</a>
                             </li>
 
                             <li class="submenu-item  ">
