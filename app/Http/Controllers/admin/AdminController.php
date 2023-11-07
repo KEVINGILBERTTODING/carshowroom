@@ -233,7 +233,8 @@ class AdminController extends Controller
         $validator = Validator::make($request->all(), [
             'owner_id' => 'required|numeric',
             'name' => 'required|string',
-            'email' => 'required|email|unique:owner,email,' . $request->input('owner_id') . ',owner_id'
+            'email' => 'required|email|unique:owner,email,' . $request->input('owner_id') . ',owner_id',
+            'status' => 'required|numeric'
         ], [
             'required' => 'Kolom :attribute tidak boleh kosong',
             'string' => 'Kolom :attribute hanya boleh berupa text',
@@ -243,6 +244,7 @@ class AdminController extends Controller
         ], [
             'name' => 'Nama',
             'email' => 'Email',
+            'status' => 'Status'
         ]);
 
         if ($validator->fails()) {
@@ -255,6 +257,7 @@ class AdminController extends Controller
                 $dataPemilik = [
                     'name' => $request->input('name'),
                     'email' => $request->input('email'),
+                    'is_active' => $request->input('status'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
             } else {
@@ -272,6 +275,7 @@ class AdminController extends Controller
                 $dataPemilik = [
                     'name' => $request->input('name'),
                     'email' => $request->input('email'),
+                    'is_active' => $request->input('status'),
                     'password' => Hash::make($request->input('password')),
                     'updated_at' => date('Y-m-d H:i:s')
                 ];

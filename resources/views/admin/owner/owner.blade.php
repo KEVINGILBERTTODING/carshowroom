@@ -304,6 +304,23 @@
 
 
                                                     <div class="form-group">
+                                                        <label for="basicInput">Status</label>
+
+                                                        <select type="text" class="form-control mt-2" name="status"
+                                                            id="basicInput" required>
+                                                            @if ($dw->is_active == 1)
+                                                                <option value="1">Aktif</option>
+                                                                <option value="0">Tidak Aktif</option>
+                                                            @else
+                                                                <option value="0">Tidak Aktif</option>
+                                                                <option value="1">Aktif</option>
+                                                            @endif
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </div>
+
+
+                                                    <div class="form-group">
                                                         <label for="basicInput">Kata Sandi</label>
 
                                                         <input type="text" class="form-control mt-2" value=""
