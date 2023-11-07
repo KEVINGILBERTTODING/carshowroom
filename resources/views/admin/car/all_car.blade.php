@@ -293,17 +293,16 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <button style="margin-right: 10px" class="btn btn-warning"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modal_update_{{ $dm->mobil_id }}"><i
-                                                    class="fa-regular fa-pen-to-square"></i></button>
+                                            <a href="{{ route('adminDetailMobil', $dm->mobil_id) }}"
+                                                class="btn btn-info text-white" style="margin-right: 10px;"><i
+                                                    class="bi bi-info-lg"></i></a>
+                                            <a href="{{ route('ubahMobil', $dm->mobil_id) }}" style="margin-right: 10px;"
+                                                class="btn btn-warning"><i class="fa-regular fa-pen-to-square"></i></a>
                                             <button data-mobil_id="{{ $dm->mobil_id }}"
                                                 class="btn btn-danger btnDelete"><i
                                                     class="fa-regular fa-trash-can"></i></a>
                                             </button>
-                                            <a href="{{ route('adminDetailMobil', $dm->mobil_id) }}"
-                                                class="btn btn-info "><i class="fa-regular fa-trash-can"></i></a>
-                                            </button>
+
 
                                         </div>
 

@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Tambah Mobil</title>
+    <title>Admin - Ubah Data Mobil</title>
 @endsection
 
 @section('sidebar')
@@ -71,7 +71,7 @@
                         </a>
 
                         <ul class="submenu ">
-                            <li class="submenu-item active ">
+                            <li class="submenu-item ">
                                 <a href="{{ route('tambahMobilBaru') }}" class="submenu-link">Tambah Mobil Baru</a>
 
                             </li>
@@ -218,23 +218,23 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Tambah Mobil Baru</h3>
+                <h3>Ubah Data Mobil</h3>
                 <p class="section-lead">
-                    Form untuk menambahkan mobil baru.
+                    Form untuk mengubah data mobil.
                 </p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('adminDashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Tambah Mobil</li>
+                        <li class="breadcrumb-item active" aria-current="page">Ubah Data Mobil</li>
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
     <section class="section">
-        <form action="{{ route('insertMobil') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('updateMobil') }}" method="post" enctype="multipart/form-data">
 
             @csrf
             <div class="section-body">
@@ -247,8 +247,17 @@
                                     <div class="form-group col-md-6 col-12">
                                         <label>Merk Mobil</label>
                                         <select name="merk_id" class="form-control" required>
+                                            <option value="{{ $dataMobil['merk_id'] }}" selected>
+                                                {{ $detailMobil['merk'] }}
+                                            </option>
+
                                             @foreach ($dataMerk as $dm)
-                                                <option value="{{ $dm->merk_id }}">{{ $dm->merk }}</option>
+                                                @if ($dm->merk_id == $dataMobil['merk_id'])
+                                                    <option hidden value="{{ $dm->merk_id }}">
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $dm->merk_id }}">{{ $dm->merk }}</option>
+                                                @endif
                                             @endforeach
                                         </select>
 
@@ -257,9 +266,19 @@
                                     <div class="form-group col-md-6 col-12">
                                         <label>Jenis Mobil</label>
                                         <select name="body_id" class="form-control" required>
+                                            <option value="{{ $dataMobil['body_id'] }}" selected>
+                                                {{ $detailMobil['body'] }}
+                                            </option>
+
                                             @foreach ($dataBody as $db)
-                                                <option value="{{ $db->body_id }}">{{ $db->body }}</option>
+                                                @if ($db->body_id == $dataMobil['body_id'])
+                                                    <option hidden value="{{ $db->body_id }}">
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $db->body_id }}">{{ $db->body }}</option>
+                                                @endif
                                             @endforeach
+
                                         </select>
 
                                     </div>
@@ -269,20 +288,23 @@
 
                                 <div class="form-group">
                                     <label>Nama Model</label>
-                                    <input type="text" name="nama_model" class="form-control" required>
+                                    <input type="text" name="mobil_id" hidden value="{{ $dataMobil['mobil_id'] }}"
+                                        class="form-control">
+                                    <input type="text" name="nama_model" value="{{ $dataMobil['nama_model'] }}"
+                                        class="form-control" required>
                                 </div>
                                 <div class="row">
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Nomor Plat</label>
                                         <input name="no_plat" required type="text" class="form-control"
-                                            autocomplete="off">
+                                            autocomplete="off" value="{{ $dataMobil['no_plat'] }}">
                                     </div>
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Nomor Mesin</label>
                                         <input name="no_mesin" required type="text" class="form-control"
-                                            autocomplete="off">
+                                            autocomplete="off" value="{{ $dataMobil['no_mesin'] }}">
                                     </div>
                                 </div>
 
@@ -291,13 +313,13 @@
                                     <div class="form-group col-md-6 col-12">
                                         <label>Nomor Rangka</label>
                                         <input name="no_rangka" required type="text" class="form-control"
-                                            autocomplete="off">
+                                            autocomplete="off" value="{{ $dataMobil['no_rangka'] }}">
                                     </div>
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Tahun</label>
                                         <input type="text" required class="form-control" name="tahun"
-                                            id="datepicker" />
+                                            id="datepicker" value="{{ $dataMobil['tahun'] }}" />
 
 
                                     </div>
@@ -308,18 +330,38 @@
                                     <div class="form-group col-md-6 col-12">
                                         <label>Warna Mobil</label>
                                         <select name="warna_id" required class="form-control" required>
+                                            <option value="{{ $dataMobil['warna_id'] }}" selected>
+                                                {{ $detailMobil['warna'] }}
+                                            </option>
+
                                             @foreach ($dataWarna as $dw)
-                                                <option value="{{ $dw->warna_id }}">{{ $dw->warna }}</option>
+                                                @if ($dw->warna_id == $dataMobil['warna_id'])
+                                                    <option hidden value="{{ $dw->warna_id }}">
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $dw->warna_id }}">{{ $dw->warna }}</option>
+                                                @endif
                                             @endforeach
+
                                         </select>
                                     </div>
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Kapasitas Mesin</label>
                                         <select name="km_id" required class="form-control" required>
+                                            <option value="{{ $dataMobil['km_id'] }}" selected>
+                                                {{ $detailMobil['kapasitas_mesin'] }}
+                                            </option>
+
                                             @foreach ($dataKapasitasMesin as $km)
-                                                <option value="{{ $km->km_id }}">{{ $km->kapasitas }}</option>
+                                                @if ($km->km_id == $dataMobil['km_id'])
+                                                    <option hidden value="{{ $km->km_id }}">
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $km->km_id }}">{{ $km->kapasitas }}</option>
+                                                @endif
                                             @endforeach
+
                                         </select>
                                     </div>
                                 </div>
@@ -329,19 +371,40 @@
                                     <div class="form-group col-md-6 col-12">
                                         <label>Jenis Bahan Bakar</label>
                                         <select name="bahan_bakar_id" required class="form-control" required>
+                                            <option value="{{ $dataMobil['bahan_bakar_id'] }}" selected>
+                                                {{ $detailMobil['bahan_bakar'] }}
+                                            </option>
+
                                             @foreach ($dataBahanBakar as $dbb)
-                                                <option value="{{ $dbb->bahan_bakar_id }}">{{ $dbb->bahan_bakar }}
-                                                </option>
+                                                @if ($dbb->bahan_bakar_id == $dataMobil['bahan_bakar_id'])
+                                                    <option hidden value="{{ $dbb->bahan_bakar_id }}">
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $dbb->bahan_bakar_id }}">{{ $dbb->bahan_bakar }}
+                                                    </option>
+                                                @endif
                                             @endforeach
+
                                         </select>
                                     </div>
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Jenis Transmisi</label>
                                         <select name="transmisi_id" required class="form-control" required>
+                                            <option value="{{ $dataMobil['transmisi_id'] }}" selected>
+                                                {{ $detailMobil['transmisi'] }}
+                                            </option>
+
                                             @foreach ($dataTransmisi as $dtm)
-                                                <option value="{{ $dtm->transmisi_id }}">{{ $dtm->transmisi }}</option>
+                                                @if ($dtm->transmisi_id == $dataMobil['transmisi_id'])
+                                                    <option hidden value="{{ $dtm->transmisi_id }}">
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $dtm->transmisi_id }}">{{ $dtm->transmisi }}
+                                                    </option>
+                                                @endif
                                             @endforeach
+
                                         </select>
                                     </div>
                                 </div>
@@ -351,15 +414,27 @@
                                     <div class="form-group col-md-6 col-12">
                                         <label>Kapasitas Penumpang</label>
                                         <select name="kp_id" required class="form-control" required>
+                                            <option value="{{ $dataMobil['kp_id'] }}" selected>
+                                                {{ $detailMobil['kapasitas_penumpang'] }}
+                                            </option>
+
                                             @foreach ($dataKapasitasPenumpang as $dkpm)
-                                                <option value="{{ $dkpm->kp_id }}">{{ $dkpm->kapasitas }}</option>
+                                                @if ($dkpm->kp_id == $dataMobil['kp_id'])
+                                                    <option hidden value="{{ $dkpm->kp_id }}">
+                                                    </option>
+                                                @else
+                                                    <option value="{{ $dkpm->kp_id }}">{{ $dkpm->kapasitas }}
+                                                    </option>
+                                                @endif
                                             @endforeach
+
                                         </select>
                                     </div>
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Kilometer yang telah ditempuh</label>
-                                        <input name="km" type="number" required class="form-control" required>
+                                        <input name="km" type="number" required class="form-control" required
+                                            value="{{ $dataMobil['km'] }}">
 
                                     </div>
                                 </div>
@@ -377,7 +452,8 @@
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Harga Beli</label>
-                                        <input name="harga_beli" type="number" required class="form-control" required>
+                                        <input name="harga_beli" type="number" required class="form-control" required
+                                            value="{{ $dataMobil['harga_beli'] }}">
 
                                     </div>
                                 </div>
@@ -387,12 +463,13 @@
                                     <div class="form-group col-md-6 col-12">
                                         <label>Biaya Perbaikan</label>
                                         <input name="biaya_perbaikan" type="number" required class="form-control"
-                                            required>
+                                            required value="{{ $dataMobil['biaya_perbaikan'] }}">
                                     </div>
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Harga Jual</label>
-                                        <input name="harga_jual" type="number" required class="form-control" required>
+                                        <input name="harga_jual" type="number" required class="form-control" required
+                                            value="{{ $dataMobil['harga_jual'] }}">
                                     </div>
                                 </div>
 
@@ -400,30 +477,33 @@
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Tanggal Masuk</label>
-                                        <input name="tanggal_masuk" type="date" required class="form-control"
-                                            required>
+                                        <input name="tanggal_masuk" type="date" required class="form-control" required
+                                            value="{{ $dataMobil['tgl_masuk'] }}">
                                     </div>
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Diskon</label>
-                                        <input name="diskon" type="number" required class="form-control">
+                                        <input name="diskon" type="number" required class="form-control"
+                                            value="{{ $dataMobil['diskon'] }}">
                                     </div>
                                 </div>
 
                                 <div class="form-group ">
                                     <label>Nama Pemilik</label>
-                                    <input name="nama_pemilik" type="text" required class="form-control" required>
+                                    <input name="nama_pemilik" type="text" required class="form-control" required
+                                        value="{{ $dataMobil['nama_pemilik'] }}">
                                 </div>
 
                                 <div class="form-group ">
                                     <label>Link Youtube</label>
-                                    <input name="url_youtube" type="text" required class="form-control" required>
+                                    <input name="url_youtube" type="text" required class="form-control" required
+                                        value="{{ $dataMobil['url_youtube'] }}">
                                 </div>
 
                                 <div class="form-group ">
                                     <label>Deskripsi</label>
                                     <textarea name="deskripsi" type="text" rows="3" required class="form-control"
-                                        placeholder="Tulis sesuatu..." required></textarea>
+                                        placeholder="Tulis sesuatu..." required>{{ $dataMobil['deskripsi'] }}</textarea>
                                 </div>
 
 
@@ -442,14 +522,17 @@
                                 <div class="row mt-3">
                                     <div class="form-group col-md-6 col-12">
                                         <label>Gambar depan</label>
-                                        <input type="file" accept=".png,.jpeg,.jpg" required name="gambar1"
+                                        <input type="file" accept=".png,.jpeg,.jpg" name="gambar1"
                                             class="form-control">
+                                        <span class="text-success text-sm">{{ $dataMobil['gambar1'] }}</span>
 
                                     </div>
                                     <div class="form-group col-md-6 col-12">
                                         <label>Gambar samping kanan</label>
-                                        <input type="file" accept=".png,.jpeg,.jpg" required name="gambar2"
+                                        <input type="file" accept=".png,.jpeg,.jpg" name="gambar2"
                                             class="form-control">
+                                        <span class="text-success text-sm">{{ $dataMobil['gambar2'] }}</span>
+
 
                                     </div>
 
@@ -458,14 +541,18 @@
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Gambar belakang</label>
-                                        <input type="file" accept=".png,.jpeg,.jpg" required name="gambar3"
+                                        <input type="file" accept=".png,.jpeg,.jpg" name="gambar3"
                                             class="form-control">
+                                        <span class="text-success text-sm">{{ $dataMobil['gambar3'] }}</span>
+
 
                                     </div>
                                     <div class="form-group col-md-6 col-12">
                                         <label>Gambar samping kiri</label>
-                                        <input type="file" accept=".png,.jpeg,.jpg" required name="gambar4"
+                                        <input type="file" accept=".png,.jpeg,.jpg" name="gambar4"
                                             class="form-control">
+                                        <span class="text-success text-sm">{{ $dataMobil['gambar4'] }}</span>
+
 
                                     </div>
                                 </div>
@@ -474,14 +561,18 @@
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Gambar detail</label>
-                                        <input type="file" accept=".png,.jpeg,.jpg" required name="gambar5"
+                                        <input type="file" accept=".png,.jpeg,.jpg" name="gambar5"
                                             class="form-control">
+                                        <span class="text-success text-sm">{{ $dataMobil['gambar5'] }}</span>
+
 
                                     </div>
                                     <div class="form-group col-md-6 col-12">
                                         <label>Gambar detail</label>
-                                        <input type="file" accept=".png,.jpeg,.jpg" required name="gambar6"
+                                        <input type="file" accept=".png,.jpeg,.jpg" name="gambar6"
                                             class="form-control">
+                                        <span class="text-success text-sm">{{ $dataMobil['gambar6'] }}</span>
+
 
                                     </div>
                                 </div>

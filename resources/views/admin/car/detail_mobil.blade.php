@@ -72,7 +72,7 @@
                         </a>
 
                         <ul class="submenu ">
-                            <li class="submenu-item active ">
+                            <li class="submenu-item  ">
                                 <a href="{{ route('tambahMobilBaru') }}" class="submenu-link">Tambah Mobil Baru</a>
 
                             </li>
@@ -512,7 +512,19 @@
                     <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="galleryModalTitle">Gambar Mobil {{ $i }}</h5>
+                                <h5 class="modal-title" id="galleryModalTitle">
+                                    @if ($i == 1)
+                                        Gambar depan
+                                    @elseif ($i == 2)
+                                        Gambar samping kanan
+                                    @elseif ($i == 3)
+                                        Gambar belakang
+                                    @elseif ($i == 4)
+                                        Gambar samping kiri
+                                    @else
+                                        Gambar Detail
+                                    @endif
+                                </h5>
                                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                     <i data-feather="x"></i>
                                 </button>
