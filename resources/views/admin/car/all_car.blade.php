@@ -278,10 +278,10 @@
                                     <td>{{ $dm->merk }}</td>
                                     <td>{{ $dm->nama_model }}</td>
                                     <td>{{ $dm->tahun }}</td>
-                                    <td>{{ $dm->harga_beli }}</td>
-                                    <td>{{ $dm->biaya_perbaikan }}</td>
-                                    <td>{{ $dm->harga_jual }}</td>
-                                    <td>{{ $dm->diskon }}</td>
+                                    <td>{{ formatRupiah($dm->harga_beli) }}</td>
+                                    <td>{{ formatRupiah($dm->biaya_perbaikan) }}</td>
+                                    <td>{{ formatRupiah($dm->harga_jual) }}</td>
+                                    <td>{{ formatRupiah($dm->diskon) }}</td>
                                     <td>
                                         @if ($dm->status_mobil == 1)
                                             <span class="badge bg-success">Tersedia</span>
@@ -300,6 +300,9 @@
                                             <button data-mobil_id="{{ $dm->mobil_id }}"
                                                 class="btn btn-danger btnDelete"><i
                                                     class="fa-regular fa-trash-can"></i></a>
+                                            </button>
+                                            <a href="{{ route('adminDetailMobil', $dm->mobil_id) }}"
+                                                class="btn btn-info "><i class="fa-regular fa-trash-can"></i></a>
                                             </button>
 
                                         </div>

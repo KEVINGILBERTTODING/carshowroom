@@ -214,4 +214,19 @@ class MobilController extends Controller
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
     }
+
+    function adminDetailMobil($mobil_id)
+    {
+        $mobilModel = new MobilModel();
+        $dataMobil = $mobilModel->getDetailMobil($mobil_id);
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataMobil' => $dataMobil
+        ];
+
+        return view('admin.car.detail_mobil', $data);
+    }
 }

@@ -124,3 +124,4 @@ Route::get('dataPemilik', [AdminController::class, 'owner'])->name('dataPemilik'
 Route::post('tambahPemilik', [AdminController::class, 'tambahPemilik'])->name('tambahPemilik')->middleware('admin');
 Route::post('updatePemilik', [AdminController::class, 'updatePemilik'])->name('updatePemilik')->middleware('admin');
 Route::get('hapusPemilik/{ownerId}', [AdminController::class, 'hapusPemilik'])->name('hapusPemilik')->middleware('admin');
+Route::get('adminDetailMobil/{mobilId}', [MobilController::class, 'adminDetailMobil'])->name('adminDetailMobil')->middleware('admin');
