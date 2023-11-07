@@ -78,6 +78,10 @@
                             <li class="submenu-item  ">
                                 <a href="{{ route('seluruhMobil') }}" class="submenu-link">Seluruh Mobil</a>
                             </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Mobil Telah dipesan</a>
+
+                            </li>
 
                             <li class="submenu-item  ">
                                 <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Mobil Terjual</a>

@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Semua Mobil</title>
+    <title>Admin - Pemilik</title>
 @endsection
 
 @section('sidebar')
@@ -50,52 +50,14 @@
             <div class="sidebar-menu">
                 <ul class="menu">
                     <li class="sidebar-title">Menu</li>
-
                     <li class="sidebar-item  ">
                         <a href="{{ route('adminDashboard') }}" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
                         </a>
-
-
                     </li>
-
-
 
                     <li class="sidebar-title">Data Master</li>
-
-
-                    <li class="sidebar-item  has-sub active">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-car-front"></i>
-                            <span>Data Mobil</span>
-                        </a>
-
-                        <ul class="submenu ">
-                            <li class="submenu-item  ">
-                                <a href="{{ route('tambahMobilBaru') }}" class="submenu-link">Tambah Mobil Baru</a>
-
-                            </li>
-                            <li class="submenu-item active ">
-                                <a href="{{ route('seluruhMobil') }}" class="submenu-link">Seluruh Mobil</a>
-                            </li>
-
-                            <li class="submenu-item  ">
-                                <a href="#" class="submenu-link">Mobil Telah dipesan</a>
-
-                            </li>
-
-                            <li class="submenu-item  ">
-                                <a href="#" class="submenu-link">Mobil Terjual</a>
-
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Mobil Tersedia</a>
-                            </li>
-
-                        </ul>
-                    </li>
-
                     <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-puzzle"></i>
@@ -110,14 +72,13 @@
                                 <a href="{{ route('body') }}" class="submenu-link">Body</a>
                             </li>
 
-                            <li class="submenu-item ">
+                            <li class="submenu-item  ">
                                 <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
-
                             </li>
-                            <li class="submenu-item ">
+                            <li class="submenu-item  ">
                                 <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>
                             </li>
-                            <li class="submenu-item   ">
+                            <li class="submenu-item  ">
                                 <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
 
                             </li>
@@ -126,12 +87,10 @@
                             </li>
                             <li class="submenu-item  ">
                                 <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
-
                             </li>
 
-                            <li class="submenu-item">
+                            <li class="submenu-item ">
                                 <a href="{{ route('warna') }}" class="submenu-link">Warna</a>
-
                             </li>
                         </ul>
 
@@ -144,9 +103,27 @@
 
                     </li>
 
+                    <li class="sidebar-title">Data Pengguna</li>
+                    <li class="sidebar-item  has-sub active">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-puzzle"></i>
+                            <span>Pengguna</span>
+                        </a>
 
+                        <ul class="submenu ">
+                            <li class="submenu-item  ">
+                                <a href="#" class="submenu-link">Pembeli</a>
+                            </li>
+                            <li class="submenu-item active  ">
+                                <a href="{{ route('dataPemilik') }}" class="submenu-link">Pemilik</a>
+                            </li>
+                        </ul>
 
                     </li>
+
+                    </li>
+
+
                     <li class="sidebar-title">Profil Saya</li>
                     <li class="sidebar-item ">
                         <a href="{{ route('adminProfile') }}" class='sidebar-link'>
@@ -154,7 +131,6 @@
                             <span>Profil</span>
                         </a>
                     </li>
-
 
 
                 </ul>
@@ -197,6 +173,7 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                             style="min-width: 11rem;">
+
                             <li><a class="dropdown-item" href="{{ route('adminProfile') }}"><i
                                         class="icon-mid bi bi-person me-2"></i>Profil
                                     Saya</a></li>
@@ -219,14 +196,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Seluruh Mobil</h3>
+                <h3>Daftar Pemilik</h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('adminDashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Seluruh Mobil</li>
+                        <li class="breadcrumb-item active" aria-current="page">Pemilik</li>
                     </ol>
                 </nav>
             </div>
@@ -236,11 +213,11 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Table Daftar Seluruh Mobil
+                    Table Daftar Pemilik
                 </h5>
-                <div class="d-flex justify-content-end mt-2">
-                    <a class="btn btn-primary" href="{{ route('tambahMobilBaru') }}">Tambah
-                    </a>
+                <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_insert">Tambah
+                    </button>
                 </div>
 
             </div>
@@ -251,15 +228,8 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Gambar</th>
-                                <th>No Plat</th>
-                                <th>Merk Mobil</th>
-                                <th>Model</th>
-                                <th>Tahun</th>
-                                <th>Harga Beli</th>
-                                <th>Biaya Perbaikan</th>
-                                <th>Harga Jual</th>
-                                <th>Diskon</th>
+                                <th>Nama Pemilik</th>
+                                <th>Email</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -269,35 +239,25 @@
                                 $no = 1;
                             @endphp
 
-                            @foreach ($dataMobil as $dm)
+                            @foreach ($dataPemilik as $dw)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td><img style="width: 50%;" src="{{ asset('data/cars/' . $dm->gambar1) }}"
-                                            alt="{{ $dm->nama_model }}"></td>
-                                    <td>{{ $dm->no_plat }}</td>
-                                    <td>{{ $dm->merk }}</td>
-                                    <td>{{ $dm->nama_model }}</td>
-                                    <td>{{ $dm->tahun }}</td>
-                                    <td>{{ $dm->harga_beli }}</td>
-                                    <td>{{ $dm->biaya_perbaikan }}</td>
-                                    <td>{{ $dm->harga_jual }}</td>
-                                    <td>{{ $dm->diskon }}</td>
+                                    <td>{{ $dw->name }}</td>
+                                    <td>{{ $dw->email }}</td>
                                     <td>
-                                        @if ($dm->status_mobil == 1)
-                                            <span class="badge bg-success">Tersedia</span>
-                                        @elseif ($m->status_mobil == 0)
-                                            <span class="badge bg-danger">Terjual</span>
+                                        @if ($dw->is_active == 1)
+                                            <span class="badge bg-success">Aktif</span>
                                         @else
-                                            <span class="badge bg-warning">Booked</span>
+                                            <span class="badge bg-danger">Tidak aktif</span>
                                         @endif
                                     </td>
                                     <td>
                                         <div class="d-flex">
                                             <button style="margin-right: 10px" class="btn btn-warning"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#modal_update_{{ $dm->mobil_id }}"><i
+                                                data-bs-target="#modal_update_{{ $dw->owner_id }}"><i
                                                     class="fa-regular fa-pen-to-square"></i></button>
-                                            <button data-mobil_id="{{ $dm->mobil_id }}"
+                                            <button data-owner_id="{{ $dw->owner_id }}"
                                                 class="btn btn-danger btnDelete"><i
                                                     class="fa-regular fa-trash-can"></i></a>
                                             </button>
@@ -307,14 +267,123 @@
 
                                     </td>
                                 </tr>
+
+                                <!--Modal ubah data pemilik  -->
+                                <div class="modal fade text-left modal-borderless" id="modal_update_{{ $dw->owner_id }}"
+                                    tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title">Ubah Data Pemilik</h5>
+                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <i data-feather="x"></i>
+                                                </button>
+                                            </div>
+                                            <form action="{{ route('updatePemilik') }}" method="post">
+                                                @csrf
+                                                <div class="modal-body">
+
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Nama Lengkap</label>
+                                                        <input type="text" hidden readonly class="form-control mt-2"
+                                                            value="{{ $dw->owner_id }}" name="owner_id" id="basicInput"
+                                                            required>
+                                                        <input type="text" class="form-control mt-2"
+                                                            value="{{ $dw->name }}" name="name" id="basicInput"
+                                                            required>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Email</label>
+
+                                                        <input type="text" class="form-control mt-2"
+                                                            value="{{ $dw->email }}" name="email" id="basicInput"
+                                                            required>
+                                                    </div>
+
+
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Kata Sandi</label>
+
+                                                        <input type="text" class="form-control mt-2" value=""
+                                                            name="password" id="basicInput">
+                                                    </div>
+
+
+
+
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-light-primary"
+                                                        data-bs-dismiss="modal">
+                                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">Batal</span>
+                                                    </button>
+                                                    <button type="submit" class="btn btn-primary ms-1">
+                                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                                        <span class="d-none d-sm-block">Simpan Perubahan</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             @endforeach
 
                         </tbody>
                     </table>
                 </div>
 
+                <!--Modal tambah pemilik -->
+                <div class="modal fade text-left modal-borderless" id="modal_insert" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Tambah Pemilik Baru</h5>
+                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    <i data-feather="x"></i>
+                                </button>
+                            </div>
+                            <form action="{{ route('tambahPemilik') }}" method="post">
+                                @csrf
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label for="basicInput">Nama Lengkap</label>
+                                        <input type="text" class="form-control mt-2" name="name"
+                                            required="basicInput">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="basicInput">Email</label>
+                                        <input type="text" class="form-control mt-2" name="email" required
+                                            id="basicInput">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="basicInput">Password</label>
+                                        <input type="text" class="form-control mt-2" name="password" required
+                                            id="basicInput">
+                                    </div>
 
 
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Batal</span>
+                                    </button>
+                                    <button type="submit" class="btn btn-primary ms-1">
+                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Simpan</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -325,7 +394,7 @@
 @section('js')
     <script>
         $(document).on('click', '.btnDelete', function() {
-            var mobil_id = $(this).data('mobil_id');
+            var owner_id = $(this).data('owner_id');
             Swal.fire({
                 title: 'Konfirmasi Hapus Data',
                 text: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -340,7 +409,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    window.location.href = '/hapusMobil/' + mobil_id;
+                    window.location.href = '/hapusPemilik/' + owner_id;
 
                 }
             });
