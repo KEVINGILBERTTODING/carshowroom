@@ -275,6 +275,12 @@ class MobilController extends Controller
         }
     }
 
+    function ajaxGetDetailMobil($mobilId)
+    {
+        $data = MobilModel::where('mobil_id', $mobilId)->first();
+        return response()->json($data);
+    }
+
     function adminDetailMobil($mobil_id)
     {
         $mobilModel = new MobilModel();
@@ -623,12 +629,12 @@ class MobilController extends Controller
                     'pelanggan_id' => $pelangganId,
                     'payment_method' => 2,
                     'total_pembayaran' => $totalPembayaran,
-                    'status' => 1,
+                    'status' => 2,
                     'created_at' => date('Y-m-d H:i:s')
                 ];
 
                 $dataMobil = [
-                    'status_mobil' => 0,
+                    'status_mobil' => 2,
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
 
@@ -668,7 +674,7 @@ class MobilController extends Controller
                     'transaksi_id' => $transaksiId,
                     'mobil_id' => $request->input('mobil_id'),
                     'pelanggan_id' => $pelangganId,
-                    'payment_method' => 2,
+                    'payment_method' => 1,
                     'total_pembayaran' => $totalPembayaran,
                     'status' => 1,
                     'created_at' => date('Y-m-d H:i:s')
@@ -771,7 +777,7 @@ class MobilController extends Controller
                     'pelanggan_id' => $pelangganId,
                     'payment_method' => 2,
                     'total_pembayaran' => $totalPembayaran,
-                    'status' => 1,
+                    'status' => 2,
                     'created_at' => date('Y-m-d H:i:s')
                 ];
 
@@ -781,7 +787,7 @@ class MobilController extends Controller
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
                 $dataMobil = [
-                    'status_mobil' => 0,
+                    'status_mobil' => 2,
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
 

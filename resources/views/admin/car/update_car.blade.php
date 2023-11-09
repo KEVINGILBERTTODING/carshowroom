@@ -695,7 +695,8 @@
                             </div>
                             <div class="form-group">
                                 <label>Alamat Lengkap</label>
-                                <textarea type="text" name="alamat" class="form-control" required placeholder="Alamat anda"></textarea>
+                                <textarea type="text" name="alamat" rows="4" class="form-control" required
+                                    placeholder="Alamat lengkap..."></textarea>
                             </div>
 
                             <div class="form-group">
@@ -721,6 +722,8 @@
                                 <label>KTP Suami</label>
                                 <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="ktp_suami"
                                     class="form-control">
+                                <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png, .pdf</span>
+
 
                             </div>
 
@@ -728,12 +731,15 @@
                                 <label>KTP Istri</label>
                                 <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="ktp_istri"
                                     class="form-control">
+                                <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png, .pdf</span>
+
 
                             </div>
 
                             <div class="form-group" id="kk">
                                 <label>Kartu Keluarga</label>
                                 <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="kk" class="form-control">
+                                <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png, .pdf</span>
 
                             </div>
                         </div>

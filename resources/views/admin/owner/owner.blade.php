@@ -60,6 +60,38 @@
                     <li class="sidebar-title">Data Master</li>
                     <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
+                            <i class="bi bi-car-front"></i>
+                            <span>Data Mobil</span>
+                        </a>
+
+                        <ul class="submenu ">
+                            <li class="submenu-item  ">
+                                <a href="{{ route('tambahMobilBaru') }}" class="submenu-link">Tambah Mobil Baru</a>
+
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('seluruhMobil') }}" class="submenu-link">Seluruh Mobil</a>
+                            </li>
+
+                            <li class="submenu-item  ">
+                                <a href="{{ route('mobilDiPesan') }}" class="submenu-link">Mobil Telah di pesan</a>
+
+                            </li>
+
+                            <li class="submenu-item  ">
+                                <a href="{{ route('MobilTerjual') }}" class="submenu-link">Mobil Terjual</a>
+
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('mobilTersedia') }}" class="submenu-link">Mobil Tersedia</a>
+                            </li>
+
+                        </ul>
+
+
+                    </li>
+                    <li class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
                             <i class="bi bi-puzzle"></i>
                             <span>Komponen Mobil</span>
                         </a>
@@ -352,55 +384,55 @@
                     </table>
                 </div>
 
-            <!--Modal tambah pemilik -->
-            <div class="modal fade text-left modal-borderless" id="modal_insert" tabindex="-1" role="dialog"
-                aria-labelledby="myModalLabel1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Tambah Pemilik Baru</h5>
-                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                                aria-label="Close">
-                                <i data-feather="x"></i>
-                            </button>
+                <!--Modal tambah pemilik -->
+                <div class="modal fade text-left modal-borderless" id="modal_insert" tabindex="-1" role="dialog"
+                    aria-labelledby="myModalLabel1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Tambah Pemilik Baru</h5>
+                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                                    aria-label="Close">
+                                    <i data-feather="x"></i>
+                                </button>
+                            </div>
+                            <form action="{{ route('tambahPemilik') }}" method="post">
+                                @csrf
+                                <div class="modal-body">
+
+                                    <div class="form-group">
+                                        <label for="basicInput">Nama Lengkap</label>
+                                        <input type="text" class="form-control mt-2" name="name"
+                                            required="basicInput">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="basicInput">Email</label>
+                                        <input type="text" class="form-control mt-2" name="email" required
+                                            id="basicInput">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="basicInput">Password</label>
+                                        <input type="text" class="form-control mt-2" name="password" required
+                                            id="basicInput">
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Batal</span>
+                                    </button>
+                                    <button type="submit" class="btn btn-primary ms-1">
+                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Simpan</span>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
-                        <form action="{{ route('tambahPemilik') }}" method="post">
-                            @csrf
-                            <div class="modal-body">
-
-                                <div class="form-group">
-                                    <label for="basicInput">Nama Lengkap</label>
-                                    <input type="text" class="form-control mt-2" name="name"
-                                        required="basicInput">
-                                </div>
-                                <div class="form-group">
-                                    <label for="basicInput">Email</label>
-                                    <input type="text" class="form-control mt-2" name="email" required
-                                        id="basicInput">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="basicInput">Password</label>
-                                    <input type="text" class="form-control mt-2" name="password" required
-                                        id="basicInput">
-                                </div>
-
-
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
-                                    <i class="bx bx-x d-block d-sm-none"></i>
-                                    <span class="d-none d-sm-block">Batal</span>
-                                </button>
-                                <button type="submit" class="btn btn-primary ms-1">
-                                    <i class="bx bx-check d-block d-sm-none"></i>
-                                    <span class="d-none d-sm-block">Simpan</span>
-                                </button>
-                            </div>
-                        </form>
                     </div>
                 </div>
-            </div>
             </div>
         </div>
 

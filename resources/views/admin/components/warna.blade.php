@@ -58,6 +58,39 @@
                     </li>
 
                     <li class="sidebar-title">Data Master</li>
+
+                    <li class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-car-front"></i>
+                            <span>Data Mobil</span>
+                        </a>
+
+                        <ul class="submenu ">
+                            <li class="submenu-item  ">
+                                <a href="{{ route('tambahMobilBaru') }}" class="submenu-link">Tambah Mobil Baru</a>
+
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('seluruhMobil') }}" class="submenu-link">Seluruh Mobil</a>
+                            </li>
+
+                            <li class="submenu-item  ">
+                                <a href="{{ route('mobilDiPesan') }}" class="submenu-link">Mobil Telah di pesan</a>
+
+                            </li>
+
+                            <li class="submenu-item  ">
+                                <a href="{{ route('MobilTerjual') }}" class="submenu-link">Mobil Terjual</a>
+
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('mobilTersedia') }}" class="submenu-link">Mobil Tersedia</a>
+                            </li>
+
+                        </ul>
+
+
+                    </li>
                     <li class="sidebar-item  has-sub active">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-puzzle"></i>

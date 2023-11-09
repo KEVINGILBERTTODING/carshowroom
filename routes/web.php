@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\components\TangkiController;
 use App\Http\Controllers\admin\components\TransmisiController;
 use App\Http\Controllers\admin\components\WarnaController;
 use App\Http\Controllers\admin\MobilController;
+use App\Http\Controllers\admin\transactions\TransactionController;
 use App\Http\Controllers\FinanceController;
 use Illuminate\Support\Facades\Route;
 
@@ -125,6 +126,7 @@ Route::get('ubahMobil/{mobilId}', [MobilController::class, 'ubahMobil'])->name('
 Route::post('updateMobil', [MobilController::class, 'updateMobil'])->name('updateMobil')->middleware('admin');
 Route::post('setStatusMobilTersedia', [MobilController::class, 'setStatusMobilTersedia'])->name('setStatusMobilTersedia')->middleware('admin');
 Route::post('setStatusMobilTerjual', [MobilController::class, 'setStatusMobilTerjual'])->name('setStatusMobilTerjual')->middleware('admin');
+Route::get('ajaxGetDetailMobil/{mobilId}', [MobilController::class, 'ajaxGetDetailMobil'])->name('ajaxGetDetailMobil');
 
 
 
@@ -135,3 +137,7 @@ Route::post('tambahPemilik', [AdminController::class, 'tambahPemilik'])->name('t
 Route::post('updatePemilik', [AdminController::class, 'updatePemilik'])->name('updatePemilik')->middleware('admin');
 Route::get('hapusPemilik/{ownerId}', [AdminController::class, 'hapusPemilik'])->name('hapusPemilik')->middleware('admin');
 Route::get('adminDetailMobil/{mobilId}', [MobilController::class, 'adminDetailMobil'])->name('adminDetailMobil')->middleware('admin');
+
+// admin transactions
+Route::get('allDataTransactions', [TransactionController::class, 'allTransactions'])->name('allDataTransactions')->middleware('admin');
+Route::post('adminTambahTransaksi', [TransactionController::class, 'tambahTransaksi'])->name('adminTambahTransaksi')->middleware('admin');
