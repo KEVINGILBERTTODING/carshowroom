@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AppModel;
 use App\Models\OwnerModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -59,7 +60,7 @@ class AdminController extends Controller
             }
 
             $fileImage = $request->file('image');
-            $fileName = 'Admin_' . time() . '.' . $fileImage->getClientOriginalExtension();
+            $fileName = 'Admin_' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileImage->getClientOriginalExtension();
             $fileImage->move('data/profile_photo', $fileName);
             $data = [
                 'photo_profile' => $fileName,

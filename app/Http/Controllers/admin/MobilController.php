@@ -145,7 +145,7 @@ class MobilController extends Controller
 
             if ($request->hasFile($field)) {
                 $fileGambar = $request->file($field);
-                $fileName = $field . '_' . time() . '.' . $fileGambar->getClientOriginalExtension();
+                $fileName = $field . '_' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileGambar->getClientOriginalExtension();
                 $fileGambar->move('data/cars', $fileName);
                 $data[$field] = $fileName;
             }
@@ -360,7 +360,7 @@ class MobilController extends Controller
 
             if ($request->hasFile($field)) {
                 $fileGambar = $request->file($field);
-                $fileName = $field . '_' . time() . '.' . $fileGambar->getClientOriginalExtension();
+                $fileName = $field . '_' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileGambar->getClientOriginalExtension();
                 $fileGambar->move('data/cars', $fileName);
                 $data[$field] = $fileName;
             }
@@ -573,7 +573,7 @@ class MobilController extends Controller
                 ];
 
                 $dataMobil = [
-                    'status_mobil' => 1,
+                    'status_mobil' => 0,
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
 
@@ -619,7 +619,7 @@ class MobilController extends Controller
                     'created_at' => date('Y-m-d H:i:s')
                 ];
                 $dataMobil = [
-                    'status_mobil' => 1,
+                    'status_mobil' => 0,
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
 
@@ -726,7 +726,7 @@ class MobilController extends Controller
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
                 $dataMobil = [
-                    'status_mobil' => 1,
+                    'status_mobil' => 0,
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
 
@@ -781,7 +781,7 @@ class MobilController extends Controller
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
                 $dataMobil = [
-                    'status_mobil' => 1,
+                    'status_mobil' => 0,
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
 
