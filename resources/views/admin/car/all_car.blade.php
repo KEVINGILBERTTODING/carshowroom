@@ -285,7 +285,7 @@
                                     <td>
                                         @if ($dm->status_mobil == 1)
                                             <span class="badge bg-success">Tersedia</span>
-                                        @elseif ($m->status_mobil == 0)
+                                        @elseif ($dm->status_mobil == 0)
                                             <span class="badge bg-danger">Terjual</span>
                                         @else
                                             <span class="badge bg-warning">Booked</span>

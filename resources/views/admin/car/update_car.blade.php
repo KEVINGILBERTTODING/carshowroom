@@ -507,6 +507,26 @@
                                 </div>
 
 
+                                <div class="form-group ">
+                                    <label>Status</label>
+                                    <select name="status" id="status" class="form-control">
+                                        @if ($dataMobil['status_mobil'] == 1)
+                                            <option value="1" selected>Tersedia</option>
+                                            <option value="0">Terjual</option>
+                                        @elseif ($dataMobil['status_mobil'] == 2)
+                                            <option value="2" selected>Telah dipesan</option>
+                                            <option value="1">Tersedia</option>
+                                            <option value="0">Terjual</option>
+                                        @elseif ($dataMobil['status_mobil'] == 0)
+                                            <option value="0" selected>Terjual</option>
+                                            <option value="1">Tersedia</option>
+                                        @endif
+
+
+                                    </select>
+                                </div>
+
+
 
 
                             </div>
@@ -590,12 +610,158 @@
         </div>
         </div>
 
+        <!--Modal ubah status tersedia mobil -->
+        <div class="modal fade text-left modal-borderless" id="modal_tersedia" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ubah status mobil</h5>
+                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <form action="{{ route('setStatusMobilTersedia') }}" method="post">
+                        @csrf
+                        <div class="modal-body">
+                            <h6>Apakah anda yakin ingin mengubah status mobil menjadi "Tersedia" ?</h6>
+                            <p class="text-muted">Dengan mengubah status mobil maka seluruh transaksi yang berkaitan dengan
+                                mobil
+                                ini akan otomatis berubah status menjadi "tidak valid".</p>
+                            <input type="text" class="form-control mt-2" hidden name="mobil_id" required="basicInput"
+                                value="{{ $dataMobil['mobil_id'] }}">
+                            <input type="text" class="form-control mt-2" hidden name="status" required="basicInput"
+                                value="1">
+
+                            <div class="form-group">
+                                <label>Alasan</label>
+                                <textarea type="text" name="alasan" class="form-control" rows="4" placeholder="Ketikkan sesuatu..."></textarea>
+
+
+                            </div>
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Batal</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary ms-1">
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Ya, ubah!</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!--Modal ubah status terjual mobil -->
+        <form action="{{ route('setStatusMobilTerjual') }}" method="post" enctype="multipart/form-data">
+            @csrf
+            <div class="modal fade text-left modal-borderless" id="modal_terjual" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+
+                    <div class="modal-content">
+
+
+                        <div class="modal-header">
+                            <h5 class="modal-title">Data Pembelian</h5>
+                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <i data-feather="x"></i>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label>Nama Lengkap</label>
+                                <input type="text" hidden value="{{ $dataMobil['mobil_id'] }}" name="mobil_id"
+                                    class="form-control" required>
+                                <input type="text" hidden value="{{ $dataMobil['harga_jual'] }}" name="harga_jual"
+                                    class="form-control" required>
+                                <input type="text" hidden value="{{ $dataMobil['diskon'] }}" name="diskon"
+                                    class="form-control" required>
+                                <input type="text" name="nama_lengkap" class="form-control" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label>No HP</label>
+                                <input type="number" name="no_hp" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Alamat Lengkap</label>
+                                <textarea type="text" name="alamat" class="form-control" required placeholder="Alamat anda"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Metode Pembayaran</label>
+                                <select name="payment_method" id="payment_method" required class="form-control">
+                                    <option value="1">Cash</option>
+                                    <option value="2">Cicilan</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="finance">
+                                <label>Finance</label>
+                                <select name="finance_id" class="form-control">
+                                    @foreach ($dataFinance as $df)
+                                        <option value="{{ $df->finance_id }}">{{ $df->nama_finance }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
+
+
+                            <div class="form-group" id="ktp_suami">
+                                <label>KTP Suami</label>
+                                <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="ktp_suami"
+                                    class="form-control">
+
+                            </div>
+
+                            <div class="form-group" id="ktp_istri">
+                                <label>KTP Istri</label>
+                                <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="ktp_istri"
+                                    class="form-control">
+
+                            </div>
+
+                            <div class="form-group" id="kk">
+                                <label>Kartu Keluarga</label>
+                                <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="kk" class="form-control">
+
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Batal</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary ms-1">
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Simpan</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </form>
+
+
 
 
     </section>
 @endsection
 
 @section('js')
+    {{-- Script untuk menampilkan year picker --}}
     <script>
         $(document).ready(function() {
 
@@ -603,7 +769,48 @@
                 format: "yyyy",
                 viewMode: "years",
                 minViewMode: "years",
-                autoclose: true //to close picker once year is selected
+                autoclose: true
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+
+            // Logic ketika memilih status mobil
+            $("#status").on("change", function() {
+                if ($("#status").val() === "1") {
+                    // Tampilkan modal dengan ID "modal_insert"
+                    $("#modal_tersedia").modal("show");
+                } else if ($("#status").val() === "0") {
+                    // Tampilkan modal dengan ID "modal_insert"
+                    $("#modal_terjual").modal("show");
+                }
+            });
+
+
+
+            //  set agar inputan tersembunyi
+            $("#ktp_suami").hide();
+            $("#ktp_istri").hide();
+            $("#kk").hide();
+            $("#finance").hide();
+
+            // logic ketika memilih metode pembayaran
+            $("#payment_method").on("change", function() {
+                if ($("#payment_method").val() === "1") { // methode pembayaran cash
+
+                    $("#ktp_suami").hide();
+                    $("#ktp_istri").hide();
+                    $("#kk").hide();
+                    $("#finance").hide();
+                } else if ($("#payment_method").val() === "2") { // Methode pembayaran kredit
+
+                    $("#ktp_suami").show();
+                    $("#ktp_istri").show();
+                    $("#kk").show();
+                    $("#finance").show();
+                }
             });
         });
     </script>
