@@ -79,16 +79,16 @@
                             </li>
 
                             <li class="submenu-item  ">
-                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Mobil Telah dipesan</a>
+                                <a href="{{ route('mobilDiPesan') }}" class="submenu-link">Mobil Telah di pesan</a>
 
                             </li>
 
                             <li class="submenu-item  ">
-                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Mobil Terjual</a>
+                                <a href="{{ route('MobilTerjual') }}" class="submenu-link">Mobil Terjual</a>
 
                             </li>
                             <li class="submenu-item  ">
-                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Mobil Tersedia</a>
+                                <a href="{{ route('mobilTersedia') }}" class="submenu-link">Mobil Tersedia</a>
                             </li>
 
                         </ul>

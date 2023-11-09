@@ -204,6 +204,60 @@ class MobilController extends Controller
         return view('admin.car.all_car', $data);
     }
 
+    function mobilDiPesan()
+    {
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->select('mobil.*', 'merk.merk')
+            ->where('mobil.status_mobil', 2)
+            ->orderBy('mobil.mobil_id', 'desc')
+            ->get();
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataMobil' => $dataMobil
+        ];
+
+        return view('admin.car.car_booked', $data);
+    }
+
+    function mobilTerjual()
+    {
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->select('mobil.*', 'merk.merk')
+            ->where('mobil.status_mobil', 0)
+            ->orderBy('mobil.mobil_id', 'desc')
+            ->get();
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataMobil' => $dataMobil
+        ];
+
+        return view('admin.car.car_soldout', $data);
+    }
+
+    function mobilTersedia()
+    {
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->select('mobil.*', 'merk.merk')
+            ->where('mobil.status_mobil', 1)
+            ->orderBy('mobil.mobil_id', 'desc')
+            ->get();
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataMobil' => $dataMobil
+        ];
+
+        return view('admin.car.car_available', $data);
+    }
+
     function hapus($mobilId)
     {
         if ($mobilId == null && $mobilId == 0) {
@@ -439,7 +493,8 @@ class MobilController extends Controller
             try {
                 $dataTransaction = [
                     'status' => 0,
-                    'alasan' => $request->input('alasan')
+                    'alasan' => $request->input('alasan'),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ];
                 TransactionModel::where('mobil_id', $request->input('mobil_id'))->update($dataTransaction);
 

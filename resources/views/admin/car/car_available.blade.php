@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Semua Mobil</title>
+    <title>Admin - Mobil Tersedia</title>
 @endsection
 
 @section('sidebar')
@@ -76,11 +76,11 @@
                                 <a href="{{ route('tambahMobilBaru') }}" class="submenu-link">Tambah Mobil Baru</a>
 
                             </li>
-                            <li class="submenu-item active ">
+                            <li class="submenu-item ">
                                 <a href="{{ route('seluruhMobil') }}" class="submenu-link">Seluruh Mobil</a>
                             </li>
 
-                            <li class="submenu-item  ">
+                            <li class="submenu-item">
                                 <a href="{{ route('mobilDiPesan') }}" class="submenu-link">Mobil Telah di pesan</a>
 
                             </li>
@@ -89,7 +89,7 @@
                                 <a href="{{ route('MobilTerjual') }}" class="submenu-link">Mobil Terjual</a>
 
                             </li>
-                            <li class="submenu-item  ">
+                            <li class="submenu-item active ">
                                 <a href="{{ route('mobilTersedia') }}" class="submenu-link">Mobil Tersedia</a>
                             </li>
 
@@ -219,14 +219,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Seluruh Mobil</h3>
+                <h3>Daftar Mobil Tersedia</h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('adminDashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Seluruh Mobil</li>
+                        <li class="breadcrumb-item active" aria-current="page">Mobil Tersedia</li>
                     </ol>
                 </nav>
             </div>
@@ -236,7 +236,7 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Table Daftar Seluruh Mobil
+                    Table Daftar Mobil Tersedia
                 </h5>
                 <div class="d-flex justify-content-end mt-2">
                     <a class="btn btn-primary" href="{{ route('tambahMobilBaru') }}">Tambah

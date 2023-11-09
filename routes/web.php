@@ -117,6 +117,9 @@ Route::post('ubahProfilAdmin', [AdminController::class, 'ubahProfile'])->name('u
 Route::get('tambahMobilBaru', [MobilController::class, 'tambahMobil'])->name('tambahMobilBaru')->middleware('admin');
 Route::post('insertMobil', [MobilController::class, 'insertMobil'])->name('insertMobil')->middleware('admin');
 Route::get('seluruhMobil', [MobilController::class, 'seluruhMobil'])->name('seluruhMobil')->middleware('admin');
+Route::get('mobilDiPesan', [MobilController::class, 'mobilDiPesan'])->name('mobilDiPesan')->middleware('admin');
+Route::get('mobilTersedia', [MobilController::class, 'mobilTersedia'])->name('mobilTersedia')->middleware('admin');
+Route::get('MobilTerjual', [MobilController::class, 'MobilTerjual'])->name('MobilTerjual')->middleware('admin');
 Route::get('hapusMobil/{mobilId}', [MobilController::class, 'hapus'])->name('hapusMobil')->middleware('admin');
 Route::get('ubahMobil/{mobilId}', [MobilController::class, 'ubahMobil'])->name('ubahMobil')->middleware('admin');
 Route::post('updateMobil', [MobilController::class, 'updateMobil'])->name('updateMobil')->middleware('admin');

@@ -80,16 +80,16 @@
                                 <a href="{{ route('seluruhMobil') }}" class="submenu-link">Seluruh Mobil</a>
                             </li>
                             <li class="submenu-item  ">
-                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Mobil Telah dipesan</a>
+                                <a href="{{ route('mobilDiPesan') }}" class="submenu-link">Mobil Telah di pesan</a>
 
                             </li>
 
                             <li class="submenu-item  ">
-                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Mobil Terjual</a>
+                                <a href="{{ route('MobilTerjual') }}" class="submenu-link">Mobil Terjual</a>
 
                             </li>
                             <li class="submenu-item  ">
-                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Mobil Tersedia</a>
+                                <a href="{{ route('mobilTersedia') }}" class="submenu-link">Mobil Tersedia</a>
                             </li>
 
                         </ul>
@@ -222,10 +222,7 @@
                 <h3>Detail Mobil
                 </h3>
 
-                {{-- Cek apakah mobil telah terjual atau tidak --}}
-                @if ($dataMobil['status_mobil'] == 0)
-                    <a href="#" class="btn btn-sm btn-primary ">Lihat Transaksi</button>
-                @endif
+
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
