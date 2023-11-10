@@ -75,17 +75,24 @@
                                 <a href="{{ route('allDataTransactions') }}" class="submenu-link">Semua Transaksi</a>
 
                             </li>
+                            <li class="submenu-item   ">
+                                <a href="{{ route('allTransactionProcess') }}" class="submenu-link">Transaksi Proses</a>
+                            </li>
+
+                            <li class="submenu-item">
+                                <a href="{{ route('allTransactionProcessFinance') }}" class="submenu-link">Transaksi Proses
+                                    Finance</a>
+                            </li>
+
+
                             <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Proses</a>
+                                <a href="{{ route('allTransactionSuccess') }}" class="submenu-link">Transaksi Selesai</a>
                             </li>
 
                             <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Selesai</a>
+                                <a href="{{ route('allTransactionFailed') }}" class="submenu-link">Transaksi Tidak Valid</a>
                             </li>
 
-                            <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Tidak Valid</a>
-                            </li>
 
 
 
@@ -588,7 +595,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    window.location.href = '/hapusMobil/' + transaksi_id;
+                    window.location.href = '/adminHapusTrasaksi/' + transaksi_id;
 
                 }
             });

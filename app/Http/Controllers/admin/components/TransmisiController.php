@@ -5,8 +5,11 @@ namespace App\Http\Controllers\admin\components;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AppModel;
+use App\Models\CreditModel;
+use App\Models\TransactionModel;
 use App\Models\TransmisiModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class TransmisiController extends Controller

@@ -149,3 +149,4 @@ Route::get('adminDetailTransaction/{transaksiId}', [TransactionController::class
 Route::get('downloadFileCredit/{fileName}', [TransactionController::class, 'downloadFileCredit'])->name('downloadFileCredit')->middleware('admin');
 Route::get('downloadBuktiPembayaran/{fileName}', [TransactionController::class, 'downloadBuktiPembayaran'])->name('downloadBuktiPembayaran')->middleware('admin');
 Route::post('updateStatusTransaksi', [TransactionController::class, 'updateStatusTransaksi'])->name('updateStatusTransaksi')->middleware('admin');
+Route::get('adminHapusTrasaksi/{transaksiId}', [TransactionController::class, 'hapusTrasaksi'])->name('adminHapusTrasaksi')->middleware('admin');
