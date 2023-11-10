@@ -41,6 +41,98 @@ class TransactionController extends Controller
         return view('admin.transactions.all_transactions', $data);
     }
 
+    function allTransactionSuccess()
+    {
+
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $transactionModel = new TransactionModel();
+        $dataTransactions = $transactionModel->getAllTransactionByStatus(1);
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+            ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->where('status_mobil', 1)->get();
+        $dataFinance = FInanceModel::where('status', 1)->get();
+
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataTransactions' => $dataTransactions,
+            'dataMobil' => $dataMobil,
+            'dataFinance' => $dataFinance
+        ];
+
+        return view('admin.transactions.success_transaction', $data);
+    }
+
+
+    function allTransactionProcess()
+    {
+
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $transactionModel = new TransactionModel();
+        $dataTransactions = $transactionModel->getAllTransactionByStatus(2);
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+            ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->where('status_mobil', 1)->get();
+        $dataFinance = FInanceModel::where('status', 1)->get();
+
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataTransactions' => $dataTransactions,
+            'dataMobil' => $dataMobil,
+            'dataFinance' => $dataFinance
+        ];
+
+        return view('admin.transactions.process_transaction', $data);
+    }
+
+    function allTransactionProcessFinance()
+    {
+
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $transactionModel = new TransactionModel();
+        $dataTransactions = $transactionModel->getAllTransactionByStatus(3);
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+            ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->where('status_mobil', 1)->get();
+        $dataFinance = FInanceModel::where('status', 1)->get();
+
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataTransactions' => $dataTransactions,
+            'dataMobil' => $dataMobil,
+            'dataFinance' => $dataFinance
+        ];
+
+        return view('admin.transactions.process_finance', $data);
+    }
+    function allTransactionFailed()
+    {
+
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $transactionModel = new TransactionModel();
+        $dataTransactions = $transactionModel->getAllTransactionByStatus(3);
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+            ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->where('status_mobil', 1)->get();
+        $dataFinance = FInanceModel::where('status', 1)->get();
+
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataTransactions' => $dataTransactions,
+            'dataMobil' => $dataMobil,
+            'dataFinance' => $dataFinance
+        ];
+
+        return view('admin.transactions.failed_transaction', $data);
+    }
+
     function tambahTransaksi(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -409,6 +501,34 @@ class TransactionController extends Controller
     function downloadFileCredit($fileName)
     {
         $path = public_path() . "/data/credit/" . $fileName;
+
+
+        if (file_exists($path)) {
+            // Determine the appropriate content type based on the file extension.
+            $fileExtension = pathinfo($path, PATHINFO_EXTENSION);
+            $contentType = $this->getContentType($fileExtension);
+
+            if ($contentType) {
+                // Set the content type header.
+
+
+                $headers = [
+                    'Content-Type: ' . $contentType,
+                ];
+
+                ob_end_clean();
+
+                // Return the file for download.
+                return response()->download($path, $fileName, $headers);
+            }
+        } else {
+            return abort(404);
+        }
+    }
+
+    function downloadBuktiPembayaran($fileName)
+    {
+        $path = public_path() . "/data/evidence/" . $fileName;
 
 
         if (file_exists($path)) {

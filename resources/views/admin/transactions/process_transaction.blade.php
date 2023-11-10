@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Semua Transaksi</title>
+    <title>Admin - Transaksi Proses</title>
 @endsection
 
 @section('sidebar')
@@ -71,20 +71,26 @@
                         </a>
 
                         <ul class="submenu ">
-                            <li class="submenu-item active  ">
+                            <li class="submenu-item ">
                                 <a href="{{ route('allDataTransactions') }}" class="submenu-link">Semua Transaksi</a>
 
                             </li>
+                            <li class="submenu-item active  ">
+                                <a href="{{ route('allTransactionProcess') }}" class="submenu-link">Transaksi Proses</a>
+                            </li>
+
+                            <li class="submenu-item   ">
+                                <a href="{{ route('allTransactionProcessFinance') }}" class="submenu-link">Transaksi Proses
+                                    Finance</a>
+                            </li>
+
+
                             <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Proses</a>
+                                <a href="{{ route('allTransactionSuccess') }}" class="submenu-link">Transaksi Selesai</a>
                             </li>
 
                             <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Selesai</a>
-                            </li>
-
-                            <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Tidak Valid</a>
+                                <a href="{{ route('allTransactionFailed') }}" class="submenu-link">Transaksi Tidak Valid</a>
                             </li>
 
 
@@ -250,14 +256,14 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Seluruh Transaksi</h3>
+                <h3>Daftar Seluruh Transaksi Proses</h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('adminDashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Seluruh Transaksi</li>
+                        <li class="breadcrumb-item active" aria-current="page">Transaksi Proses</li>
                     </ol>
                 </nav>
             </div>
@@ -267,13 +273,9 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Table Daftar Seluruh Transaksi
+                    Table Daftar Transaksi Proses
                 </h5>
-                <div class="d-flex justify-content-end mt-2">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_transaksi_baru">Buat
-                        Transaksi Baru
-                        </a>
-                </div>
+
 
             </div>
             <div class="card-body">
@@ -627,33 +629,6 @@
 
 
 
-        });
-    </script>
-
-    <script>
-        // ajax untuk get data mobil
-        $(document).ready(function() {
-
-            $("#mobil_id").on("change", function() {
-
-                var mobilId = $(this).val();
-                $.ajax({
-
-                    type: "get",
-                    url: "/ajaxGetDetailMobil/" + mobilId,
-                    dataType: "json",
-                    success: function(response) {
-                        $('#no_plat').val(response.no_plat);
-                        $('#tahun').val(response.tahun);
-                        $('#harga_jual').val(response.harga_jual);
-                        $('#diskon').val(response.diskon);
-                    },
-                    error: function(response) {
-
-                    }
-                });
-
-            });
         });
     </script>
 @endsection

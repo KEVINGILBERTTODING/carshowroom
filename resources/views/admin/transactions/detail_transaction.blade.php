@@ -66,28 +66,32 @@
 
                     <li class="sidebar-item  has-sub active">
                         <a href="#" class='sidebar-link'>
-                            <i class="bi bi-car-front"></i>
+                            <i class="bi bi-currency-dollar"></i>
                             <span>Data Transaksi</span>
                         </a>
 
                         <ul class="submenu ">
-                            <li class="submenu-item active  ">
-                                <a href="#" class="submenu-link">Semua Transaksi</a>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('allDataTransactions') }}" class="submenu-link">Semua Transaksi</a>
 
                             </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('allTransactionProcess') }}" class="submenu-link">Transaksi Proses</a>
+                            </li>
+
+                            <li class="submenu-item   ">
+                                <a href="{{ route('allTransactionProcessFinance') }}" class="submenu-link">Transaksi Proses
+                                    Finance</a>
+                            </li>
+
+
                             <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Proses</a>
+                                <a href="{{ route('allTransactionSuccess') }}" class="submenu-link">Transaksi Selesai</a>
                             </li>
 
                             <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Selesai</a>
+                                <a href="{{ route('allTransactionFailed') }}" class="submenu-link">Transaksi Tidak Valid</a>
                             </li>
-
-                            <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Tidak Valid</a>
-                            </li>
-
-
 
                         </ul>
                     </li>
@@ -433,7 +437,7 @@
                                         <p class="text-md">
                                             Kredit / Cicilan
                                         </p>
-                                    @elseif ($dataTransaksi['payment_method'] == 2)
+                                    @elseif ($dataTransaksi['payment_method'] == 3)
                                         <p class="text-md">
                                             Transfer Bank
                                         </p>
@@ -536,10 +540,6 @@
 
                             <hr style="border-top: dotted 3px;" />
 
-
-
-
-
                             <hr style="border-top: dotted 3px;" />
                             <div class="d-flex justify-content-center">
 
@@ -549,157 +549,319 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-6 col-lg-6">
-                    <div class="card">
+
+                {{-- cek metode pembayaran --}}
+                @if ($dataTransaksi['payment_method'] == 2)
+                    {{-- credit --}}
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="card">
 
 
-                        <div class="card-body">
-                            <h4>Data Pengajuan Kredit</h4>
+                            <div class="card-body">
+                                <h4>Data Pengajuan Kredit</h4>
 
-                            <div class="row mt-3">
-                                <div class="form-group col-md-6 col-12">
-                                    <label>KTP Suami / KTP Laki-laki</label>
-                                    @if ($dataTransaksi['ktp_suami'] != null)
-                                        <a href="{{ route('downloadFileCredit', $dataTransaksi['ktp_suami']) }}"
-                                            target="_blank">
-                                            <img class="w-100"
-                                                src="{{ asset('data/credit/' . $dataTransaksi['ktp_suami']) }}"
-                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
-                                        </a>
-                                    @else
-                                        <p class="text-sm mt-3 text-danger">Tidak ada file.</p>
-                                    @endif
-
-
-                                </div>
-                                <div class="form-group col-md-6 col-12">
-                                    <label>KTP Istri / KTP Perempuan</label>
-                                    @if ($dataTransaksi['ktp_istri'] != null)
-                                        <a href="{{ route('downloadFileCredit', $dataTransaksi['ktp_istri']) }}"
-                                            target="_blank">
-                                            <img class="w-100"
-                                                src="{{ asset('data/credit/' . $dataTransaksi['ktp_istri']) }}"
-                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
-                                        </a>
-                                    @else
-                                        <p class="text-sm mt-3 text-danger">Tidak ada file.</p>
-                                    @endif
-
-
-                                </div>
-
-                            </div>
-                            <div class="row">
-
-                                <div class="form-group col-md-6 col-12">
-                                    <label>Kartu Keluarga</label>
-                                    @if ($dataTransaksi['kk'] != null)
-                                        <a href="{{ route('downloadFileCredit', $dataTransaksi['kk']) }}"target="_blank">
-                                            <img class="w-100" src="{{ asset('data/credit/' . $dataTransaksi['kk']) }}"
-                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
-                                        </a>
-                                    @else
-                                        <p class="text-sm mt-3 text-danger">Tidak ada file.</p>
-                                    @endif
-
-
-                                </div>
-
-                            </div>
-
-                            <div class="divider mt-4">
-                                <div class="divider-text">Ubah Status Transaksi</div>
-                            </div>
-
-                            <form action="{{ route('updateStatusTransaksi') }}" method="post">
-                                @csrf
-
-                                <div class="mt-3">
-                                    @if ($dataTransaksi['user_id'] != null)
-                                        <input type="number" name="user_id" class="form-control"
-                                            value="{{ $dataTransaksi['user_id'] }}">
-                                    @else
-                                        <input type="number" name="user_id" readonly class="form-control"
-                                            value="0">
-                                    @endif
-
-                                    <input type="text" name="mobil_id" class="form-control"
-                                        value="{{ $dataTransaksi['mobil_id'] }}">
-                                    <input type="text" name="transaksi_id" class="form-control"
-                                        value="{{ $dataTransaksi['transaksi_id'] }}">
-
-
-                                    <label for="Status Transaksi">Status Transaksi</label>
-                                    <select name="status" required id="status_credit" class="form-control">
-                                        @if ($dataTransaksi['status'] == 1)
-                                            <option value="{{ $dataTransaksi['status'] }}" selected disabled>Selesai
-                                            </option>
-                                            <option value="2">Sedang di proses
-                                            </option>
-                                            <option value="3">Proses finance
-                                            </option>
-                                            <option value="0">Tidak valid
-                                            </option>
-                                        @elseif ($dataTransaksi['status'] == 2)
-                                            <option value="{{ $dataTransaksi['status'] }}" selected disabled>Sedang di
-                                                proses
-                                            </option>
-                                            <option value="3">Proses finance
-                                            </option>
-                                            <option value="1">Selesai
-                                            </option>
-                                            <option value="0">Tidak valid
-                                            </option>
-                                        @elseif ($dataTransaksi['status'] == 3)
-                                            <option value="{{ $dataTransaksi['status'] }}" selected disabled>Proses
-                                                finance
-                                            </option>
-                                            <option value="1">Selesai
-                                            </option>
-                                            <option value="2">Sedang di proses
-                                            </option>
-                                            <option value="0">Tidak valid
-                                            </option>
-                                        @elseif ($dataTransaksi['status'] == 0)
-                                            <option value="{{ $dataTransaksi['status'] }}" selected disabled>Tidak
-                                                valid
-                                            </option>
-                                            <option value="1">Selesai
-                                            </option>
-                                            <option value="2">Sedang di proses
-                                            </option>
-                                            <option value="3">Proses finance
-                                            </option>
+                                <div class="row mt-3">
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>KTP Suami / KTP Laki-laki</label>
+                                        <br>
+                                        @if ($dataTransaksi['ktp_suami'] != null)
+                                            <a class="btn btn-primary mt-2"
+                                                href="{{ route('downloadFileCredit', $dataTransaksi['ktp_suami']) }}"
+                                                target="_blank"><i class="bi bi-download"></i>
+                                                Download
+                                            </a>
+                                        @else
+                                            <p class="text-sm mt-3 text-danger">Tidak ada file.</p>
                                         @endif
 
-                                    </select>
 
-                                    <div id="alasan_credit" class="mt-3">
-                                        <label>Alasan</label>
-                                        <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu..."></textarea>
                                     </div>
-                                    <div class="d-flex justify-content-end mt-3">
-                                        <button class="btn btn-primary">Simpan Perubahan</button>
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>KTP Istri / KTP Perempuan</label>
+                                        <br>
+                                        @if ($dataTransaksi['ktp_istri'] != null)
+                                            <a class="btn btn-primary mt-2"
+                                                href="{{ route('downloadFileCredit', $dataTransaksi['ktp_istri']) }}"
+                                                target="_blank"><i class="bi bi-download"></i>
+                                                Download
+                                            </a>
+                                        @else
+                                            <p class="text-sm mt-3 text-danger">Tidak ada file.</p>
+                                        @endif
+
+
                                     </div>
 
+                                </div>
+                                <div class="row">
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Kartu Keluarga</label>
+                                        <br>
+                                        @if ($dataTransaksi['kk'] != null)
+                                            <a class="btn btn-primary mt-2"
+                                                href="{{ route('downloadFileCredit', $dataTransaksi['kk']) }}"target="_blank">
+                                                <i class="bi bi-download"></i> Download
+                                            </a>
+                                        @else
+                                            <p class="text-sm mt-3 text-danger">Tidak ada file.</p>
+                                        @endif
+
+
+                                    </div>
 
                                 </div>
 
-                            </form>
+                                <div class="divider mt-4">
+                                    <div class="divider-text">Ubah Status Transaksi</div>
+                                </div>
+
+                                <form action="{{ route('updateStatusTransaksi') }}" method="post">
+                                    @csrf
+
+                                    <div class="mt-3">
+                                        @if ($dataTransaksi['user_id'] != null)
+                                            <input type="number" name="user_id" hidden class="form-control"
+                                                value="{{ $dataTransaksi['user_id'] }}">
+                                        @else
+                                            <input type="number" name="user_id" hidden readonly class="form-control"
+                                                value="0">
+                                        @endif
+
+                                        <input type="text" name="mobil_id" class="form-control" hidden
+                                            value="{{ $dataTransaksi['mobil_id'] }}">
+                                        <input type="text" name="transaksi_id" class="form-control" hidden
+                                            value="{{ $dataTransaksi['transaksi_id'] }}">
+
+
+                                        <label for="Status Transaksi">Status Transaksi</label>
+                                        <select name="status" required id="status_credit" class="form-control">
+                                            @if ($dataTransaksi['status'] == 1)
+                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Selesai
+                                                </option>
+                                                <option value="2">Sedang di proses
+                                                </option>
+                                                <option value="3">Proses finance
+                                                </option>
+                                                <option value="0">Tidak valid
+                                                </option>
+                                            @elseif ($dataTransaksi['status'] == 2)
+                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Sedang di
+                                                    proses
+                                                </option>
+                                                <option value="3">Proses finance
+                                                </option>
+                                                <option value="1">Selesai
+                                                </option>
+                                                <option value="0">Tidak valid
+                                                </option>
+                                            @elseif ($dataTransaksi['status'] == 3)
+                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Proses
+                                                    finance
+                                                </option>
+                                                <option value="1">Selesai
+                                                </option>
+                                                <option value="2">Sedang di proses
+                                                </option>
+                                                <option value="0">Tidak valid
+                                                </option>
+                                            @elseif ($dataTransaksi['status'] == 0)
+                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Tidak
+                                                    valid
+                                                </option>
+                                                <option value="1">Selesai
+                                                </option>
+                                                <option value="2">Sedang di proses
+                                                </option>
+                                                <option value="3">Proses finance
+                                                </option>
+                                            @endif
+
+                                        </select>
+
+                                        <div id="alasan_credit" class="mt-3">
+                                            <label>Alasan</label>
+                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu..."></textarea>
+                                        </div>
+                                        <div class="d-flex justify-content-end mt-3">
+                                            <button class="btn btn-warning">Simpan Perubahan</button>
+                                        </div>
+
+
+                                    </div>
+
+                                </form>
 
 
 
 
+
+                            </div>
 
                         </div>
-
                     </div>
-                </div>
+                @elseif ($dataTransaksi['payment_method'] == 3)
+                    {{-- Transfer --}}
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="card">
+
+
+                            <div class="card-body">
+                                <h4>Bukti Pembayaran</h4>
+
+                                <div class="row mt-3">
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Bukti Transfer</label>
+                                        <br>
+                                        @if ($dataTransaksi['bukti_pembayaran'] != null)
+                                            <a class="btn btn-primary mt-2"
+                                                href="{{ route('downloadBuktiPembayaran', $dataTransaksi['bukti_pembayaran']) }}"
+                                                target="_blank"><i class="bi bi-download"></i>
+                                                Download
+                                            </a>
+                                        @else
+                                            <p class="text-sm mt-3 text-danger">Tidak ada file.</p>
+                                        @endif
+
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="divider mt-4">
+                                    <div class="divider-text">Ubah Status Transaksi</div>
+                                </div>
+
+                                <form action="{{ route('updateStatusTransaksi') }}" method="post">
+                                    @csrf
+
+                                    <div class="mt-3">
+                                        @if ($dataTransaksi['user_id'] != null)
+                                            <input type="number" name="user_id" hidden class="form-control"
+                                                value="{{ $dataTransaksi['user_id'] }}">
+                                        @else
+                                            <input type="number" name="user_id" hidden readonly class="form-control"
+                                                value="0">
+                                        @endif
+
+                                        <input type="text" name="mobil_id" class="form-control" hidden
+                                            value="{{ $dataTransaksi['mobil_id'] }}">
+                                        <input type="text" name="transaksi_id" class="form-control" hidden
+                                            value="{{ $dataTransaksi['transaksi_id'] }}">
+
+
+                                        <label for="Status Transaksi">Status Transaksi</label>
+                                        <select name="status" required id="status_credit" class="form-control">
+                                            @if ($dataTransaksi['status'] == 1)
+                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Selesai
+                                                </option>
+                                                <option value="0">Tidak valid
+                                                </option>
+                                            @elseif ($dataTransaksi['status'] == 0)
+                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Tidak
+                                                    valid
+                                                </option>
+                                                <option value="1">Selesai
+                                                </option>
+                                            @endif
+
+                                        </select>
+
+                                        <div id="alasan_credit" class="mt-3">
+                                            <label>Alasan</label>
+                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu..."></textarea>
+                                        </div>
+                                        <div class="d-flex justify-content-end mt-3">
+                                            <button class="btn btn-warning">Simpan Perubahan</button>
+                                        </div>
+
+
+                                    </div>
+
+                                </form>
+
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                @elseif ($dataTransaksi['payment_method'] == 1)
+                    {{-- Tunai/Cash --}}
+                    <div class="col-12 col-md-6 col-lg-6">
+                        <div class="card">
+
+
+                            <div class="card-body">
+                                <h4>Status Transaksi</h4>
+
+
+                                <div class="divider mt-4">
+                                    <div class="divider-text">Ubah Status Transaksi</div>
+                                </div>
+
+                                <form action="{{ route('updateStatusTransaksi') }}" method="post">
+                                    @csrf
+
+                                    <div class="mt-3">
+                                        @if ($dataTransaksi['user_id'] != null)
+                                            <input type="number" name="user_id" hidden class="form-control"
+                                                value="{{ $dataTransaksi['user_id'] }}">
+                                        @else
+                                            <input type="number" name="user_id" hidden readonly class="form-control"
+                                                value="0">
+                                        @endif
+
+                                        <input type="text" name="mobil_id" class="form-control" hidden
+                                            value="{{ $dataTransaksi['mobil_id'] }}">
+                                        <input type="text" name="transaksi_id" class="form-control" hidden
+                                            value="{{ $dataTransaksi['transaksi_id'] }}">
+
+
+                                        <label for="Status Transaksi">Status Transaksi</label>
+                                        <select name="status" required id="status_credit" class="form-control">
+                                            @if ($dataTransaksi['status'] == 1)
+                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Selesai
+                                                </option>
+                                                <option value="0">Tidak valid
+                                                </option>
+                                            @elseif ($dataTransaksi['status'] == 0)
+                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Tidak
+                                                    valid
+                                                </option>
+                                                <option value="1">Selesai
+                                                </option>
+                                            @endif
+
+                                        </select>
+
+                                        <div id="alasan_credit" class="mt-3">
+                                            <label>Alasan</label>
+                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu..."></textarea>
+                                        </div>
+                                        <div class="d-flex justify-content-end mt-3">
+                                            <button class="btn btn-warning">Simpan Perubahan</button>
+                                        </div>
+
+
+                                    </div>
+
+                                </form>
+
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                @endif
+
             </div>
-
-
-
-        </div>
         </div>
 
 

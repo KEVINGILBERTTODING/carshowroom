@@ -140,7 +140,12 @@ Route::get('adminDetailMobil/{mobilId}', [MobilController::class, 'adminDetailMo
 
 // admin transactions
 Route::get('allDataTransactions', [TransactionController::class, 'allTransactions'])->name('allDataTransactions')->middleware('admin');
+Route::get('allTransactionSuccess', [TransactionController::class, 'allTransactionSuccess'])->name('allTransactionSuccess')->middleware('admin');
+Route::get('allTransactionProcess', [TransactionController::class, 'allTransactionProcess'])->name('allTransactionProcess')->middleware('admin');
+Route::get('allTransactionProcessFinance', [TransactionController::class, 'allTransactionProcessFinance'])->name('allTransactionProcessFinance')->middleware('admin');
+Route::get('allTransactionFailed', [TransactionController::class, 'allTransactionFailed'])->name('allTransactionFailed')->middleware('admin');
 Route::post('adminTambahTransaksi', [TransactionController::class, 'tambahTransaksi'])->name('adminTambahTransaksi')->middleware('admin');
 Route::get('adminDetailTransaction/{transaksiId}', [TransactionController::class, 'detailTransaction'])->name('adminDetailTransaction')->middleware('admin');
 Route::get('downloadFileCredit/{fileName}', [TransactionController::class, 'downloadFileCredit'])->name('downloadFileCredit')->middleware('admin');
+Route::get('downloadBuktiPembayaran/{fileName}', [TransactionController::class, 'downloadBuktiPembayaran'])->name('downloadBuktiPembayaran')->middleware('admin');
 Route::post('updateStatusTransaksi', [TransactionController::class, 'updateStatusTransaksi'])->name('updateStatusTransaksi')->middleware('admin');

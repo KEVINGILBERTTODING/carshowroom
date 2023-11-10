@@ -65,25 +65,31 @@
 
                     <li class="sidebar-item  has-sub ">
                         <a href="#" class='sidebar-link'>
-                            <i class="bi bi-car-front"></i>
+                            <i class="bi bi-currency-dollar"></i>
                             <span>Data Transaksi</span>
                         </a>
 
                         <ul class="submenu ">
-                            <li class="submenu-item  ">
+                            <li class="submenu-item ">
                                 <a href="{{ route('allDataTransactions') }}" class="submenu-link">Semua Transaksi</a>
 
                             </li>
                             <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Proses</a>
+                                <a href="{{ route('allTransactionProcess') }}" class="submenu-link">Transaksi Proses</a>
                             </li>
 
-                            <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Selesai</a>
+                            <li class="submenu-item   ">
+                                <a href="{{ route('allTransactionProcessFinance') }}" class="submenu-link">Transaksi Proses
+                                    Finance</a>
                             </li>
 
+
                             <li class="submenu-item ">
-                                <a href="#" class="submenu-link">Transaksi Tidak Valid</a>
+                                <a href="{{ route('allTransactionSuccess') }}" class="submenu-link">Transaksi Selesai</a>
+                            </li>
+
+                            <li class="submenu-item">
+                                <a href="{{ route('allTransactionFailed') }}" class="submenu-link">Transaksi Tidak Valid</a>
                             </li>
 
 
