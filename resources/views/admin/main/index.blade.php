@@ -63,7 +63,7 @@
                     <li class="sidebar-title">Transaksi</li>
 
 
-                    <li class="sidebar-item  has-sub active">
+                    <li class="sidebar-item  has-sub ">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-car-front"></i>
                             <span>Data Transaksi</span>
@@ -74,15 +74,15 @@
                                 <a href="{{ route('allDataTransactions') }}" class="submenu-link">Semua Transaksi</a>
 
                             </li>
-                            <li class="submenu-item active ">
+                            <li class="submenu-item ">
                                 <a href="#" class="submenu-link">Transaksi Proses</a>
                             </li>
 
-                            <li class="submenu-item active ">
+                            <li class="submenu-item ">
                                 <a href="#" class="submenu-link">Transaksi Selesai</a>
                             </li>
 
-                            <li class="submenu-item active ">
+                            <li class="submenu-item ">
                                 <a href="#" class="submenu-link">Transaksi Tidak Valid</a>
                             </li>
 

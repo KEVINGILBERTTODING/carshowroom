@@ -388,4 +388,19 @@ class TransactionController extends Controller
             }
         }
     }
+
+    function detailTransaction($transactionId)
+    {
+        $transaksiModel = new TransactionModel();
+        $dataTransaction = $transaksiModel->adminDetailTransaction($transactionId);
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $data = [
+            'dataAdmin' => $dataAdmin,
+            'dataApp' => $dataApp,
+            'dataTransaksi' => $dataTransaction
+        ];
+
+        return view('admin.transactions.detail_transaction', $data);
+    }
 }

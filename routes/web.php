@@ -141,3 +141,4 @@ Route::get('adminDetailMobil/{mobilId}', [MobilController::class, 'adminDetailMo
 // admin transactions
 Route::get('allDataTransactions', [TransactionController::class, 'allTransactions'])->name('allDataTransactions')->middleware('admin');
 Route::post('adminTambahTransaksi', [TransactionController::class, 'tambahTransaksi'])->name('adminTambahTransaksi')->middleware('admin');
+Route::get('adminDetailTransaction/{transaksiId}', [TransactionController::class, 'detailTransaction'])->name('adminDetailTransaction')->middleware('admin');

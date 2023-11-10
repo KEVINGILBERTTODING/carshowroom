@@ -288,8 +288,10 @@
                                 <th>No Plat</th>
                                 <th>Nama lengkap</th>
                                 <th>No Hp</th>
+                                <th>Alamat</th>
                                 <th>Metode Pembayaran</th>
                                 <th>Finance</th>
+                                <th>Tanggal</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -303,8 +305,13 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $dm->transaksi_id }}</td>
-                                    <td><a
-                                            href="{{ route('adminDetailMobil', $dm->mobil_id) }}">{{ $dm->merk . '-' . $dm->nama_model }}</a>
+                                    <td>
+                                        @if ($dm->nama_model != null)
+                                            <a
+                                                href="{{ route('adminDetailMobil', $dm->mobil_id) }}">{{ $dm->merk . '-' . $dm->nama_model }}</a>
+                                        @else
+                                            Mobil telah dihapus
+                                        @endif
                                     </td>
                                     <td>{{ $dm->no_plat }}</td>
                                     <td>
@@ -328,6 +335,13 @@
                                         @endif
                                     </td>
                                     <td>
+                                        @if ($dm->alamat_user != null)
+                                            {{ $dm->alamat_user }}
+                                        @else
+                                            {{ $dm->alamat_pelanggan }}
+                                        @endif
+                                    </td>
+                                    <td>
                                         @if ($dm->payment_method == 1)
                                             {{-- cash --}}
                                             Cash / Tunai
@@ -348,6 +362,7 @@
                                             -
                                         @endif
                                     </td>
+                                    <td>{{ $dm->created_at }}</td>
 
                                     <td>
                                         @if ($dm->status == 1)
@@ -362,7 +377,7 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ route('adminDetailMobil', $dm->transaksi_id) }}"
+                                            <a href="{{ route('adminDetailTransaction', $dm->transaksi_id) }}"
                                                 class="btn btn-info text-white" style="margin-right: 10px;"><i
                                                     class="bi bi-info-lg"></i></a>
                                             <a href="{{ route('ubahMobil', $dm->transaksi_id) }}"
