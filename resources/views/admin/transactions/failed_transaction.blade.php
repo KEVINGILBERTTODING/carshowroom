@@ -590,7 +590,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    window.location.href = '/hapusMobil/' + transaksi_id;
+                    window.location.href = '/adminHapusTrasaksi/' + transaksi_id;
 
                 }
             });

@@ -1015,4 +1015,60 @@ class TransactionController extends Controller
             }
         }
     }
+
+    function filterTransaksi(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|numeric',
+            'date_from' => 'required|date',
+            'date_end' => 'required|date'
+        ], [
+            'required' => 'Kolom :attribute tidak boleh kosong',
+            'numeric' => 'Kolom :attribute tidak valid',
+            'date' => 'Kolom :attribute tanggal tidak valid'
+        ], [
+            'status' => 'status transaksi',
+            'date_from' => 'tanggal dari',
+            'date_end' => 'tanggal akhir'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+        $dateFrom = $request->input('date_from');
+        $dateEnd = $request->input('date_end');
+        $status = $request->input('status');
+        try {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            $dataApp = AppModel::where('app_id', 1)->first();
+            $transactionModel = new TransactionModel();
+            $dataTransactions = $transactionModel->filterTransaksi($dateFrom, $dateEnd, $status);
+            if ($dataAdmin && !$dataTransactions->isEmpty()) {
+                $data = [
+                    'dataAdmin' => $dataAdmin,
+                    'dataApp' => $dataApp,
+                    'dataTransactions' => $dataTransactions,
+                    'dateFrom' => $dateFrom,
+                    'dateEnd' => $dateEnd,
+                    'status' => $status
+                ];
+
+                return view('admin.transactions.filter_transaction', $data);
+            } else {
+                return redirect()->back()->with('failed', 'Tidak ada data transaksi');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+
+
+
+
+        // $data = [
+        //     'dataAdmin' => $dataAdmin,
+        //     'dataApp' => $dataApp
+        // ];
+
+        // return view('admin.transactions.report.report_transaction', $data);
+    }
 }

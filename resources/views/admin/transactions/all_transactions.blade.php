@@ -276,10 +276,21 @@
                 <h5 class="card-title">
                     Table Daftar Seluruh Transaksi
                 </h5>
+
                 <div class="d-flex justify-content-end mt-2">
+
+                    <button class="btn btn-info text-white" data-bs-toggle="modal" data-bs-target="#modal_filter">
+                        <i class="fa-solid fa-filter"></i> Filter
+                    </button>
+
+                </div>
+
+                <div class="d-flex justify-content-end mt-2">
+
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_transaksi_baru">Buat
                         Transaksi Baru
-                        </a>
+                    </button>
+
                 </div>
 
             </div>
@@ -409,6 +420,63 @@
             </div>
         </div>
 
+
+        <!--Modal filter transaksi -->
+        <form action="{{ route('filterTransaksi') }}" method="get">
+            @csrf
+            <div class="modal fade text-left modal-borderless" id="modal_filter" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Filter Transaksi</h5>
+                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <i data-feather="x"></i>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="basicInput">Tanggal Mulai</label>
+                                <input type="date" class="form-control mt-2" name="date_from" required="basicInput">
+                            </div>
+                            <div class="form-group">
+                                <label for="basicInput">Tanggal Akhir</label>
+                                <input type="date" class="form-control mt-2" name="date_end" required="basicInput">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="basicInput">Status</label>
+                                <select name="status" class="form-control">
+                                    <option value="4">Semua</option>
+                                    <option value="1">Selesai</option>
+                                    <option value="2">Proses</option>
+                                    <option value="3">Proses Finance</option>
+                                    <option value="0">Tidak valid</option>
+                                </select>
+                            </div>
+
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Batal</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary ms-1">
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Simpan</span>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </form>
 
         <!--Modal buat transaksi baru -->
         <form action="{{ route('adminTambahTransaksi') }}" method="post" enctype="multipart/form-data">
