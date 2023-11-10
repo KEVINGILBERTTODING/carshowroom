@@ -142,3 +142,5 @@ Route::get('adminDetailMobil/{mobilId}', [MobilController::class, 'adminDetailMo
 Route::get('allDataTransactions', [TransactionController::class, 'allTransactions'])->name('allDataTransactions')->middleware('admin');
 Route::post('adminTambahTransaksi', [TransactionController::class, 'tambahTransaksi'])->name('adminTambahTransaksi')->middleware('admin');
 Route::get('adminDetailTransaction/{transaksiId}', [TransactionController::class, 'detailTransaction'])->name('adminDetailTransaction')->middleware('admin');
+Route::get('downloadFileCredit/{fileName}', [TransactionController::class, 'downloadFileCredit'])->name('downloadFileCredit')->middleware('admin');
+Route::post('updateStatusTransaksi', [TransactionController::class, 'updateStatusTransaksi'])->name('updateStatusTransaksi')->middleware('admin');

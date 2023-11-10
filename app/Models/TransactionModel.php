@@ -100,7 +100,12 @@ class TransactionModel extends Model
             'mobil.biaya_perbaikan',
             'mobil.diskon',
             'merk.merk',
-            'kapasitas_mesin.kapasitas as kapasitas_mesin'
+            'kapasitas_mesin.kapasitas as kapasitas_mesin',
+            'pengajuan_kredit.ktp_suami',
+            'pengajuan_kredit.ktp_istri',
+            'pengajuan_kredit.kk',
+
+
 
         )
             ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
@@ -110,6 +115,7 @@ class TransactionModel extends Model
             ->leftJoin('finance', 'pk.finance_id', '=', 'finance.finance_id')
             ->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
+            ->leftJoin('pengajuan_kredit', 'transaksi.transaksi_id', '=', 'pengajuan_kredit.transaksi_id')
             ->where('transaksi.transaksi_id', $transactionId)
             ->orderBy('transaksi.created_at', 'desc')
             ->first();

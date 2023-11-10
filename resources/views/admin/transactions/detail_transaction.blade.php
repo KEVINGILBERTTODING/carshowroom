@@ -96,7 +96,7 @@
 
                     <li class="sidebar-title">Data Master</li>
 
-                    <li class="sidebar-item active  has-sub">
+                    <li class="sidebar-item   has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-car-front"></i>
                             <span>Data Mobil</span>
@@ -269,407 +269,440 @@
         </div>
     </div>
     <section class="section">
-        <form action="{{ route('insertMobil') }}" method="post" enctype="multipart/form-data">
 
-            @csrf
-            <div class="section-body">
-                <div class="row mt-sm-4">
-                    <div class="col-12 col-md-6 col-lg-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <h5>Data pembeli</h5>
-                                <p class="text-sm">{{ $dataTransaksi['created_at'] }}</p>
-                                <hr style="border-top: dotted 3px;" />
-                                {{-- @if ($dataTransaksi['status'] == 1)
-                                    <span class="badge bg-success">Selesai</span>
-                                @elseif ($dataMobil['status'] == 0)
-                                    <span class="badge bg-danger">Tidak Valid</span>
-                                @elseif ($dataMobil['status'] == 3)
-                                    <span class="badge bg-danger">Finance Proses</span>
-                                @elseif ($dataMobil['status'] == 2)
-                                    <span class="badge bg-danger">Proses</span>
-                                @endif --}}
+        <div class="section-body">
+            <div class="row mt-sm-4">
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5>Data pembeli</h5>
+                            <p class="text-sm">{{ $dataTransaksi['created_at'] }}</p>
+                            <hr style="border-top: dotted 3px;" />
 
-                                <div class="row mt-3">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Nama Lengkap</label>
 
-                                    </div>
-
-                                    <div class="form-group col-md-6 col-12">
-                                        @if ($dataTransaksi['nama_user'] != null)
-                                            <p class="text-sm fw-bold">{{ $dataTransaksi['nama_user'] }}</p>
-                                        @else
-                                            <p class="text-md fw-bold">{{ $dataTransaksi['nama_pelanggan'] }}</p>
-                                        @endif
-
-                                    </div>
-
+                            <div class="row mt-3">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Nama Lengkap</label>
 
                                 </div>
 
-
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>No Telepon</label>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        @if ($dataTransaksi['no_hp_user'] != null)
-                                            <p class="text-md">
-                                                <a target="_blank"
-                                                    href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataTransaksi['no_hp_user']) }}&text=Halo,%20*{{ $dataTransaksi['nama_user'] }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
-                                                    {{ $dataTransaksi['no_hp_user'] }}
-                                                </a>
-                                            </p>
-                                        @else
-                                            <p class="text-md">
-                                                <a target="_blank"
-                                                    href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataTransaksi['no_hp_pelanggan']) }}&text=Halo,%20*{{ $dataTransaksi['nama_pelanggan'] }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
-                                                    {{ $dataTransaksi['no_hp_pelanggan'] }}
-                                                </a>
-                                            </p>
-                                        @endif
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Alamat</label>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        @if ($dataTransaksi['alamat_user'] != null)
-                                            <p class="text-md">{{ $dataTransaksi['alamat_user'] }}</p>
-                                        @else
-                                            <p class="text-md">{{ $dataTransaksi['alamat_pelanggan'] }}</p>
-                                        @endif
-
-
-
-                                    </div>
-                                </div>
-
-
-                                <hr style="border-top: dotted 3px;" />
-
-                                <h5>Detail Mobil</h5>
-
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Merk dan Tipe Mobil</label>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        @if ($dataTransaksi['merk'] != null)
-                                            <p class="text-md">
-                                                {{ $dataTransaksi['merk'] . ' - ' . $dataTransaksi['nama_model'] }}</p>
-                                        @else
-                                            <p class="text-md">Mobil Telah dihapus.</p>
-                                        @endif
-
-
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Plat</label>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        @if ($dataTransaksi['no_plat'] != null)
-                                            <p class="text-md">
-                                                {{ $dataTransaksi['no_plat'] }}</p>
-                                        @else
-                                            <p class="text-md">Mobil Telah dihapus.</p>
-                                        @endif
-
-
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Tahun</label>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        @if ($dataTransaksi['tahun'] != null)
-                                            <p class="text-md">
-                                                {{ $dataTransaksi['tahun'] }}</p>
-                                        @else
-                                            <p class="text-md">Mobil Telah dihapus.</p>
-                                        @endif
-
-
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Kapasitas Mesin</label>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        @if ($dataTransaksi['kapasitas_mesin'] != null)
-                                            <p class="text-md">
-                                                {{ $dataTransaksi['kapasitas_mesin'] }}</p>
-                                        @else
-                                            <p class="text-md">Mobil Telah dihapus.</p>
-                                        @endif
-
-
-
-                                    </div>
-                                </div>
-
-                                <hr style="border-top: dotted 3px;" />
-
-                                <h5>Rincian Transaksi</h5>
-
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Metode Pembayaran</label>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        @if ($dataTransaksi['payment_method'] == 1)
-                                            <p class="text-md">
-                                                Cash / Tunai
-                                            </p>
-                                        @elseif ($dataTransaksi['payment_method'] == 2)
-                                            <p class="text-md">
-                                                Kredit / Cicilan
-                                            </p>
-                                        @elseif ($dataTransaksi['payment_method'] == 2)
-                                            <p class="text-md">
-                                                Transfer Bank
-                                            </p>
-                                        @endif
-
-
-
-                                    </div>
-                                </div>
-
-                                {{-- Jika pembayaran kredit --}}
-                                @if ($dataTransaksi['payment_method'] == 2)
-                                    <div class="row">
-                                        <div class="form-group col-md-6 col-12">
-                                            <label>Nama Finance</label>
-                                        </div>
-                                        <div class="form-group col-md-6 col-12">
-                                            @if ($dataTransaksi['nama_finance'] != null)
-                                                <p class="text-md">
-                                                    {{ $dataTransaksi['nama_finance'] }}</p>
-                                            @else
-                                                <p class="text-md">-</p>
-                                            @endif
-
-
-
-                                        </div>
-                                    </div>
-                                @endif
-
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Status</label>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        @if ($dataTransaksi['status'] == 1)
-                                            <span class="badge bg-success">Selesai</span>
-                                        @elseif ($dataTransaksi['status'] == 2)
-                                            <span class="badge bg-warning">Sedang di proses</span>
-                                        @elseif ($dataTransaksi['status'] == 3)
-                                            <span class="badge bg-info">Proses Finance</span>
-                                        @elseif ($dataTransaksi['status'] == 0)
-                                            <span class="badge bg-danger">Tidak Valid</span>
-                                        @endif
-
-
-
-                                    </div>
-                                </div>
-
-                                <div class="row mt-2">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Harga Mobil</label>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        <p class="text-md">{{ formatRupiah($dataTransaksi['harga_jual']) }}</p>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Diskon</label>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        <p class="text-md">{{ formatRupiah($dataTransaksi['diskon']) }}</p>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Total Transaksi</label>
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        @if ($dataTransaksi['status'] == 1)
-                                            <p class="fw-bold text-success">
-                                                {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
-                                            </p>
-                                        @elseif ($dataTransaksi['status'] == 2)
-                                            <p class="fw-bold text-warning">
-                                                {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
-                                            </p>
-                                        @elseif ($dataTransaksi['warning'] == 3)
-                                            <p class="fw-bold text-success">
-                                                {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
-                                            </p>
-                                        @elseif ($dataTransaksi['status'] == 0)
-                                            <p class="fw-bold text-danger">
-                                                {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
-                                            </p>
-                                        @endif
-
-                                    </div>
-                                </div>
-
-
-                                <hr style="border-top: dotted 3px;" />
-
-
-
-
-
-                                <hr style="border-top: dotted 3px;" />
-                                <div class="d-flex justify-content-center">
-
-                                    <h5 class="text-muted">{{ $dataApp['app_name'] }}</h5>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    {{-- <div class="col-12 col-md-6 col-lg-6">
-                        <div class="card">
-
-
-                            <div class="card-body">
-                                <h4>Gambar Mobil</h4>
-
-                                <div class="row mt-3">
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Gambar depan</label>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#detailgambar1">
-                                            <img class="w-100" src="{{ asset('data/cars/' . $dataMobil['gambar1']) }}"
-                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
-                                        </a>
-
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Gambar samping kanan</label>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#detailgambar2">
-                                            <img class="w-100" src="{{ asset('data/cars/' . $dataMobil['gambar2']) }}"
-                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
-                                        </a>
-
-                                    </div>
-
-                                </div>
-                                <div class="row">
-
-
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Gambar belakang</label>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#detailgambar3">
-                                            <img class="w-100" src="{{ asset('data/cars/' . $dataMobil['gambar3']) }}"
-                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
-                                        </a>
-
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Gambar samping kiri</label>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#detailgambar4">
-                                            <img class="w-100" src="{{ asset('data/cars/' . $dataMobil['gambar4']) }}"
-                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
-                                        </a>
-
-                                    </div>
-                                </div>
-
-                                <div class="row">
-
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Gambar detail</label>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#detailgambar5">
-                                            <img class="w-100" src="{{ asset('data/cars/' . $dataMobil['gambar5']) }}"
-                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
-                                        </a>
-
-                                    </div>
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Gambar detail</label>
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#detailgambar6">
-                                            <img class="w-100" src="{{ asset('data/cars/' . $dataMobil['gambar6']) }}"
-                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="5">
-                                        </a>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div> --}}
-                </div>
-
-
-
-            </div>
-            </div>
-
-            {{-- @for ($i = 0; $i < 7; $i++)
-                <div class="modal fade" id="detailgambar{{ $i }}" tabindex="-1" role="dialog"
-                    aria-labelledby="galleryModalTitle" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="galleryModalTitle">
-                                    @if ($i == 1)
-                                        Gambar depan
-                                    @elseif ($i == 2)
-                                        Gambar samping kanan
-                                    @elseif ($i == 3)
-                                        Gambar belakang
-                                    @elseif ($i == 4)
-                                        Gambar samping kiri
+                                <div class="form-group col-md-6 col-12">
+                                    @if ($dataTransaksi['nama_user'] != null)
+                                        <p class="text-sm fw-bold">{{ $dataTransaksi['nama_user'] }}</p>
                                     @else
-                                        Gambar Detail
+                                        <p class="text-md fw-bold">{{ $dataTransaksi['nama_pelanggan'] }}</p>
                                     @endif
-                                </h5>
-                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                    <i data-feather="x"></i>
-                                </button>
+
+                                </div>
+
+
                             </div>
-                            <div class="modal-body">
 
-                                <div id="Gallerycarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
 
-                                    <div class="carousel-inner">
-                                        <img class="d-block w-100"
-                                            src="{{ asset('data/cars/' . $dataMobil['gambar' . $i]) }}">
-                                    </div>
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>No Telepon</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    @if ($dataTransaksi['no_hp_user'] != null)
+                                        <p class="text-md">
+                                            <a target="_blank"
+                                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataTransaksi['no_hp_user']) }}&text=Halo,%20*{{ $dataTransaksi['nama_user'] }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
+                                                {{ $dataTransaksi['no_hp_user'] }}
+                                            </a>
+                                        </p>
+                                    @else
+                                        <p class="text-md">
+                                            <a target="_blank"
+                                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataTransaksi['no_hp_pelanggan']) }}&text=Halo,%20*{{ $dataTransaksi['nama_pelanggan'] }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
+                                                {{ $dataTransaksi['no_hp_pelanggan'] }}
+                                            </a>
+                                        </p>
+                                    @endif
 
                                 </div>
                             </div>
 
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Alamat</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    @if ($dataTransaksi['alamat_user'] != null)
+                                        <p class="text-md">{{ $dataTransaksi['alamat_user'] }}</p>
+                                    @else
+                                        <p class="text-md">{{ $dataTransaksi['alamat_pelanggan'] }}</p>
+                                    @endif
+
+
+
+                                </div>
                             </div>
+
+
+                            <hr style="border-top: dotted 3px;" />
+
+                            <h5>Detail Mobil</h5>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Merk dan Tipe Mobil</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    @if ($dataTransaksi['merk'] != null)
+                                        <p class="text-md">
+                                            <a href="{{ route('adminDetailMobil', $dataTransaksi['mobil_id']) }}"
+                                                rel="noopener noreferrer">
+                                                {{ $dataTransaksi['merk'] . ' - ' . $dataTransaksi['nama_model'] }}</a>
+
+                                        </p>
+                                    @else
+                                        <p class="text-md">Mobil Telah dihapus.</p>
+                                    @endif
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Plat</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    @if ($dataTransaksi['no_plat'] != null)
+                                        <p class="text-md">
+                                            {{ $dataTransaksi['no_plat'] }}</p>
+                                    @else
+                                        <p class="text-md">Mobil Telah dihapus.</p>
+                                    @endif
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Tahun</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    @if ($dataTransaksi['tahun'] != null)
+                                        <p class="text-md">
+                                            {{ $dataTransaksi['tahun'] }}</p>
+                                    @else
+                                        <p class="text-md">Mobil Telah dihapus.</p>
+                                    @endif
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Kapasitas Mesin</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    @if ($dataTransaksi['kapasitas_mesin'] != null)
+                                        <p class="text-md">
+                                            {{ $dataTransaksi['kapasitas_mesin'] }}</p>
+                                    @else
+                                        <p class="text-md">Mobil Telah dihapus.</p>
+                                    @endif
+
+
+
+                                </div>
+                            </div>
+
+                            <hr style="border-top: dotted 3px;" />
+
+                            <h5>Rincian Transaksi</h5>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Metode Pembayaran</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    @if ($dataTransaksi['payment_method'] == 1)
+                                        <p class="text-md">
+                                            Cash / Tunai
+                                        </p>
+                                    @elseif ($dataTransaksi['payment_method'] == 2)
+                                        <p class="text-md">
+                                            Kredit / Cicilan
+                                        </p>
+                                    @elseif ($dataTransaksi['payment_method'] == 2)
+                                        <p class="text-md">
+                                            Transfer Bank
+                                        </p>
+                                    @endif
+
+
+
+                                </div>
+                            </div>
+
+                            {{-- Jika pembayaran kredit --}}
+                            @if ($dataTransaksi['payment_method'] == 2)
+                                <div class="row">
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Nama Finance</label>
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        @if ($dataTransaksi['nama_finance'] != null)
+                                            <p class="text-md">
+                                                <a target="_blank"
+                                                    href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataTransaksi['telepon_finance']) }}&text=Halo,%20kami%20dari%20{{ $dataApp['app_name'] }}">
+                                                    {{ $dataTransaksi['nama_finance'] }}
+
+                                                </a>
+                                            </p>
+                                        @else
+                                            <p class="text-md">-</p>
+                                        @endif
+
+
+
+                                    </div>
+                                </div>
+                            @endif
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Status</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    @if ($dataTransaksi['status'] == 1)
+                                        <span class="badge bg-success">Selesai</span>
+                                    @elseif ($dataTransaksi['status'] == 2)
+                                        <span class="badge bg-warning">Sedang di proses</span>
+                                    @elseif ($dataTransaksi['status'] == 3)
+                                        <span class="badge bg-info">Proses Finance</span>
+                                    @elseif ($dataTransaksi['status'] == 0)
+                                        <span class="badge bg-danger">Tidak Valid</span>
+                                    @endif
+
+
+
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Harga Mobil</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <p class="text-md">{{ formatRupiah($dataTransaksi['harga_jual']) }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Diskon</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <p class="text-md">{{ formatRupiah($dataTransaksi['diskon']) }}</p>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Total Transaksi</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    @if ($dataTransaksi['status'] == 1)
+                                        <p class="fw-bold text-success">
+                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
+                                        </p>
+                                    @elseif ($dataTransaksi['status'] == 2)
+                                        <p class="fw-bold text-warning">
+                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
+                                        </p>
+                                    @elseif ($dataTransaksi['status'] == 3)
+                                        <p class="fw-bold text-info">
+                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
+                                        </p>
+                                    @elseif ($dataTransaksi['status'] == 0)
+                                        <p class="fw-bold text-danger">
+                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
+                                        </p>
+                                    @endif
+
+                                </div>
+                            </div>
+
+
+                            <hr style="border-top: dotted 3px;" />
+
+
+
+
+
+                            <hr style="border-top: dotted 3px;" />
+                            <div class="d-flex justify-content-center">
+
+                                <h5 class="text-muted">{{ $dataApp['app_name'] }}</h5>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-            @endfor --}}
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="card">
+
+
+                        <div class="card-body">
+                            <h4>Data Pengajuan Kredit</h4>
+
+                            <div class="row mt-3">
+                                <div class="form-group col-md-6 col-12">
+                                    <label>KTP Suami / KTP Laki-laki</label>
+                                    @if ($dataTransaksi['ktp_suami'] != null)
+                                        <a href="{{ route('downloadFileCredit', $dataTransaksi['ktp_suami']) }}"
+                                            target="_blank">
+                                            <img class="w-100"
+                                                src="{{ asset('data/credit/' . $dataTransaksi['ktp_suami']) }}"
+                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
+                                        </a>
+                                    @else
+                                        <p class="text-sm mt-3 text-danger">Tidak ada file.</p>
+                                    @endif
+
+
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    <label>KTP Istri / KTP Perempuan</label>
+                                    @if ($dataTransaksi['ktp_istri'] != null)
+                                        <a href="{{ route('downloadFileCredit', $dataTransaksi['ktp_istri']) }}"
+                                            target="_blank">
+                                            <img class="w-100"
+                                                src="{{ asset('data/credit/' . $dataTransaksi['ktp_istri']) }}"
+                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
+                                        </a>
+                                    @else
+                                        <p class="text-sm mt-3 text-danger">Tidak ada file.</p>
+                                    @endif
+
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-md-6 col-12">
+                                    <label>Kartu Keluarga</label>
+                                    @if ($dataTransaksi['kk'] != null)
+                                        <a href="{{ route('downloadFileCredit', $dataTransaksi['kk']) }}"target="_blank">
+                                            <img class="w-100" src="{{ asset('data/credit/' . $dataTransaksi['kk']) }}"
+                                                data-bs-target="#Gallerycarousel" data-bs-slide-to="0">
+                                        </a>
+                                    @else
+                                        <p class="text-sm mt-3 text-danger">Tidak ada file.</p>
+                                    @endif
+
+
+                                </div>
+
+                            </div>
+
+                            <div class="divider mt-4">
+                                <div class="divider-text">Ubah Status Transaksi</div>
+                            </div>
+
+                            <form action="{{ route('updateStatusTransaksi') }}" method="post">
+                                @csrf
+
+                                <div class="mt-3">
+                                    @if ($dataTransaksi['user_id'] != null)
+                                        <input type="number" name="user_id" class="form-control"
+                                            value="{{ $dataTransaksi['user_id'] }}">
+                                    @else
+                                        <input type="number" name="user_id" readonly class="form-control"
+                                            value="0">
+                                    @endif
+
+                                    <input type="text" name="mobil_id" class="form-control"
+                                        value="{{ $dataTransaksi['mobil_id'] }}">
+                                    <input type="text" name="transaksi_id" class="form-control"
+                                        value="{{ $dataTransaksi['transaksi_id'] }}">
+
+
+                                    <label for="Status Transaksi">Status Transaksi</label>
+                                    <select name="status" required id="status_credit" class="form-control">
+                                        @if ($dataTransaksi['status'] == 1)
+                                            <option value="{{ $dataTransaksi['status'] }}" selected disabled>Selesai
+                                            </option>
+                                            <option value="2">Sedang di proses
+                                            </option>
+                                            <option value="3">Proses finance
+                                            </option>
+                                            <option value="0">Tidak valid
+                                            </option>
+                                        @elseif ($dataTransaksi['status'] == 2)
+                                            <option value="{{ $dataTransaksi['status'] }}" selected disabled>Sedang di
+                                                proses
+                                            </option>
+                                            <option value="3">Proses finance
+                                            </option>
+                                            <option value="1">Selesai
+                                            </option>
+                                            <option value="0">Tidak valid
+                                            </option>
+                                        @elseif ($dataTransaksi['status'] == 3)
+                                            <option value="{{ $dataTransaksi['status'] }}" selected disabled>Proses
+                                                finance
+                                            </option>
+                                            <option value="1">Selesai
+                                            </option>
+                                            <option value="2">Sedang di proses
+                                            </option>
+                                            <option value="0">Tidak valid
+                                            </option>
+                                        @elseif ($dataTransaksi['status'] == 0)
+                                            <option value="{{ $dataTransaksi['status'] }}" selected disabled>Tidak
+                                                valid
+                                            </option>
+                                            <option value="1">Selesai
+                                            </option>
+                                            <option value="2">Sedang di proses
+                                            </option>
+                                            <option value="3">Proses finance
+                                            </option>
+                                        @endif
+
+                                    </select>
+
+                                    <div id="alasan_credit" class="mt-3">
+                                        <label>Alasan</label>
+                                        <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu..."></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-end mt-3">
+                                        <button class="btn btn-primary">Simpan Perubahan</button>
+                                    </div>
+
+
+                                </div>
+
+                            </form>
+
+
+
+
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        </div>
+
+
 
 
 
@@ -678,19 +711,21 @@
 @endsection
 
 @section('js')
+    {{-- jq select status credit --}}
     <script>
-        function formatRupiah(angka) {
-            var number_string = angka.toString();
-            var sisa = number_string.length % 3;
-            var rupiah = number_string.substr(0, sisa);
-            var ribuan = number_string.substr(sisa).match(/\d{3}/g);
+        $(document).ready(function() {
+            // sembunyikan field alasan
+            $("#alasan_credit").hide();
+            $("#status_credit").change(function(e) {
+                var status = $(this).val();
+                if (status == 0) {
+                    $("#alasan_credit").show();
+                } else {
+                    $("#alasan_credit").hide();
+                }
 
-            if (ribuan) {
-                separator = sisa ? '.' : '';
-                rupiah += separator + ribuan.join('.');
-            }
 
-            return 'Rp. ' + rupiah;
-        }
+            });
+        });
     </script>
 @endsection

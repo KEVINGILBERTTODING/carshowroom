@@ -324,12 +324,12 @@
                                     <td>
                                         @if ($dm->no_hp_user != null)
                                             <a target="_blank"
-                                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->no_hp_user) }}&text=Halo,%20*{{ $dm->nama_user }}*,%20kami%20dari%20Rizqi%20Motor">
+                                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->no_hp_user) }}&text=Halo,%20*{{ $dm->nama_user }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
                                                 {{ $dm->no_hp_user }}
                                             </a>
                                         @else
                                             <a target="_blank"
-                                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->no_hp_pelanggan) }}&text=Halo,%20*{{ $dm->nama_pelanggan }}*,%20kami%20dari%20Rizqi%20Motor">
+                                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->no_hp_pelanggan) }}&text=Halo,%20*{{ $dm->nama_pelanggan }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
                                                 {{ $dm->no_hp_pelanggan }}
                                             </a>
                                         @endif
@@ -514,31 +514,27 @@
 
 
                                 <div class="form-group" id="ktp_suami">
-                                    <label>KTP Suami</label>
-                                    <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="ktp_suami"
+                                    <label>KTP Laki-laki / KTP Suami </label>
+                                    <input type="file" accept=".jpg,.png,.jpeg" name="ktp_suami"
                                         class="form-control">
-                                    <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png,
-                                        .pdf</span>
+                                    <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png</span>
 
 
                                 </div>
 
                                 <div class="form-group" id="ktp_istri">
-                                    <label>KTP Istri</label>
-                                    <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="ktp_istri"
+                                    <label>KTP Perempuan / KTP Istri</label>
+                                    <input type="file" accept=".jpg,.png,.jpeg" name="ktp_istri"
                                         class="form-control">
-                                    <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png,
-                                        .pdf</span>
+                                    <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png</span>
 
 
                                 </div>
 
                                 <div class="form-group" id="kk">
                                     <label>Kartu Keluarga</label>
-                                    <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="kk"
-                                        class="form-control">
-                                    <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png,
-                                        .pdf</span>
+                                    <input type="file" accept=".jpg,.png,.jpeg" name="kk" class="form-control">
+                                    <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png</span>
 
                                 </div>
                             </div>
@@ -642,7 +638,7 @@
         $(document).ready(function() {
 
             $("#mobil_id").on("change", function() {
-                console.log('berhasil');
+
                 var mobilId = $(this).val();
                 $.ajax({
 

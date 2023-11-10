@@ -8,6 +8,7 @@ use App\Models\AppModel;
 use App\Models\CreditModel;
 use App\Models\FInanceModel;
 use App\Models\MobilModel;
+use App\Models\NotificationModel;
 use App\Models\PelangganModel;
 use App\Models\TransactionModel;
 use Carbon\Carbon;
@@ -402,5 +403,168 @@ class TransactionController extends Controller
         ];
 
         return view('admin.transactions.detail_transaction', $data);
+    }
+
+
+    function downloadFileCredit($fileName)
+    {
+        $path = public_path() . "/data/credit/" . $fileName;
+
+
+        if (file_exists($path)) {
+            // Determine the appropriate content type based on the file extension.
+            $fileExtension = pathinfo($path, PATHINFO_EXTENSION);
+            $contentType = $this->getContentType($fileExtension);
+
+            if ($contentType) {
+                // Set the content type header.
+
+
+                $headers = [
+                    'Content-Type: ' . $contentType,
+                ];
+
+                ob_end_clean();
+
+                // Return the file for download.
+                return response()->download($path, $fileName, $headers);
+            }
+        } else {
+            return abort(404);
+        }
+    }
+
+    // Function to determine the content type based on the file extension.
+    private function getContentType($fileExtension)
+    {
+        switch ($fileExtension) {
+            case 'pdf':
+                return 'application/pdf';
+            case 'jpg':
+            case 'png':
+            case 'jpeg':
+                return 'image/jpeg';
+                // Add more cases for other file types if needed.
+            default:
+                return false; // Unknown file type.
+        }
+    }
+
+    function updateStatusTransaksi(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|numeric',
+            'user_id' => 'required|numeric',
+            'mobil_id' => 'required|numeric',
+            'transaksi_id' => 'required|string',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', 'Gagal mengubah status transaksi');
+        }
+
+        // cek status transaksi
+        if ($request->input('status') == 1) { // transaksi selesai
+
+            $dataMobil = [
+                'status_mobil' => 0,
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            $dataMainTransaksi = [
+                'status' => 1,
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            $dataOtherTransaksi = [
+                'status' => 0,
+                'alasan' => 'Mohon maaf mobil telah laku terjual, terima kasih',
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            // cek apakah transaksi user atau pelanggan
+            if ($request->input('user_id') != 0) { // jika users
+
+                $datNotif = [
+                    'type' => 1,
+                    'user_id' => $request->input('user_id'),
+                    'transaksi_id' => $request->input('transaksi_id'),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+
+                $checkTransaction = TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                    ->where('status', '<>', 0)
+                    ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                    ->first();
+                // cek apa ada transaksi yang memilki mobil_id yang sama
+                if ($checkTransaction != null) {
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        NotificationModel::insert($datNotif);
+                        TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                            ->where('status', '<>', 0)
+                            ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                            ->update($dataOtherTransaksi);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                } else {
+                    // jika transaksi tidak ada
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        NotificationModel::insert($datNotif);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                }
+            } else {
+
+                $checkTransaction = TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                    ->where('status', '<>', 0)
+                    ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                    ->first();
+                // cek apa ada transaksi yang memilki mobil_id yang sama
+                if ($checkTransaction != null) {
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                            ->where('status', '<>', 0)
+                            ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                            ->update($dataOtherTransaksi);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                } else {
+                    // jika transaksi tidak ada
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                }
+            }
+        }
     }
 }

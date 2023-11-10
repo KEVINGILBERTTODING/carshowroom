@@ -719,27 +719,25 @@
 
 
                             <div class="form-group" id="ktp_suami">
-                                <label>KTP Suami</label>
-                                <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="ktp_suami"
-                                    class="form-control">
-                                <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png, .pdf</span>
+                                <label>KTP Laki-laki / KTP Suami</label>
+                                <input type="file" accept=".jpg,.png,.jpeg" name="ktp_suami" class="form-control">
+                                <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png</span>
 
 
                             </div>
 
                             <div class="form-group" id="ktp_istri">
-                                <label>KTP Istri</label>
-                                <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="ktp_istri"
-                                    class="form-control">
-                                <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png, .pdf</span>
+                                <label>KTP Perempuan / KTP Istri</label>
+                                <input type="file" accept=".jpg,.png,.jpeg" name="ktp_istri" class="form-control">
+                                <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png</span>
 
 
                             </div>
 
                             <div class="form-group" id="kk">
                                 <label>Kartu Keluarga</label>
-                                <input type="file" accept=".jpg,.png,.jpeg,.pdf" name="kk" class="form-control">
-                                <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png, .pdf</span>
+                                <input type="file" accept=".jpg,.png,.jpeg" name="kk" class="form-control">
+                                <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png</span>
 
                             </div>
                         </div>
