@@ -286,14 +286,27 @@
 
                 </div>
 
-                <div class="d-flex justify-content-end mt-2">
+                <form action="{{ route('downloadReportPdf') }}" method="get">
+                    @csrf
 
-                    <button class="btn btn-success">
-                        <i class="bi bi-printer"></i>
-                        Cetak PDF
-                    </button>
+                    <input type="text" value="{{ $dateFrom }}" hidden readonly class="form-control mt-2"
+                        name="date_from" required="basicInput">
+                    <input type="text" value="{{ $dateEnd }}" hidden readonly class="form-control mt-2"
+                        name="date_end" required="basicInput">
+                    <input type="text" value="{{ $status }}" hidden readonly class="form-control mt-2"
+                        name="status" required="basicInput">
 
-                </div>
+
+                    <div class="d-flex justify-content-end mt-2">
+
+                        <button class="btn btn-success" type="submit">
+                            <i class="bi bi-printer"></i>
+                            Cetak PDF
+                        </button>
+
+                    </div>
+                </form>
+
 
             </div>
             <div class="card-body">

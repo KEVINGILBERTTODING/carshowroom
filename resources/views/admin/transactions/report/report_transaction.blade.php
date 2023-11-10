@@ -46,26 +46,38 @@
             border: none;
             background-color: black;
         }
+
+        .footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            text-align: left;
+            font-style: italic;
+            font-size: 10px;
+            padding: 5px;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <img src="" alt="Main Logo">
+        <img src="{{ $logo }}" alt="Main Logo">
     </div>
 
     <div class="container">
         <div class="header">
 
-            <h1>RIZQI MOTOR</h1>
+            <h1>{{ $dataApp['app_name'] }}</h1>
             <h3>LAPORAN TRANSAKSI PENJUALAN MOBIL</h3>
-            <p style="font-style: italic; margin-top: 0;">Email: rizqi@gmail.com - Telp: 08232323</p>
-            <p style="font-style: italic; margin-top: 0;">Jl. WR. Supratman</p>
+            <p style="font-style: italic; margin-top: 0;">Email: {{ $dataApp['email'] }} - Telp: {{ $dataApp['no_hp'] }}
+            </p>
+            <p style="font-style: italic; margin-top: 0;">{{ $dataApp['alamat'] }}</p>
             <hr />
 
         </div>
     </div>
-    <p>Periode 2023-02-02 s/d 2023-02-02</p>
+    <p style="font-size: 12px; ">Periode {{ $dateFrom }} s/d {{ $dateEnd }}</p>
     <br>
 
     <table class="table">
@@ -75,6 +87,7 @@
                 <th>Tanggal</th>
                 <th>Kode Transaksi</th>
                 <th>Mobil</th>
+                <th>Nama Lenkgap</th>
                 <th>No. Hp</th>
                 <th>Alamat</th>
                 <th>Metode Pembayaran</th>
@@ -94,8 +107,7 @@
                     <td>{{ $dm->transaksi_id }}</td>
                     <td>
                         @if ($dm->nama_model != null)
-                            <a
-                                href="{{ route('adminDetailMobil', $dm->mobil_id) }}">{{ $dm->merk . '-' . $dm->nama_model }}</a>
+                            {{ $dm->merk . '-' . $dm->nama_model }}
                         @else
                             Mobil telah dihapus
                         @endif
@@ -109,15 +121,9 @@
                     </td>
                     <td>
                         @if ($dm->no_hp_user != null)
-                            <a target="_blank"
-                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->no_hp_user) }}&text=Halo,%20*{{ $dm->nama_user }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
-                                {{ $dm->no_hp_user }}
-                            </a>
+                            {{ $dm->no_hp_user }}
                         @else
-                            <a target="_blank"
-                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->no_hp_pelanggan) }}&text=Halo,%20*{{ $dm->nama_pelanggan }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
-                                {{ $dm->no_hp_pelanggan }}
-                            </a>
+                            {{ $dm->no_hp_pelanggan }}
                         @endif
                     </td>
                     <td>
@@ -140,10 +146,7 @@
                     </td>
                     <td>
                         @if ($dm->nama_finance != null)
-                            <a target="_blank"
-                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->telepon_finance) }}&text=Halo...">
-                                {{ $dm->nama_finance }}
-                            </a>
+                            {{ $dm->nama_finance }}
                         @else
                             -
                         @endif
@@ -175,13 +178,15 @@
             <tr>
                 <td width="0"><br><br></td>
                 <td>
-
-                    Daskrimti,<br>
-                    Kejaksaan Tinggi Jawa Tengah
                     <br>
+                    Kudus, {{ now()->format('d F Y') }}
+                    <br><br><br><br>
 
-                    <br><br><br><br><br>
-                    {{-- {{ $nama_daskrimti }} --}}
+                    <div style="border-top: 1px solid #000; width: 200px; margin-top: 20px;"></div>
+                    <span style="font-size: 12px; font-weight: bold;">
+                        {{ $dataAdmin['name'] }}<br>
+
+                    </span>
 
                 </td>
 
@@ -191,7 +196,25 @@
 
             </tr>
 
+            <div class="footer">
+                Dicetak pada tanggal {{ now()->format('Y-m-d H:i:s') }}
+            </div>
+
         </table>
+
+        <!-- Skrip JavaScript untuk menambahkan tulisan pada setiap halaman -->
+        <script type="text/php">
+        if ( isset($pdf) ) {
+            $pdf->page_script('
+                $font = $fontMetrics->get_font("Arial, Helvetica, sans-serif", "normal", 12);
+                $size = 12;
+                $pageText = "Dicetak pada tanggal ' . now()->format("Y-m-d H:i:s") . '";
+                $y = 15;
+                $x = 520;
+                $pdf->text($x, $y, $pageText, $font, $size);
+            ');
+        }
+    </script>
 </body>
 
 </html>
