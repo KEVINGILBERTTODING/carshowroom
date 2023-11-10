@@ -566,5 +566,307 @@ class TransactionController extends Controller
                 }
             }
         }
+
+
+
+        if ($request->input('status') == 2) { // transaksi proses
+
+            $dataMobil = [
+                'status_mobil' => 2,
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            $dataMainTransaksi = [
+                'status' => 2,
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            $dataOtherTransaksi = [
+                'status' => 0,
+                'alasan' => 'Mohon maaf mobil telah di pesan oleh pelanggan lain, terima kasih',
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            // cek apakah transaksi user atau pelanggan
+            if ($request->input('user_id') != 0) { // jika users
+
+                $datNotif = [
+                    'type' => 2,
+                    'user_id' => $request->input('user_id'),
+                    'transaksi_id' => $request->input('transaksi_id'),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+
+                $checkTransaction = TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                    ->where('status', '<>', 0)
+                    ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                    ->first();
+                // cek apa ada transaksi yang memilki mobil_id yang sama
+                if ($checkTransaction != null) {
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        NotificationModel::insert($datNotif);
+                        TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                            ->where('status', '<>', 0)
+                            ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                            ->update($dataOtherTransaksi);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                } else {
+                    // jika transaksi tidak ada
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        NotificationModel::insert($datNotif);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                }
+            } else {
+
+                $checkTransaction = TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                    ->where('status', '<>', 0)
+                    ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                    ->first();
+                // cek apa ada transaksi yang memilki mobil_id yang sama
+                if ($checkTransaction != null) {
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                            ->where('status', '<>', 0)
+                            ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                            ->update($dataOtherTransaksi);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                } else {
+                    // jika transaksi tidak ada
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                }
+            }
+        }
+
+        if ($request->input('status') == 3) { // proses finance
+
+            $dataMobil = [
+                'status_mobil' => 2,
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            $dataMainTransaksi = [
+                'status' => 3,
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            $dataOtherTransaksi = [
+                'status' => 0,
+                'alasan' => 'Mohon maaf mobil telah di pesan oleh pelanggan lain, terima kasih',
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            // cek apakah transaksi user atau pelanggan
+            if ($request->input('user_id') != 0) { // jika users
+
+                $datNotif = [
+                    'type' => 3,
+                    'user_id' => $request->input('user_id'),
+                    'transaksi_id' => $request->input('transaksi_id'),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+
+                $checkTransaction = TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                    ->where('status', '<>', 0)
+                    ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                    ->first();
+                // cek apa ada transaksi yang memilki mobil_id yang sama
+                if ($checkTransaction != null) {
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        NotificationModel::insert($datNotif);
+                        TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                            ->where('status', '<>', 0)
+                            ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                            ->update($dataOtherTransaksi);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                } else {
+                    // jika transaksi tidak ada
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        NotificationModel::insert($datNotif);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                }
+            } else {
+
+                $checkTransaction = TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                    ->where('status', '<>', 0)
+                    ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                    ->first();
+                // cek apa ada transaksi yang memilki mobil_id yang sama
+                if ($checkTransaction != null) {
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                            ->where('status', '<>', 0)
+                            ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                            ->update($dataOtherTransaksi);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                } else {
+                    // jika transaksi tidak ada
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                }
+            }
+        }
+
+        if ($request->input('status') == 0) { // tidak valid
+
+            $dataMobil = [
+                'status_mobil' => 1,
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            $dataMainTransaksi = [
+                'status' => 0,
+                'alasan' => $request->input('alasan'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+
+
+            // cek apakah transaksi user atau pelanggan
+            if ($request->input('user_id') != 0) { // jika users
+
+                $datNotif = [
+                    'type' => 0,
+                    'user_id' => $request->input('user_id'),
+                    'transaksi_id' => $request->input('transaksi_id'),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+
+                $checkTransaction = TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                    ->where('status', '<>', 0)
+                    ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                    ->first();
+                // cek apa ada transaksi yang memilki mobil_id yang sama
+                if ($checkTransaction != null) {
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        NotificationModel::insert($datNotif);
+
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                } else {
+                    // jika transaksi tidak ada
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        NotificationModel::insert($datNotif);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                }
+            } else {
+
+                $checkTransaction = TransactionModel::where('mobil_id', $request->input('mobil_id'))
+                    ->where('status', '<>', 0)
+                    ->where('transaksi_id', '<>', $request->input('transaksi_id'))
+                    ->first();
+                // cek apa ada transaksi yang memilki mobil_id yang sama
+                if ($checkTransaction != null) {
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                } else {
+                    // jika transaksi tidak ada
+                    DB::beginTransaction();
+                    try {
+                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
+                    } catch (\Throwable $th) {
+                        DB::rollBack();
+                        return redirect()->back('failed', 'Gagal mengubah status transaksi');
+                    }
+                }
+            }
+        }
     }
 }
