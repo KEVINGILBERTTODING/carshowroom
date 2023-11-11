@@ -68,10 +68,10 @@
     <div class="container">
         <div class="header">
 
-            <h1>{{ $dataApp['app_name'] }}</h1>
             <h1>@php
                 echo Str::upper($dataApp['app_name']);
             @endphp</h1>
+            <h3>LAPORAN TRANSAKSI PENJUALAN MOBIL</h3>
             <p style="font-style: italic; margin-top: 0; margin-bottom: 0;">Email: {{ $dataApp['email'] }} - Telp:
                 {{ $dataApp['no_hp'] }}
             </p>

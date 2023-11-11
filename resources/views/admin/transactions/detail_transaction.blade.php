@@ -279,8 +279,25 @@
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5>Data pembeli</h5>
-                            <p class="text-sm">{{ $dataTransaksi['created_at'] }}</p>
+                            <h5>INVOICE</h5>
+                            <div class="row mt-3">
+                                <div class="col-md-6 col-12">
+                                    <p class="text-sm">Tanggal Transaksi</p>
+                                </div>
+
+                                <div class="col-md-6 col-12">
+                                    <p class="text-sm">{{ $dataTransaksi['created_at'] }}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <p class="text-sm">Kode Transaksi</p>
+                                </div>
+
+                                <div class="col-md-6 col-12">
+                                    <p class="text-sm">{{ $dataTransaksi['transaksi_id'] }}</p>
+                                </div>
+                            </div>
                             <hr style="border-top: dotted 3px;" />
 
 
