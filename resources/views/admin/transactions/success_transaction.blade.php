@@ -275,16 +275,25 @@
                     Table Daftar Transaksi Selesai
                 </h5>
 
+                <div class="d-flex justify-content-end mt-2">
+
+                    <button class="btn btn-info text-white" data-bs-toggle="modal" data-bs-target="#modal_filter">
+                        <i class="fa-solid fa-filter"></i> Filter
+                    </button>
+
+                </div>
 
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table" id="table1">
 
+
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Code Transaksi</th>
+                                <th>Tanggal</th>
                                 <th>Mobil</th>
                                 <th>No Plat</th>
                                 <th>Nama lengkap</th>
@@ -292,7 +301,6 @@
                                 <th>Alamat</th>
                                 <th>Metode Pembayaran</th>
                                 <th>Finance</th>
-                                <th>Tanggal</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -306,6 +314,7 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $dm->transaksi_id }}</td>
+                                    <td>{{ $dm->created_at }}</td>
                                     <td>
                                         @if ($dm->nama_model != null)
                                             <a
@@ -363,8 +372,6 @@
                                             -
                                         @endif
                                     </td>
-                                    <td>{{ $dm->created_at }}</td>
-
                                     <td>
                                         @if ($dm->status == 1)
                                             <span class="badge bg-success">Selesai</span>
@@ -403,19 +410,15 @@
             </div>
         </div>
 
-
-        <!--Modal buat transaksi baru -->
-        <form action="{{ route('adminTambahTransaksi') }}" method="post" enctype="multipart/form-data">
+        <!--Modal filter transaksi -->
+        <form action="{{ route('filterTransaksi') }}" method="get">
             @csrf
-            <div class="modal fade text-left modal-borderless" id="modal_transaksi_baru" tabindex="-1" role="dialog"
+            <div class="modal fade text-left modal-borderless" id="modal_filter" tabindex="-1" role="dialog"
                 aria-labelledby="myModalLabel1" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
-
+                <div class="modal-dialog modal-dialog-scrollable" role="document">
                     <div class="modal-content">
-
-
                         <div class="modal-header">
-                            <h5 class="modal-title">Transaksi Baru</h5>
+                            <h5 class="modal-title">Filter Transaksi</h5>
                             <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                                 aria-label="Close">
                                 <i data-feather="x"></i>
@@ -423,119 +426,21 @@
                         </div>
 
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-12 col-md-6 col-lg-6">
-                                    <h5>Data Pembeli</h5>
-                                    <div class="form-group mt-3">
-                                        <label>Nama Lengkap</label>
-                                        <input type="text" name="nama_lengkap" class="form-control" required>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label>No HP</label>
-                                        <input type="number" name="no_hp" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Alamat Lengkap</label>
-                                        <textarea type="text" name="alamat" rows="4" class="form-control" required
-                                            placeholder="Alamat lengkap..."></textarea>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Metode Pembayaran</label>
-                                        <select name="payment_method" id="payment_method" required class="form-control">
-                                            <option value="1">Cash</option>
-                                            <option value="2">Cicilan</option>
-                                        </select>
-                                    </div>
-
-                                </div>
-
-                                <div class="col-12 col-md-6 col-lg-6">
-                                    <h5>Data Mobil</h5>
-
-                                    <div class="form-group mt-3">
-                                        <label>Mobil</label>
-                                        <select name="mobil_id" id="mobil_id" required class="form-control">
-                                            <option value="" disabled selected>Pilih Mobil</option>
-                                            @foreach ($dataMobil as $dmm)
-                                                @if (!$dataMobil->isEmpty())
-                                                    <option value="{{ $dmm->mobil_id }}">
-                                                        {{ $dmm->merk . '-' . $dmm->nama_model }}
-                                                    </option>
-                                                @else
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>No Plat</label>
-                                        <input type="text" readonly id="no_plat" class="form-control" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Tahun</label>
-                                        <input type="text" readonly id="tahun" class="form-control" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Harga Jual</label>
-                                        <input type="text" readonly id="harga_jual" name="harga_jual"
-                                            class="form-control" required>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>Diskon</label>
-                                        <input type="text" name="diskon" readonly id="diskon"
-                                            class="form-control" required>
-                                    </div>
-
-
-
-
-                                </div>
-
+                            <div class="form-group">
+                                <label for="basicInput">Tanggal Mulai</label>
+                                <input type="date" class="form-control mt-2" name="date_from" required="basicInput">
+                            </div>
+                            <div class="form-group">
+                                <label for="basicInput">Tanggal Akhir</label>
+                                <input type="date" class="form-control mt-2" name="date_end" required="basicInput">
                             </div>
 
-                            <div class="" id="container_data_cicilan">
-                                <h5 class="mt-3">Data Pengaju Cicilan</h5>
-
-                                <div class="form-group mt-3" id="finance">
-                                    <label>Finance</label>
-                                    <select name="finance_id" class="form-control">
-                                        @foreach ($dataFinance as $df)
-                                            <option value="{{ $df->finance_id }}">{{ $df->nama_finance }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-
-
-                                <div class="form-group" id="ktp_suami">
-                                    <label>KTP Laki-laki / KTP Suami </label>
-                                    <input type="file" accept=".jpg,.png,.jpeg" name="ktp_suami"
-                                        class="form-control">
-                                    <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png</span>
-
-
-                                </div>
-
-                                <div class="form-group" id="ktp_istri">
-                                    <label>KTP Perempuan / KTP Istri</label>
-                                    <input type="file" accept=".jpg,.png,.jpeg" name="ktp_istri"
-                                        class="form-control">
-                                    <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png</span>
-
-
-                                </div>
-
-                                <div class="form-group" id="kk">
-                                    <label>Kartu Keluarga</label>
-                                    <input type="file" accept=".jpg,.png,.jpeg" name="kk" class="form-control">
-                                    <span class="text-warning text-sm">Ukuran file max 3 MB | .jpg, .jpeg, .png</span>
-
-                                </div>
+                            <div class="form-group" hidden>
+                                <label for="basicInput">Status</label>
+                                <input value="1" name="status" class="form-control">
                             </div>
+
 
 
 
@@ -545,27 +450,17 @@
                                 <i class="bx bx-x d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Batal</span>
                             </button>
-                            @foreach ($dataMobil as $dmm)
-                                @if (!$dataMobil->isEmpty())
-                                    <button type="submit" class="btn btn-primary ms-1">
-                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Simpan</span>
-                                    </button>
-                                @else
-                                    <button type="submit" disabled class="btn btn-primary ms-1">
-                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Simpan</span>
-                                    </button>
-                                @endif
-                            @endforeach
-
+                            <button type="submit" class="btn btn-primary ms-1">
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Simpan</span>
+                            </button>
                         </div>
 
                     </div>
-
                 </div>
             </div>
         </form>
+
 
     </section>
 @endsection

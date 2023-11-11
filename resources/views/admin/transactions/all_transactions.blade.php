@@ -298,10 +298,12 @@
                 <div class="table-responsive">
                     <table class="table" id="table1">
 
+
                         <thead>
                             <tr>
                                 <th>No</th>
                                 <th>Code Transaksi</th>
+                                <th>Tanggal</th>
                                 <th>Mobil</th>
                                 <th>No Plat</th>
                                 <th>Nama lengkap</th>
@@ -309,7 +311,6 @@
                                 <th>Alamat</th>
                                 <th>Metode Pembayaran</th>
                                 <th>Finance</th>
-                                <th>Tanggal</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -323,6 +324,7 @@
                                 <tr>
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $dm->transaksi_id }}</td>
+                                    <td>{{ $dm->created_at }}</td>
                                     <td>
                                         @if ($dm->nama_model != null)
                                             <a
@@ -380,8 +382,6 @@
                                             -
                                         @endif
                                     </td>
-                                    <td>{{ $dm->created_at }}</td>
-
                                     <td>
                                         @if ($dm->status == 1)
                                             <span class="badge bg-success">Selesai</span>
