@@ -117,7 +117,7 @@ class TransactionController extends Controller
         $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
-        $dataTransactions = $transactionModel->getAllTransactionByStatus(3);
+        $dataTransactions = $transactionModel->getAllTransactionByStatus(0);
         $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
             ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->where('status_mobil', 1)->get();

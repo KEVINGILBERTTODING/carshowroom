@@ -140,6 +140,9 @@ Route::get('hapusPemilik/{ownerId}', [UsersController::class, 'hapusPelanggan'])
 Route::get('hapusPelanggan/{pelangganId}', [UsersController::class, 'hapusPelanggan'])->name('hapusPelanggan')->middleware('admin');
 Route::get('dataPelanggan', [UsersController::class, 'pelanggan'])->name('dataPelanggan')->middleware('admin');
 Route::post('updatePelanggan', [UsersController::class, 'updatePelanggan'])->name('updatePelanggan')->middleware('admin');
+Route::get('dataPengguna', [UsersController::class, 'pengguna'])->name('dataPengguna')->middleware('admin');
+Route::post('updatePengguna', [UsersController::class, 'updatePengguna'])->name('updatePengguna')->middleware('admin');
+
 
 Route::get('adminDetailMobil/{mobilId}', [MobilController::class, 'adminDetailMobil'])->name('adminDetailMobil')->middleware('admin');
 

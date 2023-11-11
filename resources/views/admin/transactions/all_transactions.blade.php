@@ -536,7 +536,7 @@
                                                 @if (!$dataMobil->isEmpty())
                                                     <option value="{{ $dmm->mobil_id }}">
                                                         {{ $dmm->merk . '-' . $dmm->nama_model }}
-                                                        <span class="choices-text">{{ $dmm->merk . '-' . $dmm->nama_model }}</span>
+                                                        <span class="choices-text">{{ $dmm->nama_model }}</span>
                                                     </option>
                                                 @endif
                                             @endforeach

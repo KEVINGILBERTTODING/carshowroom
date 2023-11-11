@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Pemilik</title>
+    <title>Admin - Pengguna</title>
 @endsection
 
 @section('sidebar')
@@ -181,10 +181,10 @@
                             <li class="submenu-item  ">
                                 <a href="{{ route('dataPelanggan') }}" class="submenu-link">Pelanggan</a>
                             </li>
-                            <li class="submenu-item  ">
+                            <li class="submenu-item active">
                                 <a href="{{ route('dataPengguna') }}" class="submenu-link">Pengguna</a>
                             </li>
-                            <li class="submenu-item active">
+                            <li class="submenu-item">
                                 <a href="{{ route('dataPemilik') }}" class="submenu-link">Pemilik</a>
                             </li>
                         </ul>
@@ -266,7 +266,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Pemilik</h3>
+                <h3>Daftar Pengguna</h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -283,12 +283,9 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Table Daftar Pemilik
+                    Table Daftar Pengguna
                 </h5>
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_insert">Tambah
-                    </button>
-                </div>
+
 
             </div>
             <div class="card-body">
@@ -298,8 +295,10 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Pemilik</th>
+                                <th>Nama Lengkap</th>
                                 <th>Email</th>
+                                <th>No Handphone</th>
+                                <th>Alamat</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -309,13 +308,18 @@
                                 $no = 1;
                             @endphp
 
-                            @foreach ($dataPemilik as $dw)
+                            @foreach ($dataPengguna as $dw)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $dw->name }}</td>
+                                    <td>{{ $dw->nama_lengkap }}</td>
                                     <td>{{ $dw->email }}</td>
+                                    <td> <a target="_blank"
+                                        href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dw->no_hp) }}&text=Halo,%20*{{ $dw->nama_lengkap }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
+                                        {{ $dw->no_hp }}
+                                    </a></td>
+                                    <td>{{ $dw->alamat }}</td>
                                     <td>
-                                        @if ($dw->is_active == 1)
+                                        @if ($dw->status == 1)
                                             <span class="badge bg-success">Aktif</span>
                                         @else
                                             <span class="badge bg-danger">Tidak aktif</span>
@@ -325,12 +329,12 @@
                                         <div class="d-flex">
                                             <button style="margin-right: 10px" class="btn btn-warning"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#modal_update_{{ $dw->owner_id }}"><i
+                                                data-bs-target="#modal_update_{{ $dw->user_id }}"><i
                                                     class="fa-regular fa-pen-to-square"></i></button>
-                                            <button data-owner_id="{{ $dw->owner_id }}"
+                                            {{-- <button data-user_id="{{ $dw->user_id }}"
                                                 class="btn btn-danger btnDelete"><i
                                                     class="fa-regular fa-trash-can"></i></a>
-                                            </button>
+                                            </button> --}}
 
                                         </div>
 
@@ -338,65 +342,40 @@
                                     </td>
                                 </tr>
 
-                                <!--Modal ubah data pemilik  -->
-                                <div class="modal fade text-left modal-borderless" id="modal_update_{{ $dw->owner_id }}"
+                                <!--Modal ubah data pengguna  -->
+                                <div class="modal fade text-left modal-borderless" id="modal_update_{{ $dw->user_id }}"
                                     tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Ubah Data Pemilik</h5>
+                                                <h5 class="modal-title">Ubah Data Pengguna</h5>
                                                 <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
                                                     aria-label="Close">
                                                     <i data-feather="x"></i>
                                                 </button>
                                             </div>
-                                            <form action="{{ route('updatePemilik') }}" method="post">
+                                            <form action="{{ route('updatePengguna') }}" method="post">
                                                 @csrf
                                                 <div class="modal-body">
 
                                                     <div class="form-group">
-                                                        <label for="basicInput">Nama Lengkap</label>
+                                                        <label for="basicInput">Status Pengguna</label>
                                                         <input type="text" hidden readonly class="form-control mt-2"
-                                                            value="{{ $dw->owner_id }}" name="owner_id" id="basicInput"
-                                                            required>
-                                                        <input type="text" class="form-control mt-2"
-                                                            value="{{ $dw->name }}" name="name" id="basicInput"
-                                                            required>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Email</label>
-
-                                                        <input type="text" class="form-control mt-2"
-                                                            value="{{ $dw->email }}" name="email" id="basicInput"
-                                                            required>
-                                                    </div>
-
-
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Status</label>
+                                                        value="{{ $dw->user_id }}" name="user_id" id="basicInput"
+                                                        required>
 
                                                         <select type="text" class="form-control mt-2" name="status"
                                                             id="basicInput" required>
-                                                            @if ($dw->is_active == 1)
+                                                            @if ($dw->status == 1)
                                                                 <option value="1">Aktif</option>
                                                                 <option value="0">Tidak Aktif</option>
                                                             @else
                                                                 <option value="0">Tidak Aktif</option>
                                                                 <option value="1">Aktif</option>
                                                             @endif
-                                                            <option value=""></option>
+
                                                         </select>
                                                     </div>
-
-
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Kata Sandi</label>
-
-                                                        <input type="text" class="form-control mt-2" value=""
-                                                            name="password" id="basicInput">
-                                                    </div>
-
 
 
 
@@ -422,55 +401,7 @@
                     </table>
                 </div>
 
-                <!--Modal tambah pemilik -->
-                <div class="modal fade text-left modal-borderless" id="modal_insert" tabindex="-1" role="dialog"
-                    aria-labelledby="myModalLabel1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Tambah Pemilik Baru</h5>
-                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                                    aria-label="Close">
-                                    <i data-feather="x"></i>
-                                </button>
-                            </div>
-                            <form action="{{ route('tambahPemilik') }}" method="post">
-                                @csrf
-                                <div class="modal-body">
 
-                                    <div class="form-group">
-                                        <label for="basicInput">Nama Lengkap</label>
-                                        <input type="text" class="form-control mt-2" name="name"
-                                            required="basicInput">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="basicInput">Email</label>
-                                        <input type="text" class="form-control mt-2" name="email" required
-                                            id="basicInput">
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="basicInput">Password</label>
-                                        <input type="text" class="form-control mt-2" name="password" required
-                                            id="basicInput">
-                                    </div>
-
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
-                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Batal</span>
-                                    </button>
-                                    <button type="submit" class="btn btn-primary ms-1">
-                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Simpan</span>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -479,9 +410,9 @@
 
 
 @section('js')
-    <script>
+    {{-- <script>
         $(document).on('click', '.btnDelete', function() {
-            var owner_id = $(this).data('owner_id');
+            var user_id = $(this).data('user_id');
             Swal.fire({
                 title: 'Konfirmasi Hapus Data',
                 text: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -496,10 +427,10 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    window.location.href = '/hapusPemilik/' + owner_id;
+                    window.location.href = '/hapusPemilik/' + user_id;
 
                 }
             });
         });
-    </script>
+    </script> --}}
 @endsection

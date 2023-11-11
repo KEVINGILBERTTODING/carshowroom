@@ -7,6 +7,8 @@ use App\Models\Admin;
 use App\Models\AppModel;
 use App\Models\OwnerModel;
 use App\Models\PelangganModel;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -150,7 +152,7 @@ class UsersController extends Controller
     {
         $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
-        $dataPelanggan = PelangganModel::get();
+        $dataPelanggan = PelangganModel::orderBy('created_at', 'desc')->get();
         $data = [
             'dataAdmin' => $dataAdmin,
             'dataApp' => $dataApp,
@@ -212,6 +214,47 @@ class UsersController extends Controller
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
+
+    function pengguna()
+    {
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $dataPengguna = User::orderBy('user_id', 'desc')->get();
+        $data = [
+            'dataAdmin' => $dataAdmin,
+            'dataApp' => $dataApp,
+            'dataPengguna' => $dataPengguna
+        ];
+        return view('admin.users.pengguna', $data);
+    }
+
+    function updatePengguna(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|numeric',
+            'status' => 'required|numeric'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+
+
+        try {
+            $data = [
+                'status' => $request->input('status'),
+                'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+            $update = User::where('user_id', $request->input('user_id'))->update($data);
+            if ($update) {
+                return redirect()->back()->with('success', 'Berhasil menguubah status pengguna');
+            } else {
+                return redirect()->back()->with('failed', 'Gagal mengubah status pengguna');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Gagal mengubah status pengguna');
         }
     }
 }

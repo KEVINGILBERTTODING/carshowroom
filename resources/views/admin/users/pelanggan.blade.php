@@ -182,7 +182,7 @@
                                 <a href="{{ route('dataPelanggan') }}" class="submenu-link">Pelanggan</a>
                             </li>
                             <li class="submenu-item  ">
-                                <a href="#" class="submenu-link">Pengguna</a>
+                                <a href="{{ route('dataPengguna') }}" class="submenu-link">Pengguna</a>
                             </li>
                             <li class="submenu-item">
                                 <a href="{{ route('dataPemilik') }}" class="submenu-link">Pemilik</a>
@@ -320,10 +320,10 @@
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modal_update_{{ $dw->pelanggan_id }}"><i
                                                     class="fa-regular fa-pen-to-square"></i></button>
-                                            <button data-pelanggan_id="{{ $dw->pelanggan_id }}"
+                                            {{-- <button data-pelanggan_id="{{ $dw->pelanggan_id }}"
                                                 class="btn btn-danger btnDelete"><i
                                                     class="fa-regular fa-trash-can"></i></a>
-                                            </button>
+                                            </button> --}}
 
                                         </div>
 
@@ -400,7 +400,7 @@
 
 
 @section('js')
-    <script>
+    {{-- <script>
         $(document).on('click', '.btnDelete', function() {
             var pelanggan_id = $(this).data('pelanggan_id');
             Swal.fire({
@@ -422,5 +422,5 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 @endsection

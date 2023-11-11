@@ -197,7 +197,7 @@
                                 <a href="{{ route('dataPelanggan') }}" class="submenu-link">Pelanggan</a>
                             </li>
                             <li class="submenu-item  ">
-                                <a href="#" class="submenu-link">Pengguna</a>
+                                <a href="{{ route('dataPengguna') }}" class="submenu-link">Pengguna</a>
                             </li>
                             <li class="submenu-item  ">
                                 <a href="{{ route('dataPemilik') }}" class="submenu-link">Pemilik</a>
