@@ -10,7 +10,7 @@
         }
 
         .container img {
-            max-width: 10%;
+            max-width: 8%;
             height: auto;
         }
 
@@ -70,9 +70,10 @@
 
             <h1>{{ $dataApp['app_name'] }}</h1>
             <h3>LAPORAN TRANSAKSI PENJUALAN MOBIL</h3>
-            <p style="font-style: italic; margin-top: 0;">Email: {{ $dataApp['email'] }} - Telp: {{ $dataApp['no_hp'] }}
+            <p style="font-style: italic; margin-top: 0; margin-bottom: 0;">Email: {{ $dataApp['email'] }} - Telp:
+                {{ $dataApp['no_hp'] }}
             </p>
-            <p style="font-style: italic; margin-top: 0;">{{ $dataApp['alamat'] }}</p>
+            <p style="font-style: italic; margin-top: 10px; margin-bottom: 10px;">{{ $dataApp['alamat'] }}</p>
             <hr />
 
         </div>
