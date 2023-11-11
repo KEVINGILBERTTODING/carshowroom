@@ -530,14 +530,14 @@
 
                                     <div class="form-group mt-3">
                                         <label>Mobil</label>
-                                        <select name="mobil_id" id="mobil_id" required class="form-control">
+                                        <select class="choices form-select" name="mobil_id" id="mobilSelect">
                                             <option value="" disabled selected>Pilih Mobil</option>
                                             @foreach ($dataMobil as $dmm)
                                                 @if (!$dataMobil->isEmpty())
                                                     <option value="{{ $dmm->mobil_id }}">
                                                         {{ $dmm->merk . '-' . $dmm->nama_model }}
+                                                        <span class="choices-text">{{ $dmm->merk . '-' . $dmm->nama_model }}</span>
                                                     </option>
-                                                @else
                                                 @endif
                                             @endforeach
                                         </select>
@@ -619,19 +619,15 @@
                                 <i class="bx bx-x d-block d-sm-none"></i>
                                 <span class="d-none d-sm-block">Batal</span>
                             </button>
-                            @foreach ($dataMobil as $dmm)
+
                                 @if (!$dataMobil->isEmpty())
                                     <button type="submit" class="btn btn-primary ms-1">
                                         <i class="bx bx-check d-block d-sm-none"></i>
                                         <span class="d-none d-sm-block">Simpan</span>
                                     </button>
-                                @else
-                                    <button type="submit" disabled class="btn btn-primary ms-1">
-                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Simpan</span>
-                                    </button>
-                                @endif
-                            @endforeach
+                                    @endif
+
+
 
                         </div>
 
@@ -709,8 +705,7 @@
         // ajax untuk get data mobil
         $(document).ready(function() {
 
-            $("#mobil_id").on("change", function() {
-
+            $("#mobilSelect").on("change", function() {
                 var mobilId = $(this).val();
                 $.ajax({
 
@@ -731,4 +726,10 @@
             });
         });
     </script>
+
+
+
+
+
+
 @endsection
