@@ -1106,7 +1106,61 @@ class TransactionController extends Controller
 
                 $pdf = FacadePdf::loadView('admin/transactions/report/report_transaction', $data);
                 $pdf->setPaper('A4', 'landscape');
-                return $pdf->download('Laporan.pdf');
+                return $pdf->download('Laporan_transaksi_' . $dateFrom . '-' . $dateEnd . '.pdf');
+            } else {
+                return redirect()->back()->with('failed', 'Tidak ada data transaksi');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
+
+    function downloadReportSuccessPdf(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|numeric',
+            'date_from' => 'required|date',
+            'date_end' => 'required|date'
+        ], [
+            'required' => 'Kolom :attribute tidak boleh kosong',
+            'numeric' => 'Kolom :attribute tidak valid',
+            'date' => 'Kolom :attribute tanggal tidak valid'
+        ], [
+            'status' => 'status transaksi',
+            'date_from' => 'tanggal dari',
+            'date_end' => 'tanggal akhir'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+        $dateFrom = $request->input('date_from');
+        $dateEnd = $request->input('date_end');
+        $status = $request->input('status');
+        try {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            $dataApp = AppModel::where('app_id', 1)->first();
+            $totalPemasukan = TransactionModel::where('status', 1)->sum('total_pembayaran');
+            $transactionModel = new TransactionModel();
+            $dataTransactions = $transactionModel->filterTransaksi($dateFrom, $dateEnd, $status);
+            $main_logo = public_path('data/app/img/' . $dataApp['logo']);
+            if ($dataAdmin && !$dataTransactions->isEmpty()) {
+                $data = [
+                    'dataAdmin' => $dataAdmin,
+                    'dataApp' => $dataApp,
+                    'dataTransactions' => $dataTransactions,
+                    'dateFrom' => $dateFrom,
+                    'dateEnd' => $dateEnd,
+                    'status' => $status,
+                    'logo' => $main_logo,
+                    'total_pemasukan' => $totalPemasukan,
+                    'dateNow' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+                $pdf = FacadePdf::loadView('admin/transactions/report/report_transaction_success', $data);
+                $pdf->setPaper('A4', 'landscape');
+                return $pdf->download('Laporan_transaksi_' . $dateFrom . '-' . $dateEnd . '.pdf');
             } else {
                 return redirect()->back()->with('failed', 'Tidak ada data transaksi');
             }

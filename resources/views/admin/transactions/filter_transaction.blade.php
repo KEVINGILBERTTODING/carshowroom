@@ -286,26 +286,52 @@
 
                 </div>
 
-                <form action="{{ route('downloadReportPdf') }}" method="get">
-                    @csrf
+                {{-- Jika status 1 maka arahkan ke download report success pdf --}}
+                @if ($status == 1)
+                    <form action="{{ route('downloadReportSuccessPdf') }}" method="get">
+                        @csrf
 
-                    <input type="text" value="{{ $dateFrom }}" hidden readonly class="form-control mt-2"
-                        name="date_from" required="basicInput">
-                    <input type="text" value="{{ $dateEnd }}" hidden readonly class="form-control mt-2"
-                        name="date_end" required="basicInput">
-                    <input type="text" value="{{ $status }}" hidden readonly class="form-control mt-2"
-                        name="status" required="basicInput">
+                        <input type="text" value="{{ $dateFrom }}" hidden readonly class="form-control mt-2"
+                            name="date_from" required="basicInput">
+                        <input type="text" value="{{ $dateEnd }}" hidden readonly class="form-control mt-2"
+                            name="date_end" required="basicInput">
+                        <input type="text" value="{{ $status }}" hidden readonly class="form-control mt-2"
+                            name="status" required="basicInput">
 
 
-                    <div class="d-flex justify-content-end mt-2">
+                        <div class="d-flex justify-content-end mt-2">
 
-                        <button class="btn btn-success" type="submit">
-                            <i class="bi bi-printer"></i>
-                            Cetak PDF
-                        </button>
+                            <button class="btn btn-success" type="submit">
+                                <i class="bi bi-printer"></i>
+                                Cetak PDF
+                            </button>
 
-                    </div>
-                </form>
+                        </div>
+                    </form>
+                @else
+                    <form action="{{ route('downloadReportPdf') }}" method="get">
+                        @csrf
+
+                        <input type="text" value="{{ $dateFrom }}" hidden readonly class="form-control mt-2"
+                            name="date_from" required="basicInput">
+                        <input type="text" value="{{ $dateEnd }}" hidden readonly class="form-control mt-2"
+                            name="date_end" required="basicInput">
+                        <input type="text" value="{{ $status }}" hidden readonly class="form-control mt-2"
+                            name="status" required="basicInput">
+
+
+                        <div class="d-flex justify-content-end mt-2">
+
+                            <button class="btn btn-success" type="submit">
+                                <i class="bi bi-printer"></i>
+                                Cetak PDF
+                            </button>
+
+                        </div>
+                    </form>
+                @endif
+
+
 
 
             </div>

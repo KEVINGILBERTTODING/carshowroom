@@ -152,3 +152,4 @@ Route::post('updateStatusTransaksi', [TransactionController::class, 'updateStatu
 Route::get('adminHapusTrasaksi/{transaksiId}', [TransactionController::class, 'hapusTrasaksi'])->name('adminHapusTrasaksi')->middleware('admin');
 Route::get('filterTransaksi', [TransactionController::class, 'filterTransaksi'])->name('filterTransaksi')->middleware('admin');
 Route::get('downloadReportPdf', [TransactionController::class, 'downloadReportPdf'])->name('downloadReportPdf')->middleware('admin');
+Route::get('downloadReportSuccessPdf', [TransactionController::class, 'downloadReportSuccessPdf'])->name('downloadReportSuccessPdf')->middleware('admin');

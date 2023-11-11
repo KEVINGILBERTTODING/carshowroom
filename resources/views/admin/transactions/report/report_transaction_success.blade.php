@@ -57,6 +57,13 @@
             font-size: 10px;
             padding: 5px;
         }
+
+        .table tfoot tr td[colspan="9"] {
+            text-align: right;
+            font-weight: bold;
+            border: 2px solid #000000;
+            padding: 8px;
+        }
     </style>
 </head>
 
@@ -68,10 +75,10 @@
     <div class="container">
         <div class="header">
 
-            <h1>{{ $dataApp['app_name'] }}</h1>
             <h1>@php
                 echo Str::upper($dataApp['app_name']);
             @endphp</h1>
+            <h3>LAPORAN TRANSAKSI PENJUALAN MOBIL</h3>
             <p style="font-style: italic; margin-top: 0; margin-bottom: 0;">Email: {{ $dataApp['email'] }} - Telp:
                 {{ $dataApp['no_hp'] }}
             </p>
@@ -95,6 +102,7 @@
                 <th>Metode Pembayaran</th>
                 <th>Finance</th>
                 <th>Status</th>
+                <th>Nominal</th>
             </tr>
         </thead>
         <tbody>
@@ -159,10 +167,17 @@
                             <span class="badge bg-info">Finance Proses</span>
                         @endif
                     </td>
+                    <td>{{ formatRupiah($dm->total_pembayaran) }}</td>
 
                 </tr>
             @endforeach
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="9" style="text-align: right; font-weight: bold;">Jumlah Pemasukan</td>
+                <td><b>{{ formatRupiah($total_pemasukan) }}</b></td>
+            </tr>
+        </tfoot>
 
 
     </table>
