@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\components\TransmisiController;
 use App\Http\Controllers\admin\components\WarnaController;
 use App\Http\Controllers\admin\MobilController;
 use App\Http\Controllers\admin\transactions\TransactionController;
+use App\Http\Controllers\admin\users\UsersController;
 use App\Http\Controllers\FinanceController;
 use Illuminate\Support\Facades\Route;
 
@@ -132,10 +133,14 @@ Route::get('ajaxGetDetailMobil/{mobilId}', [MobilController::class, 'ajaxGetDeta
 
 
 // pengguna
-Route::get('dataPemilik', [AdminController::class, 'owner'])->name('dataPemilik')->middleware('admin');
-Route::post('tambahPemilik', [AdminController::class, 'tambahPemilik'])->name('tambahPemilik')->middleware('admin');
-Route::post('updatePemilik', [AdminController::class, 'updatePemilik'])->name('updatePemilik')->middleware('admin');
-Route::get('hapusPemilik/{ownerId}', [AdminController::class, 'hapusPemilik'])->name('hapusPemilik')->middleware('admin');
+Route::get('dataPemilik', [UsersController::class, 'owner'])->name('dataPemilik')->middleware('admin');
+Route::post('tambahPemilik', [UsersController::class, 'tambahPemilik'])->name('tambahPemilik')->middleware('admin');
+Route::post('updatePemilik', [UsersController::class, 'updatePemilik'])->name('updatePemilik')->middleware('admin');
+Route::get('hapusPemilik/{ownerId}', [UsersController::class, 'hapusPelanggan'])->name('hapusPemilik')->middleware('admin');
+Route::get('hapusPelanggan/{pelangganId}', [UsersController::class, 'hapusPelanggan'])->name('hapusPelanggan')->middleware('admin');
+Route::get('dataPelanggan', [UsersController::class, 'pelanggan'])->name('dataPelanggan')->middleware('admin');
+Route::post('updatePelanggan', [UsersController::class, 'updatePelanggan'])->name('updatePelanggan')->middleware('admin');
+
 Route::get('adminDetailMobil/{mobilId}', [MobilController::class, 'adminDetailMobil'])->name('adminDetailMobil')->middleware('admin');
 
 // admin transactions
