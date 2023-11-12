@@ -1144,8 +1144,10 @@ class TransactionController extends Controller
             $totalPemasukan = TransactionModel::where('status', 1)
                 ->whereBetween('created_at', [$dateFrom, $dateEnd])
                 ->sum('total_pembayaran');
+
             $transactionModel = new TransactionModel();
             $dataTransactions = $transactionModel->filterTransaksi($dateFrom, $dateEnd, $status);
+            $totalKeuntungan = $transactionModel->totalProfitFilter($dateFrom, $dateEnd);
             $main_logo = public_path('data/app/img/' . $dataApp['logo']);
             if ($dataAdmin && !$dataTransactions->isEmpty()) {
                 $data = [
@@ -1157,6 +1159,7 @@ class TransactionController extends Controller
                     'status' => $status,
                     'logo' => $main_logo,
                     'total_pemasukan' => $totalPemasukan,
+                    'total_keuntungan' => $totalKeuntungan,
                     'dateNow' => Carbon::now()->format('Y-m-d H:i:s')
                 ];
 

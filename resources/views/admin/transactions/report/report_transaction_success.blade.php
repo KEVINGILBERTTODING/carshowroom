@@ -174,8 +174,12 @@
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="9" style="text-align: right; font-weight: bold;">Jumlah Pemasukan</td>
+                <td colspan="9" style="text-align: right; font-weight: bold;">Total Pemasukan</td>
                 <td><b>{{ formatRupiah($total_pemasukan) }}</b></td>
+            </tr>
+            <tr>
+                <td colspan="9" style="text-align: right; font-weight: bold;">Total Keuntungan</td>
+                <td><b>{{ formatRupiah($total_keuntungan) }}</b></td>
             </tr>
         </tfoot>
 

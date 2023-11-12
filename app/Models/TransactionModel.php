@@ -283,4 +283,37 @@ class TransactionModel extends Model
 
         return $data;
     }
+
+    function totalProfitFilter($dateFrom, $dateEnd)
+    {
+        // Konversi tanggal yang diberikan oleh pengguna ke format `Y-m-d H:i:s`
+        $dateFrom = Carbon::createFromFormat('Y-m-d', $dateFrom)->startOfDay();
+        $dateEnd = Carbon::createFromFormat('Y-m-d', $dateEnd)->endOfDay();
+        $data = TransactionModel::select(
+
+            'mobil.harga_jual',
+            'mobil.biaya_perbaikan',
+            'mobil.harga_beli',
+            'mobil.diskon'
+        )
+            ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
+            ->where('transaksi.status', 1)
+            ->whereBetween('transaksi.created_at', [$dateFrom, $dateEnd])
+            ->get();
+
+        $totalProfit = 0;
+        foreach ($data as $transaction) {
+            $sellingPrice = $transaction->harga_jual;
+            $purchasePrice = $transaction->harga_beli;
+            $repairCost = $transaction->biaya_perbaikan;
+            $discount = $transaction->diskon;
+            $hargaSetelahDiskon = $sellingPrice - $discount;
+
+            $profit = ($hargaSetelahDiskon - $purchasePrice - $repairCost);
+
+            $totalProfit += $profit;
+        }
+
+        return $totalProfit;
+    }
 }
