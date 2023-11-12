@@ -1141,7 +1141,9 @@ class TransactionController extends Controller
         try {
             $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
             $dataApp = AppModel::where('app_id', 1)->first();
-            $totalPemasukan = TransactionModel::where('status', 1)->sum('total_pembayaran');
+            $totalPemasukan = TransactionModel::where('status', 1)
+                ->whereBetween('created_at', [$dateFrom, $dateEnd])
+                ->sum('total_pembayaran');
             $transactionModel = new TransactionModel();
             $dataTransactions = $transactionModel->filterTransaksi($dateFrom, $dateEnd, $status);
             $main_logo = public_path('data/app/img/' . $dataApp['logo']);

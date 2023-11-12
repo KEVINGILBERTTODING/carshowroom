@@ -97,7 +97,7 @@
                 <th>Tanggal</th>
                 <th>Kode Transaksi</th>
                 <th>Mobil</th>
-                <th>Nama Lenkgap</th>
+                <th>Nama Lengkap</th>
                 <th>No. Hp</th>
                 <th>Metode Pembayaran</th>
                 <th>Finance</th>

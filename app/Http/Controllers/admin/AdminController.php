@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AppModel;
 use App\Models\OwnerModel;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -22,9 +23,11 @@ class AdminController extends Controller
     {
         $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
+        $totalUser = User::count();
         $data = [
             'dataAdmin' => $dataAdmin,
-            'dataApp' => $dataApp
+            'dataApp' => $dataApp,
+            'totalUser' => $totalUser
         ];
         return view('admin.main.index', $data);
     }
