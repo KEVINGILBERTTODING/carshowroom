@@ -161,3 +161,5 @@ Route::get('adminHapusTrasaksi/{transaksiId}', [TransactionController::class, 'h
 Route::get('filterTransaksi', [TransactionController::class, 'filterTransaksi'])->name('filterTransaksi')->middleware('admin');
 Route::get('downloadReportPdf', [TransactionController::class, 'downloadReportPdf'])->name('downloadReportPdf')->middleware('admin');
 Route::get('downloadReportSuccessPdf', [TransactionController::class, 'downloadReportSuccessPdf'])->name('downloadReportSuccessPdf')->middleware('admin');
+Route::get('getDetailTransaksiUser/{userId}/{namaLengkap}', [TransactionController::class, 'getDetailTransaksiUser'])->name('getDetailTransaksiUser')->middleware('admin');
+Route::get('getDetailTransaksiPelanggan{pelangganId}/{namaLengkap}', [TransactionController::class, 'getDetailTransaksiPelanggan'])->name('getDetailTransaksiPelanggan')->middleware('admin');

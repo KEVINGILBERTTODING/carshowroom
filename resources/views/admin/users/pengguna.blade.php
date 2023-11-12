@@ -173,7 +173,7 @@
                     <li class="sidebar-title">Data Pengguna</li>
                     <li class="sidebar-item  has-sub active">
                         <a href="#" class='sidebar-link'>
-                            <i class="bi bi-puzzle"></i>
+                            <i class="bi bi-people"></i>
                             <span>Pengguna</span>
                         </a>
 
@@ -314,9 +314,9 @@
                                     <td>{{ $dw->nama_lengkap }}</td>
                                     <td>{{ $dw->email }}</td>
                                     <td> <a target="_blank"
-                                        href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dw->no_hp) }}&text=Halo,%20*{{ $dw->nama_lengkap }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
-                                        {{ $dw->no_hp }}
-                                    </a></td>
+                                            href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dw->no_hp) }}&text=Halo,%20*{{ $dw->nama_lengkap }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
+                                            {{ $dw->no_hp }}
+                                        </a></td>
                                     <td>{{ $dw->alamat }}</td>
                                     <td>
                                         @if ($dw->status == 1)
@@ -327,6 +327,10 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
+                                            <a href="{{ route('getDetailTransaksiUser', ['userId' => $dw->user_id, 'namaLengkap' => $dw->nama_lengkap]) }}"
+                                                class="btn btn-info text-white" style="margin-right: 10px;"><i
+                                                    class="bi bi-info-lg"></i></a>
+
                                             <button style="margin-right: 10px" class="btn btn-warning"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modal_update_{{ $dw->user_id }}"><i
@@ -361,8 +365,8 @@
                                                     <div class="form-group">
                                                         <label for="basicInput">Status Pengguna</label>
                                                         <input type="text" hidden readonly class="form-control mt-2"
-                                                        value="{{ $dw->user_id }}" name="user_id" id="basicInput"
-                                                        required>
+                                                            value="{{ $dw->user_id }}" name="user_id" id="basicInput"
+                                                            required>
 
                                                         <select type="text" class="form-control mt-2" name="status"
                                                             id="basicInput" required>

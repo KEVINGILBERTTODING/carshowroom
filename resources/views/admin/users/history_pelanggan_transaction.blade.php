@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Merk Mobil</title>
+    <title>Admin - Riwayat Transaksi Pelanggan</title>
 @endsection
 
 @section('sidebar')
@@ -60,25 +60,26 @@
 
                     </li>
 
+
                     <li class="sidebar-title">Transaksi</li>
 
 
-                    <li class="sidebar-item  has-sub ">
+                    <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-currency-dollar"></i>
                             <span>Data Transaksi</span>
                         </a>
 
                         <ul class="submenu ">
-                            <li class="submenu-item ">
+                            <li class="submenu-item   ">
                                 <a href="{{ route('allDataTransactions') }}" class="submenu-link">Semua Transaksi</a>
 
                             </li>
-                            <li class="submenu-item ">
+                            <li class="submenu-item   ">
                                 <a href="{{ route('allTransactionProcess') }}" class="submenu-link">Transaksi Proses</a>
                             </li>
 
-                            <li class="submenu-item   ">
+                            <li class="submenu-item">
                                 <a href="{{ route('allTransactionProcessFinance') }}" class="submenu-link">Transaksi Proses
                                     Finance</a>
                             </li>
@@ -88,18 +89,21 @@
                                 <a href="{{ route('allTransactionSuccess') }}" class="submenu-link">Transaksi Selesai</a>
                             </li>
 
-                            <li class="submenu-item">
+                            <li class="submenu-item ">
                                 <a href="{{ route('allTransactionFailed') }}" class="submenu-link">Transaksi Tidak Valid</a>
                             </li>
+
 
 
 
                         </ul>
                     </li>
 
+
                     <li class="sidebar-title">Data Master</li>
 
-                    <li class="sidebar-item  has-sub">
+
+                    <li class="sidebar-item  has-sub ">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-car-front"></i>
                             <span>Data Mobil</span>
@@ -110,7 +114,7 @@
                                 <a href="{{ route('tambahMobilBaru') }}" class="submenu-link">Tambah Mobil Baru</a>
 
                             </li>
-                            <li class="submenu-item  ">
+                            <li class="submenu-item ">
                                 <a href="{{ route('seluruhMobil') }}" class="submenu-link">Seluruh Mobil</a>
                             </li>
 
@@ -128,11 +132,9 @@
                             </li>
 
                         </ul>
-
-
                     </li>
 
-                    <li class="sidebar-item  has-sub active">
+                    <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-puzzle"></i>
                             <span>Komponen Mobil</span>
@@ -146,14 +148,14 @@
                                 <a href="{{ route('body') }}" class="submenu-link">Body</a>
                             </li>
 
-                            <li class="submenu-item  ">
+                            <li class="submenu-item ">
                                 <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>
 
                             </li>
-                            <li class="submenu-item active  ">
+                            <li class="submenu-item ">
+                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>
+                            </li>
+                            <li class="submenu-item   ">
                                 <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
 
                             </li>
@@ -162,6 +164,7 @@
                             </li>
                             <li class="submenu-item  ">
                                 <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
+
                             </li>
 
                             <li class="submenu-item">
@@ -170,7 +173,7 @@
                             </li>
                         </ul>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item ">
                         <a href="{{ route('finance') }}" class='sidebar-link'>
                             <i class="bi bi-wallet2"></i>
                             <span>Finance</span>
@@ -180,8 +183,8 @@
                     </li>
 
 
-                    </li>
 
+                    </li>
                     <li class="sidebar-title">Data Pengguna</li>
                     <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
@@ -204,8 +207,6 @@
                     </li>
 
                     </li>
-
-
                     <li class="sidebar-title">Profil Saya</li>
                     <li class="sidebar-item ">
                         <a href="{{ route('adminProfile') }}" class='sidebar-link'>
@@ -213,6 +214,7 @@
                             <span>Profil</span>
                         </a>
                     </li>
+
 
 
                 </ul>
@@ -255,7 +257,6 @@
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                             style="min-width: 11rem;">
-
                             <li><a class="dropdown-item" href="{{ route('adminProfile') }}"><i
                                         class="icon-mid bi bi-person me-2"></i>Profil
                                     Saya</a></li>
@@ -278,14 +279,15 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Merk Mobil</h3>
+                <h3>Daftar Riwayat Transaksi Pelanggan</h3>
+                <p class="text-muted">{{ $nama_lengkap }}</p>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('adminDashboard') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Merk Mobil</li>
+                        <li class="breadcrumb-item active" aria-current="page">Riwayat Trasaksi Pelanggan</li>
                     </ol>
                 </nav>
             </div>
@@ -295,22 +297,30 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Table Merk Mobil
+                    Table Riwayat Transaksi Pelanggan
                 </h5>
-                <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_insert">Tambah
-                    </button>
-                </div>
+
+
 
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table" id="table1">
 
+
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Merk Mobil</th>
+                                <th>Code Transaksi</th>
+                                <th>Tanggal</th>
+                                <th>Mobil</th>
+                                <th>No Plat</th>
+                                <th>Nama lengkap</th>
+                                <th>No Hp</th>
+                                <th>Alamat</th>
+                                <th>Metode Pembayaran</th>
+                                <th>Finance</th>
+                                <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -319,113 +329,108 @@
                                 $no = 1;
                             @endphp
 
-                            @foreach ($dataMerk as $dw)
+                            @foreach ($dataTransactions as $dm)
                                 <tr>
                                     <td>{{ $no++ }}</td>
-                                    <td>{{ $dw->merk }}</td>
+                                    <td>{{ $dm->transaksi_id }}</td>
+                                    <td>{{ $dm->created_at }}</td>
+                                    <td>
+                                        @if ($dm->nama_model != null)
+                                            <a
+                                                href="{{ route('adminDetailMobil', $dm->mobil_id) }}">{{ $dm->merk . '-' . $dm->nama_model }}</a>
+                                        @else
+                                            Mobil telah dihapus
+                                        @endif
+                                    </td>
+                                    <td>{{ $dm->no_plat }}</td>
+                                    <td>
+                                        @if ($dm->nama_user != null)
+                                            {{ $dm->nama_user }}
+                                        @else
+                                            {{ $dm->nama_pelanggan }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($dm->no_hp_user != null)
+                                            <a target="_blank"
+                                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->no_hp_user) }}&text=Halo,%20*{{ $dm->nama_user }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
+                                                {{ $dm->no_hp_user }}
+                                            </a>
+                                        @else
+                                            <a target="_blank"
+                                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->no_hp_pelanggan) }}&text=Halo,%20*{{ $dm->nama_pelanggan }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
+                                                {{ $dm->no_hp_pelanggan }}
+                                            </a>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($dm->alamat_user != null)
+                                            {{ $dm->alamat_user }}
+                                        @else
+                                            {{ $dm->alamat_pelanggan }}
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($dm->payment_method == 1)
+                                            {{-- cash --}}
+                                            Cash / Tunai
+                                        @elseif ($dm->payment_method == 2)
+                                            {{-- credit --}}
+                                            Kredit / Cicil
+                                        @elseif ($dm->payment_method == 3)
+                                            Transfer
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($dm->nama_finance != null)
+                                            <a target="_blank"
+                                                href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->telepon_finance) }}&text=Halo...">
+                                                {{ $dm->nama_finance }}
+                                            </a>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($dm->status == 1)
+                                            <span class="badge bg-success">Selesai</span>
+                                        @elseif ($dm->status == 0)
+                                            <span class="badge bg-danger">Tidak Valid</span>
+                                        @elseif ($dm->status == 2)
+                                            <span class="badge bg-warning">Proses</span>
+                                        @elseif ($dm->status == 3)
+                                            <span class="badge bg-info">Finance Proses</span>
+                                        @endif
+                                    </td>
                                     <td>
                                         <div class="d-flex">
-                                            <button style="margin-right: 10px" class="btn btn-warning"
-                                                data-bs-toggle="modal"
-                                                data-bs-target="#modal_update_{{ $dw->merk_id }}"><i
-                                                    class="fa-regular fa-pen-to-square"></i></button>
-                                            <button data-merk_id="{{ $dw->merk_id }}"
+                                            <a href="{{ route('adminDetailTransaction', $dm->transaksi_id) }}"
+                                                class="btn btn-info text-white" style="margin-right: 10px;"><i
+                                                    class="bi bi-info-lg"></i></a>
+                                            <button data-transaksi_id="{{ $dm->transaksi_id }}"
                                                 class="btn btn-danger btnDelete"><i
                                                     class="fa-regular fa-trash-can"></i></a>
                                             </button>
+
 
                                         </div>
 
 
                                     </td>
                                 </tr>
-
-                                <!--Modal ubah merk -->
-                                <div class="modal fade text-left modal-borderless" id="modal_update_{{ $dw->merk_id }}"
-                                    tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Ubah Nama Merk Mobil</h5>
-                                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                                                    aria-label="Close">
-                                                    <i data-feather="x"></i>
-                                                </button>
-                                            </div>
-                                            <form action="{{ route('updateMerk') }}" method="post">
-                                                @csrf
-                                                <div class="modal-body">
-
-                                                    <div class="form-group">
-                                                        <label for="basicInput">Nama Merk Mobil</label>
-                                                        <input type="text" hidden readonly class="form-control mt-2"
-                                                            value="{{ $dw->merk_id }}" name="merk_id" id="basicInput">
-                                                        <input type="text" class="form-control mt-2"
-                                                            value="{{ $dw->merk }}" name="merk" id="basicInput">
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-light-primary"
-                                                        data-bs-dismiss="modal">
-                                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block">Batal</span>
-                                                    </button>
-                                                    <button type="submit" class="btn btn-primary ms-1">
-                                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                                        <span class="d-none d-sm-block">Simpan Perubahan</span>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             @endforeach
 
                         </tbody>
                     </table>
                 </div>
 
-                <!--Modal tambah merk -->
-                <div class="modal fade text-left modal-borderless" id="modal_insert" tabindex="-1" role="dialog"
-                    aria-labelledby="myModalLabel1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Tambah Nama Merk Mobil</h5>
-                                <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
-                                    aria-label="Close">
-                                    <i data-feather="x"></i>
-                                </button>
-                            </div>
-                            <form action="{{ route('tambahMerk') }}" method="post">
-                                @csrf
-                                <div class="modal-body">
-
-                                    <div class="form-group">
-                                        <label for="basicInput">Nama Merk Mobil</label>
-                                        <input type="text" class="form-control mt-2" name="merk" id="basicInput">
-                                    </div>
 
 
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
-                                        <i class="bx bx-x d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Batal</span>
-                                    </button>
-                                    <button type="submit" class="btn btn-primary ms-1">
-                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Simpan</span>
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
+
+
+
 
     </section>
 @endsection
@@ -434,7 +439,7 @@
 @section('js')
     <script>
         $(document).on('click', '.btnDelete', function() {
-            var merk_id = $(this).data('merk_id');
+            var transaksi_id = $(this).data('transaksi_id');
             Swal.fire({
                 title: 'Konfirmasi Hapus Data',
                 text: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -449,7 +454,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    window.location.href = '/hapusMerk/' + merk_id;
+                    window.location.href = '/adminHapusTrasaksi/' + transaksi_id;
 
                 }
             });

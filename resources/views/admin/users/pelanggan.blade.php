@@ -173,7 +173,7 @@
                     <li class="sidebar-title">Data Pengguna</li>
                     <li class="sidebar-item  has-sub active">
                         <a href="#" class='sidebar-link'>
-                            <i class="bi bi-puzzle"></i>
+                            <i class="bi bi-people"></i>
                             <span>Pengguna</span>
                         </a>
 
@@ -316,6 +316,9 @@
 
                                     <td>
                                         <div class="d-flex">
+                                            <a href="{{ route('getDetailTransaksiPelanggan', ['pelangganId' => $dw->pelanggan_id, 'namaLengkap' => $dw->nama_lengkap]) }}"
+                                                class="btn btn-info text-white" style="margin-right: 10px;"><i
+                                                    class="bi bi-info-lg"></i></a>
                                             <button style="margin-right: 10px" class="btn btn-warning"
                                                 data-bs-toggle="modal"
                                                 data-bs-target="#modal_update_{{ $dw->pelanggan_id }}"><i

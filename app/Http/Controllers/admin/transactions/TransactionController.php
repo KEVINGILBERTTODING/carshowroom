@@ -1168,4 +1168,51 @@ class TransactionController extends Controller
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
     }
+
+    function getDetailTransaksiUser($userId, $namaLengkap)
+    {
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $transactionModel = new TransactionModel();
+        $namaLengkap = $namaLengkap;
+        $dataTransactions = $transactionModel->getTransactionByUser($userId);
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+            ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->where('status_mobil', 1)->get();
+        $dataFinance = FInanceModel::where('status', 1)->get();
+
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataTransactions' => $dataTransactions,
+            'dataMobil' => $dataMobil,
+            'dataFinance' => $dataFinance,
+            'nama_lengkap' => $namaLengkap
+        ];
+
+        return view('admin.users.history_user_transaction', $data);
+    }
+
+    function getDetailTransaksiPelanggan($pelangganId, $namaLengkap)
+    {
+        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $transactionModel = new TransactionModel();
+        $dataTransactions = $transactionModel->getTransactionByPelanggan($pelangganId);
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+            ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->where('status_mobil', 1)->get();
+        $dataFinance = FInanceModel::where('status', 1)->get();
+
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataTransactions' => $dataTransactions,
+            'dataMobil' => $dataMobil,
+            'nama_lengkap' => $namaLengkap,
+            'dataFinance' => $dataFinance
+        ];
+
+        return view('admin.users.history_pelanggan_transaction', $data);
+    }
 }
