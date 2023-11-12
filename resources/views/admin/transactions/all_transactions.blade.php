@@ -185,6 +185,28 @@
 
 
                     </li>
+                    <li class="sidebar-title">Data Pengguna</li>
+                    <li class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
+                            <i class="bi bi-puzzle"></i>
+                            <span>Pengguna</span>
+                        </a>
+
+                        <ul class="submenu ">
+                            <li class="submenu-item  ">
+                                <a href="{{ route('dataPelanggan') }}" class="submenu-link">Pelanggan</a>
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('dataPengguna') }}" class="submenu-link">Pengguna</a>
+                            </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('dataPemilik') }}" class="submenu-link">Pemilik</a>
+                            </li>
+                        </ul>
+
+                    </li>
+
+                    </li>
                     <li class="sidebar-title">Profil Saya</li>
                     <li class="sidebar-item ">
                         <a href="{{ route('adminProfile') }}" class='sidebar-link'>
@@ -620,12 +642,12 @@
                                 <span class="d-none d-sm-block">Batal</span>
                             </button>
 
-                                @if (!$dataMobil->isEmpty())
-                                    <button type="submit" class="btn btn-primary ms-1">
-                                        <i class="bx bx-check d-block d-sm-none"></i>
-                                        <span class="d-none d-sm-block">Simpan</span>
-                                    </button>
-                                    @endif
+                            @if (!$dataMobil->isEmpty())
+                                <button type="submit" class="btn btn-primary ms-1">
+                                    <i class="bx bx-check d-block d-sm-none"></i>
+                                    <span class="d-none d-sm-block">Simpan</span>
+                                </button>
+                            @endif
 
 
 
@@ -726,10 +748,4 @@
             });
         });
     </script>
-
-
-
-
-
-
 @endsection

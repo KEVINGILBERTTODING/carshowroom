@@ -547,6 +547,7 @@
 
 
 @section('js')
+    {{-- Script greeting --}}
     <script>
         $(document).ready(function() {
 
