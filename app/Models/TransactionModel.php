@@ -316,4 +316,93 @@ class TransactionModel extends Model
 
         return $totalProfit;
     }
+
+    function totalKeuntunganYear($year)
+    {
+        // Set tanggal awal dan akhir tahun
+        $dateFrom = Carbon::createFromFormat('Y-m-d H:i:s', $year . '-01-01 00:00:00');
+
+        $totalProfits = [];
+
+        // Iterasi setiap bulan
+        for ($month = 1; $month <= 12; $month++) {
+            // Set tanggal awal dan akhir bulan
+            $dateFromMonth = $dateFrom->copy()->setMonth($month)->startOfMonth();
+            $dateToMonth = $dateFrom->copy()->setMonth($month)->endOfMonth();
+
+            // Query untuk mendapatkan data transaksi per bulan
+            $data = TransactionModel::select(
+                'mobil.harga_jual',
+                'mobil.biaya_perbaikan',
+                'mobil.harga_beli',
+                'mobil.diskon'
+            )
+                ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
+                ->where('transaksi.status', 1)
+                ->whereBetween('transaksi.created_at', [$dateFromMonth, $dateToMonth])
+                ->get();
+
+            // Hitung total keuntungan per bulan
+            $totalProfit = 0;
+
+            foreach ($data as $transaction) {
+                $sellingPrice = $transaction->harga_jual;
+                $purchasePrice = $transaction->harga_beli;
+                $repairCost = $transaction->biaya_perbaikan;
+                $discount = $transaction->diskon;
+
+                // Kurangi diskon dari harga jual
+                $sellingPriceAfterDiscount = $sellingPrice - $discount;
+
+                // Hitung keuntungan
+                $profit = ($sellingPriceAfterDiscount - $purchasePrice - $repairCost);
+
+                // Tambahkan keuntungan ke total keuntungan
+                $totalProfit += $profit;
+            }
+
+            // Simpan total keuntungan per bulan dalam array asosiatif
+            $monthName = Carbon::createFromDate($year, $month, 1)->format('F');
+            $totalProfits[$monthName] = $totalProfit;
+        }
+
+        return $totalProfits;
+    }
+
+    function totalPemasukanYear($year)
+    {
+        // Set tanggal awal dan akhir tahun
+        $dateFrom = Carbon::createFromFormat('Y-m-d H:i:s', $year . '-01-01 00:00:00');
+
+        $totalPemasukan = [];
+
+        // Iterasi setiap bulan
+        for ($month = 1; $month <= 12; $month++) {
+            // Set tanggal awal dan akhir bulan
+            $dateFromMonth = $dateFrom->copy()->setMonth($month)->startOfMonth();
+            $dateToMonth = $dateFrom->copy()->setMonth($month)->endOfMonth();
+
+            // Query untuk mendapatkan data transaksi per bulan
+            $data = TransactionModel::select(
+                'transaksi.total_pembayaran',
+            )
+                ->where('transaksi.status', 1)
+                ->whereBetween('transaksi.created_at', [$dateFromMonth, $dateToMonth])
+                ->get();
+
+            // Hitung total pemasukan per bulan
+            $totalProfit = 0;
+
+            foreach ($data as $transaction) {
+                $pemasukan = $transaction->total_pembayaran;
+                $totalProfit += $pemasukan;
+            }
+
+            // Simpan total pemasukan
+            $monthName = Carbon::createFromDate($year, $month, 1)->format('F');
+            $totalPemasukan[$monthName] = $totalProfit;
+        }
+
+        return $totalPemasukan;
+    }
 }

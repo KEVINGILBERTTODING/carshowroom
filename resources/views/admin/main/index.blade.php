@@ -281,12 +281,21 @@
 
 
 @section('content')
-    <div class="page-heading">
-        <h3 id="greeting"></h3>
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3 id="greeting"></h3>
+
+            </div>
+
+
+        </div>
     </div>
-    <div class="page-content">
-        <section class="row">
-            <div class="col-12 col-lg-9">
+    <section class="section">
+
+        <div class="section-body">
+            <div class="row mt-sm-4">
+
                 <div class="row">
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
@@ -298,7 +307,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Profile Views</h6>
+                                        <h6 class="text-muted font-semibold">Total Pengguna</h6>
                                         <h6 class="font-extrabold mb-0">{{ $totalUser }}</h6>
                                     </div>
                                 </div>
@@ -315,8 +324,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Followers</h6>
-                                        <h6 class="font-extrabold mb-0">183.000</h6>
+                                        <h6 class="text-muted font-semibold">Total Pelanggan</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $totalPelanggan }}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -332,8 +341,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Following</h6>
-                                        <h6 class="font-extrabold mb-0">80.000</h6>
+                                        <h6 class="text-muted font-semibold">Total Mobil Tersedia</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $totalMobilTersedia }}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -349,8 +358,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Saved Post</h6>
-                                        <h6 class="font-extrabold mb-0">112</h6>
+                                        <h6 class="text-muted font-semibold">Total Finance</h6>
+                                        <h6 class="font-extrabold mb-0">{{ $totalFinance }}</h6>
                                     </div>
                                 </div>
                             </div>
@@ -358,6 +367,29 @@
                     </div>
                 </div>
                 <div class="row">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h4>Grafik Total Pemasukan & Keuntungan Tahun {{ date('Y') }}</h4>
+                        </div>
+                        <div class="card-body">
+                            <div id="line"></div>
+                        </div>
+                    </div>
+
+
+                    {{-- <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>Grafik Transaksi Tahun {{ date('Y') }}</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="bar"></div>
+                            </div>
+                        </div>
+
+                    </div> --}}
+                    {{-- <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
@@ -368,185 +400,127 @@
                             </div>
                         </div>
                     </div>
+                </div> --}}
                 </div>
-                <div class="row">
-                    <div class="col-12 col-xl-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Profile Visit</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-7">
-                                        <div class="d-flex align-items-center">
-                                            <svg class="bi text-primary" width="32" height="32" fill="blue"
-                                                style="width:10px">
-                                                <use xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
-                                            </svg>
-                                            <h5 class="mb-0 ms-3">Europe</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-5">
-                                        <h5 class="mb-0 text-end">862</h5>
-                                    </div>
-                                    <div class="col-12">
-                                        <div id="chart-europe"></div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7">
-                                        <div class="d-flex align-items-center">
-                                            <svg class="bi text-success" width="32" height="32" fill="blue"
-                                                style="width:10px">
-                                                <use xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
-                                            </svg>
-                                            <h5 class="mb-0 ms-3">America</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-5">
-                                        <h5 class="mb-0 text-end">375</h5>
-                                    </div>
-                                    <div class="col-12">
-                                        <div id="chart-america"></div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-7">
-                                        <div class="d-flex align-items-center">
-                                            <svg class="bi text-danger" width="32" height="32" fill="blue"
-                                                style="width:10px">
-                                                <use xlink:href="assets/static/images/bootstrap-icons.svg#circle-fill" />
-                                            </svg>
-                                            <h5 class="mb-0 ms-3">Indonesia</h5>
-                                        </div>
-                                    </div>
-                                    <div class="col-5">
-                                        <h5 class="mb-0 text-end">1025</h5>
-                                    </div>
-                                    <div class="col-12">
-                                        <div id="chart-indonesia"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-12 col-xl-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Latest Comments</h4>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-lg">
-                                        <thead>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Comment</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="./assets/compiled/jpg/5.jpg">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Cantik</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Congratulations on your graduation!</p>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="col-3">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="avatar avatar-md">
-                                                            <img src="./assets/compiled/jpg/2.jpg">
-                                                        </div>
-                                                        <p class="font-bold ms-3 mb-0">Si Ganteng</p>
-                                                    </div>
-                                                </td>
-                                                <td class="col-auto">
-                                                    <p class=" mb-0">Wow amazing design! Can you make another tutorial for
-                                                        this design?</p>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-12 col-lg-3">
-                <div class="card">
-                    <div class="card-body py-4 px-4">
-                        <div class="d-flex align-items-center">
-                            <div class="avatar avatar-xl">
-                                <img src="./assets/compiled/jpg/1.jpg" alt="Face 1">
-                            </div>
-                            <div class="ms-3 name">
-                                <h5 class="font-bold">John Duck</h5>
-                                <h6 class="text-muted mb-0">@johnducky</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Recent Messages</h4>
-                    </div>
-                    <div class="card-content pb-4">
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg">
-                                <img src="./assets/compiled/jpg/4.jpg">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Hank Schrader</h5>
-                                <h6 class="text-muted mb-0">@johnducky</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg">
-                                <img src="./assets/compiled/jpg/5.jpg">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">Dean Winchester</h5>
-                                <h6 class="text-muted mb-0">@imdean</h6>
-                            </div>
-                        </div>
-                        <div class="recent-message d-flex px-4 py-3">
-                            <div class="avatar avatar-lg">
-                                <img src="./assets/compiled/jpg/1.jpg">
-                            </div>
-                            <div class="name ms-4">
-                                <h5 class="mb-1">John Dodol</h5>
-                                <h6 class="text-muted mb-0">@dodoljohn</h6>
-                            </div>
-                        </div>
-                        <div class="px-4">
-                            <button class='btn btn-block btn-xl btn-outline-primary font-bold mt-3'>Start
-                                Conversation</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Visitors Profile</h4>
-                    </div>
-                    <div class="card-body">
-                        <div id="chart-visitors-profile"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+    </section>
 @endsection
 
 
 @section('js')
+    {{-- script chart js --}}
+    <script>
+        $(document).ready(function() {
+            function formatRupiah(number) {
+                var formatter = new Intl.NumberFormat('id-ID', {
+                    style: 'currency',
+                    currency: 'IDR',
+                    minimumFractionDigits: 0
+                });
+                return formatter.format(number);
+            }
+
+            // data pemasukan
+            var dataPemasukanPerTahun = {
+                "January": {{ $dataPemasukanPerTahun['January'] }},
+                "February": {{ $dataPemasukanPerTahun['February'] }},
+                "March": {{ $dataPemasukanPerTahun['March'] }},
+                "April": {{ $dataPemasukanPerTahun['April'] }},
+                "May": {{ $dataPemasukanPerTahun['May'] }},
+                "June": {{ $dataPemasukanPerTahun['June'] }},
+                "July": {{ $dataPemasukanPerTahun['July'] }},
+                "August": {{ $dataPemasukanPerTahun['August'] }},
+                "September": {{ $dataPemasukanPerTahun['September'] }},
+                "October": {{ $dataPemasukanPerTahun['October'] }},
+                "November": {{ $dataPemasukanPerTahun['November'] }},
+                "December": {{ $dataPemasukanPerTahun['December'] }},
+            };
+
+            var dataKeuntunganPerTahun = {
+                "January": {{ $dataKeuntunganPerTahun['January'] }},
+                "February": {{ $dataKeuntunganPerTahun['February'] }},
+                "March": {{ $dataKeuntunganPerTahun['March'] }},
+                "April": {{ $dataKeuntunganPerTahun['April'] }},
+                "May": {{ $dataKeuntunganPerTahun['May'] }},
+                "June": {{ $dataKeuntunganPerTahun['June'] }},
+                "July": {{ $dataKeuntunganPerTahun['July'] }},
+                "August": {{ $dataKeuntunganPerTahun['August'] }},
+                "September": {{ $dataKeuntunganPerTahun['September'] }},
+                "October": {{ $dataKeuntunganPerTahun['October'] }},
+                "November": {{ $dataKeuntunganPerTahun['November'] }},
+                "December": {{ $dataKeuntunganPerTahun['December'] }},
+            };
+
+            var lineOptions = {
+                chart: {
+                    type: "line",
+                    height: 350,
+                },
+                series: [{
+                        name: "Pemasukan",
+                        data: [
+                            dataPemasukanPerTahun["January"],
+                            dataPemasukanPerTahun["February"],
+                            dataPemasukanPerTahun["March"],
+                            dataPemasukanPerTahun["April"],
+                            dataPemasukanPerTahun["May"],
+                            dataPemasukanPerTahun["June"],
+                            dataPemasukanPerTahun["July"],
+                            dataPemasukanPerTahun["August"],
+                            dataPemasukanPerTahun["September"],
+                            dataPemasukanPerTahun["October"],
+                            dataPemasukanPerTahun["November"],
+                            dataPemasukanPerTahun["December"]
+                        ],
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function(value) {
+                                return formatRupiah(value);
+                            }
+                        }
+                    },
+                    {
+                        name: "Keuntungan",
+                        data: [
+                            dataKeuntunganPerTahun["January"],
+                            dataKeuntunganPerTahun["February"],
+                            dataKeuntunganPerTahun["March"],
+                            dataKeuntunganPerTahun["April"],
+                            dataKeuntunganPerTahun["May"],
+                            dataKeuntunganPerTahun["June"],
+                            dataKeuntunganPerTahun["July"],
+                            dataKeuntunganPerTahun["August"],
+                            dataKeuntunganPerTahun["September"],
+                            dataKeuntunganPerTahun["October"],
+                            dataKeuntunganPerTahun["November"],
+                            dataKeuntunganPerTahun["December"]
+                        ],
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function(value) {
+                                return formatRupiah(value);
+                            }
+                        }
+                    }
+                ],
+                xaxis: {
+                    categories: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus",
+                        "September", "Oktober", "November",
+                        "Desember"
+                    ],
+                },
+                tooltip: {
+                    y: {
+                        formatter: function(value) {
+                            return formatRupiah(value);
+                        }
+                    }
+                }
+            };
+
+            var line = new ApexCharts(document.querySelector("#line"), lineOptions);
+            line.render(); // tambahkan baris ini untuk merender grafik
+        });
+    </script>
     {{-- Script greeting --}}
     <script>
         $(document).ready(function() {

@@ -80,6 +80,11 @@
     {{-- sleect 2 js --}}
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    {{-- js chart --}}
+    <script src="{{ asset('template/admin/assets/extensions/dayjs/dayjs.min.js') }}"></script>
+    <script src="{{ asset('template/admin/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
+    <script src="{{ asset('template/admin/assets/static/js/pages/ui-apexchart.js') }}"></script>
+
 </body>
 @yield('js')
 

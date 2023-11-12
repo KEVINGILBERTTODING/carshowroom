@@ -5,7 +5,11 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AppModel;
+use App\Models\FInanceModel;
+use App\Models\MobilModel;
 use App\Models\OwnerModel;
+use App\Models\PelangganModel;
+use App\Models\TransactionModel;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,13 +25,25 @@ class AdminController extends Controller
     }
     function index()
     {
+        $yearNow = Carbon::now()->format('Y');
+        $transaksiModel = new TransactionModel();
         $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
         $totalUser = User::count();
+        $totalFinance = FInanceModel::count();
+        $dataPemasukanPerTahun = $transaksiModel->totalPemasukanYear($yearNow);
+        $dataKeuntunganPerTahun = $transaksiModel->totalKeuntunganYear($yearNow);
+        $totalPelanggan = PelangganModel::count();
+        $totalMobilTersedia = MobilModel::where('status_mobil', 1)->count();
         $data = [
             'dataAdmin' => $dataAdmin,
             'dataApp' => $dataApp,
-            'totalUser' => $totalUser
+            'totalUser' => $totalUser,
+            'dataPemasukanPerTahun' => $dataPemasukanPerTahun,
+            'dataKeuntunganPerTahun' => $dataKeuntunganPerTahun,
+            'totalPelanggan' => $totalPelanggan,
+            'totalFinance' => $totalFinance,
+            'totalMobilTersedia' => $totalMobilTersedia
         ];
         return view('admin.main.index', $data);
     }
