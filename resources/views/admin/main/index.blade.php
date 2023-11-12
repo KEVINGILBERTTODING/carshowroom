@@ -282,7 +282,7 @@
 
 @section('content')
     <div class="page-heading">
-        <h3>Profile Statistics</h3>
+        <h3 id="greeting"></h3>
     </div>
     <div class="page-content">
         <section class="row">
@@ -547,4 +547,28 @@
 
 
 @section('js')
+    <script>
+        $(document).ready(function() {
+
+            var waktu = new Date();
+            var username = "{{ $dataAdmin['name'] }}";
+
+            var jam = waktu.getHours();
+
+            if (jam >= 6 && jam < 11) {
+
+                $("#greeting").text("Selamat pagi, " + username + '!');
+            } else if (jam >= 11 && jam < 15) {
+
+                $("#greeting").text("Selamat siang, " + username + '!');
+            } else if (jam >= 15 && jam < 18) {
+
+                $("#greeting").text("Selamat sore, " + username + '!');
+            } else {
+
+                $("#greeting").text("Selamat malam, " + username + '!');
+            }
+
+        });
+    </script>
 @endsection
