@@ -299,6 +299,16 @@
                     </a>
                 </div>
 
+                @if ($dataMobil != null)
+                    <div class="d-flex justify-content-end mt-2">
+                        <a class="btn btn-success" href="{{ route('downloadReportCars', 1) }}"> <i
+                                class="bi bi-printer"></i>
+                            Cetak
+                            PDF
+                        </a>
+                    </div>
+                @endif
+
             </div>
             <div class="card-body">
                 <div class="table-responsive">

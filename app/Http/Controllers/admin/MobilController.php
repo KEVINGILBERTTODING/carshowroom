@@ -15,6 +15,7 @@ use App\Models\MerkModel;
 use App\Models\MobilModel;
 use App\Models\PelangganModel;
 use App\Models\TangkiModel;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use App\Models\TransactionModel;
 use App\Models\TransmisiModel;
 use App\Models\WarnaModel;
@@ -864,6 +865,48 @@ class MobilController extends Controller
                     return redirect()->back()->with('failed', 'Gagal mengubah status mobil');
                 }
             }
+        }
+    }
+
+    function downloadReportCars($status)
+    {
+
+        try {
+
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            $dataApp = AppModel::where('app_id', 1)->first();
+            if ($status == 3) { // semua mobil
+                $dataMobil  = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+                    ->select('mobil.*', 'merk.merk')
+                    ->orderBy('mobil.mobil_id', 'desc')
+                    ->get();
+            } else {
+                $dataMobil  = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+                    ->select('mobil.*', 'merk.merk')
+                    ->where('mobil.status_mobil', $status)
+                    ->orderBy('mobil.mobil_id', 'desc')
+                    ->get();
+            }
+
+
+            $main_logo = public_path('data/app/img/' . $dataApp['logo']);
+            if ($dataAdmin && !$dataMobil->isEmpty()) {
+                $data = [
+                    'dataAdmin' => $dataAdmin,
+                    'dataApp' => $dataApp,
+                    'dataMobil' => $dataMobil,
+                    'logo' => $main_logo,
+                    'dateNow' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+                $pdf = FacadePdf::loadView('admin/car/report/report_cars', $data);
+                $pdf->setPaper('A4', 'landscape');
+                return $pdf->download('Laporan_mobil_' . date('F_Y') . '.pdf');
+            } else {
+                return redirect()->back()->with('failed', 'Tidak ada data mobil');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
     }
 }

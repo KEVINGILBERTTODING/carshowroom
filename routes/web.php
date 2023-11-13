@@ -128,6 +128,8 @@ Route::post('updateMobil', [MobilController::class, 'updateMobil'])->name('updat
 Route::post('setStatusMobilTersedia', [MobilController::class, 'setStatusMobilTersedia'])->name('setStatusMobilTersedia')->middleware('admin');
 Route::post('setStatusMobilTerjual', [MobilController::class, 'setStatusMobilTerjual'])->name('setStatusMobilTerjual')->middleware('admin');
 Route::get('ajaxGetDetailMobil/{mobilId}', [MobilController::class, 'ajaxGetDetailMobil'])->name('ajaxGetDetailMobil');
+Route::get('downloadReportCars/{status}', [MobilController::class, 'downloadReportCars'])->name('downloadReportCars')->middleware('admin');
+
 
 
 
