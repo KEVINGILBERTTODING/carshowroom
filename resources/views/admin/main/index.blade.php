@@ -381,6 +381,14 @@
                     <div class="card">
                         <div class="card-header">
                             <h4>Grafik Total Pemasukan & Keuntungan Tahun {{ date('Y') }}</h4>
+                            <div class="d-flex justify-content-end mt-2">
+
+                                <a href="{{ route('downloadReportProfit') }}" class="btn btn-success" type="submit">
+                                    <i class="bi bi-printer"></i>
+                                    Cetak PDF
+                                </a>
+
+                            </div>
                         </div>
                         <div class="card-body">
                             <div id="graph_profit"></div>
@@ -427,7 +435,8 @@
 
                             <div class="d-flex justify-content-end mt-2">
 
-                                <a href="{{ route('downloadReportTransactionMonth') }}" class="btn btn-success" type="submit">
+                                <a href="{{ route('downloadReportTransactionMonth') }}" class="btn btn-success"
+                                    type="submit">
                                     <i class="bi bi-printer"></i>
                                     Cetak PDF
                                 </a>

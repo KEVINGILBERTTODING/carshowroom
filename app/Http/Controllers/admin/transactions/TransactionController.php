@@ -1251,4 +1251,35 @@ class TransactionController extends Controller
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
     }
+
+    function downloadReportProfit()
+    {
+
+
+        try {
+            $yearNow = Carbon::now()->format('Y');
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            $dataApp = AppModel::where('app_id', 1)->first();
+            $transactionModel = new TransactionModel();
+            $dataPemasukanPerTahun = $transactionModel->totalPemasukanYear($yearNow);
+            $dataKeuntunganPerTahun = $transactionModel->totalKeuntunganYear($yearNow);
+
+            $main_logo = public_path('data/app/img/' . $dataApp['logo']);
+
+            $data = [
+                'dataAdmin' => $dataAdmin,
+                'dataApp' => $dataApp,
+                'dataPemasukan' => $dataPemasukanPerTahun,
+                'dataKeuntungan' => $dataKeuntunganPerTahun,
+                'logo' => $main_logo,
+                'dateNow' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            $pdf = FacadePdf::loadView('admin.transactions.report.report_transaction_profit', $data);
+            $pdf->setPaper('A4', 'landscape');
+            return $pdf->download('Laporan_pemasukan_keuntungan' . now()->format('m-Y') . '.pdf');
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
 }

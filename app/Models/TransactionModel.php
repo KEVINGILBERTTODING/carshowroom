@@ -399,6 +399,7 @@ class TransactionModel extends Model
             }
 
             // Simpan total pemasukan
+
             $monthName = Carbon::createFromDate($year, $month, 1)->format('F');
             $totalPemasukan[$monthName] = $totalProfit;
         }
