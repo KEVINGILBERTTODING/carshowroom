@@ -1221,11 +1221,34 @@ class TransactionController extends Controller
         return view('admin.users.history_pelanggan_transaction', $data);
     }
 
-    function total()
+    function downloadReportTransactionMonth()
     {
-        $year = "2023";
-        $transaksiModel = new TransactionModel();
-        $data = $transaksiModel->totalTransaksiYear($year, 1);
-        return response($data);
+
+        try {
+            $yearNow = Carbon::now()->format('Y');
+            $monthNow = Carbon::now()->format('m');
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            $dataApp = AppModel::where('app_id', 1)->first();
+            $transactionModel = new TransactionModel();
+            $dataTransactions = $transactionModel->getTransactionsMonth($yearNow, $monthNow);
+            $main_logo = public_path('data/app/img/' . $dataApp['logo']);
+            if ($dataAdmin && !$dataTransactions->isEmpty()) {
+                $data = [
+                    'dataAdmin' => $dataAdmin,
+                    'dataApp' => $dataApp,
+                    'dataTransactions' => $dataTransactions,
+                    'logo' => $main_logo,
+                    'dateNow' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+                $pdf = FacadePdf::loadView('admin/transactions/report/report_transaction_month', $data);
+                $pdf->setPaper('A4', 'landscape');
+                return $pdf->download('Laporan_transaksi_' . date('F_Y') . '.pdf');
+            } else {
+                return redirect()->back()->with('failed', 'Tidak ada data transaksi');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
     }
 }

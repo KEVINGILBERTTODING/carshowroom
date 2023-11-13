@@ -25,6 +25,7 @@ class AdminController extends Controller
     function index()
     {
         $yearNow = Carbon::now()->format('Y');
+        $monthNow = Carbon::now()->format('m');
         $transaksiModel = new TransactionModel();
         $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
@@ -40,6 +41,7 @@ class AdminController extends Controller
         $totalMobilTersedia = MobilModel::where('status_mobil', 1)->count();
         $userModel = new User();
         $totalPengguna = $userModel->getTotalUserYear($yearNow);
+        $dataTransactions = $transaksiModel->getTransactionsMonth($yearNow, $monthNow);
         $data = [
             'dataAdmin' => $dataAdmin,
             'dataApp' => $dataApp,
@@ -50,6 +52,7 @@ class AdminController extends Controller
             'jumlahTransaksiProses' => $jumlaTransaksiProses,
             'jumlahTransaksiProsesFinance' => $jumlaTransaksiProsesFinance,
             'jumlahTransaksiTidakValid' => $jumlaTransaksiTidakValid,
+            'dataTransactions' => $dataTransactions,
             'totalPengguna' => $totalPengguna,
             'totalPelanggan' => $totalPelanggan,
             'totalFinance' => $totalFinance,

@@ -416,6 +416,152 @@
 
 
                 </div>
+
+                <div class="row">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">
+                                Table Daftar Transaksi Bulan Ini
+                            </h5>
+                            <p>{{ date('F Y') }}</p>
+
+                            <div class="d-flex justify-content-end mt-2">
+
+                                <a href="{{ route('downloadReportTransactionMonth') }}" class="btn btn-success" type="submit">
+                                    <i class="bi bi-printer"></i>
+                                    Cetak PDF
+                                </a>
+
+                            </div>
+
+
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="table1">
+
+
+                                    <thead>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Code Transaksi</th>
+                                            <th>Tanggal</th>
+                                            <th>Mobil</th>
+                                            <th>No Plat</th>
+                                            <th>Nama lengkap</th>
+                                            <th>No Hp</th>
+                                            <th>Alamat</th>
+                                            <th>Metode Pembayaran</th>
+                                            <th>Finance</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                            $no = 1;
+                                        @endphp
+
+                                        @foreach ($dataTransactions as $dm)
+                                            <tr>
+                                                <td>{{ $no++ }}</td>
+                                                <td>{{ $dm->transaksi_id }}</td>
+                                                <td>{{ $dm->created_at }}</td>
+                                                <td>
+                                                    @if ($dm->nama_model != null)
+                                                        <a
+                                                            href="{{ route('adminDetailMobil', $dm->mobil_id) }}">{{ $dm->merk . '-' . $dm->nama_model }}</a>
+                                                    @else
+                                                        Mobil telah dihapus
+                                                    @endif
+                                                </td>
+                                                <td>{{ $dm->no_plat }}</td>
+                                                <td>
+                                                    @if ($dm->nama_user != null)
+                                                        {{ $dm->nama_user }}
+                                                    @else
+                                                        {{ $dm->nama_pelanggan }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($dm->no_hp_user != null)
+                                                        <a target="_blank"
+                                                            href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->no_hp_user) }}&text=Halo,%20*{{ $dm->nama_user }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
+                                                            {{ $dm->no_hp_user }}
+                                                        </a>
+                                                    @else
+                                                        <a target="_blank"
+                                                            href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->no_hp_pelanggan) }}&text=Halo,%20*{{ $dm->nama_pelanggan }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
+                                                            {{ $dm->no_hp_pelanggan }}
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($dm->alamat_user != null)
+                                                        {{ $dm->alamat_user }}
+                                                    @else
+                                                        {{ $dm->alamat_pelanggan }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($dm->payment_method == 1)
+                                                        {{-- cash --}}
+                                                        Cash / Tunai
+                                                    @elseif ($dm->payment_method == 2)
+                                                        {{-- credit --}}
+                                                        Kredit / Cicil
+                                                    @elseif ($dm->payment_method == 3)
+                                                        Transfer
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($dm->nama_finance != null)
+                                                        <a target="_blank"
+                                                            href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dm->telepon_finance) }}&text=Halo...">
+                                                            {{ $dm->nama_finance }}
+                                                        </a>
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if ($dm->status == 1)
+                                                        <span class="badge bg-success">Selesai</span>
+                                                    @elseif ($dm->status == 0)
+                                                        <span class="badge bg-danger">Tidak Valid</span>
+                                                    @elseif ($dm->status == 2)
+                                                        <span class="badge bg-warning">Proses</span>
+                                                    @elseif ($dm->status == 3)
+                                                        <span class="badge bg-info">Finance Proses</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <a href="{{ route('adminDetailTransaction', $dm->transaksi_id) }}"
+                                                            class="btn btn-info text-white" style="margin-right: 10px;"><i
+                                                                class="bi bi-info-lg"></i></a>
+                                                        <button data-transaksi_id="{{ $dm->transaksi_id }}"
+                                                            class="btn btn-danger btnDelete"><i
+                                                                class="fa-regular fa-trash-can"></i></a>
+                                                        </button>
+
+
+                                                    </div>
+
+
+                                                </td>
+                                            </tr>
+                                        @endforeach
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
     </section>
 @endsection
 
@@ -772,6 +918,31 @@
             }
             var bar = new ApexCharts(document.querySelector("#graph_transactions"), barOptions);
             bar.render();
+        });
+    </script>
+
+    {{-- script btn delete transaksi --}}
+    <script>
+        $(document).on('click', '.btnDelete', function() {
+            var transaksi_id = $(this).data('transaksi_id');
+            Swal.fire({
+                title: 'Konfirmasi Hapus Data',
+                text: 'Apakah Anda yakin ingin menghapus data ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Ya, Hapus!',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    confirmButton: 'confirm-button-class',
+                    cancelButton: 'cancel-button-class'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+
+                    window.location.href = '/adminHapusTrasaksi/' + transaksi_id;
+
+                }
+            });
         });
     </script>
     {{-- Script greeting --}}

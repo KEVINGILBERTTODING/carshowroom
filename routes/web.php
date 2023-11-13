@@ -165,3 +165,4 @@ Route::get('getDetailTransaksiUser/{userId}/{namaLengkap}', [TransactionControll
 Route::get('getDetailTransaksiPelanggan{pelangganId}/{namaLengkap}', [TransactionController::class, 'getDetailTransaksiPelanggan'])->name('getDetailTransaksiPelanggan')->middleware('admin');
 Route::get('totalProfitPerTahun', [TransactionController::class, 'totalProfitPerTahun'])->name('totalProfitPerTahun')->middleware('admin');
 Route::get('total', [TransactionController::class, 'total'])->name('total')->middleware('admin');
+Route::get('downloadReportTransactionMonth', [TransactionController::class, 'downloadReportTransactionMonth'])->name('downloadReportTransactionMonth')->middleware('admin');
