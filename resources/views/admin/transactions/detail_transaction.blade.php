@@ -551,12 +551,25 @@
 
                             <div class="row">
                                 <div class="form-group col-md-6 col-12">
+                                    <label>Biaya Pengiriman</label>
+                                </div>
+                                <div class="form-group col-md-6 col-12">
+                                    @if ($dataTransaksi['biaya_pengiriman'] != null)
+                                        <p class="text-md">{{ formatRupiah($dataTransaksi['biaya_pengiriman']) }}</p>
+                                    @else
+                                        <p class="text-md text-danger">Belum di tetapkan.</p>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group col-md-6 col-12">
                                     <label>Total Transaksi</label>
                                 </div>
                                 <div class="form-group col-md-6 col-12">
                                     @if ($dataTransaksi['status'] == 1)
                                         <p class="fw-bold text-success">
-                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
+                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon'] + $dataTransaksi['biaya_pengiriman']) }}
                                         </p>
                                     @elseif ($dataTransaksi['status'] == 2)
                                         <p class="fw-bold text-warning">
