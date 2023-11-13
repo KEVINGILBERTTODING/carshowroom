@@ -1220,4 +1220,12 @@ class TransactionController extends Controller
 
         return view('admin.users.history_pelanggan_transaction', $data);
     }
+
+    function total()
+    {
+        $year = "2023";
+        $transaksiModel = new TransactionModel();
+        $data = $transaksiModel->totalTransaksiYear($year, 1);
+        return response($data);
+    }
 }

@@ -299,115 +299,129 @@
                 <div class="row">
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
-                            <div class="card-body px-4 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                        <div class="stats-icon purple mb-2">
-                                            <i class="iconly-boldShow"></i>
+                            <a href="{{ route('dataPengguna') }}">
+                                <div class="card-body px-4 py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                            <div class="stats-icon purple mb-2">
+                                                <i class="iconly-boldShow"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                            <h6 class="text-muted font-semibold">Total Pengguna</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $totalUser }}</h6>
                                         </div>
                                     </div>
-                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Total Pengguna</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $totalUser }}</h6>
-                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
-                            <div class="card-body px-4 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                        <div class="stats-icon blue mb-2">
-                                            <i class="iconly-boldProfile"></i>
+                            <a href="{{ route('dataPelanggan') }}">
+                                <div class="card-body px-4 py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                            <div class="stats-icon blue mb-2">
+                                                <i class="iconly-boldProfile"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                            <h6 class="text-muted font-semibold">Total Pelanggan</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $totalPelanggan }}</h6>
                                         </div>
                                     </div>
-                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Total Pelanggan</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $totalPelanggan }}</h6>
-                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
-                            <div class="card-body px-4 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                        <div class="stats-icon green mb-2">
-                                            <i class="iconly-boldAdd-User"></i>
+                            <a href="{{ route('mobilTersedia') }}">
+                                <div class="card-body px-4 py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                            <div class="stats-icon green mb-2">
+                                                <i class="iconly-boldAdd-User"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                            <h6 class="text-muted font-semibold">Total Mobil Tersedia</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $totalMobilTersedia }}</h6>
                                         </div>
                                     </div>
-                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Total Mobil Tersedia</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $totalMobilTersedia }}</h6>
-                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-6 col-lg-3 col-md-6">
                         <div class="card">
-                            <div class="card-body px-4 py-4-5">
-                                <div class="row">
-                                    <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                        <div class="stats-icon red mb-2">
-                                            <i class="iconly-boldBookmark"></i>
+                            <a href="{{ route('finance') }}">
+                                <div class="card-body px-4 py-4-5">
+                                    <div class="row">
+                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                            <div class="stats-icon red mb-2">
+                                                <i class="iconly-boldBookmark"></i>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                            <h6 class="text-muted font-semibold">Total Finance</h6>
+                                            <h6 class="font-extrabold mb-0">{{ $totalFinance }}</h6>
                                         </div>
                                     </div>
-                                    <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                        <h6 class="text-muted font-semibold">Total Finance</h6>
-                                        <h6 class="font-extrabold mb-0">{{ $totalFinance }}</h6>
-                                    </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="row">
+
+
 
                     <div class="card">
                         <div class="card-header">
                             <h4>Grafik Total Pemasukan & Keuntungan Tahun {{ date('Y') }}</h4>
                         </div>
                         <div class="card-body">
-                            <div id="line"></div>
+                            <div id="graph_profit"></div>
                         </div>
                     </div>
 
 
-                    {{-- <div class="col-md-6">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Grafik Transaksi Tahun {{ date('Y') }}</h4>
+                                <h4>Grafik Jumlah Transaksi Tahun {{ date('Y') }}</h4>
                             </div>
                             <div class="card-body">
-                                <div id="bar"></div>
+                                <div id="graph_transactions"></div>
                             </div>
                         </div>
 
-                    </div> --}}
-                    {{-- <div class="row">
-                    <div class="col-12">
+                    </div>
+
+                    <div class="col-md-6">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Profile Visit</h4>
+                                <h4>Grafik Pengguna</h4>
                             </div>
                             <div class="card-body">
-                                <div id="chart-profile-visit"></div>
+                                <div id="graph_user"></div>
                             </div>
                         </div>
+
                     </div>
-                </div> --}}
+
+
                 </div>
     </section>
 @endsection
 
 
 @section('js')
-    {{-- script chart js --}}
+    {{-- script chart pemasukan dan profit  --}}
     <script>
         $(document).ready(function() {
             function formatRupiah(number) {
@@ -503,11 +517,13 @@
                     }
                 ],
                 xaxis: {
-                    categories: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus",
-                        "September", "Oktober", "November",
-                        "Desember"
+                    categories: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu",
+                        "Sep", "Okt", "Nov",
+                        "Des"
                     ],
                 },
+
+
                 tooltip: {
                     y: {
                         formatter: function(value) {
@@ -517,8 +533,245 @@
                 }
             };
 
-            var line = new ApexCharts(document.querySelector("#line"), lineOptions);
-            line.render(); // tambahkan baris ini untuk merender grafik
+            var line = new ApexCharts(document.querySelector("#graph_profit"), lineOptions);
+            line.render();
+        });
+    </script>
+
+    {{-- script chart user --}}
+    <script>
+        $(document).ready(function() {
+
+
+            // data pengguna
+            var dataPengguna = {
+                "January": {{ $totalPengguna['January'] }},
+                "February": {{ $totalPengguna['February'] }},
+                "March": {{ $totalPengguna['March'] }},
+                "April": {{ $totalPengguna['April'] }},
+                "May": {{ $totalPengguna['May'] }},
+                "June": {{ $totalPengguna['June'] }},
+                "July": {{ $totalPengguna['July'] }},
+                "August": {{ $totalPengguna['August'] }},
+                "September": {{ $totalPengguna['September'] }},
+                "October": {{ $totalPengguna['October'] }},
+                "November": {{ $totalPengguna['November'] }},
+                "December": {{ $totalPengguna['December'] }},
+            };
+
+            var lineOptions = {
+                chart: {
+                    type: "line",
+                    height: 350,
+                },
+
+                series: [{
+                        name: "Pengguna",
+                        data: [
+                            dataPengguna["January"],
+                            dataPengguna["February"],
+                            dataPengguna["March"],
+                            dataPengguna["April"],
+                            dataPengguna["May"],
+                            dataPengguna["June"],
+                            dataPengguna["July"],
+                            dataPengguna["August"],
+                            dataPengguna["September"],
+                            dataPengguna["October"],
+                            dataPengguna["November"],
+                            dataPengguna["December"]
+                        ],
+                        dataLabels: {
+                            enabled: true,
+                            formatter: function(value) {
+                                return Math.round(value);
+                            }
+                        }
+                    },
+
+                ],
+                xaxis: {
+                    categories: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu",
+                        "Sep", "Okt", "Nov",
+                        "Des"
+                    ],
+                },
+
+
+
+            };
+
+            var line = new ApexCharts(document.querySelector("#graph_user"), lineOptions);
+            line.render();
+        });
+    </script>
+
+    {{-- script chart total jumlah transaksi --}}
+
+    <script>
+        $(document).ready(function() {
+            var transaksiSelesai = {
+                "January": {{ $jumlahTransaksiSelesai['January'] }},
+                "February": {{ $jumlahTransaksiSelesai['February'] }},
+                "March": {{ $jumlahTransaksiSelesai['March'] }},
+                "April": {{ $jumlahTransaksiSelesai['April'] }},
+                "May": {{ $jumlahTransaksiSelesai['May'] }},
+                "June": {{ $jumlahTransaksiSelesai['June'] }},
+                "July": {{ $jumlahTransaksiSelesai['July'] }},
+                "August": {{ $jumlahTransaksiSelesai['August'] }},
+                "September": {{ $jumlahTransaksiSelesai['September'] }},
+                "October": {{ $jumlahTransaksiSelesai['October'] }},
+                "November": {{ $jumlahTransaksiSelesai['November'] }},
+                "December": {{ $jumlahTransaksiSelesai['December'] }},
+            };
+
+            var transaksiProses = {
+                "January": {{ $jumlahTransaksiProses['January'] }},
+                "February": {{ $jumlahTransaksiProses['February'] }},
+                "March": {{ $jumlahTransaksiProses['March'] }},
+                "April": {{ $jumlahTransaksiProses['April'] }},
+                "May": {{ $jumlahTransaksiProses['May'] }},
+                "June": {{ $jumlahTransaksiProses['June'] }},
+                "July": {{ $jumlahTransaksiProses['July'] }},
+                "August": {{ $jumlahTransaksiProses['August'] }},
+                "September": {{ $jumlahTransaksiProses['September'] }},
+                "October": {{ $jumlahTransaksiProses['October'] }},
+                "November": {{ $jumlahTransaksiProses['November'] }},
+                "December": {{ $jumlahTransaksiProses['December'] }},
+            };
+
+            var transaksiProsesFinance = {
+                "January": {{ $jumlahTransaksiProsesFinance['January'] }},
+                "February": {{ $jumlahTransaksiProsesFinance['February'] }},
+                "March": {{ $jumlahTransaksiProsesFinance['March'] }},
+                "April": {{ $jumlahTransaksiProsesFinance['April'] }},
+                "May": {{ $jumlahTransaksiProsesFinance['May'] }},
+                "June": {{ $jumlahTransaksiProsesFinance['June'] }},
+                "July": {{ $jumlahTransaksiProsesFinance['July'] }},
+                "August": {{ $jumlahTransaksiProsesFinance['August'] }},
+                "September": {{ $jumlahTransaksiProsesFinance['September'] }},
+                "October": {{ $jumlahTransaksiProsesFinance['October'] }},
+                "November": {{ $jumlahTransaksiProsesFinance['November'] }},
+                "December": {{ $jumlahTransaksiProsesFinance['December'] }},
+            };
+
+            var transaksiTidakValid = {
+                "January": {{ $jumlahTransaksiTidakValid['January'] }},
+                "February": {{ $jumlahTransaksiTidakValid['February'] }},
+                "March": {{ $jumlahTransaksiTidakValid['March'] }},
+                "April": {{ $jumlahTransaksiTidakValid['April'] }},
+                "May": {{ $jumlahTransaksiTidakValid['May'] }},
+                "June": {{ $jumlahTransaksiTidakValid['June'] }},
+                "July": {{ $jumlahTransaksiTidakValid['July'] }},
+                "August": {{ $jumlahTransaksiTidakValid['August'] }},
+                "September": {{ $jumlahTransaksiTidakValid['September'] }},
+                "October": {{ $jumlahTransaksiTidakValid['October'] }},
+                "November": {{ $jumlahTransaksiTidakValid['November'] }},
+                "December": {{ $jumlahTransaksiTidakValid['December'] }},
+            };
+            var barOptions = {
+                series: [{
+                        name: "Proses Finance",
+                        data: [
+                            transaksiProsesFinance["January"],
+                            transaksiProsesFinance["February"],
+                            transaksiProsesFinance["March"],
+                            transaksiProsesFinance["April"],
+                            transaksiProsesFinance["May"],
+                            transaksiProsesFinance["June"],
+                            transaksiProsesFinance["July"],
+                            transaksiProsesFinance["August"],
+                            transaksiProsesFinance["September"],
+                            transaksiProsesFinance["October"],
+                            transaksiProsesFinance["November"],
+                            transaksiProsesFinance["December"]
+                        ],
+                    },
+
+                    {
+                        name: "Selesai",
+                        data: [
+                            transaksiSelesai["January"],
+                            transaksiSelesai["February"],
+                            transaksiSelesai["March"],
+                            transaksiSelesai["April"],
+                            transaksiSelesai["May"],
+                            transaksiSelesai["June"],
+                            transaksiSelesai["July"],
+                            transaksiSelesai["August"],
+                            transaksiSelesai["September"],
+                            transaksiSelesai["October"],
+                            transaksiSelesai["November"],
+                            transaksiSelesai["December"]
+                        ],
+                    },
+                    {
+                        name: "Proses",
+                        data: [
+                            transaksiProses["January"],
+                            transaksiProses["February"],
+                            transaksiProses["March"],
+                            transaksiProses["April"],
+                            transaksiProses["May"],
+                            transaksiProses["June"],
+                            transaksiProses["July"],
+                            transaksiProses["August"],
+                            transaksiProses["September"],
+                            transaksiProses["October"],
+                            transaksiProses["November"],
+                            transaksiProses["December"]
+                        ],
+                    },
+                    {
+                        name: "Tidak Valid",
+                        data: [
+                            transaksiTidakValid["January"],
+                            transaksiTidakValid["February"],
+                            transaksiTidakValid["March"],
+                            transaksiTidakValid["April"],
+                            transaksiTidakValid["May"],
+                            transaksiTidakValid["June"],
+                            transaksiTidakValid["July"],
+                            transaksiTidakValid["August"],
+                            transaksiTidakValid["September"],
+                            transaksiTidakValid["October"],
+                            transaksiTidakValid["November"],
+                            transaksiTidakValid["December"]
+                        ],
+                    },
+                ],
+                chart: {
+                    type: "bar",
+                    height: 350,
+                },
+                plotOptions: {
+                    bar: {
+                        horizontal: false,
+                        columnWidth: "55%",
+                        endingShape: "rounded",
+                    },
+                },
+                dataLabels: {
+                    enabled: false,
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ["transparent"],
+                },
+                xaxis: {
+                    categories: ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Agu",
+                        "Sep", "Okt", "Nov",
+                        "Des"
+                    ],
+                },
+                fill: {
+                    opacity: 1,
+                },
+
+            }
+            var bar = new ApexCharts(document.querySelector("#graph_transactions"), barOptions);
+            bar.render();
         });
     </script>
     {{-- Script greeting --}}

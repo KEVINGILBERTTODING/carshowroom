@@ -83,7 +83,6 @@
     {{-- js chart --}}
     <script src="{{ asset('template/admin/assets/extensions/dayjs/dayjs.min.js') }}"></script>
     <script src="{{ asset('template/admin/assets/extensions/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('template/admin/assets/static/js/pages/ui-apexchart.js') }}"></script>
 
 </body>
 @yield('js')

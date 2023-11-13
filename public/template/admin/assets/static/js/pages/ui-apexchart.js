@@ -1,4 +1,17 @@
-
+var lineOptions = {
+  chart: {
+    type: "line",
+  },
+  series: [
+    {
+      name: "sales",
+      data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
+    },
+  ],
+  xaxis: {
+    categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+  },
+}
 var candleOptions = {
   series: [
     {
@@ -493,7 +506,7 @@ var radialBarOptions = {
   labels: ["Apples", "Oranges", "Bananas", "Berries"],
 }
 var bar = new ApexCharts(document.querySelector("#bar"), barOptions)
-
+var line = new ApexCharts(document.querySelector("#line"), lineOptions)
 var candle = new ApexCharts(document.querySelector("#candle"), candleOptions)
 var radialGradient = new ApexCharts(
   document.querySelector("#radialGradient"),

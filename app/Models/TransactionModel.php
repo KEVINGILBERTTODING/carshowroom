@@ -405,4 +405,35 @@ class TransactionModel extends Model
 
         return $totalPemasukan;
     }
+
+
+    function totalTransaksiYear($year, $status)
+    {
+        // Set tanggal awal dan akhir tahun
+        $dateFrom = Carbon::createFromFormat('Y-m-d H:i:s', $year . '-01-01 00:00:00');
+
+        $jumlahTransaksi = [];
+
+        // Iterasi setiap bulan
+        for ($month = 1; $month <= 12; $month++) {
+            // Set tanggal awal dan akhir bulan
+            $dateFromMonth = $dateFrom->copy()->setMonth($month)->startOfMonth();
+            $dateToMonth = $dateFrom->copy()->setMonth($month)->endOfMonth();
+
+            // Query untuk mendapatkan total transaksi
+            $data = TransactionModel::select(
+                'transaksi.transaksi_id',
+            )
+                ->where('transaksi.status', $status)
+                ->whereBetween('transaksi.created_at', [$dateFromMonth, $dateToMonth])
+                ->count();
+
+
+            // Simpan total transaksi
+            $monthName = Carbon::createFromDate($year, $month, 1)->format('F');
+            $jumlahTransaksi[$monthName] = $data;
+        }
+
+        return $jumlahTransaksi;
+    }
 }

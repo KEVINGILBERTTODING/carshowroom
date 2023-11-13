@@ -7,7 +7,6 @@ use App\Models\Admin;
 use App\Models\AppModel;
 use App\Models\FInanceModel;
 use App\Models\MobilModel;
-use App\Models\OwnerModel;
 use App\Models\PelangganModel;
 use App\Models\TransactionModel;
 use App\Models\User;
@@ -33,14 +32,25 @@ class AdminController extends Controller
         $totalFinance = FInanceModel::count();
         $dataPemasukanPerTahun = $transaksiModel->totalPemasukanYear($yearNow);
         $dataKeuntunganPerTahun = $transaksiModel->totalKeuntunganYear($yearNow);
+        $jumlaTransaksiSelesai = $transaksiModel->totalTransaksiYear($yearNow, 1);
+        $jumlaTransaksiProses = $transaksiModel->totalTransaksiYear($yearNow, 2);
+        $jumlaTransaksiProsesFinance = $transaksiModel->totalTransaksiYear($yearNow, 3);
+        $jumlaTransaksiTidakValid = $transaksiModel->totalTransaksiYear($yearNow, 0);
         $totalPelanggan = PelangganModel::count();
         $totalMobilTersedia = MobilModel::where('status_mobil', 1)->count();
+        $userModel = new User();
+        $totalPengguna = $userModel->getTotalUserYear($yearNow);
         $data = [
             'dataAdmin' => $dataAdmin,
             'dataApp' => $dataApp,
             'totalUser' => $totalUser,
             'dataPemasukanPerTahun' => $dataPemasukanPerTahun,
             'dataKeuntunganPerTahun' => $dataKeuntunganPerTahun,
+            'jumlahTransaksiSelesai' => $jumlaTransaksiSelesai,
+            'jumlahTransaksiProses' => $jumlaTransaksiProses,
+            'jumlahTransaksiProsesFinance' => $jumlaTransaksiProsesFinance,
+            'jumlahTransaksiTidakValid' => $jumlaTransaksiTidakValid,
+            'totalPengguna' => $totalPengguna,
             'totalPelanggan' => $totalPelanggan,
             'totalFinance' => $totalFinance,
             'totalMobilTersedia' => $totalMobilTersedia
