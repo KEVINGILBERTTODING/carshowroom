@@ -545,6 +545,11 @@
                                         </select>
                                     </div>
 
+                                    <div class="form-group" id="form_ongkir">
+                                        <label>Biaya Pengiriman</label>
+                                        <input type="number" name="biaya_pengiriman" class="form-control">
+                                    </div>
+
                                 </div>
 
                                 <div class="col-12 col-md-6 col-lg-6">
@@ -706,14 +711,19 @@
 
             //  set agar inputan tersembunyi
             $("#container_data_cicilan").hide();
+            $("#form_ongkir").show();
+
 
             // logic ketika memilih metode pembayaran
             $("#payment_method").on("change", function() {
                 if ($("#payment_method").val() === "1") { // methode pembayaran cash
                     $("#container_data_cicilan").hide();
+                    $("#form_ongkir").show();
                 } else if ($("#payment_method").val() === "2") { // Methode pembayaran kredit
 
                     $("#container_data_cicilan").show();
+                    $("#form_ongkir").hide();
+
                 }
             });
 

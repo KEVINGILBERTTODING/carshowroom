@@ -144,6 +144,7 @@ class TransactionController extends Controller
             'payment_method' => 'required|numeric',
             'diskon' => 'required|numeric',
             'harga_jual' => 'required|numeric',
+            'biaya_pengiriman' => 'required|numeric'
 
         ], [
             'required' => 'Kolom :attribute tidak boleh kosong',
@@ -154,7 +155,8 @@ class TransactionController extends Controller
             'nama_lengkap' => 'nama lengkap',
             'no_hp' => 'no Handphone',
             'alamat' => 'alamat',
-            'payment_method' => 'metode pembayaran'
+            'payment_method' => 'metode pembayaran',
+            'biaya_pengiriman' => 'Biaya pengiriman'
         ]);
         if ($validator->fails()) {
             return redirect()->back()->with('failed', $validator->errors()->first());
@@ -291,6 +293,7 @@ class TransactionController extends Controller
                     'mobil_id' => $request->input('mobil_id'),
                     'pelanggan_id' => $pelangganId,
                     'payment_method' => 1,
+                    'biaya_pengiriman' => $request->input('biaya_pengiriman'),
                     'total_pembayaran' => $totalPembayaran,
                     'status' => 1,
                     'created_at' => date('Y-m-d H:i:s')
@@ -305,7 +308,6 @@ class TransactionController extends Controller
                     PelangganModel::insert($dataPelanggan);
                     TransactionModel::insert($dataTransaksi);
                     MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
-
                     DB::commit();
                     return redirect()->back()->with('success', 'Berhasil menambahkan transaksi baru');
                 } catch (\Throwable $th) {
