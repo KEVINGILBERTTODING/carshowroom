@@ -198,6 +198,9 @@
                             <li class="submenu-item  ">
                                 <a href="{{ route('dataPemilik') }}" class="submenu-link">Pemilik</a>
                             </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('dataKaryawan') }}" class="submenu-link">Karyawan</a>
+                            </li>
                         </ul>
 
                     </li>

@@ -200,6 +200,9 @@
                             <li class="submenu-item  ">
                                 <a href="{{ route('dataPemilik') }}" class="submenu-link">Pemilik</a>
                             </li>
+                            <li class="submenu-item  ">
+                                <a href="{{ route('dataKaryawan') }}" class="submenu-link">Karyawan</a>
+                            </li>
                         </ul>
 
                     </li>
@@ -312,6 +315,7 @@
                                 <th>Gambar</th>
                                 <th>Nama Perusahaan</th>
                                 <th>Telepon</th>
+                                <th>Email</th>
                                 <th>Email</th>
                                 <th>Deskripsi</th>
                                 <th>Status</th>
