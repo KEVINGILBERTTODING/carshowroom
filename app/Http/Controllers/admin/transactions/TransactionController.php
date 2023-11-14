@@ -144,7 +144,7 @@ class TransactionController extends Controller
             'payment_method' => 'required|numeric',
             'diskon' => 'required|numeric',
             'harga_jual' => 'required|numeric',
-            'biaya_pengiriman' => 'required|numeric'
+            'biaya_pengiriman' => 'nullable|numeric'
 
         ], [
             'required' => 'Kolom :attribute tidak boleh kosong',
@@ -588,6 +588,16 @@ class TransactionController extends Controller
 
         // cek status transaksi
         if ($request->input('status') == 1) { // transaksi selesai
+            $validatorongkir = Validator::make($request->all(), [
+                'biaya_pengiriman' => 'required|numeric'
+            ], [
+                'biaya_pengiriman.required' => 'Biaya pengiriman tidak boleh kosong',
+                'biaya_pengiriman.numeric' => 'Biaya pengiriman hanya boleh berupa angka'
+            ]);
+
+            if ($validatorongkir->fails()) {
+                return redirect()->back()->with('failed', $validatorongkir->errors()->first());
+            }
 
             $dataMobil = [
                 'status_mobil' => 0,
@@ -596,6 +606,7 @@ class TransactionController extends Controller
 
             $dataMainTransaksi = [
                 'status' => 1,
+                'biaya_pengiriman' => $request->input('biaya_pengiriman'),
                 'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
             ];
 

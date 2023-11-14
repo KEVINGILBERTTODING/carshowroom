@@ -554,7 +554,7 @@
                                     <label>Biaya Pengiriman</label>
                                 </div>
                                 <div class="form-group col-md-6 col-12">
-                                    @if ($dataTransaksi['biaya_pengiriman'] != null)
+                                    @if ($dataTransaksi['biaya_pengiriman'] != null || $dataTransaksi['biaya_pengiriman'] == 0)
                                         <p class="text-md">{{ formatRupiah($dataTransaksi['biaya_pengiriman']) }}</p>
                                     @else
                                         <p class="text-md text-danger">Belum di tetapkan.</p>
@@ -689,9 +689,9 @@
 
 
                                         <label for="Status Transaksi">Status Transaksi</label>
-                                        <select name="status" required id="status_credit" class="form-control">
+                                        <select name="status" required class="form-control status_form">
                                             @if ($dataTransaksi['status'] == 1)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Selesai
+                                                <option value="{{ $dataTransaksi['status'] }}" selected>Selesai
                                                 </option>
                                                 <option value="2">Sedang di proses
                                                 </option>
@@ -700,7 +700,7 @@
                                                 <option value="0">Tidak valid
                                                 </option>
                                             @elseif ($dataTransaksi['status'] == 2)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Sedang di
+                                                <option value="{{ $dataTransaksi['status'] }}" selected>Sedang di
                                                     proses
                                                 </option>
                                                 <option value="3">Proses finance
@@ -710,7 +710,7 @@
                                                 <option value="0">Tidak valid
                                                 </option>
                                             @elseif ($dataTransaksi['status'] == 3)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Proses
+                                                <option value="{{ $dataTransaksi['status'] }}" selected>Proses
                                                     finance
                                                 </option>
                                                 <option value="1">Selesai
@@ -720,7 +720,7 @@
                                                 <option value="0">Tidak valid
                                                 </option>
                                             @elseif ($dataTransaksi['status'] == 0)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Tidak
+                                                <option value="{{ $dataTransaksi['status'] }}" selected>Tidak
                                                     valid
                                                 </option>
                                                 <option value="1">Selesai
@@ -733,9 +733,15 @@
 
                                         </select>
 
-                                        <div id="alasan_credit" class="mt-3">
+                                        <div class="form-group form_ongkir">
+                                            <label>Biaya Pengiriman</label>
+                                            <input type="number" value="{{ $dataTransaksi['biaya_pengiriman'] }}"
+                                                name="biaya_pengiriman" class="form-control">
+                                        </div>
+
+                                        <div class="mt-3 alasan">
                                             <label>Alasan</label>
-                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu..."></textarea>
+                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu...">{{ $dataTransaksi['alasan'] }}</textarea>
                                         </div>
                                         <div class="d-flex justify-content-end mt-3">
                                             <button class="btn btn-warning">Simpan Perubahan</button>
@@ -806,14 +812,14 @@
 
 
                                         <label for="Status Transaksi">Status Transaksi</label>
-                                        <select name="status" required id="status_credit" class="form-control">
+                                        <select name="status" required class="form-control status_form">
                                             @if ($dataTransaksi['status'] == 1)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Selesai
+                                                <option value="{{ $dataTransaksi['status'] }}" selected>Selesai
                                                 </option>
                                                 <option value="0">Tidak valid
                                                 </option>
                                             @elseif ($dataTransaksi['status'] == 0)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Tidak
+                                                <option value="{{ $dataTransaksi['status'] }}" selected>Tidak
                                                     valid
                                                 </option>
                                                 <option value="1">Selesai
@@ -821,10 +827,15 @@
                                             @endif
 
                                         </select>
+                                        <div class="form-group form_ongkir">
+                                            <label>Biaya Pengiriman</label>
+                                            <input type="number" value="{{ $dataTransaksi['biaya_pengiriman'] }}"
+                                                name="biaya_pengiriman" class="form-control">
+                                        </div>
 
-                                        <div id="alasan_credit" class="mt-3">
+                                        <div class="mt-3 alasan">
                                             <label>Alasan</label>
-                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu..."></textarea>
+                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu...">{{ $dataTransaksi['alasan'] }}</textarea>
                                         </div>
                                         <div class="d-flex justify-content-end mt-3">
                                             <button class="btn btn-warning">Simpan Perubahan</button>
@@ -876,14 +887,14 @@
 
 
                                         <label for="Status Transaksi">Status Transaksi</label>
-                                        <select name="status" required id="status_credit" class="form-control">
+                                        <select name="status" required class="form-control status_form">
                                             @if ($dataTransaksi['status'] == 1)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Selesai
+                                                <option value="{{ $dataTransaksi['status'] }}" selected>Selesai
                                                 </option>
                                                 <option value="0">Tidak valid
                                                 </option>
                                             @elseif ($dataTransaksi['status'] == 0)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected disabled>Tidak
+                                                <option value="{{ $dataTransaksi['status'] }}" selected>Tidak
                                                     valid
                                                 </option>
                                                 <option value="1">Selesai
@@ -891,10 +902,15 @@
                                             @endif
 
                                         </select>
+                                        <div class="form-group form_ongkir">
+                                            <label>Biaya Pengiriman</label>
+                                            <input type="number" value="{{ $dataTransaksi['biaya_pengiriman'] }}"
+                                                name="biaya_pengiriman" class="form-control">
+                                        </div>
 
-                                        <div id="alasan_credit" class="mt-3">
+                                        <div class="mt-3 alasan">
                                             <label>Alasan</label>
-                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu..."></textarea>
+                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu...">{{ $dataTransaksi['alasan'] }}</textarea>
                                         </div>
                                         <div class="d-flex justify-content-end mt-3">
                                             <button class="btn btn-warning">Simpan Perubahan</button>
@@ -931,16 +947,39 @@
     <script>
         $(document).ready(function() {
             // sembunyikan field alasan
-            $("#alasan_credit").hide();
-            $("#status_credit").change(function(e) {
+            var statusTransaksi = "{{ $dataTransaksi['status'] }}"
+
+            if (statusTransaksi == 1) {
+                $(".form_ongkir").show();
+                $(".alasan").hide();
+
+            } else if (statusTransaksi == 0) {
+                $(".form_ongkir").hide();
+                $(".alasan").show();
+
+            } else {
+                $(".form_ongkir").hide();
+                $(".alasan").hide();
+
+            }
+
+
+
+
+
+
+            $(".status_form").change(function(e) {
                 var status = $(this).val();
                 if (status == 0) {
-                    $("#alasan_credit").show();
+                    $(".alasan").show();
+                    $(".form_ongkir").hide();
+                } else if (status == 1) {
+                    $(".alasan").hide();
+                    $(".form_ongkir").show();
                 } else {
-                    $("#alasan_credit").hide();
+                    $(".alasan").hide();
+                    $(".form_ongkir").hide();
                 }
-
-
             });
         });
     </script>
