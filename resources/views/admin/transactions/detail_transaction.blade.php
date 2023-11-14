@@ -573,15 +573,18 @@
                                         </p>
                                     @elseif ($dataTransaksi['status'] == 2)
                                         <p class="fw-bold text-warning">
-                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
+                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon'] + $dataTransaksi['biaya_pengiriman']) }}
+
                                         </p>
                                     @elseif ($dataTransaksi['status'] == 3)
                                         <p class="fw-bold text-info">
-                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
+                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon'] + $dataTransaksi['biaya_pengiriman']) }}
+
                                         </p>
                                     @elseif ($dataTransaksi['status'] == 0)
                                         <p class="fw-bold text-danger">
-                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon']) }}
+                                            {{ formatRupiah($dataTransaksi['harga_jual'] - $dataTransaksi['diskon'] + $dataTransaksi['biaya_pengiriman']) }}
+
                                         </p>
                                     @endif
 

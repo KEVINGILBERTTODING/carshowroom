@@ -762,6 +762,10 @@
                                     <option value="2">Cicilan</option>
                                 </select>
                             </div>
+                            <div class="form-group" id="form_ongkir">
+                                <label>Biaya Pengiriman</label>
+                                <input type="number" name="biaya_pengiriman" class="form-control">
+                            </div>
 
                             <div class="form-group" id="finance">
                                 <label>Finance</label>
@@ -855,6 +859,8 @@
             $("#ktp_istri").hide();
             $("#kk").hide();
             $("#finance").hide();
+            $("#form_ongkir").show();
+
 
             // logic ketika memilih metode pembayaran
             $("#payment_method").on("change", function() {
@@ -864,9 +870,12 @@
                     $("#ktp_istri").hide();
                     $("#kk").hide();
                     $("#finance").hide();
+                    $("#form_ongkir").show();
+
                 } else if ($("#payment_method").val() === "2") { // Methode pembayaran kredit
 
                     $("#ktp_suami").show();
+                    $("#form_ongkir").hide();
                     $("#ktp_istri").show();
                     $("#kk").show();
                     $("#finance").show();

@@ -658,6 +658,16 @@ class MobilController extends Controller
                     return redirect()->back()->with('failed', 'Gagal mengubah status mobil');
                 }
             } else { // jika metode pembayaran cash
+                $validatorOngkir = Validator::make($request->all(), [
+                    'biaya_pengiriman' => 'required|numeric'
+                ], [
+                    'biaya_pengiriman.required' => 'Biaya pengiriman tidak boleh kosong',
+                    'biaya_pengiriman.numeric' => 'Biaya pengiriman hanya boleh mengandung angka'
+                ]);
+
+                if ($validatorOngkir->fails()) {
+                    return redirect()->back()->with('failed', $validatorOngkir->errors()->first());
+                }
 
                 $pelangganId = 'PLG-' . Carbon::now()->format('Y-m-d-H-i-s');
                 $transaksiId = 'TRX-PLG-' . Carbon::now()->format('Y-m-d-H-i-s');
@@ -676,6 +686,7 @@ class MobilController extends Controller
                     'mobil_id' => $request->input('mobil_id'),
                     'pelanggan_id' => $pelangganId,
                     'payment_method' => 1,
+                    'biaya_pengiriman' => $request->input('biaya_pengiriman'),
                     'total_pembayaran' => $totalPembayaran,
                     'status' => 1,
                     'created_at' => date('Y-m-d H:i:s')
