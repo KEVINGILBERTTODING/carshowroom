@@ -555,8 +555,20 @@
 
                                 <div class="form-group ">
                                     <label>Link Youtube</label>
-                                    <input name="url_youtube" type="text" required class="form-control" required
+                                    <input name="url_youtube" type="text" class="form-control"
                                         value="{{ $dataMobil['url_youtube'] }}">
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Link Postingan Instagram</label>
+                                    <input name="url_instagram" type="text" class="form-control"
+                                        value="{{ $dataMobil['url_instagram'] }}">
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Link Postingan Facebook</label>
+                                    <input name="url_facebook" type="text" class="form-control"
+                                        value="{{ $dataMobil['url_facebook'] }}">
                                 </div>
 
                                 <div class="form-group ">

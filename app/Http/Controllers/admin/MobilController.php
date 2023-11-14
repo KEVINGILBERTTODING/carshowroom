@@ -90,7 +90,9 @@ class MobilController extends Controller
             'harga_jual' => 'required|numeric',
             'tanggal_masuk' => 'nullable',
             'deskripsi' => 'required|string',
-            'url_youtube' => 'required|string'
+            'url_youtube' => 'string|nullable',
+            'url_facebook' => 'string|nullable',
+            'url_instagram' => 'string|nullable',
         ], [
             'required' => 'Kolom :attribute tidak boleh kosong.',
             'numeric' => 'Kolom :attribute harus berupa angka.',
@@ -114,7 +116,9 @@ class MobilController extends Controller
             'biaya_perbaikan' => 'Biaya Perbaikan',
             'harga_jual' => 'Harga Jual',
             'deskripsi' => 'Deskripsi',
-            'url_youtube' => 'Link Youtube'
+            'url_youtube' => 'Link Youtube',
+            'url_instagram' => 'Link Instagram',
+            'url_facebook' => 'Link Facebook',
         ]);
 
         if ($validatorData->fails()) {
@@ -174,6 +178,8 @@ class MobilController extends Controller
         $data['diskon'] = $request->input('diskon');
         $data['deskripsi'] = $request->input('deskripsi');
         $data['url_youtube'] = $request->input('url_youtube');
+        $data['url_facebook'] = $request->input('url_facebook');
+        $data['url_instagram'] = $request->input('url_instagram');
         $data['created_at'] = date('Y-m-d H:i:s');
 
         try {
@@ -364,7 +370,9 @@ class MobilController extends Controller
             'harga_jual' => 'required|numeric',
             'tanggal_masuk' => 'nullable',
             'deskripsi' => 'required|string',
-            'url_youtube' => 'required|string'
+            'url_youtube' => 'nullable|string',
+            'url_instagram' => 'nullable|string',
+            'url_facebook' => 'nullable|string',
         ], [
             'required' => 'Kolom :attribute tidak boleh kosong.',
             'numeric' => 'Kolom :attribute harus berupa angka.',
@@ -449,6 +457,9 @@ class MobilController extends Controller
         $data['diskon'] = $request->input('diskon');
         $data['deskripsi'] = $request->input('deskripsi');
         $data['url_youtube'] = $request->input('url_youtube');
+        $data['url_youtube'] = $request->input('url_youtube');
+        $data['url_facebook'] = $request->input('url_facebook');
+        $data['url_instagram'] = $request->input('url_instagram');
         $data['updated_at'] = date('Y-m-d H:i:s');
 
         try {

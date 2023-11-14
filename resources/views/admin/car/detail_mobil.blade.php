@@ -470,11 +470,41 @@
                                 <div class="form-group ">
                                     <label>Link Youtube</label>
                                     <br>
-                                    <a href="{{ $dataMobil['url_youtube'] }}" class="text-primary" target="_blank"
-                                        rel="noopener noreferrer">{{ $dataMobil['url_youtube'] }}</a>
+
+
+                                    @if ($dataMobil['url_youtube'] != null)
+                                        <a href="{{ $dataMobil['url_youtube'] }}" class="text-primary" target="_blank"
+                                            rel="noopener noreferrer">{{ $dataMobil['url_youtube'] }}</a>
+                                    @else
+                                        <p class="text-sm text-danger">Tidak ada link.</p>
+                                    @endif
 
                                 </div>
 
+                                <div class="form-group ">
+                                    <label>Link Postingan Instagram</label>
+                                    <br>
+                                    @if ($dataMobil['url_instagram'] != null)
+                                        <a href="{{ $dataMobil['url_instagram'] }}" class="text-primary" target="_blank"
+                                            rel="noopener noreferrer">{{ $dataMobil['url_instagram'] }}</a>
+                                    @else
+                                        <p class="text-sm text-danger">Tidak ada link.</p>
+                                    @endif
+
+
+                                </div>
+                                <div class="form-group ">
+                                    <label>Link Postingan Facebook</label>
+                                    <br>
+
+                                    @if ($dataMobil['url_facebook'] != null)
+                                        <a href="{{ $dataMobil['url_facebook'] }}" class="text-primary" target="_blank"
+                                            rel="noopener noreferrer">{{ $dataMobil['url_facebook'] }}</a>
+                                    @else
+                                        <p class="text-sm text-danger">Tidak ada link.</p>
+                                    @endif
+
+                                </div>
                                 <div class="form-group ">
                                     <label>Deskripsi</label>
                                     <textarea name="deskripsi" type="text" rows="3" class="form-control" required readonly>{{ $dataMobil['deskripsi'] }}</textarea>

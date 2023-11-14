@@ -480,7 +480,17 @@
 
                                 <div class="form-group ">
                                     <label>Link Youtube</label>
-                                    <input name="url_youtube" type="text" required class="form-control" required>
+                                    <input name="url_youtube" type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Link Post Instagram</label>
+                                    <input name="url_instagram" type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group ">
+                                    <label>Link Post Facebook</label>
+                                    <input name="url_facebook" type="text" class="form-control">
                                 </div>
 
                                 <div class="form-group ">
