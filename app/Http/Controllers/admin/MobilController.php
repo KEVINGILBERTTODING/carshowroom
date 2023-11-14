@@ -551,6 +551,7 @@ class MobilController extends Controller
         if ($checkTransaction == null) {
             // cek methode pembayaran yang digunakan
             if ($request->input('payment_method') == 2) { // jika kredit
+
                 $rules = [];
                 $messages = [];
                 $dataKredit = [];
@@ -582,9 +583,16 @@ class MobilController extends Controller
                     $messages['kk' . '.max'] = 'Ukuran gambar kartu keluarga tidak boleh lebih dari 3 MB';
                 }
 
+                $rules['finance_id'] = 'required';
+                $messages['finance_id' . '.required'] = 'Anda belum memilih finance';
+
+
+
+
+
                 $validatorFileCredit = Validator::make($request->all(), $rules, $messages);
                 if ($validatorFileCredit->fails()) {
-                    return redirect()->back()->with('failed', $validator->errors()->first());
+                    return redirect()->back()->with('failed', $validatorFileCredit->errors()->first());
                 }
 
                 $pelangganId = 'PLG-' . Carbon::now()->format('Y-m-d-H-i-s');
@@ -742,9 +750,13 @@ class MobilController extends Controller
                     $messages['kk' . '.max'] = 'Ukuran gambar kartu keluarga tidak boleh lebih dari 3 MB';
                 }
 
+
+                $rules['finance_id'] = 'required';
+                $messages['finance_id' . '.required'] = 'Anda belum memilih finance';
+
                 $validatorFileCredit = Validator::make($request->all(), $rules, $messages);
                 if ($validatorFileCredit->fails()) {
-                    return redirect()->back()->with('failed', $validator->errors()->first());
+                    return redirect()->back()->with('failed', $validatorFileCredit->errors()->first());
                 }
 
                 $pelangganId = 'PLG-' . Carbon::now()->format('Y-m-d-H-i-s');

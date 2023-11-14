@@ -651,7 +651,7 @@
                                 <span class="d-none d-sm-block">Batal</span>
                             </button>
 
-                            @if (!$dataMobil->isEmpty())
+                            @if (!$dataMobil->isEmpty() && !$dataFinance->isEmpty())
                                 <button type="submit" class="btn btn-primary ms-1">
                                     <i class="bx bx-check d-block d-sm-none"></i>
                                     <span class="d-none d-sm-block">Simpan</span>
