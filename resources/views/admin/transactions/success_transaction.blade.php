@@ -411,10 +411,10 @@
                                                 class="btn btn-info text-white" style="margin-right: 10px;"><i
                                                     class="bi bi-info-lg"></i></a>
                                             <button data-transaksi_id="{{ $dm->transaksi_id }}"
+                                                data-payment_method="{{ $dm->payment_method }}"
                                                 class="btn btn-danger btnDelete"><i
                                                     class="fa-regular fa-trash-can"></i></a>
                                             </button>
-
 
                                         </div>
 
@@ -492,6 +492,7 @@
     <script>
         $(document).on('click', '.btnDelete', function() {
             var transaksi_id = $(this).data('transaksi_id');
+            var payment_method = $(this).data('payment_method');
             Swal.fire({
                 title: 'Konfirmasi Hapus Data',
                 text: 'Apakah Anda yakin ingin menghapus data ini?',
@@ -506,7 +507,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
 
-                    window.location.href = '/adminHapusTrasaksi/' + transaksi_id;
+                    window.location.href = '/adminHapusTrasaksi/' + transaksi_id + '/' + payment_method;
 
                 }
             });

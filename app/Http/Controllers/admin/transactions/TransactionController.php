@@ -1004,10 +1004,10 @@ class TransactionController extends Controller
         }
     }
 
-    function hapusTrasaksi($transaksiId)
+    function hapusTrasaksi($transaksiId, $paymentMethod)
     {
-        $checkDataKredit = CreditModel::where('transaksi_id', $transaksiId);
-        if ($checkDataKredit != null) {
+
+        if ($paymentMethod == 2) { // jika kredit
             DB::beginTransaction();
             try {
                 TransactionModel::where('transaksi_id', $transaksiId)->delete();
@@ -1020,7 +1020,6 @@ class TransactionController extends Controller
         } else {
             try {
                 TransactionModel::where('transaksi_id', $transaksiId)->delete();
-
                 return redirect()->back()->with('success', 'Berhasil menghapus data transaksi');
             } catch (\Throwable $th) {
                 return redirect()->back()->with('failed', 'Gagal menghapus data transaksi');
