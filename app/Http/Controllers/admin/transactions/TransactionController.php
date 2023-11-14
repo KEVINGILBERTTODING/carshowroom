@@ -1019,10 +1019,8 @@ class TransactionController extends Controller
             }
         } else {
             try {
-                $delete = TransactionModel::where('transaksi_id', $transaksiId)->delete();
-                if (!$delete) {
-                    return redirect()->back()->with('failed', 'Gagal menghapus data transaksi');
-                }
+                TransactionModel::where('transaksi_id', $transaksiId)->delete();
+
                 return redirect()->back()->with('success', 'Berhasil menghapus data transaksi');
             } catch (\Throwable $th) {
                 return redirect()->back()->with('failed', 'Gagal menghapus data transaksi');
