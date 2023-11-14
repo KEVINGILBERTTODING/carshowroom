@@ -144,6 +144,13 @@ Route::get('dataPelanggan', [UsersController::class, 'pelanggan'])->name('dataPe
 Route::post('updatePelanggan', [UsersController::class, 'updatePelanggan'])->name('updatePelanggan')->middleware('admin');
 Route::get('dataPengguna', [UsersController::class, 'pengguna'])->name('dataPengguna')->middleware('admin');
 Route::post('updatePengguna', [UsersController::class, 'updatePengguna'])->name('updatePengguna')->middleware('admin');
+Route::get('dataKaryawan', [UsersController::class, 'karyawan'])->name('dataKaryawan')->middleware('admin');
+Route::post('tambahKaryawan', [UsersController::class, 'tambahKaryawan'])->name('tambahKaryawan')->middleware('admin');
+Route::post('updateKaryawan', [UsersController::class, 'updateKaryawan'])->name('updateKaryawan')->middleware('admin');
+Route::get('hapusKaryawan/{karyawanId}', [UsersController::class, 'hapusKaryawan'])->name('hapusKaryawan')->middleware('admin');
+
+
+
 
 
 Route::get('adminDetailMobil/{mobilId}', [MobilController::class, 'adminDetailMobil'])->name('adminDetailMobil')->middleware('admin');
