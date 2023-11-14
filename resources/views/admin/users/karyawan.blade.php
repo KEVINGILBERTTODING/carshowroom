@@ -464,6 +464,7 @@
                                 <label for="basicInput">Nama Lengkap</label>
                                 <input type="text" class="form-control mt-2" name="name" required="basicInput">
                             </div>
+
                             <div class="form-group">
                                 <label for="basicInput">Email</label>
                                 <input type="text" class="form-control mt-2" name="email" required id="basicInput">

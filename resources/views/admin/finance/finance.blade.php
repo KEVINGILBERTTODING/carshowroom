@@ -315,9 +315,11 @@
                                 <th>Gambar</th>
                                 <th>Nama Perusahaan</th>
                                 <th>Telepon</th>
-                                <th>Email</th>
-                                <th>Email</th>
-                                <th>Deskripsi</th>
+                                <th>Bunga Kredit</th>
+                                <th>Bunga Asuransi</th>
+                                <th>Biaya Administrasi</th>
+                                <th>Uang Muka</th>
+                                <th>Biaya Provisi</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -334,11 +336,14 @@
                                             alt="{{ $dw->nama_finance }}"></td>
                                     <td>{{ $dw->nama_finance }}</td>
                                     <td>{{ $dw->telepon }}</td>
-                                    <td>{{ $dw->email }}</td>
-                                    <td>{{ $dw->deskripsi }}</td>
+                                    <td>{{ $dw->bunga }}%</td>
+                                    <td>{{ $dw->biaya_asuransi }}%</td>
+                                    <td>{{ $dw->biaya_administrasi }}%</td>
+                                    <td>{{ $dw->uang_muka }}%</td>
+                                    <td>{{ $dw->biaya_provisi }}%</td>
                                     <td>
                                         @if ($dw->status == 1)
-                                            <span class="badge bg-primary">Aktif</span>
+                                            <span class="badge bg-success">Aktif</span>
                                         @else
                                             <span class="badge bg-muted">Tidak Aktif</span>
                                         @endif
@@ -403,6 +408,70 @@
                                                     </div>
 
                                                     <div class="form-group">
+                                                        <label for="basicInput">Bunga Kredit</label>
+                                                        <div class="input-group ">
+                                                            <input type="text" class="form-control" name="bunga"
+                                                                aria-describedby="basic-addon2" required
+                                                                value="{{ $dw->bunga }}">
+                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                        </div>
+                                                        <span class="text-sm text-warning">Persen dari total
+                                                            pinjaman.</span>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Biaya Administrasi</label>
+                                                        <div class="input-group ">
+                                                            <input type="text" class="form-control"
+                                                                name="biaya_administrasi" aria-describedby="basic-addon2"
+                                                                required value="{{ $dw->biaya_administrasi }}">
+                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                        </div>
+                                                        <span class="text-sm text-warning">Persen dari total
+                                                            pinjaman.</span>
+                                                    </div>
+                                                    <div class="form-group">
+
+                                                        <label for="basicInput">Uang Muka</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control" name="uang_muka"
+                                                                aria-describedby="basic-addon2" required
+                                                                value="{{ $dw->uang_muka }}">
+                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                        </div>
+                                                        <span class="text-sm text-warning">Persen dari total
+                                                            pinjaman.</span>
+
+                                                    </div>
+
+                                                    <div class="form-group">
+
+                                                        <label for="basicInput">Biaya Asuransi</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control"
+                                                                name="biaya_asuransi" aria-describedby="basic-addon2"
+                                                                required value="{{ $dw->biaya_asuransi }}">
+                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                        </div>
+                                                        <span class="text-sm text-warning">Persen dari total
+                                                            pinjaman.</span>
+
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label for="basicInput">Biaya Provisi</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control"
+                                                                name="biaya_provisi" aria-describedby="basic-addon2"
+                                                                required value="{{ $dw->biaya_provisi }}">
+                                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                                        </div>
+                                                        <span class="text-sm text-warning">Persen dari total
+                                                            pinjaman.</span>
+                                                    </div>
+
+
+                                                    <div class="form-group">
                                                         <label for="basicInput">Url Website</label>
                                                         <input type="text" class="form-control mt-2"
                                                             name="url_website" value="{{ $dw->url_website }}"
@@ -459,6 +528,7 @@
                 </div>
 
 
+                {{-- Modal insert finance --}}
                 <div class="modal fade" id="modal_insert" tabindex="-1" role="dialog" aria-labelledby="modal_insert"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-scrollable" role="document">
@@ -493,6 +563,59 @@
                                     </div>
 
                                     <div class="form-group">
+                                        <label for="basicInput">Bunga Kredit</label>
+                                        <div class="input-group ">
+                                            <input type="text" class="form-control" name="bunga"
+                                                aria-describedby="basic-addon2" required>
+                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                        </div>
+                                        <span class="text-sm text-warning">Persen dari total pinjaman.</span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="basicInput">Biaya Administrasi</label>
+                                        <div class="input-group ">
+                                            <input type="text" class="form-control" name="biaya_administrasi"
+                                                aria-describedby="basic-addon2" required>
+                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                        </div>
+                                        <span class="text-sm text-warning">Persen dari total pinjaman.</span>
+                                    </div>
+                                    <div class="form-group">
+
+                                        <label for="basicInput">Uang Muka</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="uang_muka"
+                                                aria-describedby="basic-addon2" required>
+                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                        </div>
+                                        <span class="text-sm text-warning">Persen dari total pinjaman.</span>
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label for="basicInput">Biaya Asuransi</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="biaya_asuransi"
+                                                aria-describedby="basic-addon2" required>
+                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                        </div>
+                                        <span class="text-sm text-warning">Persen dari total pinjaman.</span>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="basicInput">Biaya Provisi</label>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" name="biaya_provisi"
+                                                aria-describedby="basic-addon2" required>
+                                            <span class="input-group-text" id="basic-addon2">%</span>
+                                        </div>
+                                        <span class="text-sm text-warning">Persen dari total pinjaman.</span>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="basicInput">Url Website</label>
                                         <input type="text" class="form-control mt-2" name="url_website"
                                             id="basicInput">
@@ -510,7 +633,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="basicInput">Deskripsi</label>
-                                        <textarea class="form-control mt-2" name="deskripsi" id="basicInput"></textarea>
+                                        <textarea class="form-control mt-2" rows="4" name="deskripsi" id="basicInput"></textarea>
                                     </div>
 
                                     <div class="form-group">
