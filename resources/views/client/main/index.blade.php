@@ -14,22 +14,22 @@
             <a href="#" class="primary-btn">Add Car</a>
         </div>
         <div class="offcanvas__logo">
-            <a href="./index.html"><img src="img/logo.png" alt=""></a>
+            <a href="{{ route('/') }}"><img width="10%;" src="{{ asset('data/app/img/' . $dataApp['logo']) }}"
+                    alt="{{ $dataApp['app_name'] }}"></a>
         </div>
         <div id="mobile-menu-wrap"></div>
         <ul class="offcanvas__widget__add">
-            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
-            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
+            <li><i class="fa fa-clock-o"></i> {{ $dataApp['jadwal'] }}</li>
+            <li><i class="fa fa-envelope-o"></i> {{ $dataApp['email'] }}</li>
         </ul>
         <div class="offcanvas__phone__num">
             <i class="fa fa-phone"></i>
-            <span>(+12) 345 678 910</span>
+            <span>{{ $dataApp['no_hp'] }}</span>
         </div>
         <div class="offcanvas__social">
-            <a href="#"><i class="fa fa-facebook"></i></a>
-            <a href="#"><i class="fa fa-twitter"></i></a>
-            <a href="#"><i class="fa fa-google"></i></a>
-            <a href="#"><i class="fa fa-instagram"></i></a>
+            <a href="{{ $dataApp['url_facebook'] }}"><i class="fa fa-facebook"></i></a>
+            <a href="{{ $dataApp['url_youtube'] }}"><i class="fa fa-youtube"></i></a>
+            <a href="{{ $dataApp['url_instagram'] }}"><i class="fa fa-instagram"></i></a>
         </div>
     </div>
     <!-- Offcanvas Menu End -->
@@ -41,21 +41,20 @@
                 <div class="row">
                     <div class="col-lg-7">
                         <ul class="header__top__widget">
-                            <li><i class="fa fa-clock-o"></i> Week day: 08:00 am to 18:00 pm</li>
-                            <li><i class="fa fa-envelope-o"></i> Info.colorlib@gmail.com</li>
+                            <li><i class="fa fa-clock-o"></i> {{ $dataApp['jadwal'] }}</li>
+                            <li><i class="fa fa-envelope-o"></i> {{ $dataApp['email'] }}</li>
                         </ul>
                     </div>
                     <div class="col-lg-5">
                         <div class="header__top__right">
                             <div class="header__top__phone">
                                 <i class="fa fa-phone"></i>
-                                <span>(+12) 345 678 910</span>
+                                <span>{{ $dataApp['no_hp'] }}</span>
                             </div>
                             <div class="header__top__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-google"></i></a>
-                                <a href="#"><i class="fa fa-instagram"></i></a>
+                                <a href="{{ $dataApp['url_facebook'] }}"><i class="fa fa-facebook"></i></a>
+                                <a href="{{ $dataApp['url_youtube'] }}"><i class="fa fa-youtube"></i></a>
+                                <a href="{{ $dataApp['url_instagram'] }}"><i class="fa fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
@@ -66,7 +65,9 @@
             <div class="row">
                 <div class="col-lg-2">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="{{ route('/') }}"><img width="40px;"
+                                src="{{ asset('data/app/img/' . $dataApp['logo']) }}"
+                                alt="{{ $dataApp['app_name'] }}"></a>
                     </div>
                 </div>
                 <div class="col-lg-10">
@@ -105,162 +106,102 @@
     <!-- Header Section End -->
 
     <!-- Hero Section Begin -->
-    <section class="hero spad set-bg" data-setbg="{{ asset('template/client/img/hero-bg.jpg') }}">
+    <section class="hero spad set-bg" data-setbg="{{ asset('template/client/img/main/hero.png') }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7">
                     <div class="hero__text">
                         <div class="hero__text__title">
-                            <span>FIND YOUR DREAM CAR</span>
-                            <h2>Porsche Cayenne S</h2>
+                            <h3 class="text-white">Temukan Mobil Impian Anda</h3>
+                            <h2>Rizki Motor</h2>
                         </div>
-                        <div class="hero__text__price">
-                            <div class="car-model">Model 2019</div>
-                            <h2>$399<span>/Month</span></h2>
-                        </div>
-                        <a href="#" class="primary-btn"><img src="img/wheel.png" alt=""> Test
-                            Drive</a>
-                        <a href="#" class="primary-btn more-btn">Learn More</a>
+
+                        <a href="#" class="primary-btn"><img src="img/wheel.png" alt="">
+                            Temukan Sekarang</a>
+                        <a href="#" class="primary-btn more-btn">Tentang Kami</a>
                     </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="hero__tab">
-                        <ul class="nav nav-tabs" role="tablist">
+                        {{-- <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">Car
-                                    Rental</a>
+                                <a class="nav-link active" style="border-radius: 20px;" data-toggle="tab" href="#tabs-1"
+                                    role="tab">
+                                    Masuk</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">Buy Car</a>
+
                             </li>
-                        </ul>
+                        </ul> --}}
                         <div class="tab-content">
                             <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                <div class="hero__tab__form">
-                                    <h2>Find Your Dream Car</h2>
+                                <div class="hero__tab__form" style="border-radius: 20px;">
+                                    <h2>Masuk</h2>
+
+                                    <p class="text-sm text-muted">Baru bergabung? <a data-toggle="tab"
+                                            style="text-decoration: none; color: #3e6ae1 ;" href="#tabs-2"
+                                            role="tab">
+                                            Buat akun baru</a></p>
+
                                     <form>
-                                        <div class="select-list">
-                                            <div class="select-list-item">
-                                                <p>Select Year</p>
-                                                <select>
-                                                    <option data-display=" ">Select Year</option>
-                                                    <option value="">2020</option>
-                                                    <option value="">2019</option>
-                                                    <option value="">2018</option>
-                                                    <option value="">2017</option>
-                                                    <option value="">2016</option>
-                                                    <option value="">2015</option>
-                                                </select>
-                                            </div>
-                                            <div class="select-list-item">
-                                                <p>Select Brand</p>
-                                                <select>
-                                                    <option data-display=" ">Select Brand</option>
-                                                    <option value="">Acura</option>
-                                                    <option value="">Audi</option>
-                                                    <option value="">Bentley</option>
-                                                    <option value="">BMW</option>
-                                                    <option value="">Bugatti</option>
-                                                </select>
-                                            </div>
-                                            <div class="select-list-item">
-                                                <p>Select Model</p>
-                                                <select>
-                                                    <option data-display=" ">Select Model</option>
-                                                    <option value="">Q3</option>
-                                                    <option value="">A4 </option>
-                                                    <option value="">AVENTADOR</option>
-                                                </select>
-                                            </div>
-                                            <div class="select-list-item">
-                                                <p>Select Mileage</p>
-                                                <select>
-                                                    <option data-display=" ">Select Mileage</option>
-                                                    <option value="">27</option>
-                                                    <option value="">25</option>
-                                                    <option value="">15</option>
-                                                    <option value="">10</option>
-                                                </select>
-                                            </div>
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="text" id="email" placeholder="Email"
+                                                class="form-control" name="email" required>
                                         </div>
-                                        <div class="car-price">
-                                            <p>Price Range:</p>
-                                            <div class="price-range-wrap">
-                                                <div class="price-range"></div>
-                                                <div class="range-slider">
-                                                    <div class="price-input">
-                                                        <input type="text" id="amount">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="form-group mb-4">
+                                            <label>Kata Sandi</label>
+                                            <input type="password" id="password" placeholder="Kata sandi"
+                                                class="form-control" name="password" required>
                                         </div>
-                                        <button type="submit" class="site-btn">Searching</button>
+                                        <button type="submit" style="width: 100%;"
+                                            class="site-btn full-width-btn">Masuk</button>
                                     </form>
-                                    <button id="btn-google" class="site-btn mt-4">Google</button>
+                                    <div class="divider d-flex justify-content-center my-4">
+                                        <p class="text-center fw-bold mx-3 mb-0 text-muted">ATAU</p>
+                                    </div>
+                                    <button id="btn-google" class="site-btn mt-4"
+                                        style="width: 100%; background-color: #3e6ae1; display: flex; align-items: center; justify-content: center; text-align: left;">
+                                        <i class="fa fa-google" aria-hidden="true" style="margin-right: 10px;"></i>
+                                        Masuk dengan akun google
+                                    </button>
+
 
                                 </div>
                             </div>
                             <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                <div class="hero__tab__form">
-                                    <h2>Buy Your Dream Car</h2>
+                                <div class="hero__tab__form" style="border-radius: 20px;">
+                                    <h2>Masuk</h2>
+
+                                    <p class="text-sm text-muted">Telah memiliki akun? <a data-toggle="tab"
+                                            style="text-decoration: none; color: #3e6ae1 ;" href="#tabs-1"
+                                            role="tab">
+                                            Masuk</a></p>
+
                                     <form>
-                                        <div class="select-list">
-                                            <div class="select-list-item">
-                                                <p>Select Year</p>
-                                                <select>
-                                                    <option data-display=" ">Select Year</option>
-                                                    <option value="">2020</option>
-                                                    <option value="">2019</option>
-                                                    <option value="">2018</option>
-                                                    <option value="">2017</option>
-                                                    <option value="">2016</option>
-                                                    <option value="">2015</option>
-                                                </select>
-                                            </div>
-                                            <div class="select-list-item">
-                                                <p>Select Brand</p>
-                                                <select>
-                                                    <option data-display=" ">Select Brand</option>
-                                                    <option value="">Acura</option>
-                                                    <option value="">Audi</option>
-                                                    <option value="">Bentley</option>
-                                                    <<option value="">BMW</option>
-                                                        <option value="">Bugatti</option>
-                                                </select>
-                                            </div>
-                                            <div class="select-list-item">
-                                                <p>Select Model</p>
-                                                <select>
-                                                    <option data-display=" ">Select Model</option>
-                                                    <option value="">Q3</option>
-                                                    <option value="">A4 </option>
-                                                    <option value="">AVENTADOR</option>
-                                                </select>
-                                            </div>
-                                            <div class="select-list-item">
-                                                <p>Select Mileage</p>
-                                                <select>
-                                                    <option data-display=" ">Select Mileage</option>
-                                                    <option value="">27</option>
-                                                    <option value="">25</option>
-                                                    <option value="">15</option>
-                                                    <option value="">10</option>
-                                                </select>
-                                            </div>
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input type="text" id="email" placeholder="Email"
+                                                class="form-control" name="email" required>
                                         </div>
-                                        <div class="car-price">
-                                            <p>Price Range:</p>
-                                            <div class="price-range-wrap">
-                                                <div class="price-range"></div>
-                                                <div class="range-slider">
-                                                    <div class="price-input">
-                                                        <input type="text" id="amount">
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="form-group mb-4">
+                                            <label>Kata Sandi</label>
+                                            <input type="password" id="password" placeholder="Kata sandi"
+                                                class="form-control" name="password" required>
                                         </div>
-                                        <button type="submit" class="site-btn">Searching</button>
+                                        <button type="submit" style="width: 100%;"
+                                            class="site-btn full-width-btn">Masuk</button>
                                     </form>
+                                    <div class="divider d-flex justify-content-center my-4">
+                                        <p class="text-center fw-bold mx-3 mb-0 text-muted">ATAU</p>
+                                    </div>
+                                    <button id="btn-google" class="site-btn mt-4"
+                                        style="width: 100%; background-color: #3e6ae1; display: flex; align-items: center; justify-content: center; text-align: left;">
+                                        <i class="fa fa-google" aria-hidden="true" style="margin-right: 10px;"></i>
+                                        Masuk dengan akun google
+                                    </button>
+
+
                                 </div>
                             </div>
                         </div>
@@ -277,47 +218,58 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title">
-                        <span>Our Services</span>
-                        <h2>What We Offers</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor</p>
+                        <span>Pelayanan Kami</span>
+                        <h2>Apa Yang Kami Tawarkan</h2>
+                        <p>
+                            Temukan berbagai pilihan mobil murah berkualitas. Proses pembelian yang
+                            mudah dan transparan, membawa Anda satu langkah lebih dekat untuk memiliki mobil impian.
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="services__item">
-                        <img src="img/services/services-1.png" alt="">
-                        <h5>Rental A Cars</h5>
-                        <p>Consectetur adipiscing elit incididunt ut labore et dolore magna aliqua. Risus commodo
-                            viverra maecenas.</p>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        {{-- <img src="{{ asset('template/client/img/services/services-1.png') }}" alt=""> --}}
+                        <h5>Mobil Murah Berkualitas</h5>
+                        <p>
+                            Nikmati mobil impian tanpa menguras kantong. Temukan penawaran mobil murah dan berkualitas
+                            tinggi sesuai kebutuhan mobilitas Anda.
+                        </p>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="services__item">
                         <img src="img/services/services-2.png" alt="">
-                        <h5>Buying A Cars</h5>
-                        <p>Consectetur adipiscing elit incididunt ut labore et dolore magna aliqua. Risus commodo
-                            viverra maecenas.</p>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        <h5>Terjamin Aman</h5>
+                        <p>
+                            Kami memahami betapa pentingnya keamanan dalam setiap transaksi. Data pribadi Anda akan dijaga
+                            kerahasiaannya dengan baik.
+                        </p>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="services__item">
                         <img src="img/services/services-3.png" alt="">
-                        <h5>Car Maintenance</h5>
-                        <p>Consectetur adipiscing elit incididunt ut labore et dolore magna aliqua. Risus commodo
-                            viverra maecenas.</p>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        <h5>Cicilan Mudah</h5>
+                        <p>
+                            Tersedia pembayaran cicilan yang mudah, berkat kerjasama kami
+                            dengan lembaga keuangan terpercaya.
+                        </p>
+
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="services__item">
                         <img src="img/services/services-4.png" alt="">
-                        <h5>Support 24/7</h5>
-                        <p>Consectetur adipiscing elit incididunt ut labore et dolore magna aliqua. Risus commodo
-                            viverra maecenas.</p>
-                        <a href="#"><i class="fa fa-long-arrow-right"></i></a>
+                        <h5>Pelayanan Cepat dan Responsif</h5>
+                        <p>
+                            Tim kami siap membantu untuk membuat proses
+                            pembelian mobil Anda lebih mudah dan efisien.
+                        </p>
+
                     </div>
                 </div>
             </div>
@@ -332,19 +284,18 @@
                 <div class="col-lg-4">
                     <div class="feature__text">
                         <div class="section-title">
-                            <span>Our Feature</span>
-                            <h2>We Are a Trusted Name In Auto</h2>
+                            <span>Keunggulan Kami</span>
+                            <h2>Kami Telah Terpercaya di Dunia Otomotif</h2>
                         </div>
                         <div class="feature__text__desc">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Quis ipsum suspendisse ultrices gravida. Risus commodo
-                                viverra maecenas accumsan lacus vel facilisis.</p>
+                            <p>Nikmati kenyamanan berbelanja mobil dengan nama terpercaya di industri otomotif. Kami
+                                berkomitmen untuk memberikan pengalaman yang luar biasa.</p>
+                            <p>Untuk mengetahui lebih lanjut tentang layanan kami, jangan ragu untuk menghubungi kami atau
+                                kunjungi showroom kami.</p>
                         </div>
                         <div class="feature__text__btn">
-                            <a href="#" class="primary-btn">About Us</a>
-                            <a href="#" class="primary-btn partner-btn">Our Partners</a>
+
+                            <a href="#" class="primary-btn partner-btn">Testimoni Kami</a>
                         </div>
                     </div>
                 </div>
@@ -353,7 +304,7 @@
                         <div class="col-lg-6 col-md-4 col-6">
                             <div class="feature__item">
                                 <div class="feature__item__icon">
-                                    <img src="img/feature/feature-1.png" alt="">
+                                    <img src="{{ asset('template/client/img/feature/feature-1.png') }}" alt="">
                                 </div>
                                 <h6>Engine</h6>
                             </div>
@@ -361,7 +312,7 @@
                         <div class="col-lg-6 col-md-4 col-6">
                             <div class="feature__item">
                                 <div class="feature__item__icon">
-                                    <img src="img/feature/feature-2.png" alt="">
+                                    <img src="{{ asset('template/client/img/feature/feature-2.png') }}" alt="">
                                 </div>
                                 <h6>Turbo</h6>
                             </div>
@@ -369,7 +320,7 @@
                         <div class="col-lg-6 col-md-4 col-6">
                             <div class="feature__item">
                                 <div class="feature__item__icon">
-                                    <img src="img/feature/feature-3.png" alt="">
+                                    <img src="{{ asset('template/client/img/feature/feature-3.png') }}" alt="">
                                 </div>
                                 <h6>Colling</h6>
                             </div>
@@ -377,7 +328,7 @@
                         <div class="col-lg-6 col-md-4 col-6">
                             <div class="feature__item">
                                 <div class="feature__item__icon">
-                                    <img src="img/feature/feature-4.png" alt="">
+                                    <img src="{{ asset('template/client/img/feature/feature-4.png') }}" alt="">
                                 </div>
                                 <h6>Suspension</h6>
                             </div>
@@ -385,7 +336,7 @@
                         <div class="col-lg-6 col-md-4 col-6">
                             <div class="feature__item">
                                 <div class="feature__item__icon">
-                                    <img src="img/feature/feature-5.png" alt="">
+                                    <img src="{{ asset('template/client/img/feature/feature-5.png') }}" alt="">
                                 </div>
                                 <h6>Electrical</h6>
                             </div>
@@ -393,7 +344,7 @@
                         <div class="col-lg-6 col-md-4 col-6">
                             <div class="feature__item">
                                 <div class="feature__item__icon">
-                                    <img src="img/feature/feature-6.png" alt="">
+                                    <img src="{{ asset('template/client/img/feature/feature-6.png') }}" alt="">
                                 </div>
                                 <h6>Brakes</h6>
                             </div>
@@ -403,228 +354,7 @@
             </div>
         </div>
     </section>
-    <!-- Feature Section End -->
 
-    <!-- Car Section Begin -->
-    <section class="car spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-title">
-                        <span>Our Car</span>
-                        <h2>Best Vehicle Offers</h2>
-                    </div>
-                    <ul class="filter__controls">
-                        <li class="active" data-filter="*">Most Researched</li>
-                        <li data-filter=".sale">Latest on sale</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row car-filter">
-                <div class="col-lg-3 col-md-4 col-sm-6 mix">
-                    <div class="car__item">
-                        <div class="car__item__pic__slider owl-carousel">
-                            <img src="img/cars/car-1.jpg" alt="">
-                            <img src="img/cars/car-8.jpg" alt="">
-                            <img src="img/cars/car-6.jpg" alt="">
-                            <img src="img/cars/car-3.jpg" alt="">
-                        </div>
-                        <div class="car__item__text">
-                            <div class="car__item__text__inner">
-                                <div class="label-date">2016</div>
-                                <h5><a href="#">Porsche cayenne turbo s</a></h5>
-                                <ul>
-                                    <li><span>35,000</span> mi</li>
-                                    <li>Auto</li>
-                                    <li><span>700</span> hp</li>
-                                </ul>
-                            </div>
-                            <div class="car__item__price">
-                                <span class="car-option">For Rent</span>
-                                <h6>$218<span>/Month</span></h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix sale">
-                    <div class="car__item">
-                        <div class="car__item__pic__slider owl-carousel">
-                            <img src="img/cars/car-2.jpg" alt="">
-                            <img src="img/cars/car-8.jpg" alt="">
-                            <img src="img/cars/car-6.jpg" alt="">
-                            <img src="img/cars/car-4.jpg" alt="">
-                        </div>
-                        <div class="car__item__text">
-                            <div class="car__item__text__inner">
-                                <div class="label-date">2020</div>
-                                <h5><a href="#">Toyota camry asv50l-jeteku</a></h5>
-                                <ul>
-                                    <li><span>35,000</span> mi</li>
-                                    <li>Auto</li>
-                                    <li><span>700</span> hp</li>
-                                </ul>
-                            </div>
-                            <div class="car__item__price">
-                                <span class="car-option sale">For Sale</span>
-                                <h6>$73,900</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix">
-                    <div class="car__item">
-                        <div class="car__item__pic__slider owl-carousel">
-                            <img src="img/cars/car-3.jpg" alt="">
-                            <img src="img/cars/car-8.jpg" alt="">
-                            <img src="img/cars/car-6.jpg" alt="">
-                            <img src="img/cars/car-5.jpg" alt="">
-                        </div>
-                        <div class="car__item__text">
-                            <div class="car__item__text__inner">
-                                <div class="label-date">2017</div>
-                                <h5><a href="#">Bmw s1000rr 2019 m</a></h5>
-                                <ul>
-                                    <li><span>35,000</span> mi</li>
-                                    <li>Auto</li>
-                                    <li><span>700</span> hp</li>
-                                </ul>
-                            </div>
-                            <div class="car__item__price">
-                                <span class="car-option">For Rent</span>
-                                <h6>$299<span>/Month</span></h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix sale">
-                    <div class="car__item">
-                        <div class="car__item__pic__slider owl-carousel">
-                            <img src="img/cars/car-4.jpg" alt="">
-                            <img src="img/cars/car-8.jpg" alt="">
-                            <img src="img/cars/car-2.jpg" alt="">
-                            <img src="img/cars/car-1.jpg" alt="">
-                        </div>
-                        <div class="car__item__text">
-                            <div class="car__item__text__inner">
-                                <div class="label-date">2019</div>
-                                <h5><a href="#">Lamborghini huracan evo</a></h5>
-                                <ul>
-                                    <li><span>35,000</span> mi</li>
-                                    <li>Auto</li>
-                                    <li><span>700</span> hp</li>
-                                </ul>
-                            </div>
-                            <div class="car__item__price">
-                                <span class="car-option sale">For Sale</span>
-                                <h6>$120,000</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix">
-                    <div class="car__item">
-                        <div class="car__item__pic__slider owl-carousel">
-                            <img src="img/cars/car-5.jpg" alt="">
-                            <img src="img/cars/car-8.jpg" alt="">
-                            <img src="img/cars/car-7.jpg" alt="">
-                            <img src="img/cars/car-2.jpg" alt="">
-                        </div>
-                        <div class="car__item__text">
-                            <div class="car__item__text__inner">
-                                <div class="label-date">2018</div>
-                                <h5><a href="#">Audi q8 2020</a></h5>
-                                <ul>
-                                    <li><span>35,000</span> mi</li>
-                                    <li>Auto</li>
-                                    <li><span>700</span> hp</li>
-                                </ul>
-                            </div>
-                            <div class="car__item__price">
-                                <span class="car-option">For Rent</span>
-                                <h6>$319<span>/Month</span></h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix sale">
-                    <div class="car__item">
-                        <div class="car__item__pic__slider owl-carousel">
-                            <img src="img/cars/car-6.jpg" alt="">
-                            <img src="img/cars/car-8.jpg" alt="">
-                            <img src="img/cars/car-3.jpg" alt="">
-                            <img src="img/cars/car-1.jpg" alt="">
-                        </div>
-                        <div class="car__item__text">
-                            <div class="car__item__text__inner">
-                                <div class="label-date">2016</div>
-                                <h5><a href="#">Mustang shelby gt500</a></h5>
-                                <ul>
-                                    <li><span>35,000</span> mi</li>
-                                    <li>Auto</li>
-                                    <li><span>700</span> hp</li>
-                                </ul>
-                            </div>
-                            <div class="car__item__price">
-                                <span class="car-option sale">For Sale</span>
-                                <h6>$730,900</h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix">
-                    <div class="car__item">
-                        <div class="car__item__pic__slider owl-carousel">
-                            <img src="img/cars/car-7.jpg" alt="">
-                            <img src="img/cars/car-2.jpg" alt="">
-                            <img src="img/cars/car-4.jpg" alt="">
-                            <img src="img/cars/car-1.jpg" alt="">
-                        </div>
-                        <div class="car__item__text">
-                            <div class="car__item__text__inner">
-                                <div class="label-date">2020</div>
-                                <h5><a href="#">Lamborghini aventador A90</a></h5>
-                                <ul>
-                                    <li><span>35,000</span> mi</li>
-                                    <li>Auto</li>
-                                    <li><span>700</span> hp</li>
-                                </ul>
-                            </div>
-                            <div class="car__item__price">
-                                <span class="car-option">For Rent</span>
-                                <h6>$422<span>/Month</span></h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-4 col-sm-6 mix">
-                    <div class="car__item">
-                        <div class="car__item__pic__slider owl-carousel">
-                            <img src="img/cars/car-8.jpg" alt="">
-                            <img src="img/cars/car-3.jpg" alt="">
-                            <img src="img/cars/car-5.jpg" alt="">
-                            <img src="img/cars/car-2.jpg" alt="">
-                        </div>
-                        <div class="car__item__text">
-                            <div class="car__item__text__inner">
-                                <div class="label-date">2017</div>
-                                <h5><a href="#">Porsche cayenne turbo s</a></h5>
-                                <ul>
-                                    <li><span>35,000</span> mi</li>
-                                    <li>Auto</li>
-                                    <li><span>700</span> hp</li>
-                                </ul>
-                            </div>
-                            <div class="car__item__price">
-                                <span class="car-option">For Rent</span>
-                                <h6>$322<span>/Month</span></h6>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- Car Section End -->
 
     <!-- Chooseus Section Begin -->
     <section class="chooseus spad">
@@ -633,124 +363,134 @@
                 <div class="col-lg-5">
                     <div class="chooseus__text">
                         <div class="section-title">
-                            <h2>Why People Choose Us</h2>
-                            <p>Duis aute irure dolorin reprehenderits volupta velit dolore fugiat nulla pariatur
-                                excepteur sint occaecat cupidatat.</p>
+                            <h2>Kenapa Memilih Kami?</h2>
+                            <p>Kami menyajikan alasan-alasan mengapa Anda seharusnya memilih layanan kami.</p>
                         </div>
                         <ul>
-                            <li><i class="fa fa-check-circle"></i> Lorem ipsum dolor sit amet, consectetur adipiscing
-                                elit.</li>
-                            <li><i class="fa fa-check-circle"></i> Integer et nisl et massa tempor ornare vel id orci.
+                            <li><i class="fa fa-check-circle"></i> Pengalaman - Kami memiliki pengalaman dalam menyediakan
+                                layanan terbaik.</li>
+                            <li><i class="fa fa-check-circle"></i> Kualitas - Produk berkualitas tinggi untuk kepuasan
+                                Anda.</li>
+                            <li><i class="fa fa-check-circle"></i> Pelayanan - Layanan pelanggan yang ramah dan responsif.
                             </li>
-                            <li><i class="fa fa-check-circle"></i> Nunc consectetur ligula vitae nisl placerat tempus.
-                            </li>
-                            <li><i class="fa fa-check-circle"></i> Curabitur quis ante vitae lacus varius pretium.</li>
+                            <li><i class="fa fa-check-circle"></i> Keandalan - Terpercaya dalam memberikan solusi mobilitas
+                                Anda.</li>
                         </ul>
-                        <a href="#" class="primary-btn">About Us</a>
+                        <a href="#" class="primary-btn">Tentang Kami</a>
                     </div>
                 </div>
             </div>
         </div>
         <div class="chooseus__video set-bg">
-            <img src="img/chooseus-video.png" alt="">
-            <a href="https://www.youtube.com/watch?v=Xd0Ok-MkqoE" class="play-btn video-popup"><i
-                    class="fa fa-play"></i></a>
+            <img src="{{ asset('template/client/img/main/footer.png') }}" alt="">
+
         </div>
     </section>
     <!-- Chooseus Section End -->
 
-    <!-- Latest Blog Section Begin -->
-    <section class="latest spad">
+    <!-- Testimonial Section Begin -->
+    <section class="testimonial spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="section-title">
-                        <span>Our Blog</span>
-                        <h2>Latest News Updates</h2>
-                        <p>Sign up for the latest Automobile Industry information and more. Duis aute<br /> irure
-                            dolorin reprehenderits volupta velit dolore fugiat.</p>
+                    <div class="section-title testimonial-title">
+                        <span>Testimoni</span>
+                        <h2>Apa Kata Mereka Tentang Kami</h2>
+                        <p>Pelanggan kami adalah pendukung terbesar kami. Apa pendapat mereka tentang kami? Temukan di bawah
+                            ini.</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest__blog__item">
-                        <div class="latest__blog__item__pic set-bg" data-setbg="img/latest-blog/lb-1.jpg">
-                            <ul>
-                                <li>By Polly Williams</li>
-                                <li>Dec 19, 2018</li>
-                                <li>Comment</li>
-                            </ul>
-                        </div>
-                        <div class="latest__blog__item__text">
-                            <h5>Benjamin Franklin S Method Of Habit Formation</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Risus commodo viverra maecenas accumsan lacus vel
-                                facilisis.</p>
-                            <a href="#">View More <i class="fa fa-long-arrow-right"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest__blog__item">
-                        <div class="latest__blog__item__pic set-bg" data-setbg="img/latest-blog/lb-2.jpg">
-                            <ul>
-                                <li>By Mattie Ramirez</li>
-                                <li>Dec 19, 2018</li>
-                                <li>Comment</li>
-                            </ul>
-                        </div>
-                        <div class="latest__blog__item__text">
-                            <h5>How To Set Intentions That Energize You</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Risus commodo viverra maecenas accumsan lacus vel
-                                facilisis.</p>
-                            <a href="#">View More <i class="fa fa-long-arrow-right"></i></a>
+                <div class="testimonial__slider owl-carousel">
+                    <div class="col-lg-6">
+                        <div class="testimonial__item">
+                            <div class="testimonial__item__author">
+                                <div class="testimonial__item__author__pic">
+                                    <img src="img/testimonial/testimonial-1.png" alt="">
+                                </div>
+                                <div class="testimonial__item__author__text">
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <h5>John Smith /<span> CEO Colorlib</span></h5>
+                                </div>
+                            </div>
+                            <p>For one thing they usually step all over the hedges and plants on the side of someone’s
+                                house killing</p>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="latest__blog__item">
-                        <div class="latest__blog__item__pic set-bg" data-setbg="img/latest-blog/lb-3.jpg">
-                            <ul>
-                                <li>By Nicholas Brewer</li>
-                                <li>Dec 19, 2018</li>
-                                <li>Comment</li>
-                            </ul>
+                    <div class="col-lg-6">
+                        <div class="testimonial__item">
+                            <div class="testimonial__item__author">
+                                <div class="testimonial__item__author__pic">
+                                    <img src="img/testimonial/testimonial-2.png" alt="">
+                                </div>
+                                <div class="testimonial__item__author__text">
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <h5>Emma Sandoval /<span> Marketing Manager</span></h5>
+                                </div>
+                            </div>
+                            <p>It seems though that some of the biggest problems with the internet advertising trends
+                                are the lack of</p>
                         </div>
-                        <div class="latest__blog__item__text">
-                            <h5>Burning Desire Golden Key Or Red Herring</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                                ut labore et dolore magna aliqua. Risus commodo viverra maecenas accumsan lacus vel
-                                facilisis.</p>
-                            <a href="#">View More <i class="fa fa-long-arrow-right"></i></a>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="testimonial__item">
+                            <div class="testimonial__item__author">
+                                <div class="testimonial__item__author__pic">
+                                    <img src="img/testimonial/testimonial-1.png" alt="">
+                                </div>
+                                <div class="testimonial__item__author__text">
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <h5>John Smith /<span> CEO Colorlib</span></h5>
+                                </div>
+                            </div>
+                            <p>For one thing they usually step all over the hedges and plants on the side of someone’s
+                                house killing</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="testimonial__item">
+                            <div class="testimonial__item__author">
+                                <div class="testimonial__item__author__pic">
+                                    <img src="img/testimonial/testimonial-2.png" alt="">
+                                </div>
+                                <div class="testimonial__item__author__text">
+                                    <div class="rating">
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star"></i>
+                                    </div>
+                                    <h5>Emma Sandoval /<span> Marketing Manager</span></h5>
+                                </div>
+                            </div>
+                            <p>It seems though that some of the biggest problems with the internet advertising trends
+                                are the lack of</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- Latest Blog Section End -->
-
-    <!-- Cta Begin -->
-    <div class="cta">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="cta__item set-bg" data-setbg="img/cta/cta-1.jpg">
-                        <h4>Do You Want To Buy A Car</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="cta__item set-bg" data-setbg="img/cta/cta-2.jpg">
-                        <h4>Do You Want To Rent A Car</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 @endsection
 
 @section('js')

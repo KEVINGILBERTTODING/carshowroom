@@ -26,28 +26,41 @@
 
 <body>
     <!-- Page Preloder -->
-    <div id="preloder">
+    {{-- <div id="preloder">
         <div class="loader"></div>
-    </div>
+    </div> --}}
 
     {{-- Main content --}}
     @yield('content')
 
 
     <!-- Footer Section Begin -->
-    <footer class="footer set-bg" data-setbg="img/footer-bg.jpg">
+    <footer class="footer set-bg" style="background-color: black">
         <div class="container">
             <div class="footer__contact">
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="footer__contact__title">
-                            <h2>Contact Us Now!</h2>
+                            <h2>Hubungi Kami Sekarang!</h2>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="footer__contact__option">
-                            <div class="option__item"><i class="fa fa-phone"></i> (+12) 345 678 910</div>
-                            <div class="option__item email"><i class="fa fa-envelope-o"></i> Colorlib@gmail.com</div>
+                            <div class="option__item">
+                                <i class="fa fa-phone"></i>
+                                <a href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataApp['no_hp']) }}&text=Halo,%20*"
+                                    target="_blank" rel="noopener noreferrer"
+                                    style="text-decoration: none; color: white">
+                                    {{ $dataApp['no_hp'] }}
+                                </a>
+                            </div>
+
+                            <div class="option__item email">
+                                <i class="fa fa-envelope-o"></i>
+                                <a href="mailto:{{ $dataApp['email'] }}"
+                                    style="text-decoration: none; color: black">{{ $dataApp['email'] }}</a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
@@ -56,26 +69,28 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="footer__about">
                         <div class="footer__logo">
-                            <a href="#"><img src="img/footer-logo.png" alt=""></a>
+                            <a href="#"><img style="width: 60px;"
+                                    src="{{ asset('data/app/img/' . $dataApp['logo']) }}" alt=""></a>
                         </div>
-                        <p>Any questions? Let us know in store at 625 Gloria Union, California, United Stated or call us
-                            on (+1) 96 123 8888</p>
+                        <p>
+                            {{ $dataApp['alamat'] }}
+                        </p>
                         <div class="footer__social">
-                            <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
-                            <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
-                            <a href="#" class="google"><i class="fa fa-google"></i></a>
-                            <a href="#" class="skype"><i class="fa fa-skype"></i></a>
+                            <a href="{{ $dataApp['url_facebook'] }}" class="facebook"><i
+                                    class="fa fa-facebook"></i></a>
+                            <a href="{{ $dataApp['url_instagram'] }}" class="skype"><i
+                                    class="fa fa-instagram"></i></a>
+                            <a href="{{ $dataApp['url_youtube'] }}" class="google"><i class="fa fa-youtube"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 offset-lg-1 col-md-3">
                     <div class="footer__widget">
-                        <h5>Infomation</h5>
+                        <h5>Shortcut Link</h5>
                         <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Purchase</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Payemnt</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Shipping</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Return</a></li>
+                            <li><a href="{{ route('admin') }}"><i class="fa fa-angle-right"></i> Admin</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i> Karyawan</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i> Owner</a></li>
                         </ul>
                     </div>
                 </div>
@@ -92,21 +107,15 @@
                 </div>
                 <div class="col-lg-3 col-md-6">
                     <div class="footer__brand">
-                        <h5>Top Brand</h5>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Abarth</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Acura</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Alfa Romeo</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Audi</a></li>
-                        </ul>
-                        <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> BMW</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Chevrolet</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Ferrari</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Honda</a></li>
-                        </ul>
+                        <h5>Lokasi Showroom</h5>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.699165202248!2d110.85359717462626!3d-6.806402066570249!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70c563d4241f47%3A0x6d57dee628b7bc7d!2sRizki%20Motor!5e0!3m2!1sid!2sid!4v1700057379421!5m2!1sid!2sid"
+                            class="rounded w-100 h-100" allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+
                     </div>
                 </div>
+
             </div>
             <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             <div class="footer__copyright__text">
