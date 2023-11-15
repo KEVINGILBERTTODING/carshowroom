@@ -13,6 +13,7 @@ use App\Http\Controllers\admin\components\WarnaController;
 use App\Http\Controllers\admin\MobilController;
 use App\Http\Controllers\admin\transactions\TransactionController;
 use App\Http\Controllers\admin\users\UsersController;
+use App\Http\Controllers\client\main\MainController;
 use App\Http\Controllers\FinanceController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,12 +28,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    if (session('login') == true && session('role') == 'admin') {
-        return redirect()->route('adminDashboard');
-    }
-    return view('welcome');
-});
+// main route
+Route::get('/', [MainController::class, 'index'])->name('/');
 
 
 // admin
