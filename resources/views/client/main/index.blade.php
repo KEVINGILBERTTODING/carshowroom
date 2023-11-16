@@ -1,7 +1,7 @@
 @extends('layouts.client.t_client_main')
 
 @section('title')
-    <title>Rizqi Motor</title>
+    <title>{{ $dataApp['app_name'] }}</title>
 @endsection
 
 @section('content')
@@ -9,9 +9,11 @@
     <div class="offcanvas-menu-overlay"></div>
     <div class="offcanvas-menu-wrapper">
         <div class="offcanvas__widget">
-            <a href="#"><i class="fa fa-cart-plus"></i></a>
+
             <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
-            <a href="#" class="primary-btn">Add Car</a>
+            @if (session('role') == 'customer' && session('login') == true)
+                <a href="#" class="primary-btn">Dasboard</a>
+            @endif
         </div>
         <div class="offcanvas__logo">
             <a href="{{ route('/') }}"><img width="10%;" src="{{ asset('data/app/img/' . $dataApp['logo']) }}"
@@ -74,26 +76,28 @@
                     <div class="header__nav">
                         <nav class="header__menu">
                             <ul>
-                                <li class="active"><a href="{{ route('/') }}">Home</a></li>
-                                <li><a href="./car.html">Cars</a></li>
-                                <li><a href="./blog.html">Blog</a></li>
-                                <li><a href="#">Pages</a>
+                                <li class="active"><a href="{{ route('/') }}">Beranda</a></li>
+                                <li><a href="#">Mobil</a>
                                     <ul class="dropdown">
-                                        <li><a href="./about.html">About Us</a></li>
-                                        <li><a href="./car-details.html">Car Details</a></li>
-                                        <li><a href="./blog-details.html">Blog Details</a></li>
+                                        <li><a href="./about.html">Diskon</a></li>
+                                        <li><a href="./car-details.html">Mobil Tersedia</a></li>
+                                        <li><a href="./blog-details.html">Mobil Terjual</a></li>
                                     </ul>
                                 </li>
+                                <li><a href="./blog.html">Testimoni</a></li>
+                                <li><a href="{{ route('dataFinance') }}">Finance</a></li>
                                 <li><a href="./about.html">About</a></li>
-                                <li><a href="./contact.html">Contact</a></li>
                             </ul>
                         </nav>
                         <div class="header__nav__widget">
                             <div class="header__nav__widget__btn">
-                                <a href="#"><i class="fa fa-cart-plus"></i></a>
+
                                 <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
                             </div>
-                            <a href="#" class="primary-btn">Add Car</a>
+                            @if (session('role') == 'customer' && session('login') == true)
+                                <a href="#" class="primary-btn">Dasboard</a>
+                            @endif
+
                         </div>
                     </div>
                 </div>
@@ -139,8 +143,7 @@
                                     <h2>Masuk</h2>
 
                                     <p class="text-sm text-muted">Baru bergabung? <a data-toggle="tab"
-                                            style="text-decoration: none; color: #3e6ae1 ;" href="#tabs-2"
-                                            role="tab">
+                                            style="text-decoration: none; color: #3e6ae1 ;" href="#tabs-2" role="tab">
                                             Buat akun baru</a></p>
 
                                     <form>
@@ -230,7 +233,8 @@
             <div class="row">
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="services__item">
-                        {{-- <img src="{{ asset('template/client/img/services/services-1.png') }}" alt=""> --}}
+                        <img style="width: 40%;" src="{{ asset('template/client/img/services/service1.png') }}"
+                            alt="">
                         <h5>Mobil Murah Berkualitas</h5>
                         <p>
                             Nikmati mobil impian tanpa menguras kantong. Temukan penawaran mobil murah dan berkualitas
@@ -241,7 +245,8 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="services__item">
-                        <img src="img/services/services-2.png" alt="">
+                        <img style="width: 40%;" src="{{ asset('template/client/img/services/service2.png') }}"
+                            alt="">
                         <h5>Terjamin Aman</h5>
                         <p>
                             Kami memahami betapa pentingnya keamanan dalam setiap transaksi. Data pribadi Anda akan dijaga
@@ -252,7 +257,8 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="services__item">
-                        <img src="img/services/services-3.png" alt="">
+                        <img style="width: 40%;" src="{{ asset('template/client/img/services/service3.png') }}"
+                            alt="">
                         <h5>Cicilan Mudah</h5>
                         <p>
                             Tersedia pembayaran cicilan yang mudah, berkat kerjasama kami
@@ -263,7 +269,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <div class="services__item">
-                        <img src="img/services/services-4.png" alt="">
+                        <img style="width: 40%;" src="{{ asset('template/client/img/services/service4.png') }}">
                         <h5>Pelayanan Cepat dan Responsif</h5>
                         <p>
                             Tim kami siap membantu untuk membuat proses

@@ -26,9 +26,9 @@
 
 <body>
     <!-- Page Preloder -->
-    {{-- <div id="preloder">
+    <div id="preloder">
         <div class="loader"></div>
-    </div> --}}
+    </div>
 
     {{-- Main content --}}
     @yield('content')
@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6">
                         <div class="footer__contact__title">
-                            <h2>Hubungi Kami Sekarang!</h2>
+                            <h3 style="color: white">Hubungi Kami Sekarang!</h3>
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6">
@@ -76,17 +76,19 @@
                             {{ $dataApp['alamat'] }}
                         </p>
                         <div class="footer__social">
-                            <a href="{{ $dataApp['url_facebook'] }}" class="facebook"><i
+
+                            <a href="{{ $dataApp['url_facebook'] }}" target="_blank" class="facebook"><i
                                     class="fa fa-facebook"></i></a>
-                            <a href="{{ $dataApp['url_instagram'] }}" class="skype"><i
+                            <a href="{{ $dataApp['url_instagram'] }}" target="_blank" class="skype"><i
                                     class="fa fa-instagram"></i></a>
-                            <a href="{{ $dataApp['url_youtube'] }}" class="google"><i class="fa fa-youtube"></i></a>
+                            <a href="{{ $dataApp['url_youtube'] }}" target="_blank" class="google"><i
+                                    class="fa fa-youtube"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-2 offset-lg-1 col-md-3">
                     <div class="footer__widget">
-                        <h5>Shortcut Link</h5>
+                        <h5>Tautan</h5>
                         <ul>
                             <li><a href="{{ route('admin') }}"><i class="fa fa-angle-right"></i> Admin</a></li>
                             <li><a href="#"><i class="fa fa-angle-right"></i> Karyawan</a></li>
@@ -96,7 +98,7 @@
                 </div>
                 <div class="col-lg-2 col-md-3">
                     <div class="footer__widget">
-                        <h5>Infomation</h5>
+                        <h5>Informasi</h5>
                         <ul>
                             <li><a href="#"><i class="fa fa-angle-right"></i> Hatchback</a></li>
                             <li><a href="#"><i class="fa fa-angle-right"></i> Sedan</a></li>
