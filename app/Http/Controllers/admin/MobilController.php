@@ -946,20 +946,64 @@ class MobilController extends Controller
     function tampilMobil()
     {
         $mobilModel = new MobilModel();
-        $dataMobil = $mobilModel->clientGetCar()->paginate(9);
+
 
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMerk = MerkModel::get();
         $dataTransmisi = TransmisiModel::get();
         $dataBody = BodyModel::get();
+        $dataMobil = $mobilModel->clientGetCar()->paginate(9);
+        $dataFinance = FInanceModel::first();
+
+        foreach ($dataMobil as $dm) {
+
+            // bunga cicilan
+            $persentaseBunga = $dataFinance['bunga'];
+            $bunga = $persentaseBunga / 100;
+
+            // asuransi
+            $persentaseAsuransi = $dataFinance['biaya_asuransi'];
+            $asuransi = $persentaseAsuransi / 100;
+            $totalAsuransi = ($dm->harga_jual - $dm->diskon) * $asuransi;
+
+            // administrasi
+            $persentaseAdministrasi = $dataFinance['biaya_administrasi'];
+            $administrasi = $persentaseAdministrasi / 100;
+            $totalAdministrasi = ($dm->harga_jual - $dm->diskon) * $administrasi;
+
+            // administrasi
+            $persentaseProvisi = $dataFinance['biaya_provisi'];
+            $provisi = $persentaseProvisi / 100;
+            $totalProvisi = ($dm->harga_jual - $dm->diskon) * $provisi;
+
+
+            $total = $totalAsuransi + $totalAdministrasi + $totalProvisi;
+
+            // dp
+            $persentaseDp = $dataFinance['uang_muka'];
+            $dp = $total * ($persentaseDp / 100);
+            $totalPinjaman = $total - $dp;
+
+
+
+            $totalCicilan = $this->showTotalCicilan($totalPinjaman, $bunga, 36);
+            $dm->total_cicilan = $totalCicilan;
+        }
         $data = [
             'dataApp' => $dataApp,
             'dataMobil' => $dataMobil,
             'dataMerk' => $dataMerk,
             'dataTransmisi' => $dataTransmisi,
-            'dataBody' => $dataBody
+            'dataBody' => $dataBody,
+            'dataFinance' => $dataFinance
         ];
 
         return view('client.cars.index', $data);
+    }
+
+    function showTotalCicilan($totalPinjaman, $bunga, $bulan)
+    {
+        $emi = $totalPinjaman * ($bunga * pow((1 + $bunga), $bulan)) / (pow((1 + $bunga), $bulan) - 1);
+        return $emi;
     }
 }

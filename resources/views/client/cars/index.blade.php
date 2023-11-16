@@ -228,46 +228,83 @@
                                             @endif
 
                                         </div>
-                                        <div class="car__item__price">
+                                        <div class="car__item__price"
+                                            style="display: flex; justify-content: space-between; align-items: center;">
                                             @if ($dm->status_mobil == 1)
                                                 <span class="car-option available">Tersedia</span>
                                                 @if ($dm->diskon != 0)
-                                                    <h6 style="  text-decoration: line-through; text-decoration-thickness: 2px;"
-                                                        class="text-muted text-decoration-line-through">
-                                                        {{ formatRupiah($dm->harga_jual) }}</h6>
-                                                    <h6 class="text-dark text-decoration-line-through">
-                                                        {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
+                                                    <div
+                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                        <h6 style="text-decoration: line-through; text-decoration-thickness: 2px;"
+                                                            class="text-muted text-decoration-line-through">
+                                                            {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                        <h6 class="text-dark text-decoration-line-through">
+                                                            {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
+                                                        <p class="text-warning" style="font-size: 12px;">
+                                                            {{ formatRupiah($dm->total_cicilan) }} /
+                                                            bulan</p>
+                                                    </div>
                                                 @else
-                                                    <h6 class="text-muted">
-                                                        {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                    <div
+                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                        <h6 class="text-muted">
+                                                            {{ formatRupiah($dm->harga_jual) }} Kredit</h6>
+                                                        <p class="text-warning" style="font-size: 12px;">
+                                                            {{ formatRupiah($dm->total_cicilan) }} /
+                                                            bulan</p>
+                                                    </div>
                                                 @endif
                                             @elseif ($dm->status_mobil == 0)
                                                 <span class="car-option soldout">Terjual</span>
                                                 @if ($dm->diskon != 0)
-                                                    <h6 style="  text-decoration: line-through; text-decoration-thickness: 2px;"
-                                                        class="text-muted text-decoration-line-through">
-                                                        {{ formatRupiah($dm->harga_jual) }}</h6>
-
-                                                    <h6 class="text-muted text-decoration-line-through">
-                                                        {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
+                                                    <div
+                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                        <h6 style="text-decoration: line-through; text-decoration-thickness: 2px;"
+                                                            class="text-muted text-decoration-line-through">
+                                                            {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                        <h6 class="text-muted text-decoration-line-through">
+                                                            {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
+                                                        <p class="text-warning" style="font-size: 12px;">
+                                                            {{ formatRupiah($dm->total_cicilan) }} /
+                                                            bulan</p>
+                                                    </div>
                                                 @else
-                                                    <h6 class="text-muted">
-                                                        {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                    <div
+                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                        <h6 class="text-muted">
+                                                            {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                        <p class="text-warning" style="font-size: 12px;">
+                                                            {{ formatRupiah($dm->total_cicilan) }} /
+                                                            bulan</p>
+                                                    </div>
                                                 @endif
                                             @else
                                                 <span class="car-option booked">Dipesan</span>
                                                 @if ($dm->diskon != 0)
-                                                    <h6 style="  text-decoration: line-through; text-decoration-thickness: 2px;"
-                                                        class="text-muted text-decoration-line-through">
-                                                        {{ formatRupiah($dm->harga_jual) }}</h6>
-                                                    <h6 class="text-muted text-decoration-line-through">
-                                                        {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
+                                                    <div
+                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                        <h6 style="text-decoration: line-through; text-decoration-thickness: 2px;"
+                                                            class="text-muted text-decoration-line-through">
+                                                            {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                        <h6 class="text-muted text-decoration-line-through">
+                                                            {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
+                                                        <p class="text-warning" style="font-size: 12px;">
+                                                            {{ formatRupiah($dm->total_cicilan) }} /
+                                                            bulan</p>
+                                                    </div>
                                                 @else
-                                                    <h6 class="text-muted">
-                                                        {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                    <div
+                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                        <h6 class="text-muted">
+                                                            {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                        <p class="text-warning" style="font-size: 12px;">
+                                                            {{ formatRupiah($dm->total_cicilan) }} /
+                                                            bulan</p>
+                                                    </div>
                                                 @endif
                                             @endif
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -275,6 +312,8 @@
 
 
                     </div>
+
+                    {{-- pagination --}}
                     <div class="pagination__option">
                         @php
                             $currentPage = $dataMobil->currentPage();
