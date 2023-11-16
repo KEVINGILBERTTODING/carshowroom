@@ -77,16 +77,11 @@
                         <nav class="header__menu">
                             <ul>
                                 <li><a href="{{ route('/') }}">Beranda</a></li>
-                                <li><a href="#">Mobil</a>
-                                    <ul class="dropdown">
-                                        <li><a href="./about.html">Diskon</a></li>
-                                        <li><a href="./car-details.html">Mobil Tersedia</a></li>
-                                        <li><a href="./blog-details.html">Mobil Terjual</a></li>
-                                    </ul>
+                                <li><a href="{{ route('mobil') }}">Mobil</a>
                                 </li>
                                 <li><a href="./blog.html">Testimoni</a></li>
-                                <li><a href="./about.html">Finance</a></li>
-                                <li class="active"><a href="./about.html">About</a></li>
+                                <li><a href="{{ route('dataFinance') }}">Finance</a></li>
+                                <li class="active"><a href="{{ route('aboutUs') }}">About</a></li>
                             </ul>
                         </nav>
                         <div class="header__nav__widget">

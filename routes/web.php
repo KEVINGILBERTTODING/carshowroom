@@ -179,3 +179,6 @@ Route::get('downloadReportProfit', [TransactionController::class, 'downloadRepor
 Route::get('dataFinance', [MainController::class, 'finance'])->name('dataFinance');
 Route::get('detailDataFinance/{financeId}', [MainController::class, 'detailFinance'])->name('detailDataFinance');
 Route::get('aboutUs', [MainController::class, 'aboutUs'])->name('aboutUs');
+
+// mobil
+Route::get('mobil', [MobilController::class, 'tampilMobil'])->name('mobil');

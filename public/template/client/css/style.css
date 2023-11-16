@@ -1150,8 +1150,17 @@ ol {
 	top: 0;
 }
 
-.car__item__price .car-option.sale {
+.car__item__price .car-option.available {
+	background: #4971FF;
+}
+
+.car__item__price .car-option.booked {
 	background: #FFCC00;
+}
+
+.car__item__price .car-option.soldout {
+	background: #ebebeb;
+    color: white;
 }
 
 .car__item__price h6 {

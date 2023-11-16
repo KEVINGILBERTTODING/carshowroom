@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Transmisi</title>
+    <title>Admin - Jenis Body</title>
 @endsection
 
 @section('sidebar')

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Pagination\Paginator;
 
 class MobilModel extends Model
 {
@@ -35,5 +37,35 @@ class MobilModel extends Model
             ->first();
 
         return $data;
+    }
+
+
+    function clientGetCar()
+    {
+        $query = MobilModel::select(
+            'mobil.nama_model',
+            'mobil.no_plat',
+            'mobil.tahun',
+            'mobil.km',
+            'mobil.harga_jual',
+            'mobil.diskon',
+            'mobil.status_mobil',
+            'mobil.gambar1',
+            'mobil.gambar2',
+            'mobil.gambar3',
+            'mobil.gambar4',
+            'mobil.gambar5',
+            'mobil.gambar6',
+            'merk.merk',
+            'transmisi.transmisi',
+            'kapasitas_mesin.kapasitas as kapasitas_mesin'
+        )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
+            ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id');
+
+
+        $query->orderBy('mobil_id', 'desc');
+
+        return $query;
     }
 }
