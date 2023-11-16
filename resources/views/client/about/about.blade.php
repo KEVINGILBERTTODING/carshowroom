@@ -1,7 +1,7 @@
 @extends('layouts.client.t_client_main')
 
 @section('title')
-    <title>{{ $dataApp['app_name'] . ' - Finance' }}</title>
+    <title>{{ $dataApp['app_name'] . ' - Tentang Kami' }}</title>
 @endsection
 
 @section('content')
@@ -85,8 +85,8 @@
                                     </ul>
                                 </li>
                                 <li><a href="./blog.html">Testimoni</a></li>
-                                <li class="active"><a href="./about.html">Finance</a></li>
-                                <li><a href="{{ route('aboutUs') }}">About</a></li>
+                                <li><a href="./about.html">Finance</a></li>
+                                <li class="active"><a href="./about.html">About</a></li>
                             </ul>
                         </nav>
                         <div class="header__nav__widget">
@@ -113,12 +113,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>{{ $dataFinance['nama_finance'] }}</h2>
+                        <h2>Tentang Kami</h2>
                         <div class="breadcrumb__links">
                             <a href="{{ route('/') }}"><i class="fa fa-home"></i> Home</a>
-                            <a href="{{ route('dataFinance') }}">
-                                Finance</a>
-                            <span>{{ $dataFinance['nama_finance'] }}</span>
+                            <span>Tentang Kami</span>
                         </div>
                     </div>
                 </div>
@@ -126,57 +124,46 @@
         </div>
     </div>
 
-
-    <section class="contact spad">
+    <!-- About Us Section Begin -->
+    <section class="about spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="contact__text">
-                        <div class="section-title">
-                            <h2>{{ $dataFinance['nama_finance'] }}</h2>
-                            <p>{{ $dataFinance['deskripsi'] }}</p>
-                        </div>
-                        <ul>
-
-                            @if ($dataFinance['email'] != null)
-                                <li><span>Email:</span> <a class="text-primary" href="mailto:{{ $dataFinance['email'] }}"
-                                        target="_blank" rel="noopener noreferrer" style="text-decoration: none; ">
-                                        {{ $dataFinance['email'] }}</a></li>
-                            @endif
-
-                            @if ($dataFinance['telepon'] != null)
-                                <li><span>No Hp:</span> <a class="text-primary"
-                                        href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataFinance['telepon']) }}&text=Halo,%20*"
-                                        target="_blank" rel="noopener noreferrer" style="text-decoration: none; ">
-                                        {{ $dataFinance['telepon'] }}</a></li>
-                            @endif
-
-                        </ul>
-
-                    </div>
-                    <div class="footer__social">
-                        @if ($dataFinance['url_facebook'] != null)
-                            <a href="{{ $dataFinance['url_facebook'] }}" target="_blank" class="facebook"><i
-                                    class="fa fa-facebook"></i></a>
-                        @endif
-
-                        @if ($dataFinance['url_instagram'] != null)
-                            <a href="{{ $dataFinance['url_instagram'] }}" target="_blank" class="skype"><i
-                                    class="fa fa-instagram"></i></a>
-                        @endif
-
-                        @if ($dataFinance['url_website'] != null)
-                            <a href="{{ $dataFinance['url_website'] }}" target="_blank" class="google"><i
-                                    class="fa fa-globe"></i></a>
-                        @endif
-
+                <div class="col-lg-12">
+                    <div class="section-title about-title">
+                        <h2>Selamat Datang di {{ $dataApp['app_name'] }} <br />Destinasi terbaik untuk menemukan mobil
+                            bekas berkualitas.</h2>
+                        <p>
+                            Kami berkomitmen memberikan pengalaman berbelanja yang menyenangkan, memberikan Anda akses ke
+                            koleksi mobil bekas terbaik dengan harga yang terjangkau. Temukan kendaraan impian Anda bersama
+                            kami!"
+                        </p>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="services__item">
-                        <img src="{{ asset('data/finance/img/' . $dataFinance['image']) }}" alt="">
-                    </div>
+            </div>
 
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="about__pic">
+                        <img src="{{ asset('template/client/img/about/' . $dataApp['img_about_us']) }}"
+                            alt="{{ $dataApp['app_name'] }}">
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="about__item">
+                        <h5>Misi Kami</h5>
+                        <p>
+                            {{ $dataApp['misi'] }}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="about__item">
+                        <h5>Visi Kami</h5>
+                        <p>
+                            {{ $dataApp['visi'] }}
+
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>

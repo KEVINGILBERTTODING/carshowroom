@@ -86,7 +86,8 @@
                                 </li>
                                 <li><a href="./blog.html">Testimoni</a></li>
                                 <li class="active"><a href="./about.html">Finance</a></li>
-                                <li><a href="./about.html">About</a></li>
+                                <li><a href="{{ route('aboutUs') }}">About</a></li>
+
                             </ul>
                         </nav>
                         <div class="header__nav__widget">

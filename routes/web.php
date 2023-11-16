@@ -178,3 +178,4 @@ Route::get('downloadReportProfit', [TransactionController::class, 'downloadRepor
 // landing page
 Route::get('dataFinance', [MainController::class, 'finance'])->name('dataFinance');
 Route::get('detailDataFinance/{financeId}', [MainController::class, 'detailFinance'])->name('detailDataFinance');
+Route::get('aboutUs', [MainController::class, 'aboutUs'])->name('aboutUs');

@@ -86,7 +86,7 @@
                                 </li>
                                 <li><a href="./blog.html">Testimoni</a></li>
                                 <li><a href="{{ route('dataFinance') }}">Finance</a></li>
-                                <li><a href="./about.html">About</a></li>
+                                <li><a href="{{ route('aboutUs') }}">About</a></li>
                             </ul>
                         </nav>
                         <div class="header__nav__widget">
@@ -110,7 +110,7 @@
     <!-- Header Section End -->
 
     <!-- Hero Section Begin -->
-    <section class="hero spad set-bg" data-setbg="{{ asset('template/client/img/main/hero.png') }}">
+    <section class="hero spad set-bg" data-setbg="{{ asset('template/client/img/main/' . $dataApp['img_hero']) }}">
         <div class="container">
             <div class="row">
                 <div class="col-lg-7">
@@ -122,7 +122,7 @@
 
                         <a href="#" class="primary-btn"><img src="img/wheel.png" alt="">
                             Temukan Sekarang</a>
-                        <a href="#" class="primary-btn more-btn">Tentang Kami</a>
+                        <a href="{{ route('aboutUs') }}" class="primary-btn more-btn">Tentang Kami</a>
                     </div>
                 </div>
                 <div class="col-lg-5">
@@ -382,7 +382,7 @@
                             <li><i class="fa fa-check-circle"></i> Keandalan - Terpercaya dalam memberikan solusi mobilitas
                                 Anda.</li>
                         </ul>
-                        <a href="#" class="primary-btn">Tentang Kami</a>
+                        <a href="{{ route('aboutUs') }}" class="primary-btn">Tentang Kami</a>
                     </div>
                 </div>
             </div>

@@ -46,4 +46,14 @@ class MainController extends Controller
         ];
         return view('client.finance.detail_finance', $data);
     }
+
+
+    function aboutUs()
+    {
+        $dataApp =  AppModel::where('app_id', 1)->first();
+        $data = [
+            'dataApp' => $dataApp
+        ];
+        return view('client.about.about', $data);
+    }
 }
