@@ -138,7 +138,7 @@
 
                 @foreach ($dataFinance as $df)
                     <div class="col-lg-3 col-md-4 col-sm-6">
-                        <a href="{{ route('detailDataFinance', $df->finance_id) }}">
+                        <a href="{{ route('detailDataFinance', Crypt::encrypt($df->finance_id)) }}">
                             <div class="services__item">
                                 <img src="{{ asset('data/finance/img/' . $df['image']) }}" alt="">
                             </div>

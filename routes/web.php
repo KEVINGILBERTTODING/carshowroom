@@ -182,3 +182,4 @@ Route::get('aboutUs', [MainController::class, 'aboutUs'])->name('aboutUs');
 
 // mobil
 Route::get('mobil', [MobilController::class, 'tampilMobil'])->name('mobil');
+Route::get('detailMobil/{mobilId}', [MobilController::class, 'detailMobilClient'])->name('detailMobil');

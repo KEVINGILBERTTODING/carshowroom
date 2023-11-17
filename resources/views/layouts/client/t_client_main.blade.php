@@ -22,6 +22,9 @@
     <link rel="stylesheet" href="{{ asset('template/client/css/owl.carousel.min.css') }}"type="text/css">
     <link rel="stylesheet" href="{{ asset('template/client/css/slicknav.min.css') }}"type="text/css">
     <link rel="stylesheet" href="{{ asset('template/client/css/style.css') }}" type="text/css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.0/sweetalert2.css"
+        integrity="sha512-pxzljms2XK/DmQU3S58LhGyvttZBPNSw1/zoVZiYmYBvjDQW+0K7/DVzWHNz/LeiDs+uiPMtfQpgDeETwqL+1Q=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -145,6 +148,28 @@
     <!-- Search End -->
 
 
+    <!-- Modal -->
+    <div class="modal fade" id="modalContoh" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Js Plugins -->
     <script src="{{ asset('template/client/js/jquery-3.3.1.min.js') }}"></script>
@@ -156,7 +181,38 @@
     <script src="{{ asset('template/client/js/jquery.slicknav.js') }}"></script>
     <script src="{{ asset('template/client/js/owl.carousel.min.js') }}"></script>
     <script src="{{ asset('template/client/js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.0/sweetalert2.min.js"></script>
+
+
+    {{-- script sweetalert --}}
+    @if (session('failed'))
+        <script>
+            $(document).ready(function() {
+                var errorMessage = "{{ session('failed') }}"
+                Swal.fire({
+                    icon: "error",
+                    title: "Gagal",
+                    text: errorMessage,
+                });
+            });
+        </script>
+    @elseif (session('success'))
+        <script>
+            $(document).ready(function() {
+                var successMessage = "{{ session('success') }}"
+                Swal.fire({
+                    icon: "success",
+                    title: "Berhasil",
+                    text: successMessage,
+                });
+
+
+            });
+        </script>
+    @endif
+
     @yield('js')
+
 
 </body>
 

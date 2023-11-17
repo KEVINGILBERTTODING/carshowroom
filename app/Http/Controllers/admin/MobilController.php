@@ -21,6 +21,7 @@ use App\Models\TransmisiModel;
 use App\Models\WarnaModel;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -948,33 +949,99 @@ class MobilController extends Controller
         $mobilModel = new MobilModel();
 
 
-        $dataApp = AppModel::where('app_id', 1)->first();
-        $dataMerk = MerkModel::get();
-        $dataTransmisi = TransmisiModel::get();
-        $dataBody = BodyModel::get();
-        $dataMobil = $mobilModel->clientGetCar()->paginate(9);
-        $dataFinance = FInanceModel::first();
+        try {
+            $dataApp = AppModel::where('app_id', 1)->first();
+            $dataMerk = MerkModel::get();
+            $dataTransmisi = TransmisiModel::get();
+            $dataBody = BodyModel::get();
+            $dataMobil = $mobilModel->clientGetCar()->paginate(9);
+            $dataFinance = FInanceModel::first();
 
-        foreach ($dataMobil as $dm) {
+            foreach ($dataMobil as $dm) {
 
-            // bunga cicilan
+                // bunga cicilan
+                $persentaseBunga = $dataFinance['bunga'];
+                $bunga = $persentaseBunga / 100;
+
+                // asuransi
+                $persentaseAsuransi = $dataFinance['biaya_asuransi'];
+                $asuransi = $persentaseAsuransi / 100;
+                $totalAsuransi = ($dm->harga_jual - $dm->diskon) * $asuransi;
+
+                // administrasi
+                $persentaseAdministrasi = $dataFinance['biaya_administrasi'];
+                $administrasi = $persentaseAdministrasi / 100;
+                $totalAdministrasi = ($dm->harga_jual - $dm->diskon) * $administrasi;
+
+                // administrasi
+                $persentaseProvisi = $dataFinance['biaya_provisi'];
+                $provisi = $persentaseProvisi / 100;
+                $totalProvisi = ($dm->harga_jual - $dm->diskon) * $provisi;
+
+
+                $total = $totalAsuransi + $totalAdministrasi + $totalProvisi;
+
+                // dp
+                $persentaseDp = $dataFinance['uang_muka'];
+                $dp = $total * ($persentaseDp / 100);
+                $totalPinjaman = $total - $dp;
+
+
+
+                $totalCicilan = $this->showTotalCicilan($totalPinjaman, $bunga, 36);
+                $dm->total_cicilan = $totalCicilan;
+            }
+            $data = [
+                'dataApp' => $dataApp,
+                'dataMobil' => $dataMobil,
+                'dataMerk' => $dataMerk,
+                'dataTransmisi' => $dataTransmisi,
+                'dataBody' => $dataBody,
+                'dataFinance' => $dataFinance
+            ];
+
+            return view('client.cars.index', $data);
+        } catch (\Throwable $th) {
+            return redirect()->back();
+        }
+    }
+
+    function showTotalCicilan($totalPinjaman, $bunga, $bulan)
+    {
+        $emi = $totalPinjaman * ($bunga * pow((1 + $bunga), $bulan)) / (pow((1 + $bunga), $bulan) - 1);
+        return $emi;
+    }
+
+    function detailMobilCLient($mobilId)
+    {
+        $mobilModel = new MobilModel();
+        $mobilId = Crypt::decrypt($mobilId);
+
+        try {
+            $dataMobil = $mobilModel->getDetailMobilClient($mobilId);
+            if ($dataMobil == null) {
+                return redirect()->back()->with('failed', 'Mobil tidak tersedia');
+            }
+            $dataApp = AppModel::first();
+            $dataFinance = FInanceModel::first();
+
             $persentaseBunga = $dataFinance['bunga'];
             $bunga = $persentaseBunga / 100;
 
             // asuransi
             $persentaseAsuransi = $dataFinance['biaya_asuransi'];
             $asuransi = $persentaseAsuransi / 100;
-            $totalAsuransi = ($dm->harga_jual - $dm->diskon) * $asuransi;
+            $totalAsuransi = ($dataMobil['harga_jual'] - $dataMobil['diskon']) * $asuransi;
 
             // administrasi
             $persentaseAdministrasi = $dataFinance['biaya_administrasi'];
             $administrasi = $persentaseAdministrasi / 100;
-            $totalAdministrasi = ($dm->harga_jual - $dm->diskon) * $administrasi;
+            $totalAdministrasi = ($dataMobil['harga_jual'] - $dataMobil['diskon']) * $administrasi;
 
             // administrasi
             $persentaseProvisi = $dataFinance['biaya_provisi'];
             $provisi = $persentaseProvisi / 100;
-            $totalProvisi = ($dm->harga_jual - $dm->diskon) * $provisi;
+            $totalProvisi = ($dataMobil['harga_jual'] - $dataMobil['diskon']) * $provisi;
 
 
             $total = $totalAsuransi + $totalAdministrasi + $totalProvisi;
@@ -987,23 +1054,17 @@ class MobilController extends Controller
 
 
             $totalCicilan = $this->showTotalCicilan($totalPinjaman, $bunga, 36);
-            $dm->total_cicilan = $totalCicilan;
+            $dataMobil['total_cicilan'] = $totalCicilan;
+
+
+            $data = [
+                'dataApp' => $dataApp,
+                'dataMobil' => $dataMobil
+            ];
+
+            return view('client.cars.car_detail', $data);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Mobil tidak tersedia');
         }
-        $data = [
-            'dataApp' => $dataApp,
-            'dataMobil' => $dataMobil,
-            'dataMerk' => $dataMerk,
-            'dataTransmisi' => $dataTransmisi,
-            'dataBody' => $dataBody,
-            'dataFinance' => $dataFinance
-        ];
-
-        return view('client.cars.index', $data);
-    }
-
-    function showTotalCicilan($totalPinjaman, $bunga, $bulan)
-    {
-        $emi = $totalPinjaman * ($bunga * pow((1 + $bunga), $bulan)) / (pow((1 + $bunga), $bulan) - 1);
-        return $emi;
     }
 }

@@ -44,6 +44,7 @@ class MobilModel extends Model
     {
         $query = MobilModel::select(
             'mobil.nama_model',
+            'mobil.mobil_id',
             'mobil.no_plat',
             'mobil.tahun',
             'mobil.km',
@@ -67,5 +68,41 @@ class MobilModel extends Model
         $query->orderBy('mobil_id', 'desc');
 
         return $query;
+    }
+
+    function getDetailMobilClient($mobilId)
+    {
+        $data = MobilModel::select(
+            'mobil.*',
+            'merk.merk',
+            'body.body',
+            'warna.warna',
+            'kapasitas_mesin.kapasitas as kapasitas_mesin',
+            'bahan_bakar.bahan_bakar',
+            'transmisi.transmisi',
+            'kapasitas_penumpang.kapasitas as kapasitas_penumpang',
+            'tangki.tangki',
+            'review.review_text',
+            'review.star',
+            'review.image1 as image_review1',
+            'review.image2 as image_review2',
+            'review.image3 as image_review3',
+            'review.image4 as image_review4',
+            'users.nama_lengkap'
+
+        )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->leftJoin('body', 'mobil.body_id', '=', 'body.body_id')
+            ->leftJoin('warna', 'mobil.warna_id', '=', 'warna.warna_id')
+            ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
+            ->leftJoin('bahan_bakar', 'mobil.bahan_bakar_id', '=', 'bahan_bakar.bahan_bakar_id')
+            ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
+            ->leftJoin('kapasitas_penumpang', 'mobil.kp_id', '=', 'kapasitas_penumpang.kp_id')
+            ->leftJoin('tangki', 'mobil.tangki_id', '=', 'tangki.tangki_id')
+            ->leftJoin('review', 'mobil.mobil_id', '=', 'review.mobil_id')
+            ->leftJoin('users', 'review.user_id', '=', 'users.user_id')
+            ->where('mobil.mobil_id', $mobilId)
+            ->first();
+
+        return $data;
     }
 }

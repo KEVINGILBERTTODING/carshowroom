@@ -211,14 +211,16 @@
                                         <div class="car__item__text__inner">
                                             @if ($dm->status_mobil == 1)
                                                 <div class="label-date">{{ $dm->tahun }}</div>
-                                                <h5><a href="#">{{ $dm->merk . ' ' . $dm->nama_model }}</a></h5>
+                                                <h5><a
+                                                        href="{{ route('detailMobil', Crypt::encrypt($dm->mobil_id)) }}">{{ $dm->merk . ' ' . $dm->nama_model }}</a>
+                                                </h5>
                                                 <ul>
                                                     <li class="text-dark">{{ $dm->km }} KM</li>
                                                     <li class="text-dark">{{ $dm->transmisi }}</li>
                                                 </ul>
                                             @else
                                                 <div class="label-date text-muted">{{ $dm->tahun }}</div>
-                                                <h5><a href="#"
+                                                <h5><a href="{{ route('detailMobil', Crypt::encrypt($dm->mobil_id)) }}"
                                                         class="text-muted">{{ $dm->merk . ' ' . $dm->nama_model }}</a>
                                                 </h5>
                                                 <ul>
@@ -248,7 +250,7 @@
                                                     <div
                                                         style="display: flex; flex-direction: column; align-items: flex-end;">
                                                         <h6 class="text-muted">
-                                                            {{ formatRupiah($dm->harga_jual) }} Kredit</h6>
+                                                            {{ formatRupiah($dm->harga_jual) }} </h6>
                                                         <p class="text-warning" style="font-size: 12px;">
                                                             {{ formatRupiah($dm->total_cicilan) }} /
                                                             bulan</p>
@@ -279,7 +281,7 @@
                                                     </div>
                                                 @endif
                                             @else
-                                                <span class="car-option booked">Dipesan</span>
+                                                <span class="car-option booked">Di pesan</span>
                                                 @if ($dm->diskon != 0)
                                                     <div
                                                         style="display: flex; flex-direction: column; align-items: flex-end;">

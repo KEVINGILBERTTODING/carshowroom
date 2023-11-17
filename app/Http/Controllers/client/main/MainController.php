@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AppModel;
 use App\Models\FInanceModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 
 class MainController extends Controller
 {
@@ -24,17 +25,23 @@ class MainController extends Controller
 
     function finance()
     {
-        $dataApp =  AppModel::where('app_id', 1)->first();
-        $dataFinance = FInanceModel::where('status', 1)->get();
-        $data = [
-            'dataApp' => $dataApp,
-            'dataFinance' => $dataFinance
-        ];
-        return view('client.finance.finance', $data);
+
+        try {
+            $dataApp =  AppModel::where('app_id', 1)->first();
+            $dataFinance = FInanceModel::where('status', 1)->get();
+            $data = [
+                'dataApp' => $dataApp,
+                'dataFinance' => $dataFinance
+            ];
+            return view('client.finance.finance', $data);
+        } catch (\Throwable $th) {
+            return redirect()->back();
+        }
     }
 
     function detailFinance($financeId)
     {
+        $financeId = Crypt::decrypt($financeId);
         $dataApp =  AppModel::where('app_id', 1)->first();
         $dataFinance = FInanceModel::where('finance_id', $financeId)->first();
         if ($dataFinance == null) {
