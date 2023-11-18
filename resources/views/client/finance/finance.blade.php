@@ -79,7 +79,7 @@
                                 <li><a href="{{ route('/') }}">Beranda</a></li>
                                 <li><a href="{{ route('mobil') }}">Mobil</a>
                                 </li>
-                                <li><a href="./blog.html">Testimoni</a></li>
+                                <li><a href="{{ route('review') }}">Testimoni</a></li>
                                 <li class="active"><a href="./about.html">Finance</a></li>
                                 <li><a href="{{ route('aboutUs') }}">About</a></li>
 

@@ -78,7 +78,7 @@
                             <ul>
                                 <li class="active"><a href="{{ route('/') }}">Beranda</a></li>
                                 <li><a href="{{ route('mobil') }}">Mobil</a></li>
-                                <li><a href="./blog.html">Testimoni</a></li>
+                                <li><a href="{{ route('review') }}">Testimoni</a></li>
                                 <li><a href="{{ route('dataFinance') }}">Finance</a></li>
                                 <li><a href="{{ route('aboutUs') }}">About</a></li>
                             </ul>
@@ -403,90 +403,34 @@
             </div>
             <div class="row">
                 <div class="testimonial__slider owl-carousel">
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__item__author">
-                                <div class="testimonial__item__author__pic">
-                                    <img src="img/testimonial/testimonial-1.png" alt="">
-                                </div>
-                                <div class="testimonial__item__author__text">
-                                    <div class="rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                    @php
+                        $no = 1;
+                    @endphp
+                    @foreach ($dataReview as $dr)
+                        <div class="col-lg-6">
+                            <div class="testimonial__item">
+                                <div class="testimonial__item__author">
+                                    <div class="testimonial__item__author__pic">
+                                        <img style="width: 50px;"
+                                            src="{{ asset('data/profile_photo/' . $dr->profile_photo) }}" alt="">
                                     </div>
-                                    <h5>John Smith /<span> CEO Colorlib</span></h5>
-                                </div>
-                            </div>
-                            <p>For one thing they usually step all over the hedges and plants on the side of someone’s
-                                house killing</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__item__author">
-                                <div class="testimonial__item__author__pic">
-                                    <img src="img/testimonial/testimonial-2.png" alt="">
-                                </div>
-                                <div class="testimonial__item__author__text">
-                                    <div class="rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
+                                    <div class="testimonial__item__author__text">
+                                        <div class="rating">
+                                            @for ($i = 1; $i <= $dr->star; $i++)
+                                                <i class="fa fa-star"></i>
+                                            @endfor
+                                        </div>
+                                        <h5> {{ $dr->nama_lengkap }}</span></h5>
+                                        <h6>{{ $dr->created_at }}</h6>
                                     </div>
-                                    <h5>Emma Sandoval /<span> Marketing Manager</span></h5>
                                 </div>
+                                <p>
+                                    {{ $dr->review_text }}
+                                </p>
                             </div>
-                            <p>It seems though that some of the biggest problems with the internet advertising trends
-                                are the lack of</p>
                         </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__item__author">
-                                <div class="testimonial__item__author__pic">
-                                    <img src="img/testimonial/testimonial-1.png" alt="">
-                                </div>
-                                <div class="testimonial__item__author__text">
-                                    <div class="rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <h5>John Smith /<span> CEO Colorlib</span></h5>
-                                </div>
-                            </div>
-                            <p>For one thing they usually step all over the hedges and plants on the side of someone’s
-                                house killing</p>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="testimonial__item">
-                            <div class="testimonial__item__author">
-                                <div class="testimonial__item__author__pic">
-                                    <img src="img/testimonial/testimonial-2.png" alt="">
-                                </div>
-                                <div class="testimonial__item__author__text">
-                                    <div class="rating">
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                        <i class="fa fa-star"></i>
-                                    </div>
-                                    <h5>Emma Sandoval /<span> Marketing Manager</span></h5>
-                                </div>
-                            </div>
-                            <p>It seems though that some of the biggest problems with the internet advertising trends
-                                are the lack of</p>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </div>

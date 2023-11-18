@@ -1,7 +1,7 @@
 @extends('layouts.client.t_client_main')
 
 @section('title')
-    <title>{{ $dataApp['app_name'] . ' - Finance' }}</title>
+    <title>{{ $dataApp['app_name'] . ' - Testimoni' }}</title>
 @endsection
 
 @section('content')
@@ -79,8 +79,8 @@
                                 <li><a href="{{ route('/') }}">Beranda</a></li>
                                 <li><a href="{{ route('mobil') }}">Mobil</a>
                                 </li>
-                                <li><a href="{{ route('review') }}">Testimoni</a></li>
-                                <li class="active"><a href="{{ route('dataFinance') }}">Finance</a></li>
+                                <li class="active"><a href="{{ route('review') }}">Testimoni</a></li>
+                                <li><a href="{{ route('dataFinance') }}">Finance</a></li>
                                 <li><a href="{{ route('aboutUs') }}">About</a></li>
                             </ul>
                         </nav>
@@ -108,12 +108,10 @@
             <div class="row">
                 <div class="col-lg-12 text-center">
                     <div class="breadcrumb__text">
-                        <h2>{{ $dataFinance['nama_finance'] }}</h2>
+                        <h2>Testimoni</h2>
                         <div class="breadcrumb__links">
                             <a href="{{ route('/') }}"><i class="fa fa-home"></i> Home</a>
-                            <a href="{{ route('dataFinance') }}">
-                                Finance</a>
-                            <span>{{ $dataFinance['nama_finance'] }}</span>
+                            <span>Testimoni</span>
                         </div>
                     </div>
                 </div>
@@ -121,56 +119,48 @@
         </div>
     </div>
 
-
-    <section class="contact spad">
+    <!-- Testimonial Section Begin -->
+    <section class="testimonial spad">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="contact__text">
-                        <div class="section-title">
-                            <h2>{{ $dataFinance['nama_finance'] }}</h2>
-                            <p>{{ $dataFinance['deskripsi'] }}</p>
-                        </div>
-                        <ul>
-
-                            @if ($dataFinance['email'] != null)
-                                <li><span>Email:</span> <a class="text-primary" href="mailto:{{ $dataFinance['email'] }}"
-                                        target="_blank" rel="noopener noreferrer" style="text-decoration: none; ">
-                                        {{ $dataFinance['email'] }}</a></li>
-                            @endif
-
-                            @if ($dataFinance['telepon'] != null)
-                                <li><span>No Hp:</span> <a class="text-primary"
-                                        href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataFinance['telepon']) }}&text=Halo,%20*"
-                                        target="_blank" rel="noopener noreferrer" style="text-decoration: none; ">
-                                        {{ $dataFinance['telepon'] }}</a></li>
-                            @endif
-
-                        </ul>
-
-                    </div>
-                    <div class="footer__social">
-                        @if ($dataFinance['url_facebook'] != null)
-                            <a href="{{ $dataFinance['url_facebook'] }}" target="_blank" class="facebook"><i
-                                    class="fa fa-facebook"></i></a>
-                        @endif
-
-                        @if ($dataFinance['url_instagram'] != null)
-                            <a href="{{ $dataFinance['url_instagram'] }}" target="_blank" class="skype"><i
-                                    class="fa fa-instagram"></i></a>
-                        @endif
-
-                        @if ($dataFinance['url_website'] != null)
-                            <a href="{{ $dataFinance['url_website'] }}" target="_blank" class="google"><i
-                                    class="fa fa-globe"></i></a>
-                        @endif
-
+                <div class="col-lg-12">
+                    <div class="section-title testimonial-title">
+                        <span>Testimoni</span>
+                        <h2>Apa Kata Mereka Tentang Kami</h2>
+                        <p>Pelanggan kami adalah pendukung terbesar kami. Apa pendapat mereka tentang kami? Temukan di bawah
+                            ini.</p>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="services__item">
-                        <img src="{{ asset('data/finance/img/' . $dataFinance['image']) }}" alt="">
-                    </div>
+            </div>
+            <div class="row">
+                <div class="testimonial__slider owl-carousel">
+                    @php
+                        $no = 1;
+                    @endphp
+                    @foreach ($dataReview as $dr)
+                        <div class="col-lg-6">
+                            <div class="testimonial__item">
+                                <div class="testimonial__item__author">
+                                    <div class="testimonial__item__author__pic">
+                                        <img style="width: 50px;"
+                                            src="{{ asset('data/profile_photo/' . $dr->profile_photo) }}" alt="">
+                                    </div>
+                                    <div class="testimonial__item__author__text">
+                                        <div class="rating">
+                                            @for ($i = 1; $i <= $dr->star; $i++)
+                                                <i class="fa fa-star"></i>
+                                            @endfor
+                                        </div>
+                                        <h5> {{ $dr->nama_lengkap }}</span></h5>
+                                        <h6>{{ $dr->created_at }}</h6>
+                                    </div>
+                                </div>
+                                <p>
+                                    {{ $dr->review_text }}
+                                </p>
+                            </div>
+                        </div>
+                    @endforeach
 
                 </div>
             </div>

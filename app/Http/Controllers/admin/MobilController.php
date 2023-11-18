@@ -1030,19 +1030,22 @@ class MobilController extends Controller
             }
             $dataApp = AppModel::first();
             $dataFinance = FInanceModel::first();
-            // $dataReview  = ReviewModel::select(
-            //     'review.review_text',
-            //     'review.star',
-            //     'review.image1',
-            //     'review.image2',
-            //     'review.image3',
-            //     'review.image4',
-            //     'users.nama_lengkap'
-            // )
-            //     ->joinLeft('users', 'review.user_id', '=', 'users.user_id')
-            //     ->where('review.mobil_id', $mobilId)
-            //     ->where('review.status', 1)
-            //     ->first();
+            $dataReview  = ReviewModel::select(
+                'review.review_text',
+                'review.star',
+                'review.image1',
+                'review.image2',
+                'review.created_at',
+                'review.image3',
+                'review.image4',
+                'users.nama_lengkap',
+                'users.profile_photo'
+            )
+                ->leftJoin('users', 'review.user_id', '=', 'users.user_id')
+                ->where('review.mobil_id', $mobilId)
+                ->where('review.status', 1)
+
+                ->first();
 
             if ($dataFinance != null) {
                 $persentaseBunga = $dataFinance['bunga'];
@@ -1082,7 +1085,7 @@ class MobilController extends Controller
                 'dataApp' => $dataApp,
                 'dataMobil' => $dataMobil,
                 'dataFinance' => $dataFinance,
-                // 'dataReview' => $dataReview
+                'dataReview' => $dataReview
             ];
 
             return view('client.cars.car_detail', $data);

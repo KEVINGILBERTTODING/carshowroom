@@ -78,7 +78,7 @@
                             <ul>
                                 <li><a href="{{ route('/') }}">Beranda</a></li>
                                 <li class="active"><a href="{{ route('mobil') }}">Mobil</a></li>
-                                <li><a href="./blog.html">Testimoni</a></li>
+                                <li><a href="{{ route('review') }}">Testimoni</a></li>
                                 <li><a href="{{ route('dataFinance') }}">Finance</a></li>
                                 <li><a href="{{ route('aboutUs') }}">About</a></li>
                             </ul>
@@ -263,129 +263,97 @@
                             </div>
                             <div class="tab-pane" id="tabs-4" role="tabpanel">
                                 <div class="car__details__tab__info">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="car__details__tab__info__item">
-                                                <h5 class="mb-3">Link Youtube</h5>
-
-                                                @if ($dataMobil['url_youtube'] != null)
-                                                    {{-- Jika url youtube berupa iframe --}}
-
-                                                    @if (Str::contains($dataMobil['url_youtube'], '<iframe'))
-                                                        {!! $dataMobil['url_youtube'] !!}
-                                                    @else
-                                                        <a href="{{ $dataMobil['url_youtube'] }}" target="_blank"
-                                                            class="btn btn-primary"><i class="fa fa-play"
-                                                                aria-hidden="true"></i>
-                                                            Lihat
-                                                            Video</a>
-                                                    @endif
-                                                @else
-                                                    <p class="text-sm text-muted">Tidak link youtube.</p>
-                                                @endif
 
 
-                                            </div>
+                                    <div class="car__details__tab__info__item">
+                                        <h5 class="mb-3">Link Youtube</h5>
 
-                                        </div>
+                                        @if ($dataMobil['url_youtube'] != null)
+                                            {{-- Jika url youtube berupa iframe --}}
+
+                                            @if (Str::contains($dataMobil['url_youtube'], '<iframe'))
+                                                {!! $dataMobil['url_youtube'] !!}
+                                            @else
+                                                <a href="{{ $dataMobil['url_youtube'] }}" target="_blank"
+                                                    class="btn btn-primary"><i class="fa fa-play" aria-hidden="true"></i>
+                                                    Lihat
+                                                    Video</a>
+                                            @endif
+                                        @else
+                                            <p class="text-sm text-muted">Tidak link youtube.</p>
+                                        @endif
+
 
                                     </div>
+
+
                                 </div>
 
                             </div>
                             <div class="tab-pane" id="tabs-5" role="tabpanel">
                                 <div class="car__details__tab__info">
-                                    <div class="row">
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="car__details__tab__info__item">
-                                                <h5>General Information4</h5>
-                                                <ul>
-                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat non
-                                                        consectetur nec</li>
-                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur atero
-                                                        lectus vitae.</li>
-                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero, eleifend
-                                                        sit amet felis ido.</li>
-                                                    <li><i class="fa fa-check"></i> Maecenas eget consectetur quam.
-                                                        Vestibulum ligula.</li>
-                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien, vestibulum
-                                                        eget aliquet et.</li>
-                                                </ul>
+
+
+                                    <div class="car__details__tab__info__item">
+                                        <h5>Review Pelanggan Kami</h5>
+
+                                        @if ($dataReview != null)
+                                            <!-- Testimonial Card -->
+                                            <div class="testimonial__item mt-4"
+                                                style=" padding: 20px; margin-bottom: 20px; background-color: #fff; position: relative; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+
+
+
+                                                <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                                    <img src="{{ asset('data/profile_photo/' . $dataReview['profile_photo']) }}"
+                                                        alt="Profile Picture"
+                                                        style="border-radius: 50%; max-width: 50px; margin-right: 20px;">
+                                                    <div>
+                                                        @for ($i = 1; $i <= $dataReview['star']; $i++)
+                                                            <i class="fa fa-star text-warning"
+                                                                style="font-size: 1.5rem;"></i>
+                                                        @endfor
+
+                                                        <h5 style="margin: 0;">{{ $dataReview['nama_lengkap'] }}</h5>
+                                                        <p style="margin: 0; font-size: 0.8rem; color: #6c757d;">
+                                                            {{ $dataReview['created_at'] }}</p>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Review Text -->
+                                                <p class="text  text-muted" style="margin-bottom: 15px; font-size: 18px ">
+                                                    {{ $dataReview['review_text'] }}
+                                                </p>
+
+                                                <!-- Review Images -->
+                                                <div style="margin-bottom: -10px;">
+                                                    @for ($i = 1; $i <= 4; $i++)
+                                                        <a data-toggle="modal"
+                                                            data-target="#detailgambar{{ $i }}">
+                                                            <img src="{{ asset('data/review/' . $dataReview['image' . $i]) }}"
+                                                                style="max-width: 100px; margin-right: 5px;">
+                                                        </a>
+                                                    @endfor
+
+                                                </div>
+
+
                                             </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6">
-                                            <div class="car__details__tab__info__item">
-                                                <h5>General Information</h5>
-                                                <ul>
-                                                    <li><i class="fa fa-check"></i> Pellentesque lacus urna, feugiat non
-                                                        consectetur nec</li>
-                                                    <li><i class="fa fa-check"></i> Aliquam sem neque, efficitur atero
-                                                        lectus vitae.</li>
-                                                    <li><i class="fa fa-check"></i> Pellentesque erat libero, eleifend
-                                                        sit amet felis ido.</li>
-                                                    <li><i class="fa fa-check"></i> Maecenas eget consectetur quam.
-                                                        Vestibulum ligula.</li>
-                                                    <li><i class="fa fa-check"></i> Praesent lorem sapien, vestibulum
-                                                        eget aliquet et.</li>
-                                                </ul>
-                                            </div>
-                                        </div>
+                                        @else
+                                            <p class="text text-muted">Belum ada review.</p>
+                                        @endif
+
+
                                     </div>
+
                                 </div>
-                                <div class="car__details__tab__feature">
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <div class="car__details__tab__feature__item">
-                                                <h5>Interior Design</h5>
-                                                <ul>
-                                                    <li><i class="fa fa-check-circle"></i> Auxiliary heating</li>
-                                                    <li><i class="fa fa-check-circle"></i> Bluetooth</li>
-                                                    <li><i class="fa fa-check-circle"></i> CD player</li>
-                                                    <li><i class="fa fa-check-circle"></i> Central locking</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <div class="car__details__tab__feature__item">
-                                                <h5>Safety Design</h5>
-                                                <ul>
-                                                    <li><i class="fa fa-check-circle"></i> Head-up display</li>
-                                                    <li><i class="fa fa-check-circle"></i> MP3 interface</li>
-                                                    <li><i class="fa fa-check-circle"></i> Navigation system</li>
-                                                    <li><i class="fa fa-check-circle"></i> Panoramic roof</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <div class="car__details__tab__feature__item">
-                                                <h5>Extra Design</h5>
-                                                <ul>
-                                                    <li><i class="fa fa-check-circle"></i> Alloy wheels</li>
-                                                    <li><i class="fa fa-check-circle"></i> Electric side mirror</li>
-                                                    <li><i class="fa fa-check-circle"></i> Sports package</li>
-                                                    <li><i class="fa fa-check-circle"></i> Sports suspension</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-6 col-sm-6">
-                                            <div class="car__details__tab__feature__item">
-                                                <h5>Extra Design</h5>
-                                                <ul>
-                                                    <li><i class="fa fa-check-circle"></i> MP3 interface</li>
-                                                    <li><i class="fa fa-check-circle"></i> Navigation system</li>
-                                                    <li><i class="fa fa-check-circle"></i> Panoramic roof</li>
-                                                    <li><i class="fa fa-check-circle"></i> Parking sensors</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-3">
-                    <div class="card shadow-sm  mb-5 bg-white rounded">
+                <div class="col-lg-3 card-price">
+                    <div class="card shadow-sm mb-5 bg-white rounded" style="border-radius: 20px;">
                         <div style="background-color: #3e6ae1" class="div  p-3 d-flex flex-column align-items-center">
 
                             <h4 class="text-white">{{ $dataApp['app_name'] }}</h4>
@@ -503,7 +471,52 @@
                 </div>
             </div>
         </div>
-        </div>
+
+        {{-- Modal gambar review --}}
+
+        @for ($i = 1; $i <= 4; $i++)
+            <div class="modal fade" id="detailgambar{{ $i }}" tabindex="-1" role="dialog"
+                aria-labelledby="galleryModalTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="galleryModalTitle">
+                                Gambar review
+                            </h5>
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                <i data-feather="x"></i>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+                            <div id="Gallerycarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+                                <div class="carousel-inner">
+                                    @isset($dataReview['image' . $i])
+                                        @foreach ($dataReview['image' . $i] as $image)
+                                            @if ($image)
+                                                <img src="{{ asset('data/review/' . $image) }}">
+                                            @else
+                                                <p>No image available</p>
+                                            @endif
+                                        @endforeach
+                                    @else
+                                        <p>No data available for image{{ $i }}</p>
+                                    @endisset
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endfor
+
+
     </section>
 @endsection
 
