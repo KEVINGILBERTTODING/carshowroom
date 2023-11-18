@@ -474,46 +474,41 @@
 
         {{-- Modal gambar review --}}
 
-        @for ($i = 1; $i <= 4; $i++)
-            <div class="modal fade" id="detailgambar{{ $i }}" tabindex="-1" role="dialog"
-                aria-labelledby="galleryModalTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="galleryModalTitle">
-                                Gambar review
-                            </h5>
-                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                                <i data-feather="x"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-
-                            <div id="Gallerycarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-
-                                <div class="carousel-inner">
-                                    @isset($dataReview['image' . $i])
-                                        @foreach ($dataReview['image' . $i] as $image)
-                                            @if ($image)
-                                                <img src="{{ asset('data/review/' . $image) }}">
-                                            @else
-                                                <p>Tidak ada gambar.</p>
-                                            @endif
-                                        @endforeach
-                                    @else
-                                    @endisset
-                                </div>
-
+        @if ($dataMobil['status_mobil'] == 0)
+            @for ($i = 1; $i <= 4; $i++)
+                <div class="modal fade" id="detailgambar{{ $i }}" tabindex="-1" role="dialog"
+                    aria-labelledby="galleryModalTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="galleryModalTitle">
+                                    Gambar review
+                                </h5>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <i data-feather="x"></i>
+                                </button>
                             </div>
-                        </div>
+                            <div class="modal-body">
 
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <div id="Gallerycarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+
+                                    <div class="carousel-inner">
+
+                                        <img src="{{ asset('data/review/' . $dataReview['image' . $i]) }}">
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        @endfor
+            @endfor
+        @endif
 
 
     </section>
