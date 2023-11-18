@@ -355,7 +355,6 @@
                 <div class="col-lg-3 card-price">
                     <div class="card shadow-sm mb-5 bg-white rounded" style="border-radius: 20px;">
                         <div style="background-color: #3e6ae1" class="div  p-3 d-flex flex-column align-items-center">
-
                             <h4 class="text-white">{{ $dataApp['app_name'] }}</h4>
                             @if ($dataMobil['status_mobil'] == 1)
                                 <p style="text-align: center;" class="text-sm text text-white">Penawaran spesial untuk
@@ -491,13 +490,9 @@
                             <div class="modal-body">
 
                                 <div id="Gallerycarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
-
                                     <div class="carousel-inner">
-
                                         <img src="{{ asset('data/review/' . $dataReview['image' . $i]) }}">
-
                                     </div>
-
                                 </div>
                             </div>
 

@@ -965,28 +965,10 @@ class MobilController extends Controller
                     $persentaseBunga = $dataFinance['bunga'];
                     $bunga = $persentaseBunga / 100;
 
-                    // asuransi
-                    $persentaseAsuransi = $dataFinance['biaya_asuransi'];
-                    $asuransi = $persentaseAsuransi / 100;
-                    $totalAsuransi = ($dm->harga_jual - $dm->diskon) * $asuransi;
-
-                    // administrasi
-                    $persentaseAdministrasi = $dataFinance['biaya_administrasi'];
-                    $administrasi = $persentaseAdministrasi / 100;
-                    $totalAdministrasi = ($dm->harga_jual - $dm->diskon) * $administrasi;
-
-                    // administrasi
-                    $persentaseProvisi = $dataFinance['biaya_provisi'];
-                    $provisi = $persentaseProvisi / 100;
-                    $totalProvisi = ($dm->harga_jual - $dm->diskon) * $provisi;
-
-
-                    $total = $totalAsuransi + $totalAdministrasi + $totalProvisi;
-
                     // dp
                     $persentaseDp = $dataFinance['uang_muka'];
-                    $dp = $total * ($persentaseDp / 100);
-                    $totalPinjaman = $total - $dp;
+                    $dp = ($dm->harga_jual - $dm->diskon) * ($persentaseDp / 100);
+                    $totalPinjaman = ($dm->harga_jual - $dm->diskon) - $dp;
 
 
 
@@ -1050,29 +1032,14 @@ class MobilController extends Controller
             if ($dataFinance != null) {
                 $persentaseBunga = $dataFinance['bunga'];
                 $bunga = $persentaseBunga / 100;
-
-                // asuransi
-                $persentaseAsuransi = $dataFinance['biaya_asuransi'];
-                $asuransi = $persentaseAsuransi / 100;
-                $totalAsuransi = ($dataMobil['harga_jual'] - $dataMobil['diskon']) * $asuransi;
-
-                // administrasi
-                $persentaseAdministrasi = $dataFinance['biaya_administrasi'];
-                $administrasi = $persentaseAdministrasi / 100;
-                $totalAdministrasi = ($dataMobil['harga_jual'] - $dataMobil['diskon']) * $administrasi;
-
-                // administrasi
-                $persentaseProvisi = $dataFinance['biaya_provisi'];
-                $provisi = $persentaseProvisi / 100;
-                $totalProvisi = ($dataMobil['harga_jual'] - $dataMobil['diskon']) * $provisi;
-
-
-                $total = $totalAsuransi + $totalAdministrasi + $totalProvisi;
+                // bunga cicilan
+                $persentaseBunga = $dataFinance['bunga'];
+                $bunga = $persentaseBunga / 100;
 
                 // dp
                 $persentaseDp = $dataFinance['uang_muka'];
-                $dp = $total * ($persentaseDp / 100);
-                $totalPinjaman = $total - $dp;
+                $dp = ($dataMobil['harga_jual'] - $dataMobil['diskon']) * ($persentaseDp / 100);
+                $totalPinjaman = ($dataMobil['harga_jual'] - $dataMobil['diskon']) - $dp;
 
 
 
