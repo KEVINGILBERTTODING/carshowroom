@@ -114,7 +114,7 @@
                             <h2>Rizki Motor</h2>
                         </div>
 
-                        <a href="#" class="primary-btn"><img src="img/wheel.png" alt="">
+                        <a href="{{ route('mobil') }}" class="primary-btn"><img src="img/wheel.png" alt="">
                             Temukan Sekarang</a>
                         <a href="{{ route('aboutUs') }}" class="primary-btn more-btn">Tentang Kami</a>
                     </div>

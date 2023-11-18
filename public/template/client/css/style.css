@@ -1160,7 +1160,7 @@ ol {
 
 .car__item__price .car-option.soldout {
 	background: #ebebeb;
-    color: white;
+    color: black;
 }
 
 .car__item__price h6 {

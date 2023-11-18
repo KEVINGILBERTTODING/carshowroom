@@ -157,7 +157,8 @@
                                 </select>
 
                                 <div class="car__filter__btn mt-3 ">
-                                    <button type="submit" class="site-btn"><i class="fa fa-filter"></i> Filter</button>
+                                    <button type="submit" class="site-btn text-dark"><i class="fa fa-filter"></i>
+                                        Filter</button>
                                 </div>
                             </form>
                         </div>
@@ -242,18 +243,22 @@
                                                             {{ formatRupiah($dm->harga_jual) }}</h6>
                                                         <h6 class="text-dark text-decoration-line-through">
                                                             {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
-                                                        <p class="text-warning" style="font-size: 12px;">
-                                                            {{ formatRupiah($dm->total_cicilan) }} /
-                                                            bulan</p>
+                                                        @if ($dm->total_cicilan != 0)
+                                                            <p class="text-warning" style="font-size: 12px;">
+                                                                {{ formatRupiah($dm->total_cicilan) }} /
+                                                                bulan</p>
+                                                        @endif
                                                     </div>
                                                 @else
                                                     <div
                                                         style="display: flex; flex-direction: column; align-items: flex-end;">
                                                         <h6 class="text-muted">
                                                             {{ formatRupiah($dm->harga_jual) }} </h6>
-                                                        <p class="text-warning" style="font-size: 12px;">
-                                                            {{ formatRupiah($dm->total_cicilan) }} /
-                                                            bulan</p>
+                                                        @if ($dm->total_cicilan != 0)
+                                                            <p class="text-warning" style="font-size: 12px;">
+                                                                {{ formatRupiah($dm->total_cicilan) }} /
+                                                                bulan</p>
+                                                        @endif
                                                     </div>
                                                 @endif
                                             @elseif ($dm->status_mobil == 0)
@@ -266,9 +271,7 @@
                                                             {{ formatRupiah($dm->harga_jual) }}</h6>
                                                         <h6 class="text-muted text-decoration-line-through">
                                                             {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
-                                                        <p class="text-warning" style="font-size: 12px;">
-                                                            {{ formatRupiah($dm->total_cicilan) }} /
-                                                            bulan</p>
+
                                                     </div>
                                                 @else
                                                     <div
@@ -281,7 +284,7 @@
                                                     </div>
                                                 @endif
                                             @else
-                                                <span class="car-option booked">Di pesan</span>
+                                                <span class="car-option booked text-dark">Di pesan</span>
                                                 @if ($dm->diskon != 0)
                                                     <div
                                                         style="display: flex; flex-direction: column; align-items: flex-end;">
@@ -290,18 +293,25 @@
                                                             {{ formatRupiah($dm->harga_jual) }}</h6>
                                                         <h6 class="text-muted text-decoration-line-through">
                                                             {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
-                                                        <p class="text-warning" style="font-size: 12px;">
-                                                            {{ formatRupiah($dm->total_cicilan) }} /
-                                                            bulan</p>
+
+
+                                                        @if ($dm->total_cicilan != 0)
+                                                            <p class="text-warning" style="font-size: 12px;">
+                                                                {{ formatRupiah($dm->total_cicilan) }} /
+                                                                bulan</p>
+                                                        @endif
+
                                                     </div>
                                                 @else
                                                     <div
                                                         style="display: flex; flex-direction: column; align-items: flex-end;">
                                                         <h6 class="text-muted">
                                                             {{ formatRupiah($dm->harga_jual) }}</h6>
-                                                        <p class="text-warning" style="font-size: 12px;">
-                                                            {{ formatRupiah($dm->total_cicilan) }} /
-                                                            bulan</p>
+                                                        @if ($dm->total_cicilan != 0)
+                                                            <p class="text-warning" style="font-size: 12px;">
+                                                                {{ formatRupiah($dm->total_cicilan) }} /
+                                                                bulan</p>
+                                                        @endif
                                                     </div>
                                                 @endif
                                             @endif

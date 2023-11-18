@@ -389,8 +389,12 @@
                         <div style="background-color: #3e6ae1" class="div  p-3 d-flex flex-column align-items-center">
 
                             <h4 class="text-white">{{ $dataApp['app_name'] }}</h4>
-                            <p style="text-align: center;" class="text-sm text text-white">Penawaran spesial untuk Anda
-                            </p>
+                            @if ($dataMobil['status_mobil'] == 1)
+                                <p style="text-align: center;" class="text-sm text text-white">Penawaran spesial untuk
+                                    Anda
+                                </p>
+                            @endif
+
                         </div>
 
 
@@ -408,89 +412,97 @@
                                             <span>{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</span>
 
                                         </li>
-                                        <p class="text-sm text-warning" style="font-size: 12px; text-align: right">
-                                            {{ formatRupiah($dataMobil['total_cicilan']) . '/ bulan' }} </p>
+                                        @if ($dataFinance != null)
+                                            <p class="text-sm text-warning" style="font-size: 12px; text-align: right">
+                                                {{ formatRupiah($dataMobil['total_cicilan']) . '/ bulan' }} </p>
                                     </ul>
-                                    <hr>
-
-                                    <a href="#" class="btn btn-primary w-100 mt-3"><i class="fa fa-check-circle"
-                                            aria-hidden="true"></i>
-                                        <b> Pesan
-                                            Sekarang</b></a>
-
-                                    <a href="#" class="btn btn-warning w-100 mt-3"><i
-                                            class="fa fa-credit-card"></i>
-                                        <b> Ajukan Kredit</b></a>
-                                    <a href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataApp['no_hp']) }}&text=Halo,%20saya%20ingin%20bertanya%20tentang%20mobil%20{{ $dataMobil['merk'] }}%20{{ $dataMobil['nama_model'] }}%20{{ $dataMobil['tahun'] }}"
-                                        target="_blank" rel="noopener noreferrer"
-                                        class="btn btn-success sidebar-btn w-100 mt-3"><i class="fa fa-whatsapp"
-                                            aria-hidden="true"></i></i>
-                                        <b>Hubungi Kami</b></a>
-
-
-                                </div>
-
-                                {{-- Terjual --}}
-                            @elseif ($dataMobil['status_mobil'] == 0)
-                                <div class="car__details__sidebar__payment p-3">
-
-                                    <ul>
-                                        <li>Harga <span
-                                                class="text-muted">{{ formatRupiah($dataMobil['harga_jual']) }}</span>
-                                        </li>
-                                        <li>Diskon <span
-                                                class="text-muted">{{ formatRupiah($dataMobil['diskon']) }}</span>
-                                        </li>
-                                        <hr>
-                                        <li>Total
-                                            <span
-                                                class="text-muted">{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</span>
-
-                                        </li>
-
+                                    <p style="font-size: 12px;">Total cicilan mencakup <b>36x</b> angsuran dan sudah
+                                        termasuk
+                                        uang muka (DP) serta bunga sebesar <b>{{ $dataFinance['bunga'] }}%</b> dari total
+                                        pembayaran, termasuk biaya tambahan, dengan menggunakan <b><a
+                                                href="{{ route('detailDataFinance', Crypt::encrypt($dataFinance['finance_id'])) }}"
+                                                class="text-primary">{{ $dataFinance['nama_finance'] }}</a></b>.
+                                    </p>
+                                @else
                                     </ul>
-
-                                    <hr>
-                                    <span style="background-color: #eee" class="badge p-2 d-flex justify-content-center">
-                                        <h5 class="text text-white">Terjual</h5>
-                                    </span>
-
-
-                                </div>
-                            @else
-                                <div class="car__details__sidebar__payment p-3 ">
-
-                                    <ul>
-                                        <li>Harga <span
-                                                class="text-muted">{{ formatRupiah($dataMobil['harga_jual']) }}</span>
-                                        </li>
-                                        <li>Diskon <span
-                                                class="text-muted">{{ formatRupiah($dataMobil['diskon']) }}</span>
-                                        </li>
-                                        <hr>
-                                        <li>Total
-                                            <span
-                                                class="text-muted">{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</span>
-
-                                        </li>
-
-
-
-                                    </ul>
-
-                                    <span class="badge bg-warning p-2 d-flex justify-content-center">
-                                        <h5 class="text text-light">Di pesan</h5>
-                                    </span>
-
-
-                                </div>
                             @endif
+
+                            <hr>
+
+                            <a href="#" class="btn btn-primary w-100 mt-3"><i class="fa fa-check-circle"
+                                    aria-hidden="true"></i>
+                                <b> Pesan Sekarang</b></a>
+
+                            @if ($dataFinance != null)
+                                <a href="#" class="btn btn-warning w-100 mt-3"><i class="fa fa-credit-card"></i>
+                                    <b> Ajukan Kredit</b></a>
+                            @endif
+                            <a href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataApp['no_hp']) }}&text=Halo,%20saya%20ingin%20bertanya%20tentang%20mobil%20{{ $dataMobil['merk'] }}%20{{ $dataMobil['nama_model'] }}%20{{ $dataMobil['tahun'] }}"
+                                target="_blank" rel="noopener noreferrer"
+                                class="btn btn-success sidebar-btn w-100 mt-3"><i class="fa fa-whatsapp"
+                                    aria-hidden="true"></i></i>
+                                <b>Hubungi Kami</b></a>
+
+
                         </div>
 
+                        {{-- Terjual --}}
+                    @elseif ($dataMobil['status_mobil'] == 0)
+                        <div class="car__details__sidebar__payment p-3">
 
+                            <ul>
+                                <li>Harga <span class="text-muted">{{ formatRupiah($dataMobil['harga_jual']) }}</span>
+                                </li>
+                                <li>Diskon <span class="text-muted">{{ formatRupiah($dataMobil['diskon']) }}</span>
+                                </li>
+                                <hr>
+                                <li>Total
+                                    <span
+                                        class="text-muted">{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</span>
+
+                                </li>
+
+                            </ul>
+
+                            <hr>
+                            <span style="background-color: #eee" class="badge p-2 d-flex justify-content-center">
+                                <h5 class="text text-dark">Terjual</h5>
+                            </span>
+
+
+                        </div>
+                    @else
+                        <div class="car__details__sidebar__payment p-3 ">
+
+                            <ul>
+                                <li>Harga <span class="text-muted">{{ formatRupiah($dataMobil['harga_jual']) }}</span>
+                                </li>
+                                <li>Diskon <span class="text-muted">{{ formatRupiah($dataMobil['diskon']) }}</span>
+                                </li>
+                                <hr>
+                                <li>Total
+                                    <span
+                                        class="text-muted">{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</span>
+
+                                </li>
+
+
+
+                            </ul>
+
+                            <span class="badge bg-warning p-2 d-flex justify-content-center">
+                                <h5 class="text text-dark">Di pesan</h5>
+                            </span>
+
+
+                        </div>
+                        @endif
                     </div>
+
+
                 </div>
             </div>
+        </div>
         </div>
     </section>
 @endsection
