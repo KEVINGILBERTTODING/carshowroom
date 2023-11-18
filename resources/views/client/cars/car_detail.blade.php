@@ -497,11 +497,10 @@
                                             @if ($image)
                                                 <img src="{{ asset('data/review/' . $image) }}">
                                             @else
-                                                <p>No image available</p>
+                                                <p>Tidak ada gambar.</p>
                                             @endif
                                         @endforeach
                                     @else
-                                        <p>No data available for image{{ $i }}</p>
                                     @endisset
                                 </div>
 
