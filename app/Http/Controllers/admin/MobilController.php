@@ -1012,6 +1012,7 @@ class MobilController extends Controller
             }
             $dataApp = AppModel::first();
             $dataFinance = FInanceModel::first();
+            $dataAllFinance = FInanceModel::get();
             $dataReview  = ReviewModel::select(
                 'review.review_text',
                 'review.star',
@@ -1052,7 +1053,8 @@ class MobilController extends Controller
                 'dataApp' => $dataApp,
                 'dataMobil' => $dataMobil,
                 'dataFinance' => $dataFinance,
-                'dataReview' => $dataReview
+                'dataReview' => $dataReview,
+                'dataAllFinance' => $dataAllFinance
             ];
 
             return view('client.cars.car_detail', $data);

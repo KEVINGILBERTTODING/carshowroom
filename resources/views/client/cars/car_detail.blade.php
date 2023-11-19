@@ -383,10 +383,11 @@
                                             <p class="text-sm text-warning" style="font-size: 12px; text-align: right">
                                                 {{ formatRupiah($dataMobil['total_cicilan']) . '/ bulan' }} </p>
                                     </ul>
-                                    <p style="font-size: 12px;">Total cicilan mencakup <b>36x</b> angsuran dan sudah
-                                        termasuk
-                                        uang muka (DP) serta bunga sebesar <b>{{ $dataFinance['bunga'] }}%</b> dari total
-                                        pembayaran, termasuk biaya tambahan, dengan menggunakan <b><a
+                                    <p style="font-size: 12px;" class="text-center">Total cicilan mencakup <b>36x</b>
+                                        angsuran dan sudah
+                                        termasuk uang muka (DP) serta bunga sebesar <b>{{ $dataFinance['bunga'] }}%</b>
+                                        dari total
+                                        harga mobil, menggunakan <b><a
                                                 href="{{ route('detailDataFinance', Crypt::encrypt($dataFinance['finance_id'])) }}"
                                                 class="text-primary">{{ $dataFinance['nama_finance'] }}</a></b>.
                                     </p>
@@ -401,8 +402,9 @@
                                 <b> Pesan Sekarang</b></a>
 
                             @if ($dataFinance != null)
-                                <a href="#" class="btn btn-warning w-100 mt-3"><i class="fa fa-credit-card"></i>
-                                    <b> Ajukan Kredit</b></a>
+                                <button data-toggle="modal" data-target="#finance_chooser"
+                                    class="btn btn-warning w-100 mt-3"><i class="fa fa-credit-card"></i>
+                                    <b> Ajukan Kredit</b></button>
                             @endif
                             <a href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataApp['no_hp']) }}&text=Halo,%20saya%20ingin%20bertanya%20tentang%20mobil%20{{ $dataMobil['merk'] }}%20{{ $dataMobil['nama_model'] }}%20{{ $dataMobil['tahun'] }}"
                                 target="_blank" rel="noopener noreferrer"
@@ -471,8 +473,48 @@
             </div>
         </div>
 
-        {{-- Modal gambar review --}}
+        {{-- Modal pilih finance --}}
 
+        <div class="modal fade" id="finance_chooser" tabindex="-1" role="dialog" aria-labelledby="galleryModalTitle"
+            aria-hidden="true">
+            <div class="modal-dialog " role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="galleryModalTitle">
+                            Pilih Finance
+                        </h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row justify-content-center">
+                            @foreach ($dataAllFinance as $daf)
+                                <div class="col-md-6 d-flex flex-column align-items-center">
+                                    <div style="border-radius: 20px;" class="card p-3">
+                                        <a
+                                            href="{{ route('credit', ['mobilId' => Crypt::encrypt($dataMobil['mobil_id']), 'financeId' => Crypt::encrypt($daf->finance_id)]) }}">
+                                            <img src="{{ asset('data/finance/img/' . $daf['image']) }}" alt="">
+                                        </a>
+
+                                        <p class="mt-2 text-dark text-center"><b>Bunga {{ $daf->bunga }}% / bulan</b>
+                                        </p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        {{-- Modal gambar testimoni --}}
         @if ($dataMobil['status_mobil'] == 0)
             @for ($i = 1; $i <= 4; $i++)
                 <div class="modal fade" id="detailgambar{{ $i }}" tabindex="-1" role="dialog"
@@ -497,7 +539,7 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                             </div>
                         </div>
                     </div>

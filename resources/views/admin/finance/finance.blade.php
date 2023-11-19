@@ -408,7 +408,7 @@
                                                     </div>
 
                                                     <div class="form-group">
-                                                        <label for="basicInput">Bunga Kredit</label>
+                                                        <label for="basicInput">>Bunga Kredit Per Bulan</label>
                                                         <div class="input-group ">
                                                             <input type="text" class="form-control" name="bunga"
                                                                 aria-describedby="basic-addon2" required
@@ -563,7 +563,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="basicInput">Bunga Kredit</label>
+                                        <label for="basicInput">Bunga Kredit Per Bulan</label>
                                         <div class="input-group ">
                                             <input type="text" class="form-control" name="bunga"
                                                 aria-describedby="basic-addon2" required>

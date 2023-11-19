@@ -710,6 +710,63 @@ ol {
 	cursor: pointer;
 }
 
+   #priceSliderWrapper {
+                            position: relative;
+                        }
+
+                        #minLabel,
+                        #maxLabel {
+                            font-size: 14px;
+                            color: #000000;
+                        }
+
+                        #minLabel {
+                            left: 0;
+                        }
+
+                        #maxLabel {
+                            right: 0;
+                        }
+
+                        #priceSlider .ui-slider {
+                            position: relative;
+                            text-align: left;
+                            margin-top: 10px;
+                        }
+
+                        #priceSlider .ui-slider-handle {
+                            position: absolute;
+                            z-index: 2;
+                            width: 25px; /* Adjust the width */
+                            height: 25px; /* Adjust the height */
+                            cursor: pointer;
+                            border-radius: 50%;
+                            background-color: #FFCC00;
+                            border: 2px solid #fff;
+                        }
+
+                        #priceSlider .ui-slider-range {
+                            position: absolute;
+                            z-index: 1;
+                            font-size: .7em;
+                            display: block;
+                            border: 0;
+                            background-position: 0 0;
+                        }
+
+                        #priceSlider .ui-slider-horizontal {
+                            height: .8em;
+                        }
+
+                        #priceSlider .ui-slider-handle:hover {
+                            background-color: #FFCC00;
+                        }
+
+                        .btn-group-toggle .btn input:checked+.btn {
+                            background-color: #FFD700;
+                            /* Yellow color when selected */
+                        }
+
 .hero__tab__form form .car-price .price-range-wrap .ui-state-default,
 .hero__tab__form form .car-price .price-range-wrap .ui-widget-content .ui-state-default,
 .hero__tab__form form .car-price .price-range-wrap .ui-widget-header .ui-state-default,

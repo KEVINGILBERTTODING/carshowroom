@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\MobilController;
 use App\Http\Controllers\admin\transactions\TransactionController;
 use App\Http\Controllers\admin\users\UsersController;
 use App\Http\Controllers\client\main\MainController;
+use App\Http\Controllers\CreditController;
 use App\Http\Controllers\FinanceController;
 use Illuminate\Support\Facades\Route;
 
@@ -184,3 +185,7 @@ Route::get('review', [MainController::class, 'review'])->name('review');
 // mobil
 Route::get('mobil', [MobilController::class, 'tampilMobil'])->name('mobil');
 Route::get('detailMobil/{mobilId}', [MobilController::class, 'detailMobilClient'])->name('detailMobil');
+
+// credit
+Route::get('credit/{mobilId}/{financeId}', [CreditController::class, 'credit'])->name('credit');
+Route::post('countCredit', [CreditController::class, 'countCredit'])->name('countCredit');
