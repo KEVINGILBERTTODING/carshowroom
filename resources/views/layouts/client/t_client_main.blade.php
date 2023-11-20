@@ -104,10 +104,8 @@
                     <div class="footer__widget">
                         <h5>Informasi</h5>
                         <ul>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Hatchback</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Sedan</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> SUV</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Crossover</a></li>
+                            <li><a href="{{ route('userGuide') }}"><i class="fa fa-angle-right"></i> Panduan
+                                    Pengguna</a></li>
                         </ul>
                     </div>
                 </div>

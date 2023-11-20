@@ -113,4 +113,19 @@ class MainController extends Controller
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
     }
+
+    function userGuide()
+    {
+
+        try {
+            $datApp = AppModel::first();
+            $data = [
+                'dataApp' => $datApp
+            ];
+
+            return view('client.guide.guide', $data);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
 }

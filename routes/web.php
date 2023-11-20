@@ -189,3 +189,6 @@ Route::get('detailMobil/{mobilId}', [MobilController::class, 'detailMobilClient'
 // credit
 Route::get('credit/{mobilId}/{financeId}', [CreditController::class, 'credit'])->name('credit');
 Route::post('countCredit', [CreditController::class, 'countCredit'])->name('countCredit');
+
+// user guide
+Route::get('userGuide', [MainController::class, 'userGuide'])->name('userGuide');

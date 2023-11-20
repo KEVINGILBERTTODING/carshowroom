@@ -412,6 +412,12 @@
                                     aria-hidden="true"></i></i>
                                 <b>Hubungi Kami</b></a>
 
+                            <div class="div mt-3 d-flex justify-content-center"> <a href="{{ route('userGuide') }}"
+                                    style="font-size: 12px;" class="text-sm text-primary">
+                                    Baca panduan pengguna.</a></div>
+
+
+
 
                         </div>
 

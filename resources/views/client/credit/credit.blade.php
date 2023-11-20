@@ -219,7 +219,7 @@
                         <hr class="text-muted" style="border-top: dotted 3px;" />
 
                         <div class="row">
-                            <div class="col-md-5 col-12">
+                            <div class="col-md-5 col-12 mb-3">
                                 <h5 class="text">Total Biaya Tambahan</h5>
                             </div>
 
@@ -281,9 +281,7 @@
                         <div class="div bg-warning  p-3 d-flex flex-column align-items-center">
                             <h4>{{ $dataFinance['nama_finance'] }}</h4>
 
-                            <a href="{{ route('detailDataFinance', Crypt::encrypt($dataFinance['finance_id'])) }}"
-                                style="text-align: center;" class="text-sm text text-white">Lihat detail finance
-                            </a>
+
 
 
 
@@ -304,12 +302,14 @@
                                     </h6>
 
                                     </li>
+                                    <a href="{{ route('detailDataFinance', Crypt::encrypt($dataFinance['finance_id'])) }}"
+                                        style="text-align: center; font-size: 12px;"
+                                        class="text-sm text text-primary mt-3">Lihat detail
+                                        finance
+                                    </a>
 
 
                                 </ul>
-
-                                </ul>
-
 
                                 <hr>
 
