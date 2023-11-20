@@ -134,7 +134,8 @@
                                                 role="tab">
                                                 Buat akun baru</a></p>
 
-                                        <form>
+                                        <form method="POST" action="{{ route('login') }}">
+                                            @csrf
                                             <div class="form-group">
                                                 <label>Email</label>
                                                 <input type="text" id="email" placeholder="Email"

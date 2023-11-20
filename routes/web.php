@@ -201,3 +201,4 @@ Route::get('createNewTransaction/{mobilId}', [TransactionTransactionController::
 // client auth
 Route::post('loginWithGoogle', [AuthClientController::class, 'loginWithGoogle'])->name('loginWithGoogle');
 Route::post('register', [AuthClientController::class, 'register'])->name('register');
+Route::post('login', [AuthClientController::class, 'login'])->name('login');

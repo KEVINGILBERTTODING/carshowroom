@@ -108,4 +108,41 @@ class AuthClientController extends Controller
             return redirect()->route('/')->with('failed', 'Gagal registrasi');
         }
     }
+
+    function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|string|min:8'
+        ], [
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Email tidak valid',
+            'password.required' => 'Kata sandi tidak boleh kosong',
+            'password.string' => 'Kata sandai hanya boleh mengandung huruf dan angka',
+            'password.min' =>  'Kata sandi tidak boleh kurang dari 8 karakter'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('/')->with('failed', $validator->errors()->first());
+        }
+
+        $email = $request->input('email');
+        $password = $request->input('password');
+        try {
+            $validateEmail = User::where('email', $email)->where('sign_in', 'email')->first();
+            if ($validateEmail) {
+                if (Hash::check($password, $validateEmail['password'])) {
+                    $request = session()->put('client', true);
+                    $request = session()->put('user_id', $validateEmail['user_id']);
+                    return redirect()->route('/')->with('success', 'Berhasil login');
+                } else {
+                    return redirect()->route('/')->with('failed', 'Kata sandi salah');
+                }
+            } else {
+                return redirect()->route('/')->with('failed', 'Email belum terdaftar');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('/')->with('failed', $th->getMessage());
+        }
+    }
 }
