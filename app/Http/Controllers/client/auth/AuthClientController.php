@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthClientController extends Controller
 {
@@ -61,6 +63,49 @@ class AuthClientController extends Controller
                 'status' => 'error',
                 'message' => 'Terjadi kesalahan'
             ], 500);
+        }
+    }
+
+    function register(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users,email',
+            'nama_lengkap' => 'required|string',
+            'password' => 'required|string|min:8'
+        ], [
+            'required' => 'Kolom :attribute tidak boleh kosong',
+            'email' => 'Email tidak valid',
+            'unique' => 'Email telah terdaftar',
+            'string' => 'Kolom :attribute hanya boleh berupa huruf dan angka',
+            'min' => 'Kata sandi tidak boleh kurang dari 8 karakter'
+        ], [
+            'email' => 'Email',
+            'nama_lengkap' => 'Nama lengkap',
+            'password' => 'Kata sandi'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->route('/')->with('failed', $validator->errors()->first());
+        }
+
+        try {
+            $data = [
+                'email' => $request->input('email'),
+                'password' => Hash::make($request->input('password')),
+                'nama_lengkap' => $request->input('nama_lengkap'),
+                'sign_in' => 'email',
+                'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+            ];
+
+            $insert = User::insert($data);
+            if ($insert) {
+                return redirect()->route('/')->with('success', 'Berhasil mendaftar');
+            } else {
+                return redirect()->route('/')->with('failed', 'Gagal registrasi');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->route('/')->with('failed', 'Gagal registrasi');
         }
     }
 }

@@ -12,7 +12,7 @@
 
             <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
             @if (session('client') == true)
-                <a href="#" class="primary-btn">Dasboard</a>
+                <a href="#" class="primary-btn text-dark">Dasboard</a>
             @endif
         </div>
         <div class="offcanvas__logo">
@@ -89,7 +89,7 @@
                                 <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
                             </div>
                             @if (session('client') == true)
-                                <a href="#" class="primary-btn">Dasboard</a>
+                                <a href="#" class="primary-btn text-dark">Dasboard</a>
                             @endif
 
                         </div>
@@ -114,94 +114,90 @@
                             <h2>Rizki Motor</h2>
                         </div>
 
-                        <a href="{{ route('mobil') }}" class="primary-btn"><img src="img/wheel.png" alt="">
+                        <a href="{{ route('mobil') }}" class="primary-btn text-dark"><img src="img/wheel.png"
+                                alt="">
                             Temukan Sekarang</a>
                         <a href="{{ route('aboutUs') }}" class="primary-btn more-btn">Tentang Kami</a>
                     </div>
                 </div>
                 <div class="col-lg-5">
                     <div class="hero__tab">
-                        {{-- <ul class="nav nav-tabs" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" style="border-radius: 20px;" data-toggle="tab" href="#tabs-1"
-                                    role="tab">
-                                    Masuk</a>
-                            </li>
-                            <li class="nav-item">
 
-                            </li>
-                        </ul> --}}
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                <div class="hero__tab__form" style="border-radius: 20px;">
-                                    <h2>Masuk</h2>
+                        @if (session('client') != true)
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                    <div class="hero__tab__form" style="border-radius: 20px;">
+                                        <h2>Masuk</h2>
 
-                                    <p class="text-sm text-muted">Baru bergabung? <a data-toggle="tab"
-                                            style="text-decoration: none; color: #3e6ae1 ;" href="#tabs-2" role="tab">
-                                            Buat akun baru</a></p>
+                                        <p class="text-sm text-muted">Baru bergabung? <a data-toggle="tab"
+                                                style="text-decoration: none; color: #3e6ae1 ;" href="#tabs-2"
+                                                role="tab">
+                                                Buat akun baru</a></p>
 
-                                    <form>
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input type="text" id="email" placeholder="Email" class="form-control"
-                                                name="email" required>
+                                        <form>
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="text" id="email" placeholder="Email"
+                                                    class="form-control" name="email" required>
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label>Kata Sandi</label>
+                                                <input type="password" id="password" placeholder="Kata sandi"
+                                                    class="form-control" name="password" required>
+                                            </div>
+                                            <button type="submit" style="width: 100%;"
+                                                class="site-btn full-width-btn text-dark">Masuk</button>
+                                        </form>
+                                        <div class="divider d-flex justify-content-center my-4">
+                                            <p class="text-center fw-bold mx-3 mb-0 text-muted">ATAU</p>
                                         </div>
-                                        <div class="form-group mb-4">
-                                            <label>Kata Sandi</label>
-                                            <input type="password" id="password" placeholder="Kata sandi"
-                                                class="form-control" name="password" required>
-                                        </div>
-                                        <button type="submit" style="width: 100%;"
-                                            class="site-btn full-width-btn">Masuk</button>
-                                    </form>
-                                    <div class="divider d-flex justify-content-center my-4">
-                                        <p class="text-center fw-bold mx-3 mb-0 text-muted">ATAU</p>
+                                        <button id="btn-google" class="site-btn mt-4"
+                                            style="width: 100%; background-color: #3e6ae1; display: flex; align-items: center; justify-content: center; text-align: left;">
+                                            <i class="fa fa-google" aria-hidden="true" style="margin-right: 10px;"></i>
+                                            Masuk dengan akun google
+                                        </button>
+
+
                                     </div>
-                                    <button id="btn-google" class="site-btn mt-4"
-                                        style="width: 100%; background-color: #3e6ae1; display: flex; align-items: center; justify-content: center; text-align: left;">
-                                        <i class="fa fa-google" aria-hidden="true" style="margin-right: 10px;"></i>
-                                        Masuk dengan akun google
-                                    </button>
-
-
                                 </div>
-                            </div>
-                            <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                <div class="hero__tab__form" style="border-radius: 20px;">
-                                    <h2>Masuk</h2>
 
-                                    <p class="text-sm text-muted">Telah memiliki akun? <a data-toggle="tab"
-                                            style="text-decoration: none; color: #3e6ae1 ;" href="#tabs-1"
-                                            role="tab">
-                                            Masuk</a></p>
+                                <div class="tab-pane" id="tabs-2" role="tabpanel">
+                                    <div class="hero__tab__form" style="border-radius: 20px;">
+                                        <h2>Daftar</h2>
 
-                                    <form>
-                                        <div class="form-group">
-                                            <label>Email</label>
-                                            <input type="text" id="email" placeholder="Email"
-                                                class="form-control" name="email" required>
-                                        </div>
-                                        <div class="form-group mb-4">
-                                            <label>Kata Sandi</label>
-                                            <input type="password" id="password" placeholder="Kata sandi"
-                                                class="form-control" name="password" required>
-                                        </div>
-                                        <button type="submit" style="width: 100%;"
-                                            class="site-btn full-width-btn">Masuk</button>
-                                    </form>
-                                    <div class="divider d-flex justify-content-center my-4">
-                                        <p class="text-center fw-bold mx-3 mb-0 text-muted">ATAU</p>
+                                        <p class="text-sm text-muted">Telah memiliki akun? <a data-toggle="tab"
+                                                style="text-decoration: none; color: #3e6ae1 ;" href="#tabs-1"
+                                                role="tab">
+                                                Masuk</a></p>
+
+                                        <form method="POST" action="{{ route('register') }}">
+                                            @csrf
+                                            <div class="form-group">
+                                                <label>Email</label>
+                                                <input type="text" id="email" placeholder="Email"
+                                                    class="form-control" name="email" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Nama Lengkap</label>
+                                                <input type="text" id="email" placeholder="Nama Lengkap"
+                                                    class="form-control" name="nama_lengkap" required>
+                                            </div>
+                                            <div class="form-group mb-4">
+                                                <label>Kata Sandi</label>
+                                                <input type="password" id="password" placeholder="Kata sandi"
+                                                    class="form-control" name="password" required>
+                                            </div>
+                                            <button type="submit" style="width: 100%;"
+                                                class="site-btn full-width-btn text-dark">Daftar</button>
+                                        </form>
+
+
+
                                     </div>
-                                    <button id="btn-google" class="site-btn mt-4"
-                                        style="width: 100%; background-color: #3e6ae1; display: flex; align-items: center; justify-content: center; text-align: left;">
-                                        <i class="fa fa-google" aria-hidden="true" style="margin-right: 10px;"></i>
-                                        Masuk dengan akun google
-                                    </button>
-
-
                                 </div>
+
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
