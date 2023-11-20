@@ -11,7 +11,7 @@
         <div class="offcanvas__widget">
 
             <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
-            @if (session('role') == 'customer' && session('login') == true)
+            @if (session('client') == true)
                 <a href="#" class="primary-btn">Dasboard</a>
             @endif
         </div>
@@ -88,7 +88,7 @@
 
                                 <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
                             </div>
-                            @if (session('role') == 'customer' && session('login') == true)
+                            @if (session('client') == true)
                                 <a href="#" class="primary-btn">Dasboard</a>
                             @endif
 
@@ -482,9 +482,58 @@
                     const token = credential.accessToken;
                     // The signed-in user info.
                     const user = result.user;
-                    // IdP data available using getAdditionalUserInfo(result)
-                    // ...
-                    console.log(user);
+                    const email = result.user.email;
+                    const namaLengkap = result.user.displayName;
+                    const profilePhoto = result.user.photoURL;
+
+
+
+                    // simpan login
+                    $.ajax({
+                        type: "post",
+                        url: "/loginWithGoogle",
+                        data: {
+                            _token: "{{ csrf_token() }}",
+                            email: email,
+                            nama_lengkap: namaLengkap,
+                            profile_photo: profilePhoto
+                        },
+                        dataType: "json",
+                        success: function(response) {
+                            console.log(response);
+
+                            // Tanggapan berhasil
+                            if (response.status === "success") {
+
+                                Swal.fire({
+                                    icon: "success",
+                                    title: "Berhasil",
+                                    text: "Berhasil login.",
+                                });
+                                // Lakukan tindakan lain seperti mengarahkan pengguna atau memperbarui UI
+                            } else {
+                                // Tanggapan gagal
+
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Gagal",
+                                    text: "Terjadi kesalahan.",
+                                });
+                                // Handle kesalahan sesuai kebutuhan
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            // Tanggapan error dari server
+                            // console.error("Terjadi kesalahan3: " + error);
+                            // console.error("Respons: " + xhr.responseText);
+                            Swal.fire({
+                                icon: "error",
+                                title: "Gagal",
+                                text: "Terjadi kesalahan.",
+                            });
+                        }
+                    });
+
                 }).catch((error) => {
                     // Handle Errors here.
                     const errorCode = error.code;
@@ -493,7 +542,16 @@
                     const email = error.customData.email;
                     // The AuthCredential type that was used.
                     const credential = GoogleAuthProvider.credentialFromError(error);
-                    // ...
+                    $(document).ready(function() {
+
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal",
+                            text: "Terjadi kesalahan.",
+                        });
+
+
+                    });
                 });
         });
     </script>

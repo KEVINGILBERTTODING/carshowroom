@@ -110,7 +110,7 @@
                     <div class="breadcrumb__text">
                         <h2>{{ $dataFinance['nama_finance'] }}</h2>
                         <div class="breadcrumb__links">
-                            <a href="{{ route('/') }}"><i class="fa fa-home"></i> Home</a>
+                            <a href="{{ route('/') }}"><i class="fa fa-home"></i> Beranda</a>
                             <a href="{{ route('dataFinance') }}">
                                 Finance</a>
                             <span>{{ $dataFinance['nama_finance'] }}</span>

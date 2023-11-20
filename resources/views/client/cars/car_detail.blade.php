@@ -108,7 +108,7 @@
                     <div class="breadcrumb__text">
                         <h2>{{ $dataMobil['merk'] . '-' . $dataMobil['nama_model'] . ' ' . $dataMobil['tahun'] }}</h2>
                         <div class="breadcrumb__links">
-                            <a href="{{ route('/') }}"><i class="fa fa-home"></i> Home</a>
+                            <a href="{{ route('/') }}"><i class="fa fa-home"></i> Beranda</a>
                             <a href="{{ route('mobil') }}">Daftar Mobil</a>
                             <span>Mobil</span>
                         </div>
@@ -397,8 +397,8 @@
 
                             <hr>
 
-                            <a href="#" class="btn btn-primary w-100 mt-3"><i class="fa fa-check-circle"
-                                    aria-hidden="true"></i>
+                            <a href="{{ route('createNewTransaction', $dataMobil['mobil_id']) }}"
+                                class="btn btn-primary w-100 mt-3"><i class="fa fa-check-circle" aria-hidden="true"></i>
                                 <b> Pesan Sekarang</b></a>
 
                             @if ($dataFinance != null)

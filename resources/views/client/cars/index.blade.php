@@ -108,7 +108,7 @@
                     <div class="breadcrumb__text">
                         <h2>Daftar Mobil</h2>
                         <div class="breadcrumb__links">
-                            <a href="{{ route('/') }}"><i class="fa fa-home"></i> Home</a>
+                            <a href="{{ route('/') }}"><i class="fa fa-home"></i> Beranda</a>
                             <span>Mobil</span>
                         </div>
                     </div>

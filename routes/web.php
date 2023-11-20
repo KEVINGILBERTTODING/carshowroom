@@ -13,7 +13,9 @@ use App\Http\Controllers\admin\components\WarnaController;
 use App\Http\Controllers\admin\MobilController;
 use App\Http\Controllers\admin\transactions\TransactionController;
 use App\Http\Controllers\admin\users\UsersController;
+use App\Http\Controllers\client\auth\AuthClientController;
 use App\Http\Controllers\client\main\MainController;
+use App\Http\Controllers\client\transaction\TransactionController as TransactionTransactionController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\FinanceController;
 use Illuminate\Support\Facades\Route;
@@ -192,3 +194,9 @@ Route::post('countCredit', [CreditController::class, 'countCredit'])->name('coun
 
 // user guide
 Route::get('userGuide', [MainController::class, 'userGuide'])->name('userGuide');
+
+// transaction
+Route::get('createNewTransaction/{mobilId}', [TransactionTransactionController::class, 'createNewTransaction'])->name('createNewTransaction');
+
+// client auth
+Route::post('loginWithGoogle', [AuthClientController::class, 'loginWithGoogle'])->name('loginWithGoogle');

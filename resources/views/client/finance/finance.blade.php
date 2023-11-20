@@ -111,7 +111,7 @@
                     <div class="breadcrumb__text">
                         <h2>Finance</h2>
                         <div class="breadcrumb__links">
-                            <a href="{{ route('/') }}"><i class="fa fa-home"></i> Home</a>
+                            <a href="{{ route('/') }}"><i class="fa fa-home"></i> Beranda</a>
                             <span>Finance</span>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row justify-content-center">
 
                 @foreach ($dataFinance as $df)
                     <div class="col-lg-3 col-md-4 col-sm-6">
