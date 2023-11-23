@@ -314,8 +314,11 @@
                                 <hr>
 
 
-                                <a href="#" class="btn btn-warning w-100 mt-3"><i class="fa fa-credit-card"></i>
-                                    <b> Ajukan Pembiayaan</b></a>
+                                <a href="{{ route('pengajuanKredit', ['mobilId' => Crypt::encrypt($dataMobil['mobil_id']), 'financeId' => Crypt::encrypt($dataFinance['finance_id'])]) }}"
+                                    class="btn btn-warning w-100 mt-3">
+                                    <i class="fa fa-credit-card"></i>
+                                    <b> Ajukan Pembiayaan</b>
+                                </a>
 
                                 <a href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataApp['no_hp']) }}&text=Halo,%20saya%20ingin%20bertanya%20tentang%20mobil%20{{ $dataMobil['merk'] }}%20{{ $dataMobil['nama_model'] }}%20{{ $dataMobil['tahun'] }}"
                                     target="_blank" rel="noopener noreferrer"

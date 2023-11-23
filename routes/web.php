@@ -18,6 +18,7 @@ use App\Http\Controllers\client\main\MainController;
 use App\Http\Controllers\client\transaction\TransactionController as TransactionTransactionController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Middleware\ClientMiddleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -197,8 +198,16 @@ Route::get('userGuide', [MainController::class, 'userGuide'])->name('userGuide')
 
 // transaction
 Route::get('createNewTransaction/{mobilId}', [TransactionTransactionController::class, 'createNewTransaction'])->name('createNewTransaction');
+Route::post('insertTransaction', [TransactionTransactionController::class, 'insertTransaction'])->name('insertTransaction')->middleware('authClient');
+Route::get('pengajuanKredit/{mobilId}/{financeId}', [TransactionTransactionController::class, 'pengajuanKredit'])->name('pengajuanKredit');
+
+
+
 
 // client auth
 Route::post('loginWithGoogle', [AuthClientController::class, 'loginWithGoogle'])->name('loginWithGoogle');
 Route::post('register', [AuthClientController::class, 'register'])->name('register');
 Route::post('login', [AuthClientController::class, 'login'])->name('login');
+
+// bank account
+Route::get('getBankAccountById/{bankId}', [TransactionTransactionController::class, 'getBankAccountById'])->name('getBankAccountById');

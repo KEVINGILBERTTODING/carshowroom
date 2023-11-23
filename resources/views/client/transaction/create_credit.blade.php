@@ -1,7 +1,7 @@
 @extends('layouts.client.t_client_main')
 
 @section('title')
-    <title>{{ $dataApp['app_name'] . '- Transaksi Baru' }}</title>
+    <title>{{ $dataApp['app_name'] . '- Pengajuan Kredit' }}</title>
 @endsection
 
 @section('content')
@@ -110,7 +110,7 @@
                         <div class="breadcrumb__links">
                             <a href="{{ route('/') }}"><i class="fa fa-home"></i> Beranda</a>
                             <a href="{{ route('mobil') }}">Mobil</a>
-                            <span>Transaksi</span>
+                            <span>Pengajuan Kredit</span>
                         </div>
                     </div>
                 </div>
@@ -125,7 +125,7 @@
 
 
                 <div class="col-lg-9 ">
-                    <h2 style="font-size: 50px;" class="text"><b>Buat Pesanan Baru.</b></h2>
+                    <h2 style="font-size: 50px;" class="text"><b>Pengajuan Kredit.</b></h2>
                     <form action="{{ route('insertTransaction') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
@@ -167,8 +167,7 @@
                                         5MB.)</span>
                                     <input type="file" name="evidence" accept=".png,.jpg,.jpeg" class="form-control"
                                         name="evidence" required>
-                                    <a class="btn btn-primary btn-sm mt-2 text-light" data-toggle="modal"
-                                        data-target="#bank_number">Lihat no rekening</a>
+
                                 </div>
 
 
@@ -205,10 +204,7 @@
 
                             <h5 class="text ">{{ $dataMobil['tahun'] }}</h5>
                             <hr>
-                            <span class="text text-sm mb-2">Total Pembayaran</span>
 
-                            <h4>{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</h4>
-                            <hr>
 
                             <a href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataApp['no_hp']) }}&text=Halo,%20saya%20ingin%20bertanya%20tentang%20mobil%20{{ $dataMobil['merk'] }}%20{{ $dataMobil['nama_model'] }}%20{{ $dataMobil['tahun'] }}"
                                 target="_blank" rel="noopener noreferrer" class="btn btn-success sidebar-btn w-100 mt-3">
@@ -224,72 +220,10 @@
 
                     </div>
 
-
-
                 </div>
             </div>
         </div>
 
-
-        {{-- Modal rekening bank --}}
-        <div class="modal fade text-left modal-borderless" id="bank_number" tabindex="-1" role="dialog"
-            aria-labelledby="myModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
-
-                <div class="modal-content">
-
-
-                    <div class="modal-header">
-                        <h5 class="modal-title">Rekening Bank</h5>
-                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
-                            <i data-feather="x"></i>
-                        </button>
-                    </div>
-
-                    <div class="modal-body">
-                        <div class="container">
-
-                            <div>
-                                <select name="payment_method" id="bankChooser" required>
-                                    <option value="" selected disabled>Pilih Bank</option>
-                                    @foreach ($bankAccount as $ba)
-                                        <option value="{{ $ba->bank_id }}">{{ $ba->bank_name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <br><br>
-
-                            <div class="form-group mt-3">
-                                <label for="">Nomor Rekening</label>
-                                <input type="text" id="no_rek" readonly class="form-control" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Nama Lengkap</label>
-                                <input type="text" id="nama_lengkap" readonly name="no_hp" class="form-control"
-                                    required>
-                            </div>
-
-
-
-
-
-                        </div>
-
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-light-primary" data-dismiss="modal">
-                            <i class="bx bx-x d-block d-sm-none"></i>
-                            <span class="d-none d-sm-block">Tutup</span>
-                        </button>
-
-
-                    </div>
-
-                </div>
-
-            </div>
-        </div>
 
 
 

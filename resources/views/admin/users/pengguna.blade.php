@@ -301,6 +301,7 @@
                                 <th>Nama Lengkap</th>
                                 <th>Email</th>
                                 <th>No Handphone</th>
+                                <th>Tipe Akun</th>
                                 <th>Alamat</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
@@ -320,6 +321,13 @@
                                             href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dw->no_hp) }}&text=Halo,%20*{{ $dw->nama_lengkap }}*,%20kami%20dari%20{{ $dataApp['app_name'] }}">
                                             {{ $dw->no_hp }}
                                         </a></td>
+                                    <td>
+                                        @if ($dw->sign_in == 'email')
+                                            <span class="badge bg-info">Email</span>
+                                        @else
+                                            <span class="badge bg-danger">Google</span>
+                                        @endif
+                                    </td>
                                     <td>{{ $dw->alamat }}</td>
                                     <td>
                                         @if ($dw->status == 1)

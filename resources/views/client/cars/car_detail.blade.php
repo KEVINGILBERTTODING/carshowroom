@@ -397,7 +397,7 @@
 
                             <hr>
 
-                            <a href="{{ route('createNewTransaction', $dataMobil['mobil_id']) }}"
+                            <a href="{{ route('createNewTransaction', Crypt::encrypt($dataMobil['mobil_id'])) }}"
                                 class="btn btn-primary w-100 mt-3"><i class="fa fa-check-circle" aria-hidden="true"></i>
                                 <b> Pesan Sekarang</b></a>
 
@@ -521,7 +521,7 @@
 
 
         {{-- Modal gambar testimoni --}}
-        @if ($dataMobil['status_mobil'] == 0)
+        @if ($dataMobil['status_mobil'] == 0 && $dataMobil['image_review1'] != null)
             @for ($i = 1; $i <= 4; $i++)
                 <div class="modal fade" id="detailgambar{{ $i }}" tabindex="-1" role="dialog"
                     aria-labelledby="galleryModalTitle" aria-hidden="true">
