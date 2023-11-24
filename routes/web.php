@@ -212,3 +212,8 @@ Route::post('login', [AuthClientController::class, 'login'])->name('login');
 
 // bank account
 Route::get('getBankAccountById/{bankId}', [TransactionTransactionController::class, 'getBankAccountById'])->name('getBankAccountById');
+
+
+// client dashboard
+Route::get('dashboardClient', [MainController::class, 'dashboardClient'])->name('dashboardClient')->middleware('authClient');
+Route::get('logOut', [MainController::class, 'logOut'])->name('logOut')->middleware('authClient');

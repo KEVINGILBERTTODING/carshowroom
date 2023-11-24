@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\AppModel;
 use App\Models\FInanceModel;
 use App\Models\ReviewModel;
+use App\Models\TransactionModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -127,5 +129,36 @@ class MainController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
+    }
+
+    function dashboardClient()
+    {
+        try {
+            $dataUser = User::where('user_id', session('user_id'))->first();
+            $transactionModel = new TransactionModel();
+            $totalSelesaiTransaksi = $transactionModel->countTotalTransactionCustomer(session('user_id'), 1);
+            $totalProsesTransaksi = $transactionModel->countTotalTransactionCustomer(session('user_id'), 2);
+            $totalProsesFinanceTransaksi = $transactionModel->countTotalTransactionCustomer(session('user_id'), 3);
+            $totalTidakValidTransaksi = $transactionModel->countTotalTransactionCustomer(session('user_id'), 0);
+            $dataApp =  AppModel::where('app_id', 1)->first();
+
+            $data = [
+                'dataUser' => $dataUser,
+                'totalSelesaiTransaksi' => $totalSelesaiTransaksi,
+                'totalProsesTransaksi' => $totalProsesTransaksi,
+                'totalProsesFinanceTransaksi' => $totalProsesFinanceTransaksi,
+                'totalTransaksiTidakValid' => $totalTidakValidTransaksi,
+                'dataApp' => $dataApp
+            ];
+            return view('client.dashboard.index', $data);
+        } catch (\Throwable $th) {
+            return redirect()->route('/')->with('failed', 'Terjadi kesalahan');
+        }
+    }
+
+    function logOut()
+    {
+        session()->flush();
+        return redirect()->route('/');
     }
 }

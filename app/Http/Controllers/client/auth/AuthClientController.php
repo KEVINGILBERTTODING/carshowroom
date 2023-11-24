@@ -21,6 +21,7 @@ class AuthClientController extends Controller
             if ($validateEmail) { // jika ada maka simpan ke session
                 $request = session()->put('client', true);
                 $request = session()->put('user_id', $validateEmail['user_id']);
+                $request =  session()->put('profile_photo', $profilePhoto);
                 return response()->json([
                     'status' => 'success',
                     'message' => 'User registered, session updated',

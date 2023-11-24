@@ -476,4 +476,15 @@ class TransactionModel extends Model
 
         return $data;
     }
+
+    function countTotalTransactionCustomer($userId, $status)
+    {
+        $data = TransactionModel::select(
+            'transaksi_id'
+        )
+            ->where('user_id', $userId)
+            ->where('status', $status)
+            ->count();
+        return $data;
+    }
 }

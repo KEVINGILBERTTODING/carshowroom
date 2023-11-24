@@ -12,7 +12,7 @@
 
             <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
             @if (session('client') == true)
-                <a href="#" class="primary-btn text-dark">Dashboard</a>
+                <a href="{{ route('dashboardClient') }}" class="primary-btn text-dark btnDashboard">Dashboard</a>
             @endif
         </div>
         <div class="offcanvas__logo">
@@ -89,7 +89,8 @@
                                 <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
                             </div>
                             @if (session('client') == true)
-                                <a href="#" class="primary-btn text-dark">Dashboard</a>
+                                <a href="{{ route('dashboardClient') }}"
+                                    class="primary-btn text-dark btnDashboard">Dashboard</a>
                             @endif
 
                         </div>
@@ -497,10 +498,12 @@
                         },
                         dataType: "json",
                         success: function(response) {
-                            console.log(response);
+
 
                             // Tanggapan berhasil
                             if (response.status === "success") {
+
+
 
                                 Swal.fire({
                                     icon: "success",
@@ -508,6 +511,7 @@
                                     text: "Berhasil login.",
                                 });
                                 // Lakukan tindakan lain seperti mengarahkan pengguna atau memperbarui UI
+                                window.location.href = '/';
                             } else {
                                 // Tanggapan gagal
 
