@@ -51,10 +51,10 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="footer__contact__option">
                             <div class="option__item">
-                                <i class="fa fa-phone"></i>
+                                <i class="fa fa-phone text-dark"></i>
                                 <a href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataApp['no_hp']) }}&text=Halo,%20*"
                                     target="_blank" rel="noopener noreferrer"
-                                    style="text-decoration: none; color: white">
+                                    style="text-decoration: none; color: black">
                                     {{ $dataApp['no_hp'] }}
                                 </a>
                             </div>

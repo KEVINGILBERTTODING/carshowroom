@@ -11,8 +11,8 @@
         <div class="offcanvas__widget">
 
             <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
-            @if (session('role') == 'customer' && session('login') == true)
-                <a href="#" class="primary-btn">Dasboard</a>
+            @if (session('client') == true)
+                <a href="#" class="primary-btn text-dark">Dashboard</a>
             @endif
         </div>
         <div class="offcanvas__logo">
@@ -90,8 +90,8 @@
 
                                 <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
                             </div>
-                            @if (session('role') == 'customer' && session('login') == true)
-                                <a href="#" class="primary-btn">Dasboard</a>
+                            @if (session('client') == true)
+                                <a href="#" class="primary-btn text-dark">Dashboard</a>
                             @endif
 
                         </div>

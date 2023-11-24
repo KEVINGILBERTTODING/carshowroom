@@ -317,7 +317,7 @@ class TransactionController extends Controller
             CreditModel::insert($dataKredit);
             MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
             NotificationAdminModel::insert($dataNotifAdmin);
-            User::where('user_id')->update($dataUser);
+            User::where('user_id', session('user_id'))->update($dataUser);
             DB::commit();
             return redirect()->route('mobil')->with('success', 'Selamat, pengajuan kredit Anda sedang dalam proses kami. Mohon bersabar, kami akan memberikan update paling lambat dalam 7 hari kerja.');
         } catch (\Throwable $th) {
