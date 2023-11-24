@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class NotificationAdminModel extends Model
 {
     use HasFactory;
+    protected $table = 'notification_admin';
 }

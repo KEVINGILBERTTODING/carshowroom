@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Models\AdminNotificationModel;
 use App\Models\AppModel;
 use App\Models\BankAccountModel;
+use App\Models\CreditModel;
 use App\Models\FInanceModel;
 use App\Models\MobilModel;
+use App\Models\NotificationAdminModel;
 use App\Models\TransactionModel;
 use App\Models\User;
 use Carbon\Carbon;
@@ -86,7 +88,7 @@ class TransactionController extends Controller
             'required' => 'Kolom :attribute tidak boleh kosong',
             'numeric' => 'Kolom :attribute hanya boleh berupa angka',
             'string' => 'Kolom :attribute hanya boleh berupa huruf dan angka',
-            'mimes' => ':attribute tidak boleh kosong',
+            'mimes' => ':attribute memiliki format yang tidak valid',
             'max' => ':attribute tidak boleh lebih dari 5 MB'
         ], [
             'mobil_id' => 'mobil',
@@ -183,6 +185,144 @@ class TransactionController extends Controller
             return view('client.transaction.create_credit', $data);
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
+
+    function insertPengajuanKredit(Request $request)
+    {
+        $rules = [];
+        $messages = [];
+        $dataKredit = [];
+
+        $validator = Validator::make($request->all(), [
+            'kk' => 'required|mimes:png,jpg,jpeg|max:3000',
+            'mobil_id' => 'required|numeric',
+            'finance_id' => 'required|numeric',
+            'nama_lengkap' => 'required|string',
+            'no_hp' => 'required|numeric',
+            'alamat' => 'required|string',
+            'total_pembayaran' => 'required|numeric',
+
+
+        ], [
+            'required' => 'Kolom :attribute tidak boleh kosong',
+            'numeric' => 'Kolom :attribute hanya boleh berupa angka',
+            'string' => 'Kolom :attribute hanya boleh berupa huruf dan angka',
+            'mimes' => ':attribute memiliki format yang tidak valid',
+            'max' => ':attribute tidak boleh lebih dari 3 MB'
+        ], [
+            'mobil_id' => 'Mobil',
+            'finance_id' => 'Finance',
+            'kk' => 'Kartu Keluarga',
+            'nama_lengkap' => 'Nama Lengkap',
+            'no_hp' => 'No Handphone',
+            'alamat' => 'Alamat',
+            'total_pembayaran' => 'Total Pembayaran'
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first())->withInput();
+        }
+
+        // cek ketersediaan mobil
+        $checkMobil = MobilModel::where('mobil_id', $request->input('mobil_id'))->first();
+        if ($checkMobil && $checkMobil['status_mobil'] != 1) {
+            return redirect()->route('mobil')->with('failed', 'Mobil tidak tersedia');
+        }
+
+
+        // validasi inputan file kredit
+        if (!$request->hasFile('ktp_suami') && !$$request->hasFile('ktp_istri')) {
+            return redirect()->back()->withInput()->with('failed', 'File KTP tidak boleh kosong');
+        }
+
+        // validasi rules file
+        if ($request->hasFile('ktp_suami')) {
+            $rules['ktp_suami'] = 'image|mimes:jpeg,png,jpg|max:3000';
+            $messages['ktp_suami' . '.image'] = 'File KTP suami harus berupa gambar';
+            $messages['ktp_suami' . '.mimes'] = 'Format gambar KTP suami tidak valid, pastikan file memiliki format .jpg, .png atau .jpeg';
+            $messages['ktp_suami' . '.max'] = 'Ukuran gambar KTP suami tidak boleh lebih dari 3 MB';
+        }
+
+        if ($request->hasFile('ktp_istri')) {
+            $rules['ktp_istri'] = 'image|mimes:jpeg,png,jpg|max:3000';
+            $messages['ktp_istri' . '.image'] = 'File KTP istri harus berupa gambar';
+            $messages['ktp_istri' . '.mimes'] = 'Format gambar KTP istri tidak valid, pastikan file memiliki format .jpg, .png atau .jpeg';
+            $messages['ktp_istri' . '.max'] = 'Ukuran gambar KTP istri tidak boleh lebih dari 3 MB';
+        }
+
+
+        $validatorFileCredit = Validator::make($request->all(), $rules, $messages);
+        if ($validatorFileCredit->fails()) {
+            return redirect()->back()->with('failed', $validatorFileCredit->errors()->first());
+        }
+
+
+        $transaksiId = 'TRX-USR-' . session('user_id') . '-' . Carbon::now()->format('Y-m-d-H-i-s');
+
+        // upload file kredit
+        if ($request->hasFile('ktp_suami')) {
+            $fileKtpSuami = $request->file('ktp_suami');
+            $fileName = 'KTP-suami-' . session('user_id') . '-' . Carbon::now()->format('Y-m-d-H-i-s') .  '.' . $fileKtpSuami->getClientOriginalExtension();
+            $fileKtpSuami->move('data/credit', $fileName);
+            $dataKredit['ktp_suami'] = $fileName;
+        }
+
+        if ($request->hasFile('ktp_istri')) {
+            $fileKtpIstri = $request->file('ktp_istri');
+            $fileNameIstri = 'KTP-istri-' . session('user_id') . '-' . Carbon::now()->format('Y-m-d-H-i-s') .  '.' . $fileKtpIstri->getClientOriginalExtension();
+            $fileKtpIstri->move('data/credit', $fileNameIstri);
+            $dataKredit['ktp_istri'] = $fileNameIstri;
+        }
+
+        if ($request->hasFile('kk')) {
+            $fileKk = $request->file('kk');
+            $fileNameKk = 'KK-' . session('user_id') . '-' . Carbon::now()->format('Y-m-d-H-i-s') .  '.' . $fileKk->getClientOriginalExtension();
+            $fileKk->move('data/credit', $fileNameKk);
+            $dataKredit['kk'] = $fileNameKk;
+        }
+
+        $dataTransaksi = [
+            'transaksi_id' => $transaksiId,
+            'mobil_id' => $request->input('mobil_id'),
+            'user_id' => session('user_id'),
+            'payment_method' => 2,
+            'total_pembayaran' => $request->input('total_pembayaran'),
+            'status' => 2,
+            'created_at' => date('Y-m-d H:i:s')
+        ];
+        $dataUser = [
+            'nama_lengkap' => $request->input('nama_lengkap'),
+            'no_hp' => $request->input('no_hp'),
+            'alamat' => $request->input('alamat'),
+        ];
+
+        $dataMobil = [
+            'status_mobil' => 2, // process
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
+
+        $dataNotifAdmin = [
+            'transaksi_id' => $transaksiId,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ];
+
+        // data Kredit
+        $dataKredit['transaksi_id'] = $transaksiId;
+        $dataKredit['finance_id'] = $request->input('finance_id');
+        $dataKredit['created_at'] = date('Y-m-d H:i:s');
+
+        DB::beginTransaction();
+        try {
+            TransactionModel::insert($dataTransaksi);
+            CreditModel::insert($dataKredit);
+            MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+            NotificationAdminModel::insert($dataNotifAdmin);
+            User::where('user_id')->update($dataUser);
+            DB::commit();
+            return redirect()->route('mobil')->with('success', 'Selamat, pengajuan kredit Anda sedang dalam proses kami. Mohon bersabar, kami akan memberikan update paling lambat dalam 7 hari kerja.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->with('failed', $th->getMessage());
         }
     }
 }

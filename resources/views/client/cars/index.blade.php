@@ -216,7 +216,7 @@
                                                         href="{{ route('detailMobil', Crypt::encrypt($dm->mobil_id)) }}">{{ $dm->merk . ' ' . $dm->nama_model }}</a>
                                                 </h5>
                                                 <ul>
-                                                    <li class="text-dark">{{ $dm->km }} KM</li>
+                                                    <li class="text-dark">{{ formatDecimal($dm->km) }} KM</li>
                                                     <li class="text-dark">{{ $dm->transmisi }}</li>
                                                 </ul>
                                             @else
@@ -225,7 +225,7 @@
                                                         class="text-muted">{{ $dm->merk . ' ' . $dm->nama_model }}</a>
                                                 </h5>
                                                 <ul>
-                                                    <li class="text-muted">{{ $dm->km }} KM</li>
+                                                    <li class="text-dark">{{ formatDecimal($dm->km) }} KM</li>
                                                     <li class="text-muted">{{ $dm->transmisi }}</li>
                                                 </ul>
                                             @endif

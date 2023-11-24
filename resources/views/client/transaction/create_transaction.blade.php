@@ -153,7 +153,7 @@
                                 <div class="from-group">
                                     <label>Alamat</label>
                                     <textarea type="text" rows="3" class="form-control" name="alamat" value="{{ $dataUser['alamat'] }}"
-                                        placeholder="Alamat lengkap anda" required></textarea>
+                                        placeholder="Alamat lengkap anda" required>{{ $dataUser['alamat'] }}</textarea>
                                 </div>
 
                             </div>

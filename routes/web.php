@@ -200,6 +200,7 @@ Route::get('userGuide', [MainController::class, 'userGuide'])->name('userGuide')
 Route::get('createNewTransaction/{mobilId}', [TransactionTransactionController::class, 'createNewTransaction'])->name('createNewTransaction');
 Route::post('insertTransaction', [TransactionTransactionController::class, 'insertTransaction'])->name('insertTransaction')->middleware('authClient');
 Route::get('pengajuanKredit/{mobilId}/{financeId}', [TransactionTransactionController::class, 'pengajuanKredit'])->name('pengajuanKredit');
+Route::post('insertPengajuanKredit', [TransactionTransactionController::class, 'insertPengajuanKredit'])->name('insertPengajuanKredit')->middleware('authClient');
 
 
 

@@ -180,7 +180,7 @@
                                                     <li> <i class="fa fa-check"></i><strong>Warna:</strong>
                                                         {{ $dataMobil['warna'] }}</li>
                                                     <li> <i class="fa fa-check"></i><strong>Kilometer:</strong>
-                                                        {{ $dataMobil['km'] }}</li>
+                                                        {{ formatDecimal($dataMobil['km']) }}</li>
 
 
                                                 </ul>

@@ -126,7 +126,7 @@
 
                 <div class="col-lg-9 ">
                     <h2 style="font-size: 50px;" class="text"><b>Pengajuan Kredit.</b></h2>
-                    <form action="{{ route('insertTransaction') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('insertPengajuanKredit') }}" method="post" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row  mt-4">
@@ -137,6 +137,8 @@
                                         value="{{ $dataMobil['mobil_id'] }}" required>
                                     <input type="text" class="form-control" hidden name="total_pembayaran"
                                         value="{{ $dataMobil['harga_jual'] - $dataMobil['diskon'] }}" required>
+                                    <input type="text" class="form-control" hidden name="finance_id"
+                                        value="{{ $dataFinance['finance_id'] }}" required>
                                     <input type="text" class="form-control" name="nama_lengkap"
                                         value="{{ $dataUser['nama_lengkap'] }}" required>
                                 </div>
@@ -151,31 +153,44 @@
 
                             <div class="col-md-6 mb-3">
                                 <div class="from-group">
-                                    <label>Alamat</label>
-                                    <textarea type="text" rows="3" class="form-control" name="alamat" value="{{ $dataUser['alamat'] }}"
-                                        placeholder="Alamat lengkap anda" required></textarea>
+                                    <label>KTP Laki-laki / KTP Suami </label>
+                                    <span style="font-size: 12px;" class="text text-sm text-danger">(Ukuran file max 3 MB
+                                        | .jpg, .jpeg, .png)</span>
+                                    <input type="file" accept=".jpg,.png,.jpeg" name="ktp_suami"
+                                        class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="from-group">
+                                    <label>KTP Perempuan / KTP Istri </label>
+                                    <span style="font-size: 12px;" class="text text-sm text-danger">(Ukuran file max 3 MB
+                                        | .jpg, .jpeg, .png)</span>
+                                    <input type="file" accept=".jpg,.png,.jpeg" name="ktp_istri"
+                                        class="form-control">
                                 </div>
 
                             </div>
-
                             <div class="col-md-6 mb-3">
                                 <div class="from-group">
-                                    <label>Bukti Pembayaran</label>
-                                    <span style="font-size: 12px;" class="text text-sm text-danger">(Format jpg, png, dan
-                                        jpeg
-                                        |
-                                        5MB.)</span>
-                                    <input type="file" name="evidence" accept=".png,.jpg,.jpeg" class="form-control"
-                                        name="evidence" required>
+                                    <label>Kartu Keluarga</label>
+                                    <span style="font-size: 12px;" class="text text-sm text-danger">(Ukuran file max 3 MB
+                                        | .jpg, .jpeg, .png)</span>
+                                    <input type="file" accept=".jpg,.png,.jpeg" name="kk" class="form-control"
+                                        required>
 
                                 </div>
-
-
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="from-group">
+                                    <label>Alamat</label>
+                                    <textarea type="text" rows="3" class="form-control" name="alamat" value="{{ $dataUser['alamat'] }}"
+                                        placeholder="Alamat lengkap anda" required>{{ $dataUser['alamat'] }}</textarea>
+                                </div>
 
                             </div>
 
                             <div class="col-md-6 mb-4 mt-3">
-                                <button type="submit" class="btn btn-warning btn-block"><b>Bayar Sekarang!</b></button>
+                                <button type="submit" class="btn btn-warning btn-block"><b>Ajukan Sekarang!</b></button>
                             </div>
 
 
@@ -195,6 +210,15 @@
 
                         <div class="card-body" style="width: 100%;">
 
+                            <span class="text text-sm mb-2">Finance</span>
+
+                            <h5 class="text "><a
+                                    href="{{ route('detailDataFinance', Crypt::encrypt($dataFinance['finance_id'])) }}"
+                                    class="text-primary">{{ $dataFinance['nama_finance'] }}</a>
+                            </h5>
+
+                            <hr>
+
                             <span class="text text-sm mb-2">Merk & Tipe Mobil</span>
 
                             <h5 class="text ">{{ $dataMobil['merk'] . ' - ' . $dataMobil['nama_model'] }}</h5>
@@ -203,6 +227,11 @@
                             <span class="text text-sm mb-2">Tahun</span>
 
                             <h5 class="text ">{{ $dataMobil['tahun'] }}</h5>
+                            <hr>
+
+                            <span class="text text-sm mb-2">Kilometer</span>
+
+                            <h5 class="text ">{{ formatDecimal($dataMobil['km']) }}</h5>
                             <hr>
 
 
