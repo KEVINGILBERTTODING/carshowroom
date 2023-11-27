@@ -12,7 +12,7 @@
 
             <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
             @if (session('client') == true)
-                <a href="#" class="primary-btn text-dark">Dashboard</a>
+                <a href="{{ route('dashboardClient') }}" class="primary-btn text-dark">Dashboard</a>
             @endif
         </div>
         <div class="offcanvas__logo">
@@ -88,7 +88,7 @@
                                 <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
                             </div>
                             @if (session('client') == true)
-                                <a href="#" class="primary-btn text-dark">Dashboard</a>
+                                <a href="{{ route('dashboardClient') }}" class="primary-btn text-dark">Dashboard</a>
                             @endif
 
                         </div>
