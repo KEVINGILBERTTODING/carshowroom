@@ -217,3 +217,7 @@ Route::get('getBankAccountById/{bankId}', [TransactionTransactionController::cla
 // client dashboard
 Route::get('dashboardClient', [MainController::class, 'dashboardClient'])->name('dashboardClient')->middleware('authClient');
 Route::get('logOut', [MainController::class, 'logOut'])->name('logOut')->middleware('authClient');
+Route::get('transaksiSelesai', [TransactionTransactionController::class, 'getTransactionSuccess'])->name('transaksiSelesai')->middleware('authClient');
+Route::get('transaksiProses', [TransactionTransactionController::class, 'getTransactionProcess'])->name('transaksiProses')->middleware('authClient');
+Route::get('transaksiProsesFinance', [TransactionTransactionController::class, 'getTransactionProcessFinance'])->name('transaksiProsesFinance')->middleware('authClient');
+Route::get('transaksiTidakValid', [TransactionTransactionController::class, 'getTransactionFailed'])->name('transaksiTidakValid')->middleware('authClient');

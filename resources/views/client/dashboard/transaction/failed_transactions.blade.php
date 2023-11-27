@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Dashboard</title>
+    <title>Transaksi Tidak Valid</title>
 @endsection
 
 @section('sidebar')
@@ -59,7 +59,7 @@
 
                     </li>
 
-                    <li class="sidebar-item active ">
+                    <li class="sidebar-item ">
                         <a href="{{ route('dashboardClient') }}" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
@@ -71,7 +71,7 @@
                     <li class="sidebar-title">Transaksi</li>
 
 
-                    <li class="sidebar-item  has-sub ">
+                    <li class="sidebar-item  has-sub active ">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-currency-dollar"></i>
                             <span>Data Transaksi</span>
@@ -83,18 +83,21 @@
                                 <a href="{{ route('transaksiProses') }}" class="submenu-link">Transaksi Proses</a>
                             </li>
 
-                            <li class="submenu-item   ">
+                            <li class="submenu-item">
                                 <a href="{{ route('transaksiProsesFinance') }}" class="submenu-link">Transaksi Proses
                                     Finance</a>
                             </li>
+
 
                             <li class="submenu-item ">
                                 <a href="{{ route('transaksiSelesai') }}" class="submenu-link">Transaksi Selesai</a>
                             </li>
 
-                            <li class="submenu-item">
+                            <li class="submenu-item active">
                                 <a href="{{ route('transaksiTidakValid') }}" class="submenu-link">Transaksi Tidak Valid</a>
                             </li>
+
+
 
                         </ul>
                     </li>
@@ -175,128 +178,135 @@
 @endsection
 
 
+
 @section('content')
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3 id="greeting"></h3>
+                <h3>Daftar Transaksi Proses Finance</h3>
 
             </div>
-
-
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('dashboardClient') }}">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Transaksi Proses Finance</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
     <section class="section">
-        <div class="section-body">
-            <div class="row mt-sm-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">
+                    Table Daftar Transaksi Proses Finance
+                </h5>
 
-                <div class="row">
 
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <a href="{{ route('transaksiSelesai') }}">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                            <div class="stats-icon green mb-2">
-                                                <i class="fa-solid fa-check fa-lg"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Transaksi Selesai</h6>
-                                            <h6 class="font-extrabold mb-0">{{ $totalSelesaiTransaksi }}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <a href="{{ route('transaksiProses') }}">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                            <div class="stats-icon bg-warning mb-2">
-                                                <i class="fa-solid fa-repeat fa-lg"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Transaksi Proses</h6>
-                                            <h6 class="font-extrabold mb-0">{{ $totalProsesTransaksi }}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <a href="{{ route('transaksiProsesFinance') }}">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                            <div class="stats-icon blue mb-2">
-                                                <i class="fa-regular fa-credit-card fa-lg"></i>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Transaksi Proses Finance</h6>
-                                            <h6 class="font-extrabold mb-0">{{ $totalProsesFinanceTransaksi }}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
 
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <a href="{{ route('transaksiTidakValid') }}">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                            <div class="stats-icon red mb-2">
-                                                <i class="fa-regular fa-circle-xmark fa-lg"></i>
-                                            </div>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table" id="table1">
+
+
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Tanggal</th>
+                                <th>Gambar</th>
+                                <th>Code Transaksi</th>
+                                <th>Mobil</th>
+                                <th>Tahun</th>
+                                <th>Metode Pembayaran</th>
+                                <th>Finance</th>
+                                <th>Status</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @php
+                                $no = 1;
+                            @endphp
+
+                            @foreach ($dataTransactions as $dm)
+                                <tr>
+                                    <td>{{ $no++ }}</td>
+                                    <td>{{ $dm->created_at }}</td>
+                                    <td><img src="{{ asset('data/cars/' . $dm->gambar1) }}" alt="Gambar mobil"
+                                            style="width: 50%;"></td>
+                                    <td>{{ $dm->transaksi_id }}</td>
+                                    <td>
+                                        @if ($dm->nama_model != null)
+                                            <a
+                                                href="{{ route('detailMobil', Crypt::encrypt($dm->mobil_id)) }}">{{ $dm->merk . '-' . $dm->nama_model }}</a>
+                                        @else
+                                            Mobil telah dihapus
+                                        @endif
+                                    </td>
+                                    <td>{{ $dm->tahun }}</td>
+                                    <td>
+                                        @if ($dm->payment_method == 1)
+                                            {{-- cash --}}
+                                            Cash / Tunai
+                                        @elseif ($dm->payment_method == 2)
+                                            {{-- credit --}}
+                                            Kredit / Cicil
+                                        @elseif ($dm->payment_method == 3)
+                                            Transfer
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($dm->nama_finance != null)
+                                            <a href="{{ route('detailDataFinance', Crypt::encrypt($dm->finance_id)) }}">
+                                                {{ $dm->nama_finance }}
+                                            </a>
+                                        @else
+                                            -
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if ($dm->status == 1)
+                                            <span class="badge bg-success">Selesai</span>
+                                        @elseif ($dm->status == 0)
+                                            <span class="badge bg-danger">Tidak Valid</span>
+                                        @elseif ($dm->status == 2)
+                                            <span class="badge bg-warning">Proses</span>
+                                        @elseif ($dm->status == 3)
+                                            <span class="badge bg-info">Finance Proses</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <div class="d-flex">
+                                            <a href="{{ route('adminDetailTransaction', $dm->transaksi_id) }}"
+                                                class="btn btn-info text-white" style="margin-right: 10px;"><i
+                                                    class="bi bi-info-lg"></i>
+                                            </a>
+
+
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Transaksi Tidak Valid</h6>
-                                            <h6 class="font-extrabold mb-0">{{ $totalTransaksiTidakValid }}</h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+
+
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
                 </div>
+
+
+
+            </div>
+        </div>
+
+
+
+
     </section>
 @endsection
 
 
 @section('js')
-    <script>
-        $(document).ready(function() {
-
-            var waktu = new Date();
-            var username = "{{ $dataUser['nama_lengkap'] }}";
-
-            var jam = waktu.getHours();
-
-            if (jam >= 6 && jam < 11) {
-
-                $("#greeting").text("Selamat pagi, " + username + '!');
-            } else if (jam >= 11 && jam < 15) {
-
-                $("#greeting").text("Selamat siang, " + username + '!');
-            } else if (jam >= 15 && jam < 18) {
-
-                $("#greeting").text("Selamat sore, " + username + '!');
-            } else {
-
-                $("#greeting").text("Selamat malam, " + username + '!');
-            }
-
-        });
-    </script>
 @endsection

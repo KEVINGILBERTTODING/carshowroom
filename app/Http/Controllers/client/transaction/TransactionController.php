@@ -325,4 +325,80 @@ class TransactionController extends Controller
             return redirect()->back()->with('failed', $th->getMessage());
         }
     }
+
+    function getTransactionSuccess()
+    {
+
+        $dataUser = User::where('user_id', session('user_id'))->first();
+        $transactionModel = new TransactionModel();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $transactionModel = new TransactionModel();
+        $dataTransactions = $transactionModel->getClientTransactionStatus(1, session('user_id'));
+
+        $data = [
+            'dataApp' => $dataApp,
+            'dataUser' => $dataUser,
+            'dataTransactions' => $dataTransactions,
+
+        ];
+
+        return view('client.dashboard.transaction.success_transaction', $data);
+    }
+
+    function getTransactionProcess()
+    {
+
+        $dataUser = User::where('user_id', session('user_id'))->first();
+        $transactionModel = new TransactionModel();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $transactionModel = new TransactionModel();
+        $dataTransactions = $transactionModel->getClientTransactionStatus(2, session('user_id'));
+
+        $data = [
+            'dataApp' => $dataApp,
+            'dataUser' => $dataUser,
+            'dataTransactions' => $dataTransactions,
+
+        ];
+
+        return view('client.dashboard.transaction.process_transaction', $data);
+    }
+
+    function getTransactionProcessFinance()
+    {
+
+        $dataUser = User::where('user_id', session('user_id'))->first();
+        $transactionModel = new TransactionModel();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $transactionModel = new TransactionModel();
+        $dataTransactions = $transactionModel->getClientTransactionStatus(3, session('user_id'));
+
+        $data = [
+            'dataApp' => $dataApp,
+            'dataUser' => $dataUser,
+            'dataTransactions' => $dataTransactions,
+
+        ];
+
+        return view('client.dashboard.transaction.process_finance_transaction', $data);
+    }
+
+    function getTransactionFailed()
+    {
+
+        $dataUser = User::where('user_id', session('user_id'))->first();
+        $transactionModel = new TransactionModel();
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $transactionModel = new TransactionModel();
+        $dataTransactions = $transactionModel->getClientTransactionStatus(0, session('user_id'));
+
+        $data = [
+            'dataApp' => $dataApp,
+            'dataUser' => $dataUser,
+            'dataTransactions' => $dataTransactions,
+
+        ];
+
+        return view('client.dashboard.transaction.failed_transactions', $data);
+    }
 }
