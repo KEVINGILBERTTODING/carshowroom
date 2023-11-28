@@ -221,3 +221,4 @@ Route::get('transaksiSelesai', [TransactionTransactionController::class, 'getTra
 Route::get('transaksiProses', [TransactionTransactionController::class, 'getTransactionProcess'])->name('transaksiProses')->middleware('authClient');
 Route::get('transaksiProsesFinance', [TransactionTransactionController::class, 'getTransactionProcessFinance'])->name('transaksiProsesFinance')->middleware('authClient');
 Route::get('transaksiTidakValid', [TransactionTransactionController::class, 'getTransactionFailed'])->name('transaksiTidakValid')->middleware('authClient');
+Route::get('detailTransaksi/{transactionId}', [TransactionTransactionController::class, 'detailTransaction'])->name('detailTransaksi')->middleware('authClient');

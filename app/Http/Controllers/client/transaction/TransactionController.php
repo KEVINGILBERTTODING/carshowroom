@@ -401,4 +401,21 @@ class TransactionController extends Controller
 
         return view('client.dashboard.transaction.failed_transactions', $data);
     }
+
+    function detailTransaction($transactionId)
+    {
+        $transactionId = Crypt::decrypt($transactionId);
+        $transaksiModel = new TransactionModel();
+        $dataTransaction = $transaksiModel->adminDetailTransaction($transactionId);
+        $dataUser = User::where('user_id', session('user_id'))->first();
+        $dataApp = AppModel::where('app_id', 1)->first();
+
+        $data = [
+            'dataUser' => $dataUser,
+            'dataApp' => $dataApp,
+            'dataTransaksi' => $dataTransaction
+        ];
+
+        return view('client.dashboard.transaction.detail_transaction', $data);
+    }
 }

@@ -279,9 +279,8 @@
                                     </td>
                                     <td>
                                         <div class="d-flex">
-                                            <a href="{{ route('adminDetailTransaction', $dm->transaksi_id) }}"
-                                                class="btn btn-info text-white" style="margin-right: 10px;"><i
-                                                    class="bi bi-info-lg"></i>
+                                            <a href="{{ route('detailTransaksi', Crypt::encrypt($dm->transaksi_id)) }}"
+                                                class="btn btn-info text-white" style="margin-right: 10px;">Detail
                                             </a>
 
 

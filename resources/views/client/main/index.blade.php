@@ -115,8 +115,7 @@
                             <h2>Rizki Motor</h2>
                         </div>
 
-                        <a href="{{ route('mobil') }}" class="primary-btn text-dark"><img src="img/wheel.png"
-                                alt="">
+                        <a href="{{ route('mobil') }}" class="primary-btn" style="color: black">
                             Temukan Sekarang</a>
                         <a href="{{ route('aboutUs') }}" class="primary-btn more-btn">Tentang Kami</a>
                     </div>
@@ -374,7 +373,7 @@
                             <li><i class="fa fa-check-circle"></i> Keandalan - Terpercaya dalam memberikan solusi mobilitas
                                 Anda.</li>
                         </ul>
-                        <a href="{{ route('aboutUs') }}" class="primary-btn">Tentang Kami</a>
+                        <a href="{{ route('aboutUs') }}" class="primary-btn" style="color: black">Tentang Kami</a>
                     </div>
                 </div>
             </div>

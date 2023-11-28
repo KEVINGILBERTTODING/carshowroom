@@ -95,6 +95,7 @@ class TransactionModel extends Model
             'pelanggan.no_hp as no_hp_pelanggan',
             'pelanggan.alamat as alamat_pelanggan',
             'finance.nama_finance',
+            'finance.finance_id',
             'finance.telepon as telepon_finance',
             'mobil.nama_model',
             'mobil.no_plat',
