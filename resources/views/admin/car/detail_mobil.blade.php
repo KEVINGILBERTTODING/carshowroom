@@ -467,14 +467,17 @@
                                         value="{{ $dataMobil['nama_pemilik'] }}">
                                 </div>
 
-                                <div class="form-group mb-3">
+                                <div class="form-group mb-3 ">
                                     <label>Link Youtube</label>
                                     <br>
 
 
                                     @if ($dataMobil['url_youtube'] != null)
                                         @if (Str::contains($dataMobil['url_youtube'], '<iframe'))
-                                            {!! $dataMobil['url_youtube'] !!}
+                                            <div style="max-width: 100%; overflow: hidden;">
+                                                {!! $dataMobil['url_youtube'] !!}
+
+                                            </div>
                                         @else
                                             <a href="{{ $dataMobil['url_youtube'] }}" target="_blank"
                                                 class="btn btn-primary"><i class="fa fa-play" aria-hidden="true"></i>
@@ -492,7 +495,9 @@
                                     <br>
                                     @if ($dataMobil['url_instagram'] != null)
                                         @if (Str::contains($dataMobil['url_instagram'], '<blockquote'))
-                                            {!! $dataMobil['url_instagram'] !!}
+                                            <div style="max-width: 100%; overflow: hidden;">
+                                                {!! $dataMobil['url_instagram'] !!}
+                                            </div>
                                         @else
                                             <a href="{{ $dataMobil['url_instagram'] }}" target="_blank"
                                                 class="btn btn-primary">Lihat Postingan</a>
@@ -509,7 +514,9 @@
 
                                     @if ($dataMobil['url_facebook'] != null)
                                         @if (Str::contains($dataMobil['url_facebook'], '<iframe'))
-                                            {!! $dataMobil['url_facebook'] !!}
+                                            <div style="max-width: 100%; overflow: hidden;">
+                                                {!! $dataMobil['url_facebook'] !!}
+                                            </div>
                                         @else
                                             <a href="{{ $dataMobil['url_facebook'] }}" target="_blank"
                                                 class="btn btn-primary">Lihat Postingan</a>
@@ -521,7 +528,7 @@
                                 </div>
                                 <div class="form-group ">
                                     <label>Deskripsi</label>
-                                    <textarea name="deskripsi" type="text" rows="3" class="form-control" required readonly></textarea>
+                                    <textarea name="deskripsi" type="text" rows="5" class="form-control" required readonly>{{ $dataMobil['deskripsi'] }}</textarea>
                                 </div>
 
 
