@@ -1,0 +1,14 @@
+
+
+.rating-input {
+    font-size: 2rem;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.rating-input i:hover,
+.rating-input i.active {
+    color: #ffcc00;
+    /* Warna ketika hover atau aktif */
+}
+

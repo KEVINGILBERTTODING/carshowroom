@@ -506,8 +506,8 @@
                 </div>
 
                 {{-- cek metode pembayaran --}}
+                {{-- credit --}}
                 @if ($dataTransaksi['payment_method'] == 2)
-                    {{-- credit --}}
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="card">
 
@@ -521,7 +521,7 @@
                                         <br>
                                         @if ($dataTransaksi['ktp_suami'] != null)
                                             <a class="btn btn-primary mt-2"
-                                                href="{{ route('downloadFileCredit', $dataTransaksi['ktp_suami']) }}"
+                                                href="{{ route('downloadFileCreditClient', $dataTransaksi['ktp_suami']) }}"
                                                 target="_blank"><i class="bi bi-download"></i>
                                                 Download
                                             </a>
@@ -536,7 +536,7 @@
                                         <br>
                                         @if ($dataTransaksi['ktp_istri'] != null)
                                             <a class="btn btn-primary mt-2"
-                                                href="{{ route('downloadFileCredit', $dataTransaksi['ktp_istri']) }}"
+                                                href="{{ route('downloadFileCreditClient', $dataTransaksi['ktp_istri']) }}"
                                                 target="_blank"><i class="bi bi-download"></i>
                                                 Download
                                             </a>
@@ -555,7 +555,7 @@
                                         <br>
                                         @if ($dataTransaksi['kk'] != null)
                                             <a class="btn btn-primary mt-2"
-                                                href="{{ route('downloadFileCredit', $dataTransaksi['kk']) }}"target="_blank">
+                                                href="{{ route('downloadFileCreditClient', $dataTransaksi['kk']) }}"target="_blank">
                                                 <i class="bi bi-download"></i> Download
                                             </a>
                                         @else
@@ -567,105 +567,14 @@
 
                                 </div>
 
-                                <div class="divider mt-4">
-                                    <div class="divider-text">Ubah Status Transaksi</div>
-                                </div>
-
-                                <form action="{{ route('updateStatusTransaksi') }}" method="post">
-                                    @csrf
-
-                                    <div class="mt-3">
-                                        @if ($dataTransaksi['user_id'] != null)
-                                            <input type="number" name="user_id" hidden class="form-control"
-                                                value="{{ $dataTransaksi['user_id'] }}">
-                                        @else
-                                            <input type="number" name="user_id" hidden readonly class="form-control"
-                                                value="0">
-                                        @endif
-
-                                        <input type="text" name="mobil_id" class="form-control" hidden
-                                            value="{{ $dataTransaksi['mobil_id'] }}">
-                                        <input type="text" name="transaksi_id" class="form-control" hidden
-                                            value="{{ $dataTransaksi['transaksi_id'] }}">
-
-
-                                        <label for="Status Transaksi">Status Transaksi</label>
-                                        <select name="status" required class="form-control status_form">
-                                            @if ($dataTransaksi['status'] == 1)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected>Selesai
-                                                </option>
-                                                <option value="2">Sedang di proses
-                                                </option>
-                                                <option value="3">Proses finance
-                                                </option>
-                                                <option value="0">Tidak valid
-                                                </option>
-                                            @elseif ($dataTransaksi['status'] == 2)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected>Sedang di
-                                                    proses
-                                                </option>
-                                                <option value="3">Proses finance
-                                                </option>
-                                                <option value="1">Selesai
-                                                </option>
-                                                <option value="0">Tidak valid
-                                                </option>
-                                            @elseif ($dataTransaksi['status'] == 3)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected>Proses
-                                                    finance
-                                                </option>
-                                                <option value="1">Selesai
-                                                </option>
-                                                <option value="2">Sedang di proses
-                                                </option>
-                                                <option value="0">Tidak valid
-                                                </option>
-                                            @elseif ($dataTransaksi['status'] == 0)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected>Tidak
-                                                    valid
-                                                </option>
-                                                <option value="1">Selesai
-                                                </option>
-                                                <option value="2">Sedang di proses
-                                                </option>
-                                                <option value="3">Proses finance
-                                                </option>
-                                            @endif
-
-                                        </select>
-
-                                        <div class="form-group form_ongkir">
-                                            <label>Biaya Pengiriman</label>
-                                            <input type="number" value="{{ $dataTransaksi['biaya_pengiriman'] }}"
-                                                name="biaya_pengiriman" class="form-control">
-                                        </div>
-
-                                        <div class="mt-3 alasan">
-                                            <label>Alasan</label>
-                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu...">{{ $dataTransaksi['alasan'] }}</textarea>
-                                        </div>
-                                        <div class="d-flex justify-content-end mt-3">
-                                            <button class="btn btn-warning">Simpan Perubahan</button>
-                                        </div>
-
-
-                                    </div>
-
-                                </form>
-
-
-
-
-
                             </div>
 
                         </div>
                     </div>
-                @elseif ($dataTransaksi['payment_method'] == 3)
                     {{-- Transfer --}}
+                @elseif ($dataTransaksi['payment_method'] == 3)
                     <div class="col-12 col-md-6 col-lg-6">
                         <div class="card">
-
 
                             <div class="card-body">
                                 <h4>Bukti Pembayaran</h4>
@@ -676,7 +585,7 @@
                                         <br>
                                         @if ($dataTransaksi['bukti_pembayaran'] != null)
                                             <a class="btn btn-primary mt-2"
-                                                href="{{ route('downloadBuktiPembayaran', $dataTransaksi['bukti_pembayaran']) }}"
+                                                href="{{ route('downloadBuktiPembayaranClient', $dataTransaksi['bukti_pembayaran']) }}"
                                                 target="_blank"><i class="bi bi-download"></i>
                                                 Download
                                             </a>
@@ -688,143 +597,6 @@
                                     </div>
 
                                 </div>
-
-
-                                <div class="divider mt-4">
-                                    <div class="divider-text">Ubah Status Transaksi</div>
-                                </div>
-
-                                <form action="{{ route('updateStatusTransaksi') }}" method="post">
-                                    @csrf
-
-                                    <div class="mt-3">
-                                        @if ($dataTransaksi['user_id'] != null)
-                                            <input type="number" name="user_id" hidden class="form-control"
-                                                value="{{ $dataTransaksi['user_id'] }}">
-                                        @else
-                                            <input type="number" name="user_id" hidden readonly class="form-control"
-                                                value="0">
-                                        @endif
-
-                                        <input type="text" name="mobil_id" class="form-control" hidden
-                                            value="{{ $dataTransaksi['mobil_id'] }}">
-                                        <input type="text" name="transaksi_id" class="form-control" hidden
-                                            value="{{ $dataTransaksi['transaksi_id'] }}">
-
-
-                                        <label for="Status Transaksi">Status Transaksi</label>
-                                        <select name="status" required class="form-control status_form">
-                                            @if ($dataTransaksi['status'] == 1)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected>Selesai
-                                                </option>
-                                                <option value="0">Tidak valid
-                                                </option>
-                                            @elseif ($dataTransaksi['status'] == 0)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected>Tidak
-                                                    valid
-                                                </option>
-                                                <option value="1">Selesai
-                                                </option>
-                                            @endif
-
-                                        </select>
-                                        <div class="form-group form_ongkir">
-                                            <label>Biaya Pengiriman</label>
-                                            <input type="number" value="{{ $dataTransaksi['biaya_pengiriman'] }}"
-                                                name="biaya_pengiriman" class="form-control">
-                                        </div>
-
-                                        <div class="mt-3 alasan">
-                                            <label>Alasan</label>
-                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu...">{{ $dataTransaksi['alasan'] }}</textarea>
-                                        </div>
-                                        <div class="d-flex justify-content-end mt-3">
-                                            <button class="btn btn-warning">Simpan Perubahan</button>
-                                        </div>
-
-
-                                    </div>
-
-                                </form>
-
-
-
-
-
-                            </div>
-
-                        </div>
-                    </div>
-                @elseif ($dataTransaksi['payment_method'] == 1)
-                    {{-- Tunai/Cash --}}
-                    <div class="col-12 col-md-6 col-lg-6">
-                        <div class="card">
-
-
-                            <div class="card-body">
-                                <h4>Status Transaksi</h4>
-
-
-                                <div class="divider mt-4">
-                                    <div class="divider-text">Ubah Status Transaksi</div>
-                                </div>
-
-                                <form action="{{ route('updateStatusTransaksi') }}" method="post">
-                                    @csrf
-
-                                    <div class="mt-3">
-                                        @if ($dataTransaksi['user_id'] != null)
-                                            <input type="number" name="user_id" hidden class="form-control"
-                                                value="{{ $dataTransaksi['user_id'] }}">
-                                        @else
-                                            <input type="number" name="user_id" hidden readonly class="form-control"
-                                                value="0">
-                                        @endif
-
-                                        <input type="text" name="mobil_id" class="form-control" hidden
-                                            value="{{ $dataTransaksi['mobil_id'] }}">
-                                        <input type="text" name="transaksi_id" class="form-control" hidden
-                                            value="{{ $dataTransaksi['transaksi_id'] }}">
-
-
-                                        <label for="Status Transaksi">Status Transaksi</label>
-                                        <select name="status" required class="form-control status_form">
-                                            @if ($dataTransaksi['status'] == 1)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected>Selesai
-                                                </option>
-                                                <option value="0">Tidak valid
-                                                </option>
-                                            @elseif ($dataTransaksi['status'] == 0)
-                                                <option value="{{ $dataTransaksi['status'] }}" selected>Tidak
-                                                    valid
-                                                </option>
-                                                <option value="1">Selesai
-                                                </option>
-                                            @endif
-
-                                        </select>
-                                        <div class="form-group form_ongkir">
-                                            <label>Biaya Pengiriman</label>
-                                            <input type="number" value="{{ $dataTransaksi['biaya_pengiriman'] }}"
-                                                name="biaya_pengiriman" class="form-control">
-                                        </div>
-
-                                        <div class="mt-3 alasan">
-                                            <label>Alasan</label>
-                                            <textarea name="alasan" rows="3" class="form-control" placeholder="Tuliskan sesuatu...">{{ $dataTransaksi['alasan'] }}</textarea>
-                                        </div>
-                                        <div class="d-flex justify-content-end mt-3">
-                                            <button class="btn btn-warning">Simpan Perubahan</button>
-                                        </div>
-
-
-                                    </div>
-
-                                </form>
-
-
-
-
 
                             </div>
 
@@ -839,7 +611,7 @@
         <!--Modal alasan-->
         <div class="modal fade text-left modal-borderless" id="modal_alasan" tabindex="-1" role="dialog"
             aria-labelledby="myModalLabel1" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title">Alasan Penolakan</h5>
@@ -851,8 +623,7 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <label for="basicInput">Alasan</label>
-                            <textarea type="text" class="form-control mt-2" rows="4" name="bahan_bakar" id="basicInput" readonly>{{ $dataTransaksi['alasan'] }}</textarea>
+                            <p class="text text-muted">{{ $dataTransaksi['alasan'] }}</p>
                         </div>
 
 
@@ -869,6 +640,80 @@
             </div>
         </div>
 
+        <!--Modal review-->
+        <form action="#">
+            <div class="modal fade text-left modal-borderless" id="modal_review" tabindex="-1" role="dialog"
+                aria-labelledby="myModalLabel1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
+                    role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Ulasan Anda</h5>
+                            <button type="button" class="close rounded-pill" data-bs-dismiss="modal"
+                                aria-label="Close">
+                                <i data-feather="x"></i>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+
+
+                            <div class="mb-3">
+
+
+                                <div class="rating-input d-flex justify-content-center">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+
+                                <!-- Hidden input untuk menyimpan nilai rating -->
+                                <input type="hidden" id="rating" value="0" required name="rating"
+                                    id="rating">
+                            </div>
+
+                            <div class="row mt-4">
+
+                                @for ($i = 1; $i <= 4; $i++)
+                                    <div class="col-md-6 mt-3">
+                                        <label for="review" . {{ $i }}>Gambar {{ $i }}</label>
+
+                                        <input type="file" id="review" . {{ $i }} class="form-control"
+                                            accept=".png,.jpg.jpeg" name="gambar"{{ $i }}>
+                                        <span class="text text-sm text-danger">.jpeg, .png, jpg | 2 MB</span>
+                                    </div>
+                                @endfor
+
+                            </div>
+
+                            <!-- Tambahan: Textarea untuk komentar -->
+                            <div class="mb-3 mt-4">
+                                <label for="comment" class="form-label">Ulasan:</label>
+                                <textarea class="form-control" id="comment" required name="comment" placeholder="Tuliskan seesuatu..."
+                                    rows="4"></textarea>
+                            </div>
+
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Tutup</span>
+                            </button>
+                            <button type="submit" id="btn_submit" class="btn btn-primary">
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Kirim</span>
+                            </button>
+
+                        </div>
+
+        </form>
+
+        </div>
+
 
 
 
@@ -877,47 +722,7 @@
 @endsection
 
 @section('js')
-    {{-- jq select status credit --}}
-    <script>
-        $(document).ready(function() {
-            // sembunyikan field alasan
-            var statusTransaksi = "{{ $dataTransaksi['status'] }}"
-
-            if (statusTransaksi == 1) {
-                $(".form_ongkir").show();
-                $(".alasan").hide();
-
-            } else if (statusTransaksi == 0) {
-                $(".form_ongkir").hide();
-                $(".alasan").show();
-
-            } else {
-                $(".form_ongkir").hide();
-                $(".alasan").hide();
-
-            }
-
-
-
-
-
-
-            $(".status_form").change(function(e) {
-                var status = $(this).val();
-                if (status == 0) {
-                    $(".alasan").show();
-                    $(".form_ongkir").hide();
-                } else if (status == 1) {
-                    $(".alasan").hide();
-                    $(".form_ongkir").show();
-                } else {
-                    $(".alasan").hide();
-                    $(".form_ongkir").hide();
-                }
-            });
-        });
-    </script>
-
+    {{-- jquery alasan --}}
     <script>
         $(document).ready(function() {
             var alasan = "{{ $dataTransaksi['alasan'] }}";
@@ -925,8 +730,75 @@
 
             if (statusTransaksi == 0 && alasan != null) {
                 $("#modal_alasan").modal('show');
+            }
+
+        });
+    </script>
+
+    {{-- jquery review --}}
+    <script>
+        // cek apakah belum ada review
+        $(document).ready(function() {
+            var statusTransaksi = "{{ $dataTransaksi['status'] }}";
+            var review = "{{ $dataTransaksi['review_text'] }}";
+
+            if (statusTransaksi == 1 && review == 'undefined') {
+                $('#modal_review').modal('show');
+            }
+        });
+    </script>
+
+    {{-- script rating --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const stars = document.querySelectorAll('.rating-input i');
+            const ratingInput = document.getElementById('rating');
+
+            stars.forEach((star, index) => {
+                star.addEventListener('mouseover', function() {
+                    resetStars(); // Menghapus warna kuning dari semua bintang
+                    highlightStars(index + 1); // Menyorot bintang yang dihover
+                });
+
+                star.addEventListener('mouseout', function() {
+                    resetStars(); // Menghapus warna kuning dari semua bintang
+                    highlightStars(ratingInput.value); // Menyorot bintang sesuai nilai rating
+                });
+
+                star.addEventListener('click', function() {
+                    ratingInput.value = index + 1;
+                    highlightStars(index + 1); // Menyorot bintang yang di-klik
+                });
+            });
+
+            function resetStars() {
+                stars.forEach(star => {
+                    star.classList.remove('active');
+                });
+            }
+
+            function highlightStars(count) {
+                for (let i = 0; i < count; i++) {
+                    stars[i].classList.add('active');
+                }
+            }
+        });
+    </script>
 
 
+    {{-- validasi input rating --}}
+    <script>
+        $('#btn_submit').click(function(e) {
+            e.preventDefault();
+            var jumlahRating = $('#rating').val();
+
+            if (jumlahRating == 0) {
+                var errorMessage = "{{ session('failed') }}";
+                Swal2.fire({
+                    icon: "error",
+                    title: "Anda belum memasukkan bintang",
+                    text: errorMessage,
+                })
             }
 
         });

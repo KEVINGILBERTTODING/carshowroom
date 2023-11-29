@@ -406,9 +406,13 @@ class TransactionController extends Controller
     {
         $transactionId = Crypt::decrypt($transactionId);
         $transaksiModel = new TransactionModel();
-        $dataTransaction = $transaksiModel->adminDetailTransaction($transactionId);
+        $dataTransaction = $transaksiModel->clientDetailTransaction($transactionId);
         $dataUser = User::where('user_id', session('user_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
+
+        if ($dataTransaction['review_text'] == null) {
+            $dataTransaction['review_text'] = 'undefined';
+        }
 
         $data = [
             'dataUser' => $dataUser,
@@ -416,6 +420,79 @@ class TransactionController extends Controller
             'dataTransaksi' => $dataTransaction
         ];
 
+
+
         return view('client.dashboard.transaction.detail_transaction', $data);
+    }
+    function downloadFileCredit($fileName)
+    {
+        $path = public_path() . "/data/credit/" . $fileName;
+
+
+        if (file_exists($path)) {
+            // Determine the appropriate content type based on the file extension.
+            $fileExtension = pathinfo($path, PATHINFO_EXTENSION);
+            $contentType = $this->getContentType($fileExtension);
+
+            if ($contentType) {
+                // Set the content type header.
+
+
+                $headers = [
+                    'Content-Type: ' . $contentType,
+                ];
+
+                ob_end_clean();
+
+                // Return the file for download.
+                return response()->download($path, $fileName, $headers);
+            }
+        } else {
+            return abort(404);
+        }
+    }
+
+    function downloadBuktiPembayaran($fileName)
+    {
+        $path = public_path() . "/data/evidence/" . $fileName;
+
+
+        if (file_exists($path)) {
+            // Determine the appropriate content type based on the file extension.
+            $fileExtension = pathinfo($path, PATHINFO_EXTENSION);
+            $contentType = $this->getContentType($fileExtension);
+
+            if ($contentType) {
+                // Set the content type header.
+
+
+                $headers = [
+                    'Content-Type: ' . $contentType,
+                ];
+
+                ob_end_clean();
+
+                // Return the file for download.
+                return response()->download($path, $fileName, $headers);
+            }
+        } else {
+            return abort(404);
+        }
+    }
+
+    // Function to determine the content type based on the file extension.
+    private function getContentType($fileExtension)
+    {
+        switch ($fileExtension) {
+            case 'pdf':
+                return 'application/pdf';
+            case 'jpg':
+            case 'png':
+            case 'jpeg':
+                return 'image/jpeg';
+                // Add more cases for other file types if needed.
+            default:
+                return false; // Unknown file type.
+        }
     }
 }
