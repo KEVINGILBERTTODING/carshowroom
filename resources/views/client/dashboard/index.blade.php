@@ -111,7 +111,7 @@
 
                     <li class="sidebar-title">Profil Saya</li>
                     <li class="sidebar-item ">
-                        <a href="{{ route('adminProfile') }}" class='sidebar-link'>
+                        <a href="{{ route('profile') }}" class='sidebar-link'>
                             <i class="bi bi-person-fill"></i>
                             <span>Profil</span>
                         </a>

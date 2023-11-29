@@ -146,4 +146,46 @@ class AuthClientController extends Controller
             return redirect()->route('/')->with('failed', $th->getMessage());
         }
     }
+
+    function updatePassword(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'old_password' => 'required|string|min:8',
+            'new_password' => 'required|string|min:8'
+        ], [
+            'required' => ':attribute tidak boleh kosong',
+            'string' => ':attribute hanya boleh berupa huruf dan angka',
+            'min' => ':attribute tidak boleh kurang dari 8 karakter'
+        ], [
+            'old_password' => 'Password lama',
+            'new_password' => 'Password baru'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+
+        try {
+
+            // check password
+            $validationPassword = User::select('password')->where('user_id', session('user_id'))->first();
+            if ($validationPassword && Hash::check($request->old_password, $validationPassword['password'])) {
+                $dataUser = [
+                    'password' => Hash::make($request->new_password),
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+                $update = User::where('user_id', session('user_id'))->update($dataUser);
+                if ($update) {
+                    return redirect()->route('profile')->with('success', 'Berhasil mengubah kata sandi');
+                } else {
+                    return redirect()->back()->with('failed', 'Gagal mengubah kata sandi');
+                }
+            } else {
+                return redirect()->back()->with('failed', 'Kata sandi lama salah');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
 }

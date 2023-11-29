@@ -163,4 +163,20 @@ class MainController extends Controller
         session()->flush();
         return redirect()->route('/');
     }
+
+    function profile()
+    {
+        try {
+            $dataApp = AppModel::first();
+            $dataUser = User::where('user_id', session('user_id'))->first();
+            $data = [
+                'dataApp' => $dataApp,
+                'dataUser' => $dataUser
+            ];
+
+            return view('client.profile.profile', $data);
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
 }

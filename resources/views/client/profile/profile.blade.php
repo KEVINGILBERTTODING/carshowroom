@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Transaksi Tidak Valid</title>
+    <title>Profil</title>
 @endsection
 
 @section('sidebar')
@@ -71,7 +71,7 @@
                     <li class="sidebar-title">Transaksi</li>
 
 
-                    <li class="sidebar-item  has-sub active ">
+                    <li class="sidebar-item  has-sub  ">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-currency-dollar"></i>
                             <span>Data Transaksi</span>
@@ -79,7 +79,7 @@
 
                         <ul class="submenu ">
 
-                            <li class="submenu-item ">
+                            <li class="submenu-item   ">
                                 <a href="{{ route('transaksiProses') }}" class="submenu-link">Transaksi Proses</a>
                             </li>
 
@@ -93,7 +93,7 @@
                                 <a href="{{ route('transaksiSelesai') }}" class="submenu-link">Transaksi Selesai</a>
                             </li>
 
-                            <li class="submenu-item active">
+                            <li class="submenu-item">
                                 <a href="{{ route('transaksiTidakValid') }}" class="submenu-link">Transaksi Tidak Valid</a>
                             </li>
 
@@ -112,8 +112,8 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-title">Profil Saya</li>
-                    <li class="sidebar-item ">
+                    <li class="sidebar-title active">Profil Saya</li>
+                    <li class="sidebar-item active ">
                         <a href="{{ route('adminProfile') }}" class='sidebar-link'>
                             <i class="bi bi-person-fill"></i>
                             <span>Profil</span>
@@ -188,121 +188,99 @@
 @endsection
 
 
-
 @section('content')
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Transaksi Tidak Valid</h3>
-
+                <h3>Hai, {{ $dataUser['nama_lengkap'] }} !</h3>
+                <p class="section-lead">
+                    Ubah data diri Anda pada halaman ini.
+                </p>
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
                 <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('dashboardClient') }}">Dashboard</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Transaksi Tidak Valid</li>
+                        <li class="breadcrumb-item active" aria-current="page">Profil</li>
                     </ol>
                 </nav>
             </div>
         </div>
     </div>
     <section class="section">
-        <div class="card">
-            <div class="card-header">
-                <h5 class="card-title">
-                    Table Daftar Transaksi Tidak Valid
-                </h5>
+
+        <div class="section-body">
+            <div class="row mt-sm-4">
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="card">
+                        <div class="card-body py-4 px-4">
+                            <div class="d-flex align-items-center">
+                                <div class="avatar avatar-xl">
+                                    @if ($dataUser['sign_in'] == 'google')
+                                        <img src="{{ $dataUser['profile_photo'] }}"
+                                            alt="{{ $dataUser['nama_lengkap'] }}">
+                                    @else
+                                        <img src="{{ asset('data/profile_photo/' . $dataUser['profile_photo']) }}"
+                                            alt="{{ $dataUser['nama_lengkap'] }}">
+                                    @endif
+                                </div>
+                                <div class="ms-3 name">
+
+                                    <h5 class="font-bold">{{ $dataUser['nama_lengkap'] }}</h5>
+                                    <h6 class="text-muted mb-0">{{ $dataUser['email'] }}</h6>
+                                    @if ($dataUser['sign_in'] == 'email')
+                                        <button class="btn btn-sm mt-2 btn-warning" data-bs-target="#modal_insert"
+                                            data-bs-toggle="modal">Ubah Kata Sandi</button>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 col-lg-6">
+                    <div class="card">
+
+                        <form action="{{ route('ubahProfilAdmin') }}" method="post">
+                            @csrf
+                            <div class="card-body">
+                                <h4>Ubah Profil</h4>
+                                <div class="row mt-3">
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Nama Lengkap</label>
+                                        <input type="text" name="nama_lengkap" class="form-control"
+                                            value="{{ $dataUser['nama_lengkap'] }}" required="Nama tidak boleh kosong">
+
+                                    </div>
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Email</label>
+                                        <input type="email" name="email" class="form-control"
+                                            value="{{ $dataUser['email'] }}" required="Email tidak boleh kosong">
 
 
+                                    </div>
 
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table" id="table1">
+                                </div>
+                                <div class="row">
 
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Kata Sandi Lama</label>
+                                        <input name="old_password" type="password" class="form-control"
+                                            autocomplete="off">
+                                    </div>
 
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Tanggal</th>
-                                <th>Gambar</th>
-                                <th>Code Transaksi</th>
-                                <th>Mobil</th>
-                                <th>Tahun</th>
-                                <th>Metode Pembayaran</th>
-                                <th>Finance</th>
-                                <th>Status</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @php
-                                $no = 1;
-                            @endphp
+                                    <div class="form-group col-md-6 col-12">
+                                        <label>Kata Sandi Baru</label>
+                                        <input name="new_password" type="password" class="form-control"
+                                            autocomplete="off">
+                                    </div>
+                                </div>
 
-                            @foreach ($dataTransactions as $dm)
-                                <tr>
-                                    <td>{{ $no++ }}</td>
-                                    <td>{{ $dm->created_at }}</td>
-                                    <td><img src="{{ asset('data/cars/' . $dm->gambar1) }}" alt="Gambar mobil"
-                                            style="width: 50%;"></td>
-                                    <td>{{ $dm->transaksi_id }}</td>
-                                    <td>
-                                        @if ($dm->nama_model != null)
-                                            <a
-                                                href="{{ route('detailMobil', Crypt::encrypt($dm->mobil_id)) }}">{{ $dm->merk . '-' . $dm->nama_model }}</a>
-                                        @else
-                                            Mobil telah dihapus
-                                        @endif
-                                    </td>
-                                    <td>{{ $dm->tahun }}</td>
-                                    <td>
-                                        @if ($dm->payment_method == 1)
-                                            {{-- cash --}}
-                                            Cash / Tunai
-                                        @elseif ($dm->payment_method == 2)
-                                            {{-- credit --}}
-                                            Kredit / Cicil
-                                        @elseif ($dm->payment_method == 3)
-                                            Transfer
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($dm->nama_finance != null)
-                                            <a href="{{ route('detailDataFinance', Crypt::encrypt($dm->finance_id)) }}">
-                                                {{ $dm->nama_finance }}
-                                            </a>
-                                        @else
-                                            -
-                                        @endif
-                                    </td>
-                                    <td>
-                                        @if ($dm->status == 1)
-                                            <span class="badge bg-success">Selesai</span>
-                                        @elseif ($dm->status == 0)
-                                            <span class="badge bg-danger">Tidak Valid</span>
-                                        @elseif ($dm->status == 2)
-                                            <span class="badge bg-warning">Proses</span>
-                                        @elseif ($dm->status == 3)
-                                            <span class="badge bg-info">Finance Proses</span>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        <div class="d-flex">
-                                            <a href="{{ route('detailTransaksi', Crypt::encrypt($dm->transaksi_id)) }}"
-                                                class="btn btn-info text-white" style="margin-right: 10px;">Detail
-                                            </a>
-
-
-                                        </div>
-
-
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                        </tbody>
-                    </table>
+                            </div>
+                            <div class="card-footer d-flex justify-content-end">
+                                <button type="submit" class="btn btn-warning">Simpan Perubahan</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
 
@@ -310,12 +288,44 @@
             </div>
         </div>
 
+        @include('client.profile.modal_update_password');
+
+        <!--Modal ubah profile photo-->
+        <div class="modal fade text-left modal-borderless" id="modal_update_photo" tabindex="-1" role="dialog"
+            aria-labelledby="myModalLabel1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Ubah Foto Profil</h5>
+                        <button type="button" class="close rounded-pill" data-bs-dismiss="modal" aria-label="Close">
+                            <i data-feather="x"></i>
+                        </button>
+                    </div>
+                    <form action="{{ route('ubahFotoProfilAdmin') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        <div class="modal-body">
+
+                            <div class="form-group">
+                                <label for="basicInput">Foto Profil</label>
+                                <input type="file" required class="form-control mt-2" name="image" id="basicInput">
+                            </div>
 
 
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-light-primary" data-bs-dismiss="modal">
+                                <i class="bx bx-x d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Batal</span>
+                            </button>
+                            <button type="submit" class="btn btn-primary ms-1">
+                                <i class="bx bx-check d-block d-sm-none"></i>
+                                <span class="d-none d-sm-block">Simpan</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
 
     </section>
-@endsection
-
-
-@section('js')
 @endsection

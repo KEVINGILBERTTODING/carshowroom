@@ -210,6 +210,7 @@ Route::post('insertPengajuanKredit', [TransactionTransactionController::class, '
 Route::post('loginWithGoogle', [AuthClientController::class, 'loginWithGoogle'])->name('loginWithGoogle');
 Route::post('register', [AuthClientController::class, 'register'])->name('register');
 Route::post('login', [AuthClientController::class, 'login'])->name('login');
+Route::post('updatePassword', [AuthClientController::class, 'updatePassword'])->name('updatePassword')->middleware('authClient');
 
 // bank account
 Route::get('getBankAccountById/{bankId}', [TransactionTransactionController::class, 'getBankAccountById'])->name('getBankAccountById');
@@ -230,3 +231,6 @@ Route::get('downloadBuktiPembayaranClient/{fileName}', [TransactionTransactionCo
 
 // review Client
 Route::post('storeReview', [ReviewController::class, 'store'])->name('storeReview')->middleware('authClient');
+
+// profile client
+Route::get('profile', [MainController::class, 'profile'])->name('profile')->middleware('authClient');
