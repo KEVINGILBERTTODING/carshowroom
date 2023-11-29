@@ -87,7 +87,7 @@
                     <span class="d-none d-sm-block">Tutup</span>
                 </button>
 
-                @if ($totalNotification !== 0)
+                @if (!$dataNotification->isEmpty())
                     <a class="btn btn-primary ms-1" href="{{ route('deleteNotifClient') }}">
                         <i class="bx bx-check d-block d-sm-none"></i>
                         <span class="d-none d-sm-block">Hapus Semua</span>
