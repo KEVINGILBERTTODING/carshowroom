@@ -236,6 +236,7 @@ Route::post('storeReview', [ReviewController::class, 'store'])->name('storeRevie
 
 // profile client
 Route::get('profile', [MainController::class, 'profile'])->name('profile')->middleware('authClient');
+Route::post('updateProfilePhoto', [AuthClientController::class, 'updateProfilePhoto'])->name('updateProfilePhoto')->middleware('authClient');
 
 // notification
 Route::get('setReadClient', [NotificationController::class, 'setReadClient'])->name('setReadClient')->middleware('authClient');

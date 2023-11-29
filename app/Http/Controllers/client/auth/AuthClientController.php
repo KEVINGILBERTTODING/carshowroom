@@ -282,4 +282,40 @@ class AuthClientController extends Controller
             }
         }
     }
+
+    function updateProfilePhoto(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'photo' => 'required|image|mimes:png,jpg,jpeg|max:5000'
+        ], [
+            'photo.required' => 'Gambar tidak boleh kosong',
+            'photo.image' => 'Gambar tidak valid',
+            'photo.mimes' => 'Format gambar tidak valid',
+            'photo.max' => 'Ukuran gambar tidak boleh lebih dari 5 MB'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+
+        if ($request->hasFile('photo')) {
+            $file = $request->file('photo');
+            $fileName = 'USR-' . session('user_id') . '.' . $file->getClientOriginalExtension();
+            $file->move('data/profile_photo/', $fileName);
+            try {
+                $data = [
+                    'profile_photo' => $fileName,
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+                $update  = User::where('user_id', session('user_id'))->update($data);
+                if ($update) {
+                    return redirect()->route('profile')->with('success', 'Berhasil mengubah foto profil');
+                } else {
+                    return redirect()->route('profile')->with('failed', 'Gagal mengubah foto profil');
+                }
+            } catch (\Throwable $th) {
+                return redirect()->route('profile')->with('failed', 'Terjadi kesalahan');
+            }
+        }
+    }
 }

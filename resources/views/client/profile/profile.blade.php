@@ -220,7 +220,8 @@
                                         <img src="{{ $dataUser['profile_photo'] }}"
                                             alt="{{ $dataUser['nama_lengkap'] }}">
                                     @else
-                                        <img src="{{ asset('data/profile_photo/' . $dataUser['profile_photo']) }}"
+                                        <img id="profile_photo"
+                                            src="{{ asset('data/profile_photo/' . $dataUser['profile_photo']) }}"
                                             alt="{{ $dataUser['nama_lengkap'] }}">
                                     @endif
                                 </div>
@@ -307,13 +308,13 @@
                             <i data-feather="x"></i>
                         </button>
                     </div>
-                    <form action="{{ route('ubahFotoProfilAdmin') }}" method="post" enctype="multipart/form-data">
+                    <form action="{{ route('updateProfilePhoto') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
 
                             <div class="form-group">
                                 <label for="basicInput">Foto Profil</label>
-                                <input type="file" required class="form-control mt-2" name="image" id="basicInput">
+                                <input type="file" required class="form-control mt-2" name="photo" id="basicInput">
                             </div>
 
 
@@ -334,4 +335,18 @@
         </div>
 
     </section>
+@endsection
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+
+            $('#profile_photo').click(function(e) {
+                e.preventDefault();
+                $('#modal_update_photo').modal('show');
+
+            });
+
+        });
+    </script>
 @endsection
