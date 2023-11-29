@@ -145,7 +145,9 @@ class MainController extends Controller
             $totalTidakValidTransaksi = $transactionModel->countTotalTransactionCustomer(session('user_id'), 0);
             $dataApp =  AppModel::where('app_id', 1)->first();
             $dataNotification = NotificationModel::where('user_id', session('user_id'))->orderBy('notif_id', 'desc')->get();
-            $totalNotification = NotificationModel::select('notif_id')->where('status', 0)->count();
+            $totalNotificationRead = NotificationModel::select('notif_id')->where('status', 0)->count();
+            $totalNotification = NotificationModel::select('notif_id')->count();
+
 
             $data = [
                 'dataUser' => $dataUser,
@@ -155,8 +157,10 @@ class MainController extends Controller
                 'totalTransaksiTidakValid' => $totalTidakValidTransaksi,
                 'dataApp' => $dataApp,
                 'dataNotification' => $dataNotification,
-                'totalNotification' => $totalNotification
+                'totalNotificationRead' => $totalNotificationRead,
+                'totalNotification' => $totalNotification,
             ];
+
             return view('client.dashboard.index', $data);
         } catch (\Throwable $th) {
             return redirect()->route('/')->with('failed', 'Terjadi kesalahan');

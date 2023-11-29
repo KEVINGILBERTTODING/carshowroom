@@ -146,9 +146,9 @@
                                 data-bs-toggle="modal" data-bs-display="static" aria-expanded="false">
                                 <i class='bi bi-bell bi-sm bi-sub fs-4'>
 
-                                    @if ($totalNotification != 0)
+                                    @if ($totalNotificationRead != 0)
                                         <span class="badge bg-danger rounded-pill text-sm" id="ic_notification">
-                                            {{ $totalNotification }}
+                                            {{ $totalNotificationRead }}
                                         </span>
                                     @endif
                                 </i>
