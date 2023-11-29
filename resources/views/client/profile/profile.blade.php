@@ -240,7 +240,7 @@
                 <div class="col-12 col-md-6 col-lg-6">
                     <div class="card">
 
-                        <form action="{{ route('ubahProfilAdmin') }}" method="post">
+                        <form action="{{ route('updateProfile') }}" method="post">
                             @csrf
                             <div class="card-body">
                                 <h4>Ubah Profil</h4>
@@ -252,27 +252,31 @@
 
                                     </div>
                                     <div class="form-group col-md-6 col-12">
-                                        <label>Email</label>
-                                        <input type="email" name="email" class="form-control"
-                                            value="{{ $dataUser['email'] }}" required="Email tidak boleh kosong">
+                                        <label>No Handphone</label>
+                                        <input type="number" name="no_hp" class="form-control"
+                                            value="{{ $dataUser['no_hp'] }}" required="No handphone tidak boleh kosong">
+                                        <input name="sign_in" hidden class="form-control"
+                                            value="{{ $dataUser['sign_in'] }}"
+                                            required="No handphone tidak boleh kosong">
 
 
                                     </div>
 
                                 </div>
-                                <div class="row">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="email" name="email" class="form-control"
+                                        value="{{ $dataUser['email'] }}" required="Email tidak boleh kosong">
 
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Kata Sandi Lama</label>
-                                        <input name="old_password" type="password" class="form-control"
-                                            autocomplete="off">
-                                    </div>
 
-                                    <div class="form-group col-md-6 col-12">
-                                        <label>Kata Sandi Baru</label>
-                                        <input name="new_password" type="password" class="form-control"
-                                            autocomplete="off">
-                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Alamat</label>
+                                    <textarea type="text" placeholder="Alamat lengkap anda..." name="alamat" class="form-control"
+                                        required="Alamat tidak boleh kosong">{{ $dataUser['alamat'] }}</textarea>
+
+
                                 </div>
 
                             </div>

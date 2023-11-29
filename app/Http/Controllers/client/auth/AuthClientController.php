@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class AuthClientController extends Controller
 {
@@ -186,6 +187,89 @@ class AuthClientController extends Controller
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
+
+    function updateProfile(Request $request)
+    {
+
+        // jika user sign in via email
+        if ($request->sign_in == 'email') {
+            $validator = Validator::make($request->all(), [
+                'nama_lengkap' => 'required|string',
+                'email' => 'required|string|unique:users,email,' . session('user_id') . ',user_id',
+                'no_hp' => 'required|numeric',
+                'alamat' => 'required|string',
+            ], [
+                'required' => ':attribute tidak boleh kosong',
+                'string' => ':attribute hanya boleh berupa huruf dan angka',
+                'unique' => ':attribute telah digunakan',
+                'numeric' => ':attribute hanya boleh berupa angka'
+            ], [
+                'nama_lengkap' => 'Nama lengkap',
+                'email' => 'Email',
+                'no_hp' => 'No handphone',
+                'alamat' => 'Alamat'
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->with('failed', $validator->errors()->first());
+            }
+
+            try {
+                $data = [
+                    'nama_lengkap' => $request->nama_lengkap,
+                    'no_hp' => $request->no_hp,
+                    'email' => $request->email,
+                    'alamat' => $request->alamat,
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+                $update = User::where('user_id', session('user_id'))->update($data);
+                if ($update) {
+                    return redirect()->route('profile')->with('success', 'Berhasil mengubah profile');
+                } else {
+                    return redirect()->back()->with('failed', 'Gagal mengubah profile');
+                }
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('failed', 'Terjadi kesalahan');
+            }
+        } else {
+            $validator = Validator::make($request->all(), [
+                'nama_lengkap' => 'required|string',
+                'no_hp' => 'required|numeric',
+                'alamat' => 'required|string',
+            ], [
+                'required' => ':attribute tidak boleh kosong',
+                'string' => ':attribute hanya boleh berupa huruf dan angka',
+                'numeric' => ':attribute hanya boleh berupa angka'
+            ], [
+                'nama_lengkap' => 'Nama lengkap',
+                'no_hp' => 'No handphone',
+                'alamat' => 'Alamat'
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()->back()->with('failed', $validator->errors()->first());
+            }
+
+            try {
+                $data = [
+                    'nama_lengkap' => $request->nama_lengkap,
+                    'no_hp' => $request->no_hp,
+                    'alamat' => $request->alamat,
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+                $update = User::where('user_id', session('user_id'))->update($data);
+                if ($update) {
+                    return redirect()->route('profile')->with('success', 'Berhasil mengubah profile');
+                } else {
+                    return redirect()->back()->with('failed', 'Gagal mengubah profile');
+                }
+            } catch (\Throwable $th) {
+                return redirect()->back()->with('failed', 'Terjadi kesalahan');
+            }
         }
     }
 }

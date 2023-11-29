@@ -211,6 +211,7 @@ Route::post('loginWithGoogle', [AuthClientController::class, 'loginWithGoogle'])
 Route::post('register', [AuthClientController::class, 'register'])->name('register');
 Route::post('login', [AuthClientController::class, 'login'])->name('login');
 Route::post('updatePassword', [AuthClientController::class, 'updatePassword'])->name('updatePassword')->middleware('authClient');
+Route::post('updateProfile', [AuthClientController::class, 'updateProfile'])->name('updateProfile')->middleware('authClient');
 
 // bank account
 Route::get('getBankAccountById/{bankId}', [TransactionTransactionController::class, 'getBankAccountById'])->name('getBankAccountById');
