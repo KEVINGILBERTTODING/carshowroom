@@ -1063,4 +1063,54 @@ class MobilController extends Controller
             return redirect()->back()->with('failed', 'Mobil tidak tersedia');
         }
     }
+    function cariMobil(Request $request)
+    {
+
+        $mobilModel = new MobilModel();
+        $keyword = $request->keyword;
+
+
+        try {
+            $dataApp = AppModel::where('app_id', 1)->first();
+            $dataMerk = MerkModel::get();
+            $dataTransmisi = TransmisiModel::get();
+            $dataBody = BodyModel::get();
+            $dataMobil = $mobilModel->searchCar($keyword)->paginate(9);
+            $dataFinance = FInanceModel::first();
+
+            if ($dataFinance != null) {
+                foreach ($dataMobil as $dm) {
+
+                    // bunga cicilan
+                    $persentaseBunga = $dataFinance['bunga'];
+                    $bunga = $persentaseBunga / 100;
+
+                    // dp
+                    $persentaseDp = $dataFinance['uang_muka'];
+                    $dp = ($dm->harga_jual - $dm->diskon) * ($persentaseDp / 100);
+                    $totalPinjaman = ($dm->harga_jual - $dm->diskon) - $dp;
+
+
+
+                    $totalCicilan = $this->showTotalCicilan($totalPinjaman, $bunga, 36);
+                    $dm->total_cicilan = $totalCicilan;
+                }
+            }
+
+
+            $data = [
+                'dataApp' => $dataApp,
+                'dataMobil' => $dataMobil,
+                'dataMerk' => $dataMerk,
+                'dataTransmisi' => $dataTransmisi,
+                'dataBody' => $dataBody,
+
+            ];
+
+
+            return view('client.cars.index', $data);
+        } catch (\Throwable $th) {
+            return redirect()->back();
+        }
+    }
 }
