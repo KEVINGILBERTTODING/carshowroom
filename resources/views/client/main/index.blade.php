@@ -405,31 +405,35 @@
                     @endphp
                     @foreach ($dataReview as $dr)
                         <div class="col-lg-6">
-                            <div class="testimonial__item">
-                                <div class="testimonial__item__author">
-                                    <div class="testimonial__item__author__pic">
-                                        <img style="width: 50px;"
-                                            src="{{ asset('data/profile_photo/' . $dr->profile_photo) }}" alt="">
-                                    </div>
-                                    <div class="testimonial__item__author__text">
-                                        <div class="rating">
-                                            @for ($i = 1; $i <= $dr->star; $i++)
-                                                <i class="fa fa-star"></i>
-                                            @endfor
-                                        </div>
-                                        <h5> {{ $dr->nama_lengkap }}</span></h5>
-                                        <h6>{{ $dr->created_at }}</h6>
-                                    </div>
-                                </div>
-                                <p>
-                                    {{ $dr->review_text }}
-                                </p>
+
+                            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                                @if ($dr->sign_in == 'google')
+                                    <img src="{{ $dr->profile_photo }}" alt="Profile Picture"
+                                        style="border-radius: 50%; max-width: 50px; margin-right: 20px;">
+                                    <div>
+                                    @else
+                                        <img src="{{ asset('data/profile_photo/' . $dr['profile_photo']) }}"
+                                            alt="Profile Picture"
+                                            style="border-radius: 50%; max-width: 50px; margin-right: 20px;">
+                                        <div>
+                                @endif
+                                @for ($i = 1; $i <= $dr->star; $i++)
+                                    <i class="fa fa-star text-warning" style="font-size: 1.5rem;"></i>
+                                @endfor
+
+                                <h6 style="margin: 0;"><b>{{ $dr->nama_lengkap }}</b></h6>
+                                <p style="margin: 0; font-size: 0.8rem; color: #6c757d;">
+                                    {{ $dr->created_at }}</p>
+
+                                <p style="margin: 0; font-size: 15px; color: black;">
+                                    {{ $dr->review_text }}</p>
                             </div>
                         </div>
-                    @endforeach
-
                 </div>
+                @endforeach
+
             </div>
+        </div>
         </div>
     </section>
 @endsection
