@@ -237,6 +237,8 @@ Route::post('storeReview', [ReviewController::class, 'store'])->name('storeRevie
 // profile client
 Route::get('profile', [MainController::class, 'profile'])->name('profile')->middleware('authClient');
 
-// notification client
+// notification
 Route::get('setReadClient', [NotificationController::class, 'setReadClient'])->name('setReadClient')->middleware('authClient');
+Route::get('setReadAdmin', [NotificationController::class, 'setReadAdmin'])->name('setReadAdmin')->middleware('admin');
 Route::get('deleteNotifClient', [NotificationController::class, 'deleteNotifClient'])->name('deleteNotifClient')->middleware('authClient');
+Route::get('deleteNotifAdmin', [NotificationController::class, 'deleteNotifAdmin'])->name('deleteNotifAdmin')->middleware('admin');

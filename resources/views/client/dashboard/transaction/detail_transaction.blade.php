@@ -633,7 +633,7 @@
                     <div class="modal-body">
 
                         <div class="form-group">
-                            <p class="text text-muted">{{ $dataTransaksi['alasan'] }}</p>
+                            <p class="text  text-md">{{ $dataTransaksi['alasan'] }}</p>
                         </div>
 
 

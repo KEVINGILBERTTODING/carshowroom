@@ -245,7 +245,20 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-lg-0">
+                        <li class="nav-item dropdown me-3" id="btnNotification">
+                            <a class="nav-link active text-gray-600" href="#" data-bs-target="#modal_notification"
+                                data-bs-toggle="modal" data-bs-display="static" aria-expanded="false">
+                                <i class='bi bi-bell bi-sm bi-sub fs-4'>
 
+                                    @if ($totalNotificationRead != 0)
+                                        <span class="badge bg-danger rounded-pill text-sm" id="ic_notification">
+                                            {{ $totalNotificationRead }}
+                                        </span>
+                                    @endif
+                                </i>
+                            </a>
+
+                        </li>
 
                     </ul>
                     <div class="dropdown">
@@ -575,6 +588,9 @@
                         </div>
                     </div>
                 </div>
+
+                {{-- INCLUDE NOTIFICATiON --}}
+                @include('admin.notification.notification')
     </section>
 @endsection
 
@@ -981,6 +997,26 @@
 
                 $("#greeting").text("Selamat malam, " + username + '!');
             }
+
+        });
+    </script>
+
+
+    {{-- script notification set read --}}
+    <script>
+        $('#btnNotification').click(function(e) {
+            e.preventDefault();
+
+            $.ajax({
+                type: "get",
+                url: "/setReadAdmin",
+                dataType: "json",
+                success: function(response) {
+
+                }
+            });
+
+            $('#ic_notification').text('');
 
         });
     </script>

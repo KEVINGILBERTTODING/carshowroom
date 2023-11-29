@@ -7,6 +7,7 @@ use App\Models\Admin;
 use App\Models\AppModel;
 use App\Models\FInanceModel;
 use App\Models\MobilModel;
+use App\Models\NotificationAdminModel;
 use App\Models\PelangganModel;
 use App\Models\TransactionModel;
 use App\Models\User;
@@ -42,6 +43,10 @@ class AdminController extends Controller
         $userModel = new User();
         $totalPengguna = $userModel->getTotalUserYear($yearNow);
         $dataTransactions = $transaksiModel->getTransactionsMonth($yearNow, $monthNow);
+        $dataNotification = NotificationAdminModel::orderBy('notif_id', 'desc')->get();
+        $totalNotificationRead = NotificationAdminModel::select('notif_id')->where('status', 0)->count();
+        $totalNotification = NotificationAdminModel::select('notif_id')->count();
+
         $data = [
             'dataAdmin' => $dataAdmin,
             'dataApp' => $dataApp,
@@ -56,7 +61,10 @@ class AdminController extends Controller
             'totalPengguna' => $totalPengguna,
             'totalPelanggan' => $totalPelanggan,
             'totalFinance' => $totalFinance,
-            'totalMobilTersedia' => $totalMobilTersedia
+            'totalMobilTersedia' => $totalMobilTersedia,
+            'dataNotification' => $dataNotification,
+            'totalNotificationRead' => $totalNotificationRead,
+            'totalNotification' => $totalNotification,
         ];
         return view('admin.main.index', $data);
     }
