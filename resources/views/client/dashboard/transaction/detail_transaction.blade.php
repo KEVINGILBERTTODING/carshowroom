@@ -641,7 +641,9 @@
         </div>
 
         <!--Modal review-->
-        <form action="#">
+
+        <form action="{{ route('storeReview') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="modal fade text-left modal-borderless" id="modal_review" tabindex="-1" role="dialog"
                 aria-labelledby="myModalLabel1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered modal-dialog-centered modal-dialog-scrollable"
@@ -670,8 +672,10 @@
                                 </div>
 
                                 <!-- Hidden input untuk menyimpan nilai rating -->
-                                <input type="hidden" id="rating" value="0" required name="rating"
+                                <input type="hidden" id="rating" value="0" readonly required name="star"
                                     id="rating">
+                                <input type="hidden" id="rating" readonly value="{{ $dataTransaksi['mobil_id'] }}"
+                                    required name="mobil_id" id="rating">
                             </div>
 
                             <div class="row mt-4">
@@ -681,7 +685,7 @@
                                         <label for="review" . {{ $i }}>Gambar {{ $i }}</label>
 
                                         <input type="file" id="review" . {{ $i }} class="form-control"
-                                            accept=".png,.jpg.jpeg" name="gambar"{{ $i }}>
+                                            accept=".png,.jpg.jpeg" name="image{{ $i }}">
                                         <span class="text text-sm text-danger">.jpeg, .png, jpg | 2 MB</span>
                                     </div>
                                 @endfor
@@ -691,7 +695,7 @@
                             <!-- Tambahan: Textarea untuk komentar -->
                             <div class="mb-3 mt-4">
                                 <label for="comment" class="form-label">Ulasan:</label>
-                                <textarea class="form-control" id="comment" required name="comment" placeholder="Tuliskan seesuatu..."
+                                <textarea class="form-control" id="comment" required name="review_text" placeholder="Tuliskan seesuatu..."
                                     rows="4"></textarea>
                             </div>
 
@@ -740,7 +744,7 @@
         // cek apakah belum ada review
         $(document).ready(function() {
             var statusTransaksi = "{{ $dataTransaksi['status'] }}";
-            var review = "{{ $dataTransaksi['review_text'] }}";
+            var review = "{{ $dataTransaksi['review_id'] }}";
 
             if (statusTransaksi == 1 && review == 'undefined') {
                 $('#modal_review').modal('show');
@@ -782,25 +786,6 @@
                     stars[i].classList.add('active');
                 }
             }
-        });
-    </script>
-
-
-    {{-- validasi input rating --}}
-    <script>
-        $('#btn_submit').click(function(e) {
-            e.preventDefault();
-            var jumlahRating = $('#rating').val();
-
-            if (jumlahRating == 0) {
-                var errorMessage = "{{ session('failed') }}";
-                Swal2.fire({
-                    icon: "error",
-                    title: "Anda belum memasukkan bintang",
-                    text: errorMessage,
-                })
-            }
-
         });
     </script>
 @endsection

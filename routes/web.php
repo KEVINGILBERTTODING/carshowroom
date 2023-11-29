@@ -18,6 +18,7 @@ use App\Http\Controllers\client\main\MainController;
 use App\Http\Controllers\client\transaction\TransactionController as TransactionTransactionController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\ReviewController;
 use App\Http\Middleware\ClientMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -226,3 +227,6 @@ Route::get('transaksiTidakValid', [TransactionTransactionController::class, 'get
 Route::get('detailTransaksi/{transactionId}', [TransactionTransactionController::class, 'detailTransaction'])->name('detailTransaksi')->middleware('authClient');
 Route::get('downloadFileCreditClient/{fileName}', [TransactionTransactionController::class, 'downloadFileCredit'])->name('downloadFileCreditClient')->middleware('authClient');
 Route::get('downloadBuktiPembayaranClient/{fileName}', [TransactionTransactionController::class, 'downloadBuktiPembayaran'])->name('downloadBuktiPembayaranClient')->middleware('authClient');
+
+// review Client
+Route::post('storeReview', [ReviewController::class, 'store'])->name('storeReview')->middleware('authClient');

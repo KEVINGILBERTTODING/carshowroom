@@ -305,178 +305,191 @@
 
 
                                                 <div style="display: flex; align-items: center; margin-bottom: 15px;">
-                                                    <img src="{{ asset('data/profile_photo/' . $dataReview['profile_photo']) }}"
-                                                        alt="Profile Picture"
-                                                        style="border-radius: 50%; max-width: 50px; margin-right: 20px;">
-                                                    <div>
-                                                        @for ($i = 1; $i <= $dataReview['star']; $i++)
-                                                            <i class="fa fa-star text-warning"
-                                                                style="font-size: 1.5rem;"></i>
-                                                        @endfor
+                                                    @if ($dataReview['sign_in'] == 'google')
+                                                        <img src="{{ $dataReview['profile_photo'] }}"
+                                                            alt="Profile Picture"
+                                                            style="border-radius: 50%; max-width: 50px; margin-right: 20px;">
+                                                        <div>
+                                                        @else
+                                                            <img src="{{ asset('data/profile_photo/' . $dataReview['profile_photo']) }}"
+                                                                alt="Profile Picture"
+                                                                style="border-radius: 50%; max-width: 50px; margin-right: 20px;">
+                                                            <div>
+                                                    @endif
+                                                    @for ($i = 1; $i <= $dataReview['star']; $i++)
+                                                        <i class="fa fa-star text-warning" style="font-size: 1.5rem;"></i>
+                                                    @endfor
 
-                                                        <h5 style="margin: 0;">{{ $dataReview['nama_lengkap'] }}</h5>
-                                                        <p style="margin: 0; font-size: 0.8rem; color: #6c757d;">
-                                                            {{ $dataReview['created_at'] }}</p>
-                                                    </div>
+                                                    <h6 style="margin: 0;"><b>{{ $dataReview['nama_lengkap'] }}</b></h6>
+                                                    <p style="margin: 0; font-size: 0.8rem; color: #6c757d;">
+                                                        {{ $dataReview['created_at'] }}</p>
                                                 </div>
+                                            </div>
 
-                                                <!-- Review Text -->
-                                                <p class="text  text-muted" style="margin-bottom: 15px; font-size: 18px ">
-                                                    {{ $dataReview['review_text'] }}
-                                                </p>
-
-                                                <!-- Review Images -->
-                                                <div style="margin-bottom: -10px;">
-                                                    @for ($i = 1; $i <= 4; $i++)
+                                            <!-- Review Images -->
+                                            <div style="margin-bottom: -10px;" class="mb-4">
+                                                @for ($i = 1; $i <= 4; $i++)
+                                                    @if ($dataReview['image' . $i] != null)
                                                         <a data-toggle="modal"
                                                             data-target="#detailgambar{{ $i }}">
                                                             <img src="{{ asset('data/review/' . $dataReview['image' . $i]) }}"
-                                                                style="max-width: 100px; margin-right: 5px;">
+                                                                style="max-width: 70px; margin-right: 5px;">
                                                         </a>
-                                                    @endfor
-
-                                                </div>
-
+                                                    @endif
+                                                @endfor
 
                                             </div>
-                                        @else
-                                            <p class="text text-muted">Belum ada review.</p>
-                                        @endif
+
+                                            <!-- Review Text -->
+                                            <p class="text text-sm" style="margin-bottom: 15px; font-size: 18px ">
+                                                @if ($dataReview['review_text'] != null)
+                                                    {{ $dataReview['review_text'] }}
+                                                @else
+                                                    Tidak ada ulasan.
+                                                @endif
+                                            </p>
+
+
 
 
                                     </div>
+                                @else
+                                    <p class="text text-muted">Belum ada review.</p>
+                                    @endif
+
 
                                 </div>
 
                             </div>
+
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-3 card-price">
-                    <div class="card shadow-sm mb-5 bg-white rounded" style="border-radius: 20px;">
-                        <div style="background-color: #3e6ae1" class="div  p-3 d-flex flex-column align-items-center">
-                            <h4 class="text-white">{{ $dataApp['app_name'] }}</h4>
-                            @if ($dataMobil['status_mobil'] == 1)
-                                <p style="text-align: center;" class="text-sm text text-white">Penawaran spesial untuk
-                                    Anda
-                                </p>
-                            @endif
-
-                        </div>
-
-
-                        <div class="card-body">
-
-                            {{-- Tersedia --}}
-                            @if ($dataMobil['status_mobil'] == 1)
-                                <div class="car__details__sidebar__payment p-3">
-
-                                    <ul>
-                                        <li>Harga <span>{{ formatRupiah($dataMobil['harga_jual']) }}</span></li>
-                                        <li>Diskon <span>{{ formatRupiah($dataMobil['diskon']) }}</span></li>
-                                        <hr>
-                                        <li>Total
-                                            <span>{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</span>
-
-                                        </li>
-                                        @if ($dataFinance != null)
-                                            <p class="text-sm text-warning" style="font-size: 12px; text-align: right">
-                                                {{ formatRupiah($dataMobil['total_cicilan']) . '/ bulan' }} </p>
-                                    </ul>
-                                    <p style="font-size: 12px;" class="text-center">Total cicilan mencakup <b>36x</b>
-                                        angsuran dan sudah
-                                        termasuk uang muka (DP) serta bunga sebesar <b>{{ $dataFinance['bunga'] }}%</b>
-                                        dari total
-                                        harga mobil, menggunakan <b><a
-                                                href="{{ route('detailDataFinance', Crypt::encrypt($dataFinance['finance_id'])) }}"
-                                                class="text-primary">{{ $dataFinance['nama_finance'] }}</a></b>.
-                                    </p>
-                                @else
-                                    </ul>
-                            @endif
-
-                            <hr>
-
-                            <a href="{{ route('createNewTransaction', Crypt::encrypt($dataMobil['mobil_id'])) }}"
-                                class="btn btn-primary w-100 mt-3"><i class="fa fa-check-circle" aria-hidden="true"></i>
-                                <b> Pesan Sekarang</b></a>
-
-                            @if ($dataFinance != null)
-                                <button data-toggle="modal" data-target="#finance_chooser"
-                                    class="btn btn-warning w-100 mt-3"><i class="fa fa-credit-card"></i>
-                                    <b> Ajukan Kredit</b></button>
-                            @endif
-                            <a href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataApp['no_hp']) }}&text=Halo,%20saya%20ingin%20bertanya%20tentang%20mobil%20{{ $dataMobil['merk'] }}%20{{ $dataMobil['nama_model'] }}%20{{ $dataMobil['tahun'] }}"
-                                target="_blank" rel="noopener noreferrer"
-                                class="btn btn-success sidebar-btn w-100 mt-3"><i class="fa fa-whatsapp"
-                                    aria-hidden="true"></i></i>
-                                <b>Hubungi Kami</b></a>
-
-                            <div class="div mt-3 d-flex justify-content-center"> <a href="{{ route('userGuide') }}"
-                                    style="font-size: 12px;" class="text-sm text-primary">
-                                    Baca panduan pengguna.</a></div>
-
-
-
-
-                        </div>
-
-                        {{-- Terjual --}}
-                    @elseif ($dataMobil['status_mobil'] == 0)
-                        <div class="car__details__sidebar__payment p-3">
-
-                            <ul>
-                                <li>Harga <span class="text-muted">{{ formatRupiah($dataMobil['harga_jual']) }}</span>
-                                </li>
-                                <li>Diskon <span class="text-muted">{{ formatRupiah($dataMobil['diskon']) }}</span>
-                                </li>
-                                <hr>
-                                <li>Total
-                                    <span
-                                        class="text-muted">{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</span>
-
-                                </li>
-
-                            </ul>
-
-                            <hr>
-                            <span style="background-color: #eee" class="badge p-2 d-flex justify-content-center">
-                                <h5 class="text text-dark">Terjual</h5>
-                            </span>
-
-
-                        </div>
-                    @else
-                        <div class="car__details__sidebar__payment p-3 ">
-
-                            <ul>
-                                <li>Harga <span class="text-muted">{{ formatRupiah($dataMobil['harga_jual']) }}</span>
-                                </li>
-                                <li>Diskon <span class="text-muted">{{ formatRupiah($dataMobil['diskon']) }}</span>
-                                </li>
-                                <hr>
-                                <li>Total
-                                    <span
-                                        class="text-muted">{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</span>
-
-                                </li>
-
-
-
-                            </ul>
-
-                            <span class="badge bg-warning p-2 d-flex justify-content-center">
-                                <h5 class="text text-dark">Di pesan</h5>
-                            </span>
-
-
-                        </div>
-                        @endif
-                    </div>
-
-
                 </div>
             </div>
+            <div class="col-lg-3 card-price">
+                <div class="card shadow-sm mb-5 bg-white rounded" style="border-radius: 20px;">
+                    <div style="background-color: #3e6ae1" class="div  p-3 d-flex flex-column align-items-center">
+                        <h4 class="text-white">{{ $dataApp['app_name'] }}</h4>
+                        @if ($dataMobil['status_mobil'] == 1)
+                            <p style="text-align: center;" class="text-sm text text-white">Penawaran spesial untuk
+                                Anda
+                            </p>
+                        @endif
+
+                    </div>
+
+
+                    <div class="card-body">
+
+                        {{-- Tersedia --}}
+                        @if ($dataMobil['status_mobil'] == 1)
+                            <div class="car__details__sidebar__payment p-3">
+
+                                <ul>
+                                    <li>Harga <span>{{ formatRupiah($dataMobil['harga_jual']) }}</span></li>
+                                    <li>Diskon <span>{{ formatRupiah($dataMobil['diskon']) }}</span></li>
+                                    <hr>
+                                    <li>Total
+                                        <span>{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</span>
+
+                                    </li>
+                                    @if ($dataFinance != null)
+                                        <p class="text-sm text-warning" style="font-size: 12px; text-align: right">
+                                            {{ formatRupiah($dataMobil['total_cicilan']) . '/ bulan' }} </p>
+                                </ul>
+                                <p style="font-size: 12px;" class="text-center">Total cicilan mencakup <b>36x</b>
+                                    angsuran dan sudah
+                                    termasuk uang muka (DP) serta bunga sebesar <b>{{ $dataFinance['bunga'] }}%</b>
+                                    dari total
+                                    harga mobil, menggunakan <b><a
+                                            href="{{ route('detailDataFinance', Crypt::encrypt($dataFinance['finance_id'])) }}"
+                                            class="text-primary">{{ $dataFinance['nama_finance'] }}</a></b>.
+                                </p>
+                            @else
+                                </ul>
+                        @endif
+
+                        <hr>
+
+                        <a href="{{ route('createNewTransaction', Crypt::encrypt($dataMobil['mobil_id'])) }}"
+                            class="btn btn-primary w-100 mt-3"><i class="fa fa-check-circle" aria-hidden="true"></i>
+                            <b> Pesan Sekarang</b></a>
+
+                        @if ($dataFinance != null)
+                            <button data-toggle="modal" data-target="#finance_chooser"
+                                class="btn btn-warning w-100 mt-3"><i class="fa fa-credit-card"></i>
+                                <b> Ajukan Kredit</b></button>
+                        @endif
+                        <a href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataApp['no_hp']) }}&text=Halo,%20saya%20ingin%20bertanya%20tentang%20mobil%20{{ $dataMobil['merk'] }}%20{{ $dataMobil['nama_model'] }}%20{{ $dataMobil['tahun'] }}"
+                            target="_blank" rel="noopener noreferrer" class="btn btn-success sidebar-btn w-100 mt-3"><i
+                                class="fa fa-whatsapp" aria-hidden="true"></i></i>
+                            <b>Hubungi Kami</b></a>
+
+                        <div class="div mt-3 d-flex justify-content-center"> <a href="{{ route('userGuide') }}"
+                                style="font-size: 12px;" class="text-sm text-primary">
+                                Baca panduan pengguna.</a></div>
+
+
+
+
+                    </div>
+
+                    {{-- Terjual --}}
+                @elseif ($dataMobil['status_mobil'] == 0)
+                    <div class="car__details__sidebar__payment p-3">
+
+                        <ul>
+                            <li>Harga <span class="text-muted">{{ formatRupiah($dataMobil['harga_jual']) }}</span>
+                            </li>
+                            <li>Diskon <span class="text-muted">{{ formatRupiah($dataMobil['diskon']) }}</span>
+                            </li>
+                            <hr>
+                            <li>Total
+                                <span
+                                    class="text-muted">{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</span>
+
+                            </li>
+
+                        </ul>
+
+                        <hr>
+                        <span style="background-color: #eee" class="badge p-2 d-flex justify-content-center">
+                            <h5 class="text text-dark">Terjual</h5>
+                        </span>
+
+
+                    </div>
+                @else
+                    <div class="car__details__sidebar__payment p-3 ">
+
+                        <ul>
+                            <li>Harga <span class="text-muted">{{ formatRupiah($dataMobil['harga_jual']) }}</span>
+                            </li>
+                            <li>Diskon <span class="text-muted">{{ formatRupiah($dataMobil['diskon']) }}</span>
+                            </li>
+                            <hr>
+                            <li>Total
+                                <span
+                                    class="text-muted">{{ formatRupiah($dataMobil['harga_jual'] - $dataMobil['diskon']) }}</span>
+
+                            </li>
+
+
+
+                        </ul>
+
+                        <span class="badge bg-warning p-2 d-flex justify-content-center">
+                            <h5 class="text text-dark">Di pesan</h5>
+                        </span>
+
+
+                    </div>
+                    @endif
+                </div>
+
+
+            </div>
+        </div>
         </div>
 
         {{-- Modal pilih finance --}}
@@ -521,8 +534,9 @@
 
 
         {{-- Modal gambar testimoni --}}
-        @if ($dataMobil['status_mobil'] == 0 && $dataMobil['image_review1'] != null)
-            @for ($i = 1; $i <= 4; $i++)
+
+        @for ($i = 1; $i <= 4; $i++)
+            @if ($dataMobil['status_mobil'] == 0 && $dataReview['image' . $i] != null)
                 <div class="modal fade" id="detailgambar{{ $i }}" tabindex="-1" role="dialog"
                     aria-labelledby="galleryModalTitle" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-dialog-centered" role="document">
@@ -545,13 +559,14 @@
                             </div>
 
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endfor
-        @endif
+            @endif
+        @endfor
+
 
 
     </section>

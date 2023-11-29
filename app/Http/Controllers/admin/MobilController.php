@@ -1022,6 +1022,7 @@ class MobilController extends Controller
                 'review.image3',
                 'review.image4',
                 'users.nama_lengkap',
+                'users.sign_in',
                 'users.profile_photo'
             )
                 ->leftJoin('users', 'review.user_id', '=', 'users.user_id')

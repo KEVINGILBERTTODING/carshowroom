@@ -410,17 +410,14 @@ class TransactionController extends Controller
         $dataUser = User::where('user_id', session('user_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
 
-        if ($dataTransaction['review_text'] == null) {
-            $dataTransaction['review_text'] = 'undefined';
+        if ($dataTransaction['review_id'] == null) {
+            $dataTransaction['review_id'] = 'undefined';
         }
-
         $data = [
             'dataUser' => $dataUser,
             'dataApp' => $dataApp,
             'dataTransaksi' => $dataTransaction
         ];
-
-
 
         return view('client.dashboard.transaction.detail_transaction', $data);
     }
