@@ -134,4 +134,35 @@ class MobilModel extends Model
 
         return $query;
     }
+
+    function filterCar($merk, $jenis, $transmisi)
+    {
+        $query = MobilModel::select(
+            'mobil.nama_model',
+            'mobil.mobil_id',
+            'mobil.no_plat',
+            'mobil.tahun',
+            'mobil.km',
+            'mobil.harga_jual',
+            'mobil.diskon',
+            'mobil.status_mobil',
+            'mobil.gambar1',
+            'mobil.gambar2',
+            'mobil.gambar3',
+            'mobil.gambar4',
+            'mobil.gambar5',
+            'mobil.gambar6',
+            'merk.merk',
+            'transmisi.transmisi',
+            'kapasitas_mesin.kapasitas as kapasitas_mesin'
+        )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
+            ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
+            ->where('merk.merk_id', $merk)
+            ->where('mobil.body_id', $jenis)
+            ->where('mobil.transmisi_id', $transmisi)
+            ->orderBy('mobil.mobil_id', 'desc');
+
+        return $query;
+    }
 }

@@ -125,24 +125,26 @@
                     <div class="car__sidebar">
                         <div class="car__search">
                             <h5>Cari Mobil</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Cari...">
+                            <form action="{{ route('cariMobil') }}" action="get">
+                                @csrf
+                                <input type="text" name="keyword" placeholder="Cari...">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>
                         {{-- filter --}}
                         <div class="car__filter">
                             <h5>Filter Mobil</h5>
-                            <form action="#">
+                            <form action="{{ route('filterMobil') }}" method="GET">
+                                @csrf
                                 <p class="text-sm">Merk</p>
-                                <select>
+                                <select name="merkId">
                                     @foreach ($dataMerk as $dam)
                                         <option value="{{ $dam->merk_id }}">{{ $dam->merk }}</option>
                                     @endforeach
                                 </select>
 
                                 <p class="text-sm">Jenis</p>
-                                <select>
+                                <select name="bodyId">
                                     @foreach ($dataBody as $db)
                                         <option value="{{ $db->body_id }}">{{ $db->body }}</option>
                                     @endforeach
@@ -150,7 +152,7 @@
 
 
                                 <p class="text-sm">Transmisi</p>
-                                <select>
+                                <select name="transmisiId">
                                     @foreach ($dataTransmisi as $tm)
                                         <option value="{{ $tm->transmisi_id }}">{{ $tm->transmisi }}</option>
                                     @endforeach
@@ -168,16 +170,7 @@
                 <div class="col-lg-9">
                     <div class="car__filter__option">
                         <div class="row">
-                            {{-- <div class="col-lg-6 col-md-6">
-                                <div class="car__filter__option__item">
-                                    <h6>Show On Page</h6>
-                                    <select>
-                                        <option value="">9 Car</option>
-                                        <option value="">15 Car</option>
-                                        <option value="">20 Car</option>
-                                    </select>
-                                </div>
-                            </div> --}}
+
                             <div class="col">
                                 <div class="car__filter__option__item car__filter__option__item--right">
                                     <h6>Sort By</h6>
@@ -189,173 +182,181 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        @foreach ($dataMobil as $dm)
-                            <div class="col-lg-4 col-md-4">
-                                <div class="car__item">
-                                    <div class="car__item__pic__slider owl-carousel">
-                                        <img src="{{ asset('data/cars/' . $dm->gambar1) }}" alt=""
-                                            style="height: 200px; width: 100%; object-fit: cover;">
-                                        <img src="{{ asset('data/cars/' . $dm->gambar2) }}" alt=""
-                                            style="height: 200px; width: 100%; object-fit: cover;">
-                                        <img src="{{ asset('data/cars/' . $dm->gambar3) }}" alt=""
-                                            style="height: 200px; width: 100%; object-fit: cover;">
-                                        <img src="{{ asset('data/cars/' . $dm->gambar4) }}" alt=""
-                                            style="height: 200px; width: 100%; object-fit: cover;">
-                                        <img src="{{ asset('data/cars/' . $dm->gambar5) }}" alt=""
-                                            style="height: 200px; width: 100%; object-fit: cover;">
-                                        <img src="{{ asset('data/cars/' . $dm->gambar6) }}" alt=""
-                                            style="height: 200px; width: 100%; object-fit: cover;">
-                                    </div>
+                    @if (!$dataMobil->isEmpty())
+                        <div class="row">
 
-                                    <div class="car__item__text">
-                                        <div class="car__item__text__inner">
-                                            @if ($dm->status_mobil == 1)
-                                                <div class="label-date">{{ $dm->tahun }}</div>
-                                                <h5><a
-                                                        href="{{ route('detailMobil', Crypt::encrypt($dm->mobil_id)) }}">{{ $dm->merk . ' ' . $dm->nama_model }}</a>
-                                                </h5>
-                                                <ul>
-                                                    <li class="text-dark">{{ formatDecimal($dm->km) }} KM</li>
-                                                    <li class="text-dark">{{ $dm->transmisi }}</li>
-                                                </ul>
-                                            @else
-                                                <div class="label-date text-muted">{{ $dm->tahun }}</div>
-                                                <h5><a href="{{ route('detailMobil', Crypt::encrypt($dm->mobil_id)) }}"
-                                                        class="text-muted">{{ $dm->merk . ' ' . $dm->nama_model }}</a>
-                                                </h5>
-                                                <ul>
-                                                    <li class="text-dark">{{ formatDecimal($dm->km) }} KM</li>
-                                                    <li class="text-muted">{{ $dm->transmisi }}</li>
-                                                </ul>
-                                            @endif
-
-                                        </div>
-                                        <div class="car__item__price"
-                                            style="display: flex; justify-content: space-between; align-items: center;">
-                                            @if ($dm->status_mobil == 1)
-                                                <span class="car-option available">Tersedia</span>
-                                                @if ($dm->diskon != 0)
-                                                    <div
-                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
-                                                        <h6 style="text-decoration: line-through; text-decoration-thickness: 2px;"
-                                                            class="text-muted text-decoration-line-through">
-                                                            {{ formatRupiah($dm->harga_jual) }}</h6>
-                                                        <h6 class="text-dark text-decoration-line-through">
-                                                            {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
-                                                        @if ($dm->total_cicilan != 0)
-                                                            <p class="text-warning" style="font-size: 12px;">
-                                                                {{ formatRupiah($dm->total_cicilan) }} /
-                                                                bulan</p>
-                                                        @endif
-                                                    </div>
-                                                @else
-                                                    <div
-                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
-                                                        <h6 class="text-muted">
-                                                            {{ formatRupiah($dm->harga_jual) }} </h6>
-                                                        @if ($dm->total_cicilan != 0)
-                                                            <p class="text-warning" style="font-size: 12px;">
-                                                                {{ formatRupiah($dm->total_cicilan) }} /
-                                                                bulan</p>
-                                                        @endif
-                                                    </div>
-                                                @endif
-                                            @elseif ($dm->status_mobil == 0)
-                                                <span class="car-option soldout">Terjual</span>
-                                                @if ($dm->diskon != 0)
-                                                    <div
-                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
-                                                        <h6 style="text-decoration: line-through; text-decoration-thickness: 2px;"
-                                                            class="text-muted text-decoration-line-through">
-                                                            {{ formatRupiah($dm->harga_jual) }}</h6>
-                                                        <h6 class="text-muted text-decoration-line-through">
-                                                            {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
-
-                                                    </div>
-                                                @else
-                                                    <div
-                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
-                                                        <h6 class="text-muted">
-                                                            {{ formatRupiah($dm->harga_jual) }}</h6>
-                                                        <p class="text-warning" style="font-size: 12px;">
-                                                            {{ formatRupiah($dm->total_cicilan) }} /
-                                                            bulan</p>
-                                                    </div>
-                                                @endif
-                                            @else
-                                                <span class="car-option booked text-dark">Di pesan</span>
-                                                @if ($dm->diskon != 0)
-                                                    <div
-                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
-                                                        <h6 style="text-decoration: line-through; text-decoration-thickness: 2px;"
-                                                            class="text-muted text-decoration-line-through">
-                                                            {{ formatRupiah($dm->harga_jual) }}</h6>
-                                                        <h6 class="text-muted text-decoration-line-through">
-                                                            {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
-
-
-                                                        @if ($dm->total_cicilan != 0)
-                                                            <p class="text-warning" style="font-size: 12px;">
-                                                                {{ formatRupiah($dm->total_cicilan) }} /
-                                                                bulan</p>
-                                                        @endif
-
-                                                    </div>
-                                                @else
-                                                    <div
-                                                        style="display: flex; flex-direction: column; align-items: flex-end;">
-                                                        <h6 class="text-muted">
-                                                            {{ formatRupiah($dm->harga_jual) }}</h6>
-                                                        @if ($dm->total_cicilan != 0)
-                                                            <p class="text-warning" style="font-size: 12px;">
-                                                                {{ formatRupiah($dm->total_cicilan) }} /
-                                                                bulan</p>
-                                                        @endif
-                                                    </div>
-                                                @endif
-                                            @endif
+                            @foreach ($dataMobil as $dm)
+                                <div class="col-lg-4 col-md-4">
+                                    <div class="car__item">
+                                        <div class="car__item__pic__slider owl-carousel">
+                                            <img src="{{ asset('data/cars/' . $dm->gambar1) }}" alt=""
+                                                style="height: 200px; width: 100%; object-fit: cover;">
+                                            <img src="{{ asset('data/cars/' . $dm->gambar2) }}" alt=""
+                                                style="height: 200px; width: 100%; object-fit: cover;">
+                                            <img src="{{ asset('data/cars/' . $dm->gambar3) }}" alt=""
+                                                style="height: 200px; width: 100%; object-fit: cover;">
+                                            <img src="{{ asset('data/cars/' . $dm->gambar4) }}" alt=""
+                                                style="height: 200px; width: 100%; object-fit: cover;">
+                                            <img src="{{ asset('data/cars/' . $dm->gambar5) }}" alt=""
+                                                style="height: 200px; width: 100%; object-fit: cover;">
+                                            <img src="{{ asset('data/cars/' . $dm->gambar6) }}" alt=""
+                                                style="height: 200px; width: 100%; object-fit: cover;">
                                         </div>
 
+                                        <div class="car__item__text">
+                                            <div class="car__item__text__inner">
+                                                @if ($dm->status_mobil == 1)
+                                                    <div class="label-date">{{ $dm->tahun }}</div>
+                                                    <h5><a
+                                                            href="{{ route('detailMobil', Crypt::encrypt($dm->mobil_id)) }}">{{ $dm->merk . ' ' . $dm->nama_model }}</a>
+                                                    </h5>
+                                                    <ul>
+                                                        <li class="text-dark">{{ formatDecimal($dm->km) }} KM</li>
+                                                        <li class="text-dark">{{ $dm->transmisi }}</li>
+                                                    </ul>
+                                                @else
+                                                    <div class="label-date text-muted">{{ $dm->tahun }}</div>
+                                                    <h5><a href="{{ route('detailMobil', Crypt::encrypt($dm->mobil_id)) }}"
+                                                            class="text-muted">{{ $dm->merk . ' ' . $dm->nama_model }}</a>
+                                                    </h5>
+                                                    <ul>
+                                                        <li class="text-dark">{{ formatDecimal($dm->km) }} KM</li>
+                                                        <li class="text-muted">{{ $dm->transmisi }}</li>
+                                                    </ul>
+                                                @endif
+
+                                            </div>
+                                            <div class="car__item__price"
+                                                style="display: flex; justify-content: space-between; align-items: center;">
+                                                @if ($dm->status_mobil == 1)
+                                                    <span class="car-option available">Tersedia</span>
+                                                    @if ($dm->diskon != 0)
+                                                        <div
+                                                            style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                            <h6 style="text-decoration: line-through; text-decoration-thickness: 2px;"
+                                                                class="text-muted text-decoration-line-through">
+                                                                {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                            <h6 class="text-dark text-decoration-line-through">
+                                                                {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
+                                                            @if ($dm->total_cicilan != 0)
+                                                                <p class="text-warning" style="font-size: 12px;">
+                                                                    {{ formatRupiah($dm->total_cicilan) }} /
+                                                                    bulan</p>
+                                                            @endif
+                                                        </div>
+                                                    @else
+                                                        <div
+                                                            style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                            <h6 class="text-muted">
+                                                                {{ formatRupiah($dm->harga_jual) }} </h6>
+                                                            @if ($dm->total_cicilan != 0)
+                                                                <p class="text-warning" style="font-size: 12px;">
+                                                                    {{ formatRupiah($dm->total_cicilan) }} /
+                                                                    bulan</p>
+                                                            @endif
+                                                        </div>
+                                                    @endif
+                                                @elseif ($dm->status_mobil == 0)
+                                                    <span class="car-option soldout">Terjual</span>
+                                                    @if ($dm->diskon != 0)
+                                                        <div
+                                                            style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                            <h6 style="text-decoration: line-through; text-decoration-thickness: 2px;"
+                                                                class="text-muted text-decoration-line-through">
+                                                                {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                            <h6 class="text-muted text-decoration-line-through">
+                                                                {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
+
+                                                        </div>
+                                                    @else
+                                                        <div
+                                                            style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                            <h6 class="text-muted">
+                                                                {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                            <p class="text-warning" style="font-size: 12px;">
+                                                                {{ formatRupiah($dm->total_cicilan) }} /
+                                                                bulan</p>
+                                                        </div>
+                                                    @endif
+                                                @else
+                                                    <span class="car-option booked text-dark">Di pesan</span>
+                                                    @if ($dm->diskon != 0)
+                                                        <div
+                                                            style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                            <h6 style="text-decoration: line-through; text-decoration-thickness: 2px;"
+                                                                class="text-muted text-decoration-line-through">
+                                                                {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                            <h6 class="text-muted text-decoration-line-through">
+                                                                {{ formatRupiah($dm->harga_jual - $dm->diskon) }}</h6>
+
+
+                                                            @if ($dm->total_cicilan != 0)
+                                                                <p class="text-warning" style="font-size: 12px;">
+                                                                    {{ formatRupiah($dm->total_cicilan) }} /
+                                                                    bulan</p>
+                                                            @endif
+
+                                                        </div>
+                                                    @else
+                                                        <div
+                                                            style="display: flex; flex-direction: column; align-items: flex-end;">
+                                                            <h6 class="text-muted">
+                                                                {{ formatRupiah($dm->harga_jual) }}</h6>
+                                                            @if ($dm->total_cicilan != 0)
+                                                                <p class="text-warning" style="font-size: 12px;">
+                                                                    {{ formatRupiah($dm->total_cicilan) }} /
+                                                                    bulan</p>
+                                                            @endif
+                                                        </div>
+                                                    @endif
+                                                @endif
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
 
 
-                    </div>
+                        </div>
 
-                    {{-- pagination --}}
-                    <div class="pagination__option">
-                        @php
-                            $currentPage = $dataMobil->currentPage();
-                            $lastPage = $dataMobil->lastPage();
-                        @endphp
+                        {{-- pagination --}}
+                        <div class="pagination__option">
+                            @php
+                                $currentPage = $dataMobil->currentPage();
+                                $lastPage = $dataMobil->lastPage();
+                            @endphp
 
-                        {{-- Tampilkan tautan pagination ke halaman sebelumnya --}}
-                        @if ($currentPage > 1)
-                            <a href="{{ $dataMobil->previousPageUrl() }}" class="pagination-link">
-                                {{ $currentPage - 1 }}
-                            </a>
-                        @endif
+                            {{-- Tampilkan tautan pagination ke halaman sebelumnya --}}
+                            @if ($currentPage > 1)
+                                <a href="{{ $dataMobil->previousPageUrl() }}" class="pagination-link">
+                                    {{ $currentPage - 1 }}
+                                </a>
+                            @endif
 
-                        {{-- Tampilkan halaman saat ini dengan class "active" --}}
-                        <a href="#" class="pagination-link active">{{ $currentPage }}</a>
+                            {{-- Tampilkan halaman saat ini dengan class "active" --}}
+                            <a href="#" class="pagination-link active">{{ $currentPage }}</a>
 
-                        {{-- Tampilkan tautan pagination ke halaman berikutnya --}}
-                        @if ($currentPage < $lastPage)
-                            <a href="{{ $dataMobil->nextPageUrl() }}" class="pagination-link">
-                                {{ $currentPage + 1 }}
-                            </a>
-                        @endif
+                            {{-- Tampilkan tautan pagination ke halaman berikutnya --}}
+                            @if ($currentPage < $lastPage)
+                                <a href="{{ $dataMobil->nextPageUrl() }}" class="pagination-link">
+                                    {{ $currentPage + 1 }}
+                                </a>
+                            @endif
 
-                        {{-- Tampilkan tautan ke halaman terakhir --}}
-                        @if ($currentPage < $lastPage - 1)
-                            <a href="{{ $dataMobil->url($lastPage) }}" class="pagination-link">
-                                {{ $lastPage }}
-                            </a>
-                        @endif
-                    </div>
+                            {{-- Tampilkan tautan ke halaman terakhir --}}
+                            @if ($currentPage < $lastPage - 1)
+                                <a href="{{ $dataMobil->url($lastPage) }}" class="pagination-link">
+                                    {{ $lastPage }}
+                                </a>
+                            @endif
+                        </div>
+                    @else
+                        <div class="row d-flex justify-content-center">
+                            <h3 class="d-flex justify-content-center">Tidak ada mobil yang sesuai.</h3>
+                        </div>
+                    @endif
+
                 </div>
             </div>
         </div>

@@ -192,6 +192,10 @@ Route::get('review', [MainController::class, 'review'])->name('review');
 Route::get('mobil', [MobilController::class, 'tampilMobil'])->name('mobil');
 Route::get('detailMobil/{mobilId}', [MobilController::class, 'detailMobilClient'])->name('detailMobil');
 Route::get('cariMobil', [MobilController::class, 'cariMobil'])->name('cariMobil');
+Route::get('filterMobil', [MobilController::class, 'filterMobil'])->name('filterMobil');
+
+
+
 
 // credit
 Route::get('credit/{mobilId}/{financeId}', [CreditController::class, 'credit'])->name('credit');

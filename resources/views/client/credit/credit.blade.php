@@ -123,7 +123,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-9">
-                    <p style="font-size: 60px; color: black" class="text"><b>Hitung Cicilan.</b></p>
+                    <h2 style="font-size: 60px; color: black" class="text"><b>Hitung Cicilan.</b></h2>
                     <br>
                     <label class="text text-dark mt-3" style="font-size: 20px"><b>Uang Muka (DP)</b></label>
                     <table>
