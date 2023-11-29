@@ -114,7 +114,7 @@
 
                     <li class="sidebar-title">Profil Saya</li>
                     <li class="sidebar-item ">
-                        <a href="{{ route('adminProfile') }}" class='sidebar-link'>
+                        <a href="{{ route('profile') }}" class='sidebar-link'>
                             <i class="bi bi-person-fill"></i>
                             <span>Profil</span>
                         </a>
@@ -170,7 +170,7 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                             style="min-width: 11rem;">
 
-                            <li><a class="dropdown-item" href="{{ route('adminProfile') }}"><i
+                            <li><a class="dropdown-item" href="{{ route('profile') }}"><i
                                         class="icon-mid bi bi-person me-2"></i>Profil
                                     Saya</a></li>
 

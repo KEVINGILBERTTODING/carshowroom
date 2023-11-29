@@ -23,6 +23,16 @@ class AuthClientController extends Controller
                 $request = session()->put('client', true);
                 $request = session()->put('user_id', $validateEmail['user_id']);
                 $request =  session()->put('profile_photo', $profilePhoto);
+
+                $data = [
+
+                    'nama_lengkap' => $namaLengkap,
+                    'profile_photo' => $profilePhoto,
+                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+                // update data baru
+                User::where('user_id', $validateEmail['user_id'])->update($data);
                 return response()->json([
                     'status' => 'success',
                     'message' => 'User registered, session updated',

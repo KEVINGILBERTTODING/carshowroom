@@ -263,17 +263,19 @@
                                     </div>
 
                                 </div>
-                                <div class="form-group">
-                                    <label>Email</label>
-                                    <input type="email" name="email" class="form-control"
-                                        value="{{ $dataUser['email'] }}" required="Email tidak boleh kosong">
+                                @if ($dataUser['sign_in'] == 'email')
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="email" name="email" class="form-control"
+                                            value="{{ $dataUser['email'] }}">
 
 
-                                </div>
+                                    </div>
+                                @endif
 
                                 <div class="form-group">
                                     <label>Alamat</label>
-                                    <textarea type="text" placeholder="Alamat lengkap anda..." name="alamat" class="form-control"
+                                    <textarea type="text" rows="4" placeholder="Alamat lengkap anda..." name="alamat" class="form-control"
                                         required="Alamat tidak boleh kosong">{{ $dataUser['alamat'] }}</textarea>
 
 
@@ -292,7 +294,7 @@
             </div>
         </div>
 
-        @include('client.profile.modal_update_password');
+        @include('client.profile.modal_update_password')
 
         <!--Modal ubah profile photo-->
         <div class="modal fade text-left modal-borderless" id="modal_update_photo" tabindex="-1" role="dialog"

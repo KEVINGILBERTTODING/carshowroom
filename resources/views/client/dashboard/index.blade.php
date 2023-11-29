@@ -167,7 +167,7 @@
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton"
                             style="min-width: 11rem;">
 
-                            <li><a class="dropdown-item" href="{{ route('adminProfile') }}"><i
+                            <li><a class="dropdown-item" href="{{ route('profile') }}"><i
                                         class="icon-mid bi bi-person me-2"></i>Profil
                                     Saya</a></li>
 
