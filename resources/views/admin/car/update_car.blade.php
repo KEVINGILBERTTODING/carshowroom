@@ -555,20 +555,17 @@
 
                                 <div class="form-group ">
                                     <label>Link Youtube</label>
-                                    <input name="url_youtube" type="text" class="form-control"
-                                        value="{{ $dataMobil['url_youtube'] }}">
+                                    <textarea name="deskripsi" type="text" rows="4" required class="form-control" required>{{ $dataMobil['url_youtube'] }}</textarea>
                                 </div>
 
                                 <div class="form-group ">
                                     <label>Link Postingan Instagram</label>
-                                    <input name="url_instagram" type="text" class="form-control"
-                                        value="{{ $dataMobil['url_instagram'] }}">
+                                    <textarea name="deskripsi" type="text" rows="4" required class="form-control" required>{{ $dataMobil['url_instagram'] }}</textarea>
                                 </div>
 
                                 <div class="form-group ">
                                     <label>Link Postingan Facebook</label>
-                                    <input name="url_facebook" type="text" class="form-control"
-                                        value="{{ $dataMobil['url_facebook'] }}">
+                                    <textarea name="deskripsi" type="text" rows="4" required class="form-control" required>{{ $dataMobil['url_facebook'] }}</textarea>
                                 </div>
 
                                 <div class="form-group ">

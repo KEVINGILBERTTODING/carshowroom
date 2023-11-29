@@ -467,26 +467,36 @@
                                         value="{{ $dataMobil['nama_pemilik'] }}">
                                 </div>
 
-                                <div class="form-group ">
+                                <div class="form-group mb-3">
                                     <label>Link Youtube</label>
                                     <br>
 
 
                                     @if ($dataMobil['url_youtube'] != null)
-                                        <a href="{{ $dataMobil['url_youtube'] }}" class="text-primary" target="_blank"
-                                            rel="noopener noreferrer">{{ $dataMobil['url_youtube'] }}</a>
+                                        @if (Str::contains($dataMobil['url_youtube'], '<iframe'))
+                                            {!! $dataMobil['url_youtube'] !!}
+                                        @else
+                                            <a href="{{ $dataMobil['url_youtube'] }}" target="_blank"
+                                                class="btn btn-primary"><i class="fa fa-play" aria-hidden="true"></i>
+                                                Lihat
+                                                Video</a>
+                                        @endif
                                     @else
                                         <p class="text-sm text-danger">Tidak ada link.</p>
                                     @endif
 
                                 </div>
 
-                                <div class="form-group ">
+                                <div class="form-group mb-3">
                                     <label>Link Postingan Instagram</label>
                                     <br>
                                     @if ($dataMobil['url_instagram'] != null)
-                                        <a href="{{ $dataMobil['url_instagram'] }}" class="text-primary" target="_blank"
-                                            rel="noopener noreferrer">{{ $dataMobil['url_instagram'] }}</a>
+                                        @if (Str::contains($dataMobil['url_instagram'], '<blockquote'))
+                                            {!! $dataMobil['url_instagram'] !!}
+                                        @else
+                                            <a href="{{ $dataMobil['url_instagram'] }}" target="_blank"
+                                                class="btn btn-primary">Lihat Postingan</a>
+                                        @endif
                                     @else
                                         <p class="text-sm text-danger">Tidak ada link.</p>
                                     @endif
@@ -498,8 +508,12 @@
                                     <br>
 
                                     @if ($dataMobil['url_facebook'] != null)
-                                        <a href="{{ $dataMobil['url_facebook'] }}" class="text-primary" target="_blank"
-                                            rel="noopener noreferrer">{{ $dataMobil['url_facebook'] }}</a>
+                                        @if (Str::contains($dataMobil['url_facebook'], '<iframe'))
+                                            {!! $dataMobil['url_facebook'] !!}
+                                        @else
+                                            <a href="{{ $dataMobil['url_facebook'] }}" target="_blank"
+                                                class="btn btn-primary">Lihat Postingan</a>
+                                        @endif
                                     @else
                                         <p class="text-sm text-danger">Tidak ada link.</p>
                                     @endif
@@ -507,10 +521,8 @@
                                 </div>
                                 <div class="form-group ">
                                     <label>Deskripsi</label>
-                                    <textarea name="deskripsi" type="text" rows="3" class="form-control" required readonly>{{ $dataMobil['deskripsi'] }}</textarea>
+                                    <textarea name="deskripsi" type="text" rows="3" class="form-control" required readonly></textarea>
                                 </div>
-
-
 
 
                             </div>

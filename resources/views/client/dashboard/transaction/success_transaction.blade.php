@@ -102,6 +102,16 @@
                         </ul>
                     </li>
 
+                    <li class="sidebar-title">Pusat Bantuan</li>
+                    <li class="sidebar-item ">
+                        <a class='sidebar-link'
+                            href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataApp['no_hp']) }}&text=Halo,%20saya%20ingin%20bertanya%20tentang"
+                            target="_blank" rel="noopener noreferrer">
+                            <i class="bi bi-whatsapp"></i>
+                            <span>Customer Service</span>
+                        </a>
+                    </li>
+
                     <li class="sidebar-title">Profil Saya</li>
                     <li class="sidebar-item ">
                         <a href="{{ route('adminProfile') }}" class='sidebar-link'>
