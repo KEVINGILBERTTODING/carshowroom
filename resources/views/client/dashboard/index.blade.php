@@ -141,12 +141,27 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-lg-0">
+                        <li class="nav-item dropdown me-3" id="btnNotification">
+                            <a class="nav-link active text-gray-600" href="#" data-bs-target="#modal_notification"
+                                data-bs-toggle="modal" data-bs-display="static" aria-expanded="false">
+                                <i class='bi bi-bell bi-sm bi-sub fs-4'>
 
+                                    @if ($totalNotification != 0)
+                                        <span class="badge bg-danger rounded-pill text-sm" id="ic_notification">
+                                            {{ $totalNotification }}
+                                        </span>
+                                    @endif
+                                </i>
+                            </a>
 
+                        </li>
                     </ul>
+
+
                     <div class="dropdown">
                         <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="user-menu d-flex">
+
                                 <div class="user-name text-end me-3">
                                     <h6 class="mb-0 text-gray-600">{{ $dataUser['nama_lengkap'] }}</h6>
                                     <p class="mb-0 text-sm text-gray-600">Customer</p>
@@ -280,6 +295,10 @@
                         </div>
                     </div>
                 </div>
+
+
+                {{-- include modal notification --}}
+                @include('client.dashboard.notification')
     </section>
 @endsection
 
@@ -306,6 +325,23 @@
 
                 $("#greeting").text("Selamat malam, " + username + '!');
             }
+
+        });
+    </script>
+
+    {{-- script notification set read --}}
+    <script>
+        $('#btnNotification').click(function(e) {
+            e.preventDefault();
+            $('#ic_notification').text('');
+            $.ajax({
+                type: "get",
+                url: "/setReadClient",
+                dataType: "json",
+                success: function(response) {
+
+                }
+            });
 
         });
     </script>

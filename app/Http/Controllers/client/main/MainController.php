@@ -5,6 +5,7 @@ namespace App\Http\Controllers\client\main;
 use App\Http\Controllers\Controller;
 use App\Models\AppModel;
 use App\Models\FInanceModel;
+use App\Models\NotificationModel;
 use App\Models\ReviewModel;
 use App\Models\TransactionModel;
 use App\Models\User;
@@ -143,6 +144,8 @@ class MainController extends Controller
             $totalProsesFinanceTransaksi = $transactionModel->countTotalTransactionCustomer(session('user_id'), 3);
             $totalTidakValidTransaksi = $transactionModel->countTotalTransactionCustomer(session('user_id'), 0);
             $dataApp =  AppModel::where('app_id', 1)->first();
+            $dataNotification = NotificationModel::where('user_id', session('user_id'))->orderBy('notif_id', 'desc')->get();
+            $totalNotification = NotificationModel::select('notif_id')->where('status', 0)->count();
 
             $data = [
                 'dataUser' => $dataUser,
@@ -150,7 +153,9 @@ class MainController extends Controller
                 'totalProsesTransaksi' => $totalProsesTransaksi,
                 'totalProsesFinanceTransaksi' => $totalProsesFinanceTransaksi,
                 'totalTransaksiTidakValid' => $totalTidakValidTransaksi,
-                'dataApp' => $dataApp
+                'dataApp' => $dataApp,
+                'dataNotification' => $dataNotification,
+                'totalNotification' => $totalNotification
             ];
             return view('client.dashboard.index', $data);
         } catch (\Throwable $th) {

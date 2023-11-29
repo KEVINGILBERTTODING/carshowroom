@@ -18,6 +18,7 @@ use App\Http\Controllers\client\main\MainController;
 use App\Http\Controllers\client\transaction\TransactionController as TransactionTransactionController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\FinanceController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Middleware\ClientMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -235,3 +236,7 @@ Route::post('storeReview', [ReviewController::class, 'store'])->name('storeRevie
 
 // profile client
 Route::get('profile', [MainController::class, 'profile'])->name('profile')->middleware('authClient');
+
+// notification client
+Route::get('setReadClient', [NotificationController::class, 'setReadClient'])->name('setReadClient')->middleware('authClient');
+Route::get('deleteNotifClient', [NotificationController::class, 'deleteNotifClient'])->name('deleteNotifClient')->middleware('authClient');
