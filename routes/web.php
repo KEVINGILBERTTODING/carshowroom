@@ -11,6 +11,7 @@ use App\Http\Controllers\admin\components\TangkiController;
 use App\Http\Controllers\admin\components\TransmisiController;
 use App\Http\Controllers\admin\components\WarnaController;
 use App\Http\Controllers\admin\MobilController;
+use App\Http\Controllers\admin\setting\SettingController;
 use App\Http\Controllers\admin\transactions\TransactionController;
 use App\Http\Controllers\admin\users\UsersController;
 use App\Http\Controllers\client\auth\AuthClientController;
@@ -243,3 +244,9 @@ Route::get('setReadClient', [NotificationController::class, 'setReadClient'])->n
 Route::get('setReadAdmin', [NotificationController::class, 'setReadAdmin'])->name('setReadAdmin')->middleware('admin');
 Route::get('deleteNotifClient', [NotificationController::class, 'deleteNotifClient'])->name('deleteNotifClient')->middleware('authClient');
 Route::get('deleteNotifAdmin', [NotificationController::class, 'deleteNotifAdmin'])->name('deleteNotifAdmin')->middleware('admin');
+
+
+// admin setting
+Route::get('settings', [SettingController::class, 'index'])->name('settings')->middleware('admin');
+Route::post('updateDataShowroom', [SettingController::class, 'updateDataShowroom'])->name('updateDataShowroom')->middleware('admin');
+Route::post('updateContent', [SettingController::class, 'updateContent'])->name('updateContent')->middleware('admin');

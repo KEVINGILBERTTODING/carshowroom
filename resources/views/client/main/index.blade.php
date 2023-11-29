@@ -379,7 +379,7 @@
             </div>
         </div>
         <div class="chooseus__video set-bg">
-            <img src="{{ asset('template/client/img/main/footer.png') }}" alt="">
+            <img src="{{ asset('template/client/img/main/' . $dataApp['img_about_us2']) }}" alt="Image">
 
         </div>
     </section>
@@ -431,6 +431,7 @@
                         </div>
                 </div>
                 @endforeach
+
 
             </div>
         </div>

@@ -211,6 +211,14 @@
 
                     </li>
 
+                    <li class="sidebar-title">Utilitas</li>
+                    <li class="sidebar-item ">
+                        <a href="{{ route('settings') }}" class='sidebar-link'>
+                            <i class="bi bi-tools"></i>
+                            <span>Pengaturan</span>
+                        </a>
+                    </li>
+
 
 
                     <li class="sidebar-title">Profil Saya</li>
