@@ -18,6 +18,7 @@ use App\Http\Controllers\client\auth\AuthClientController;
 use App\Http\Controllers\client\main\MainController;
 use App\Http\Controllers\client\transaction\TransactionController as TransactionTransactionController;
 use App\Http\Controllers\CreditController;
+use App\Http\Controllers\employee\auth\EmployeeAuthController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReviewController;
@@ -43,6 +44,12 @@ Route::get('/', [MainController::class, 'index'])->name('/');
 Route::get('admin', [AdminAuthController::class, 'index'])->name('admin')->middleware('authAdmin');
 Route::post('loginAdmin', [AdminAuthController::class, 'login'])->name('loginAdmin')->middleware('authAdmin');
 Route::get('adminDashboard', [AdminController::class, 'index'])->name('adminDashboard')->middleware('admin');
+Route::get('logOutAdmin', [AdminAuthController::class, 'logOutAdmin'])->name('logOutAdmin');
+
+// admin
+Route::get('karyawan', [EmployeeAuthController::class, 'index'])->name('karyawan');
+Route::post('loginEmployee', [EmployeeAuthController::class, 'login'])->name('loginEmployee');
+Route::get('karywanDashboard', [EmployeeAuthController::class, 'index'])->name('karywanDashboard')->middleware('authEmployee');
 Route::get('logOutAdmin', [AdminAuthController::class, 'logOutAdmin'])->name('logOutAdmin');
 
 // warna mobil
