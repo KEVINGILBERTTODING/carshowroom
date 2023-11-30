@@ -130,10 +130,13 @@ class MobilModel extends Model
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
             ->where('mobil.nama_model', 'like', '%' . $keyword . '%')
+            ->orWhere('merk.merk', 'like', '%' . $keyword . '%')
             ->orderBy('mobil.mobil_id', 'desc');
 
         return $query;
     }
+
+
 
     function filterCar($merk, $jenis, $transmisi)
     {

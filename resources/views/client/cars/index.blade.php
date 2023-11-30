@@ -168,20 +168,7 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <div class="car__filter__option">
-                        <div class="row">
 
-                            <div class="col">
-                                <div class="car__filter__option__item car__filter__option__item--right">
-                                    <h6>Sort By</h6>
-                                    <select>
-                                        <option value="">Harga Tertinggi</option>
-                                        <option value="">Harga Terendah</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     @if (!$dataMobil->isEmpty())
                         <div class="row">
 
