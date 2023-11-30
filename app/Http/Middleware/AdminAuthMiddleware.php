@@ -15,9 +15,12 @@ class AdminAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session('role') != 'admin') {
+        if (session('role') != 'admin' && session('role') != 'employee') {
             return redirect('/');
         }
+
+
+
         return $next($request);
     }
 }

@@ -49,10 +49,9 @@ Route::get('adminDashboard', [AdminController::class, 'index'])->name('adminDash
 Route::get('logOutAdmin', [AdminAuthController::class, 'logOutAdmin'])->name('logOutAdmin');
 
 // employee
-Route::get('karyawan', [EmployeeAuthController::class, 'index'])->name('karyawan')->middleware('employeeAuth');
-Route::post('loginEmployee', [EmployeeAuthController::class, 'login'])->name('loginEmployee')->middleware('employeeAuth');
-Route::get('karyawanDashboard', [EmployeeController::class, 'index'])->name('karyawanDashboard')->middleware('authEmployee');
-Route::get('logOutEmployee', [EmployeeAuthController::class, 'logOutEmployee'])->name('logOutEmployee')->middleware('authEmployee');
+Route::get('karyawan', [EmployeeAuthController::class, 'index'])->name('karyawan')->middleware('authAdmin');
+Route::post('loginEmployee', [EmployeeAuthController::class, 'login'])->name('loginEmployee')->middleware('authAdmin');
+Route::get('logOutEmployee', [EmployeeAuthController::class, 'logOutEmployee'])->name('logOutEmployee');
 
 // warna mobil
 Route::get('warna', [WarnaController::class, 'index'])->name('warna')->middleware('admin');
@@ -60,10 +59,6 @@ Route::post('tambahWarna', [WarnaController::class, 'tambah'])->name('tambahWarn
 Route::post('updateWarna', [WarnaController::class, 'update'])->name('updateWarna')->middleware('admin');
 Route::get('hapusWarna/{warnaId}', [WarnaController::class, 'hapus'])->name('hapusWarna')->middleware('admin');
 
-Route::get('warnaEmployee', [EmployeeWarnaController::class, 'index'])->name('warnaEmployee')->middleware('authEmployee');
-Route::post('tambahWarna', [EmployeeWarnaController::class, 'tambah'])->name('tambahWarna')->middleware('authEmployee');
-Route::post('updateWarna', [EmployeeWarnaController::class, 'update'])->name('updateWarna')->middleware('authEmployee');
-Route::get('hapusWarna/{warnaId}', [EmployeeWarnaController::class, 'hapus'])->name('hapusWarna')->middleware('authEmployee');
 
 
 // merk mobil

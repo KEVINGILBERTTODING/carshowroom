@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AppModel;
 use App\Models\CreditModel;
+use App\Models\EmployeeModel;
 use App\Models\FInanceModel;
 use App\Models\MobilModel;
 use App\Models\NotificationModel;
@@ -22,7 +23,12 @@ class TransactionController extends Controller
     function allTransactions()
     {
 
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getAllTransactionByStatus(4);
@@ -1104,7 +1110,12 @@ class TransactionController extends Controller
         $dateEnd = $request->input('date_end');
         $status = $request->input('status');
         try {
-            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            if (session('role') == 'admin') {
+                $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            } else {
+                $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+            }
+
             $dataApp = AppModel::where('app_id', 1)->first();
             $transactionModel = new TransactionModel();
             $dataTransactions = $transactionModel->filterTransaksi($dateFrom, $dateEnd, $status);
@@ -1156,7 +1167,12 @@ class TransactionController extends Controller
         $dateEnd = $request->input('date_end');
         $status = $request->input('status');
         try {
-            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            if (session('role') == 'admin') {
+                $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            } else {
+                $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+            }
+
             $dataApp = AppModel::where('app_id', 1)->first();
             $totalPemasukan = TransactionModel::where('status', 1)
                 ->whereBetween('created_at', [$dateFrom, $dateEnd])
@@ -1244,7 +1260,12 @@ class TransactionController extends Controller
         try {
             $yearNow = Carbon::now()->format('Y');
             $monthNow = Carbon::now()->format('m');
-            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            if (session('role') == 'admin') {
+                $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            } else {
+                $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+            }
+
             $dataApp = AppModel::where('app_id', 1)->first();
             $transactionModel = new TransactionModel();
             $dataTransactions = $transactionModel->getTransactionsMonth($yearNow, $monthNow);
@@ -1275,7 +1296,12 @@ class TransactionController extends Controller
 
         try {
             $yearNow = Carbon::now()->format('Y');
-            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            if (session('role') == 'admin') {
+                $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            } else {
+                $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+            }
+
             $dataApp = AppModel::where('app_id', 1)->first();
             $transactionModel = new TransactionModel();
             $dataPemasukanPerTahun = $transactionModel->totalPemasukanYear($yearNow);

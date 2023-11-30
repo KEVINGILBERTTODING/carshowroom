@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AppModel;
+use App\Models\EmployeeModel;
 use App\Models\FInanceModel;
 use App\Models\MobilModel;
 use App\Models\NotificationAdminModel;
@@ -28,7 +29,11 @@ class AdminController extends Controller
         $yearNow = Carbon::now()->format('Y');
         $monthNow = Carbon::now()->format('m');
         $transaksiModel = new TransactionModel();
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } elseif (session('role') == 'employee') {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
         $dataApp = AppModel::where('app_id', 1)->first();
         $totalUser = User::count();
         $totalFinance = FInanceModel::count();

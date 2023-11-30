@@ -21,7 +21,7 @@ class MainController extends Controller
         }
 
         if (session('login') == true && session('role') == 'employee') {
-            return redirect()->route('karyawanDashboard');
+            return redirect()->route('adminDashboard');
         }
 
         $dataApp =  AppModel::where('app_id', 1)->first();

@@ -48,7 +48,7 @@ class EmployeeAuthController extends Controller
                     $request = session()->put('login', true);
                     $request = session()->put('role', 'employee');
                     $request = session()->put('karyawan_id', $validate['karyawan_id']);
-                    return redirect()->route('karyawanDashboard');
+                    return redirect()->route('adminDashboard');
                 } else {
                     return redirect()->back()->with('failed', 'Kata sandi salah')->withInput();
                 }
