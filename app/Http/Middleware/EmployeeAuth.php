@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminAuthMiddleware
+class EmployeeAuth
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,8 @@ class AdminAuthMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session('role') != 'admin') {
-            return redirect('/');
+        if (session('role') == 'employee') {
+            return redirect()->route('karyawanDashboard');
         }
         return $next($request);
     }

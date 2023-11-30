@@ -17,7 +17,7 @@ class EmployeeAuthController extends Controller
     }
     function index()
     {
-        return view('admin.auth.login');
+        return view('employee.auth.login');
     }
 
     function login(Request $request)
@@ -48,7 +48,7 @@ class EmployeeAuthController extends Controller
                     $request = session()->put('login', true);
                     $request = session()->put('role', 'employee');
                     $request = session()->put('karyawan_id', $validate['karyawan_id']);
-                    return redirect()->route('karywanDashboard');
+                    return redirect()->route('karyawanDashboard');
                 } else {
                     return redirect()->back()->with('failed', 'Kata sandi salah')->withInput();
                 }
@@ -63,6 +63,6 @@ class EmployeeAuthController extends Controller
     function logOutEmployee()
     {
         session()->flush();
-        return redirect()->route('admin');
+        return redirect()->route('karyawan');
     }
 }

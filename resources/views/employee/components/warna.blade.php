@@ -1,7 +1,7 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Warna Mobil</title>
+    <title>Karyawan - Warna Mobil</title>
 @endsection
 
 @section('sidebar')

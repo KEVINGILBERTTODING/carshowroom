@@ -20,6 +20,10 @@ class MainController extends Controller
             return redirect()->route('adminDashboard');
         }
 
+        if (session('login') == true && session('role') == 'employee') {
+            return redirect()->route('karyawanDashboard');
+        }
+
         $dataApp =  AppModel::where('app_id', 1)->first();
         $dataReview  = ReviewModel::select(
             'review.review_text',

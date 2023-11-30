@@ -12,7 +12,7 @@
             <h1 class="auth-title">Masuk</h1>
             <p class="auth-subtitle mb-5">Masuk dengan data yang Anda masukkan saat pendaftaran</p>
 
-            <form action="{{ route('loginAdmin') }}" method="POST">
+            <form action="{{ route('loginEmployee') }}" method="POST">
                 @csrf
                 <div class="form-group position-relative has-icon-left mb-4">
                     <input type="text" name="email" required type="email" class="form-control form-control-xl"
@@ -35,10 +35,10 @@
 
                 <button type="submit" class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Masuk</button>
             </form>
-            <div class="text-center mt-5 text-lg fs-4">
+            {{-- <div class="text-center mt-5 text-lg fs-4">
 
                 <p><a class="font-bold" href="auth-forgot-password.html">Lupa kata sandi?</a>.</p>
-            </div>
+            </div> --}}
         </div>
     </div>
     <div class="col-lg-7 d-none d-lg-block">

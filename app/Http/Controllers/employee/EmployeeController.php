@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\employee;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
@@ -29,7 +29,7 @@ class EmployeeController extends Controller
         $yearNow = Carbon::now()->format('Y');
         $monthNow = Carbon::now()->format('m');
         $transaksiModel = new TransactionModel();
-        $dataEmployee = EmployeeModel::where('karywan_id', session('karywan_id'))->first();
+        $dataKaryawan = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
         $totalUser = User::count();
         $totalFinance = FInanceModel::count();
@@ -49,7 +49,7 @@ class EmployeeController extends Controller
         $totalNotification = NotificationAdminModel::select('notif_id')->count();
 
         $data = [
-            'dataEmployee' => $dataEmployee,
+            'dataKaryawan' => $dataKaryawan,
             'dataApp' => $dataApp,
             'totalUser' => $totalUser,
             'dataPemasukanPerTahun' => $dataPemasukanPerTahun,

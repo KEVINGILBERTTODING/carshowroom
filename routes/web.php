@@ -19,6 +19,8 @@ use App\Http\Controllers\client\main\MainController;
 use App\Http\Controllers\client\transaction\TransactionController as TransactionTransactionController;
 use App\Http\Controllers\CreditController;
 use App\Http\Controllers\employee\auth\EmployeeAuthController;
+use App\Http\Controllers\employee\components\EmployeeWarnaController;
+use App\Http\Controllers\employee\EmployeeController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReviewController;
@@ -46,17 +48,23 @@ Route::post('loginAdmin', [AdminAuthController::class, 'login'])->name('loginAdm
 Route::get('adminDashboard', [AdminController::class, 'index'])->name('adminDashboard')->middleware('admin');
 Route::get('logOutAdmin', [AdminAuthController::class, 'logOutAdmin'])->name('logOutAdmin');
 
-// admin
-Route::get('karyawan', [EmployeeAuthController::class, 'index'])->name('karyawan');
-Route::post('loginEmployee', [EmployeeAuthController::class, 'login'])->name('loginEmployee');
-Route::get('karywanDashboard', [EmployeeAuthController::class, 'index'])->name('karywanDashboard')->middleware('authEmployee');
-Route::get('logOutAdmin', [AdminAuthController::class, 'logOutAdmin'])->name('logOutAdmin');
+// employee
+Route::get('karyawan', [EmployeeAuthController::class, 'index'])->name('karyawan')->middleware('employeeAuth');
+Route::post('loginEmployee', [EmployeeAuthController::class, 'login'])->name('loginEmployee')->middleware('employeeAuth');
+Route::get('karyawanDashboard', [EmployeeController::class, 'index'])->name('karyawanDashboard')->middleware('authEmployee');
+Route::get('logOutEmployee', [EmployeeAuthController::class, 'logOutEmployee'])->name('logOutEmployee')->middleware('authEmployee');
 
 // warna mobil
 Route::get('warna', [WarnaController::class, 'index'])->name('warna')->middleware('admin');
 Route::post('tambahWarna', [WarnaController::class, 'tambah'])->name('tambahWarna')->middleware('admin');
 Route::post('updateWarna', [WarnaController::class, 'update'])->name('updateWarna')->middleware('admin');
 Route::get('hapusWarna/{warnaId}', [WarnaController::class, 'hapus'])->name('hapusWarna')->middleware('admin');
+
+Route::get('warnaEmployee', [EmployeeWarnaController::class, 'index'])->name('warnaEmployee')->middleware('authEmployee');
+Route::post('tambahWarna', [EmployeeWarnaController::class, 'tambah'])->name('tambahWarna')->middleware('authEmployee');
+Route::post('updateWarna', [EmployeeWarnaController::class, 'update'])->name('updateWarna')->middleware('authEmployee');
+Route::get('hapusWarna/{warnaId}', [EmployeeWarnaController::class, 'hapus'])->name('hapusWarna')->middleware('authEmployee');
+
 
 // merk mobil
 

@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\admin\components;
+namespace App\Http\Controllers\employee\components;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AppModel;
+use App\Models\EmployeeModel;
 use App\Models\WarnaModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class WarnaController extends Controller
+class EmployeeWarnaController extends Controller
 {
     public function __construct()
     {
@@ -17,16 +18,16 @@ class WarnaController extends Controller
     }
     function index()
     {
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        $dataKaryawan = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataWarna = WarnaModel::get();
         $data = [
-            'dataAdmin' => $dataAdmin,
+            'dataKaryawan' => $dataKaryawan,
             'dataWarna' => $dataWarna,
             'dataApp' => $dataApp
         ];
 
-        return view('admin.components.warna', $data);
+        return view('employee.components.warna', $data);
     }
 
     function tambah(Request $request)

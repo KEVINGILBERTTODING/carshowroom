@@ -15,7 +15,7 @@ class AuthEmployee
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session('login') != true && session('role') != 'employee') {
+        if (session('role') != 'employee') {
             return redirect()->route('/');
         }
         return $next($request);
