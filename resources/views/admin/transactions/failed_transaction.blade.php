@@ -1,7 +1,11 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Transaksi Tidak Valid</title>
+    @if (session('role') == 'admin')
+        <title>Admin - Transaksi Tidak Valid</title>
+    @else
+        <title>Karyawan - Transaksi Tidak Valid</title>
+    @endif
 @endsection
 
 @section('sidebar')
@@ -184,29 +188,43 @@
 
 
                     </li>
-                    <li class="sidebar-title">Data Pengguna</li>
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-people"></i>
-                            <span>Pengguna</span>
-                        </a>
+                    @if (session('role') == 'admin')
+                        <li class="sidebar-title">Data Pengguna</li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-people"></i>
+                                <span>Pengguna</span>
+                            </a>
 
-                        <ul class="submenu ">
-                            <li class="submenu-item  ">
-                                <a href="{{ route('dataPelanggan') }}" class="submenu-link">Pelanggan</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('dataPengguna') }}" class="submenu-link">Pengguna</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('dataPemilik') }}" class="submenu-link">Pemilik</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('dataKaryawan') }}" class="submenu-link">Karyawan</a>
-                            </li>
-                        </ul>
+                            <ul class="submenu ">
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('dataPelanggan') }}" class="submenu-link">Pelanggan</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('dataPengguna') }}" class="submenu-link">Pengguna</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('dataPemilik') }}" class="submenu-link">Pemilik</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('dataKaryawan') }}" class="submenu-link">Karyawan</a>
+                                </li>
+                            </ul>
+
+                        </li>
+                    @endif
 
                     </li>
+
+                    @if (session('role') == 'admin')
+                        <li class="sidebar-title">Utilitas</li>
+                        <li class="sidebar-item ">
+                            <a href="{{ route('settings') }}" class='sidebar-link'>
+                                <i class="bi bi-tools"></i>
+                                <span>Pengaturan</span>
+                            </a>
+                        </li>
+                    @endif
 
                     </li>
                     <li class="sidebar-title">Profil Saya</li>
@@ -248,7 +266,11 @@
                             <div class="user-menu d-flex">
                                 <div class="user-name text-end me-3">
                                     <h6 class="mb-0 text-gray-600">{{ $dataAdmin['name'] }}</h6>
-                                    <p class="mb-0 text-sm text-gray-600">Administrator</p>
+                                    @if (session('role') == 'admin')
+                                        <p class="mb-0 text-sm text-gray-600">Administrator</p>
+                                    @else
+                                        <p class="mb-0 text-sm text-gray-600">Karyawan</p>
+                                    @endif
                                 </div>
                                 <div class="user-img d-flex align-items-center">
                                     <div class="avatar avatar-md">
@@ -266,8 +288,13 @@
                             <li>
                                 <hr class="dropdown-divider">
                             </li>
-                            <li><a class="dropdown-item" href="{{ route('logOutAdmin') }}"><i
-                                        class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</a></li>
+                            @if (session('role') == 'admin')
+                                <li><a class="dropdown-item" href="{{ route('logOutAdmin') }}"><i
+                                            class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</a></li>
+                            @else
+                                <li><a class="dropdown-item" href="{{ route('logOutEmployee') }}"><i
+                                            class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</a></li>
+                            @endif
                         </ul>
                     </div>
                 </div>

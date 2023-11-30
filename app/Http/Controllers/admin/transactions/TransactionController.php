@@ -51,7 +51,12 @@ class TransactionController extends Controller
     function allTransactionSuccess()
     {
 
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getAllTransactionByStatus(1);
@@ -75,7 +80,12 @@ class TransactionController extends Controller
     function allTransactionProcess()
     {
 
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getAllTransactionByStatus(2);
@@ -98,7 +108,12 @@ class TransactionController extends Controller
     function allTransactionProcessFinance()
     {
 
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getAllTransactionByStatus(3);
@@ -120,7 +135,12 @@ class TransactionController extends Controller
     function allTransactionFailed()
     {
 
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getAllTransactionByStatus(0);
@@ -502,7 +522,12 @@ class TransactionController extends Controller
     {
         $transaksiModel = new TransactionModel();
         $dataTransaction = $transaksiModel->adminDetailTransaction($transactionId);
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $data = [
             'dataAdmin' => $dataAdmin,
@@ -1063,7 +1088,12 @@ class TransactionController extends Controller
         $dateEnd = $request->input('date_end');
         $status = $request->input('status');
         try {
-            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            if (session('role') == 'admin') {
+                $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            } else {
+                $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+            }
+
             $dataApp = AppModel::where('app_id', 1)->first();
             $transactionModel = new TransactionModel();
             $dataTransactions = $transactionModel->filterTransaksi($dateFrom, $dateEnd, $status);
@@ -1209,7 +1239,12 @@ class TransactionController extends Controller
 
     function getDetailTransaksiUser($userId, $namaLengkap)
     {
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $namaLengkap = $namaLengkap;
@@ -1233,7 +1268,12 @@ class TransactionController extends Controller
 
     function getDetailTransaksiPelanggan($pelangganId, $namaLengkap)
     {
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getTransactionByPelanggan($pelangganId);

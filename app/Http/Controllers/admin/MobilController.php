@@ -8,6 +8,7 @@ use App\Models\AppModel;
 use App\Models\BahanBakarModel;
 use App\Models\BodyModel;
 use App\Models\CreditModel;
+use App\Models\EmployeeModel;
 use App\Models\FInanceModel;
 use App\Models\KapasitasMesinModel;
 use App\Models\KapasitasPenumpangModel;
@@ -35,7 +36,12 @@ class MobilController extends Controller
 
     function tambahMobil()
     {
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMerk = MerkModel::get();
         $dataBody = BodyModel::get();
@@ -198,7 +204,12 @@ class MobilController extends Controller
 
     function seluruhMobil()
     {
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->select('mobil.*', 'merk.merk')
@@ -215,7 +226,12 @@ class MobilController extends Controller
 
     function mobilDiPesan()
     {
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->select('mobil.*', 'merk.merk')
@@ -233,7 +249,12 @@ class MobilController extends Controller
 
     function mobilTerjual()
     {
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->select('mobil.*', 'merk.merk')
@@ -251,7 +272,12 @@ class MobilController extends Controller
 
     function mobilTersedia()
     {
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->select('mobil.*', 'merk.merk')
@@ -294,7 +320,12 @@ class MobilController extends Controller
     {
         $mobilModel = new MobilModel();
         $dataMobil = $mobilModel->getDetailMobil($mobil_id);
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $data = [
             'dataApp' => $dataApp,
@@ -309,7 +340,12 @@ class MobilController extends Controller
     {
         $mobilModel = new MobilModel();
         $detailMobil = $mobilModel->getDetailMobil($mobil_id);
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMerk = MerkModel::get();
         $dataBody = BodyModel::get();
@@ -909,7 +945,12 @@ class MobilController extends Controller
 
         try {
 
-            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            if (session('role') == 'admin') {
+                $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+            } else {
+                $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+            }
+
             $dataApp = AppModel::where('app_id', 1)->first();
             if ($status == 3) { // semua mobil
                 $dataMobil  = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')

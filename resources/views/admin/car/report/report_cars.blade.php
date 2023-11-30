@@ -116,11 +116,11 @@
                     <td>{{ formatRupiah($dm->harga_jual) }}</td>
                     <td>{{ formatRupiah($dm->diskon) }}</td>
                     <td>
-                        @if ($dm->status == 1)
+                        @if ($dm->status_mobil == 1)
                             <span class="badge bg-success">Tersedia</span>
-                        @elseif ($dm->status == 0)
+                        @elseif ($dm->status_mobil == 0)
                             <span class="badge bg-danger">Terjual</span>
-                        @elseif ($dm->status == 2)
+                        @elseif ($dm->status_mobil == 2)
                             <span class="badge bg-warning">Di Pesan</span>
                         @endif
                     </td>
