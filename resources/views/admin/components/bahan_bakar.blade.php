@@ -212,7 +212,6 @@
                         </li>
                     @endif
 
-                    </li>
 
                     @if (session('role') == 'admin')
                         <li class="sidebar-title">Utilitas</li>

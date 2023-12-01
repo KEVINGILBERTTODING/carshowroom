@@ -14,6 +14,7 @@ use App\Models\KapasitasMesinModel;
 use App\Models\KapasitasPenumpangModel;
 use App\Models\MerkModel;
 use App\Models\MobilModel;
+use App\Models\OwnerModel;
 use App\Models\PelangganModel;
 use App\Models\ReviewModel;
 use App\Models\TangkiModel;
@@ -38,8 +39,10 @@ class MobilController extends Controller
     {
         if (session('role') == 'admin') {
             $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-        } else {
+        } elseif (session('role') == 'employee') {
             $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        } else {
+            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
         }
 
         $dataApp = AppModel::where('app_id', 1)->first();
@@ -206,8 +209,10 @@ class MobilController extends Controller
     {
         if (session('role') == 'admin') {
             $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-        } else {
+        } elseif (session('role') == 'employee') {
             $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        } else {
+            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
         }
 
         $dataApp = AppModel::where('app_id', 1)->first();
@@ -228,8 +233,10 @@ class MobilController extends Controller
     {
         if (session('role') == 'admin') {
             $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-        } else {
+        } elseif (session('role') == 'employee') {
             $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        } else {
+            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
         }
 
         $dataApp = AppModel::where('app_id', 1)->first();
@@ -251,8 +258,10 @@ class MobilController extends Controller
     {
         if (session('role') == 'admin') {
             $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-        } else {
+        } elseif (session('role') == 'employee') {
             $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        } else {
+            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
         }
 
         $dataApp = AppModel::where('app_id', 1)->first();
@@ -274,8 +283,10 @@ class MobilController extends Controller
     {
         if (session('role') == 'admin') {
             $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-        } else {
+        } elseif (session('role') == 'employee') {
             $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        } else {
+            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
         }
 
         $dataApp = AppModel::where('app_id', 1)->first();
@@ -322,8 +333,10 @@ class MobilController extends Controller
         $dataMobil = $mobilModel->getDetailMobil($mobil_id);
         if (session('role') == 'admin') {
             $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-        } else {
+        } elseif (session('role') == 'employee') {
             $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        } else {
+            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
         }
 
         $dataApp = AppModel::where('app_id', 1)->first();
@@ -342,8 +355,10 @@ class MobilController extends Controller
         $detailMobil = $mobilModel->getDetailMobil($mobil_id);
         if (session('role') == 'admin') {
             $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-        } else {
+        } elseif (session('role') == 'employee') {
             $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        } else {
+            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
         }
 
         $dataApp = AppModel::where('app_id', 1)->first();
@@ -947,8 +962,10 @@ class MobilController extends Controller
 
             if (session('role') == 'admin') {
                 $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-            } else {
+            } elseif (session('role') == 'employee') {
                 $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+            } else {
+                $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
             }
 
             $dataApp = AppModel::where('app_id', 1)->first();

@@ -3,8 +3,10 @@
 @section('title')
     @if (session('role') == 'admin')
         <title>Admin - Mobil Telah dipesan</title>
-    @else
+    @elseif (session('role') == 'employee')
         <title>Karyawan - Mobil Telah dipesan</title>
+    @else
+        <title>Pemilik - Mobil Telah dipesan</title>
     @endif
 @endsection
 
@@ -135,57 +137,60 @@
                         </ul>
                     </li>
 
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-puzzle"></i>
-                            <span>Komponen Mobil</span>
-                        </a>
+                    @if (session('role') != 'owner')
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-puzzle"></i>
+                                <span>Komponen Mobil</span>
+                            </a>
 
-                        <ul class="submenu ">
-                            <li class="submenu-item  ">
-                                <a href="{{ route('bahanBakar') }}" class="submenu-link">Bahan bakar</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('body') }}" class="submenu-link">Body</a>
-                            </li>
+                            <ul class="submenu ">
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('bahanBakar') }}" class="submenu-link">Bahan bakar</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('body') }}" class="submenu-link">Body</a>
+                                </li>
 
-                            <li class="submenu-item ">
-                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
+                                <li class="submenu-item ">
+                                    <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
 
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>
-                            </li>
-                            <li class="submenu-item   ">
-                                <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas
+                                        penumpang</a>
+                                </li>
+                                <li class="submenu-item   ">
+                                    <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
 
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('tangki') }}" class="submenu-link">Kapasitas Tangki</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('tangki') }}" class="submenu-link">Kapasitas Tangki</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
 
-                            </li>
+                                </li>
 
-                            <li class="submenu-item">
-                                <a href="{{ route('warna') }}" class="submenu-link">Warna</a>
+                                <li class="submenu-item">
+                                    <a href="{{ route('warna') }}" class="submenu-link">Warna</a>
 
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
 
-                    <li class="sidebar-item ">
-                        <a href="{{ route('finance') }}" class='sidebar-link'>
-                            <i class="bi bi-wallet2"></i>
-                            <span>Finance</span>
-                        </a>
-
-
-                    </li>
-
+                        <li class="sidebar-item ">
+                            <a href="{{ route('finance') }}" class='sidebar-link'>
+                                <i class="bi bi-wallet2"></i>
+                                <span>Finance</span>
+                            </a>
 
 
-                    </li>
+                        </li>
+                    @endif
+
+
+
+
                     @if (session('role') == 'admin')
                         <li class="sidebar-title">Data Pengguna</li>
                         <li class="sidebar-item  has-sub">
@@ -266,8 +271,10 @@
                                     <h6 class="mb-0 text-gray-600">{{ $dataAdmin['name'] }}</h6>
                                     @if (session('role') == 'admin')
                                         <p class="mb-0 text-sm text-gray-600">Administrator</p>
-                                    @else
+                                    @elseif (session('role') == 'employee')
                                         <p class="mb-0 text-sm text-gray-600">Karyawan</p>
+                                    @else
+                                        <p class="mb-0 text-sm text-gray-600">Pemilik</p>
                                     @endif
                                 </div>
                                 <div class="user-img d-flex align-items-center">
@@ -289,8 +296,11 @@
                             @if (session('role') == 'admin')
                                 <li><a class="dropdown-item" href="{{ route('logOutAdmin') }}"><i
                                             class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</a></li>
-                            @else
+                            @elseif (session('role') == 'employee')
                                 <li><a class="dropdown-item" href="{{ route('logOutEmployee') }}"><i
+                                            class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</a></li>
+                            @else
+                                <li><a class="dropdown-item" href="{{ route('logOutOwner') }}"><i
                                             class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</a></li>
                             @endif
                         </ul>

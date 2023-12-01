@@ -82,8 +82,10 @@ class AdminController extends Controller
     {
         if (session('role') == 'admin') {
             $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-        } else {
+        } elseif (session('role') == 'employee') {
             $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        } else {
+            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
         }
 
         $dataApp = AppModel::where('app_id', 1)->first();
@@ -114,7 +116,14 @@ class AdminController extends Controller
             }
 
             $fileImage = $request->file('image');
-            $fileName = 'Admin_' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileImage->getClientOriginalExtension();
+            if (session('role') == 'admin') {
+                $fileName = 'Admin_' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileImage->getClientOriginalExtension();
+            } elseif (session('role') == 'employee') {
+                $fileName = 'Employee_' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileImage->getClientOriginalExtension();
+            } else {
+                $fileName = 'Owner_' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileImage->getClientOriginalExtension();
+            }
+
             $fileImage->move('data/profile_photo', $fileName);
             $data = [
                 'photo_profile' => $fileName,
@@ -123,8 +132,10 @@ class AdminController extends Controller
 
             if (session('role') == 'admin') {
                 $update = Admin::where('admin_id', session('admin_id'))->update($data);
-            } else {
+            } elseif (session('role') == 'employee') {
                 $update = EmployeeModel::where('karyawan_id', session('karyawan_id'))->update($data);
+            } else {
+                $update = OwnerModel::where('owner_id', session('owner_id'))->update($data);
             }
 
             if ($update) {
@@ -189,8 +200,10 @@ class AdminController extends Controller
 
                 if (session('role') == 'admin') {
                     $validatePassword = Admin::where('admin_id', session('admin_id'))->first();
-                } else {
+                } elseif (session('role') == 'employee') {
                     $validatePassword = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+                } else {
+                    $validatePassword = OwnerModel::where('owner_id', session('owner_id'))->first();
                 }
 
 
@@ -206,8 +219,10 @@ class AdminController extends Controller
 
                             if (session('role') == 'admin') {
                                 $update =  Admin::where('admin_id', session('admin_id'))->update($data);
-                            } else {
+                            } elseif (session('role') == 'employee') {
                                 $update =  EmployeeModel::where('karyawan_id', session('karyawan_id'))->update($data);
+                            } else {
+                                $update =  OwnerModel::where('owner_id', session('owner_id'))->update($data);
                             }
 
                             if ($update) {
@@ -234,8 +249,10 @@ class AdminController extends Controller
                     ];
                     if (session('role') == 'admin') {
                         $update =  Admin::where('admin_id', session('admin_id'))->update($data);
-                    } else {
+                    } elseif (session('role') == 'employee') {
                         $update =  EmployeeModel::where('karyawan_id', session('karyawan_id'))->update($data);
+                    } else {
+                        $update =  OwnerModel::where('owner_id', session('owner_id'))->update($data);
                     }
 
                     if ($update) {
