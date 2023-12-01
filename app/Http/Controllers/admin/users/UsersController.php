@@ -18,6 +18,9 @@ class UsersController extends Controller
 {
     function owner()
     {
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
         $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataPemilik = OwnerModel::get();
@@ -31,6 +34,9 @@ class UsersController extends Controller
 
     function tambahPemilik(Request $request)
     {
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:owner,email',
@@ -73,6 +79,9 @@ class UsersController extends Controller
 
     function hapusPemilik($ownerId)
     {
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
         try {
             $delete = OwnerModel::where('owner_id', $ownerId)->delete();
             if ($delete) {
@@ -87,6 +96,9 @@ class UsersController extends Controller
 
     function updatePemilik(Request $request)
     {
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
         $validator = Validator::make($request->all(), [
             'owner_id' => 'required|numeric',
             'name' => 'required|string',
@@ -151,6 +163,9 @@ class UsersController extends Controller
 
     function pelanggan()
     {
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
         $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataPelanggan = PelangganModel::orderBy('created_at', 'desc')->get();
@@ -164,6 +179,9 @@ class UsersController extends Controller
 
     function updatePelanggan(Request $request)
     {
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
         $validator = Validator::make($request->all(), [
             'pelanggan_id' => 'required|string',
             'nama_lengkap' => 'required|string',
@@ -220,6 +238,9 @@ class UsersController extends Controller
 
     function pengguna()
     {
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
         $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataPengguna = User::orderBy('user_id', 'desc')->get();
@@ -233,6 +254,10 @@ class UsersController extends Controller
 
     function updatePengguna(Request $request)
     {
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
+
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|numeric',
             'status' => 'required|numeric'
@@ -261,6 +286,10 @@ class UsersController extends Controller
 
     function karyawan()
     {
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
+
         $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataKaryawan = KaryawanModel::orderBy('karyawan_id', 'desc')->get();
@@ -274,6 +303,11 @@ class UsersController extends Controller
 
     function tambahKaryawan(Request $request)
     {
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
+
+
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:owner,email',
@@ -323,6 +357,11 @@ class UsersController extends Controller
 
     function updateKaryawan(Request $request)
     {
+
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
+
         $validator = Validator::make($request->all(), [
             'karyawan_id' => 'required|numeric',
             'status' => 'required|numeric',
@@ -399,6 +438,11 @@ class UsersController extends Controller
 
     function hapusKaryawan($karyawanId)
     {
+
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
+
         try {
             $delete = KaryawanModel::where('karyawan_id', $karyawanId)->delete();
             if ($delete) {

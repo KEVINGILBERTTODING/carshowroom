@@ -163,10 +163,12 @@
                                     {{ $dr->review_text }}</p>
                             </div>
                         </div>
-                    @endforeach
-
                 </div>
+                @endforeach
+
+
             </div>
+        </div>
         </div>
     </section>
 @endsection

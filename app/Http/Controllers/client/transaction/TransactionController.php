@@ -143,7 +143,7 @@ class TransactionController extends Controller
             AdminNotificationModel::insert($dataNotifAdmin);
             MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
             DB::commit();
-            return redirect()->route('mobil')->with('success', 'Selamat transaksi Anda sedang kami proses');
+            return redirect()->route('detailTransaksi', Crypt::encrypt($transaksiId))->with('success', 'Selamat transaksi Anda sedang kami proses');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('failed', 'Terjadi kesalahan')->withInput();
@@ -319,7 +319,7 @@ class TransactionController extends Controller
             NotificationAdminModel::insert($dataNotifAdmin);
             User::where('user_id', session('user_id'))->update($dataUser);
             DB::commit();
-            return redirect()->route('mobil')->with('success', 'Selamat, pengajuan kredit Anda sedang dalam proses kami. Mohon bersabar, kami akan memberikan update paling lambat dalam 7 hari kerja.');
+            return redirect()->route('detailTransaksi', Crypt::encrypt($transaksiId))->with('success', 'Selamat, pengajuan kredit Anda sedang dalam proses kami. Mohon bersabar, kami akan memberikan update paling lambat dalam 7 hari kerja.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('failed', $th->getMessage());

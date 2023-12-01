@@ -76,7 +76,12 @@ class AdminController extends Controller
 
     function profil()
     {
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $data = [
             'dataAdmin' => $dataAdmin,
@@ -112,7 +117,12 @@ class AdminController extends Controller
                 'updated_at' => date('Y-m-d H:i:s')
             ];
 
-            $update = Admin::where('admin_id', session('admin_id'))->update($data);
+            if (session('role') == 'admin') {
+                $update = Admin::where('admin_id', session('admin_id'))->update($data);
+            } else {
+                $update = EmployeeModel::where('karyawan_id', session('karyawan_id'))->update($data);
+            }
+
             if ($update) {
                 return redirect()->route('adminProfile')->with('success', 'Berhasil mengubah foto profil');
             } else {
@@ -125,16 +135,31 @@ class AdminController extends Controller
 
     function ubahProfile(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string',
-            'email' => 'required|email',
+        if (session('role') == 'admin') {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+                'email' => 'required|email',
 
-        ], [
-            'name.required' => 'Nama tidak boleh kosong',
-            'name.string' => 'Nama hanya boleh mengandung huruf dan angka',
-            'email.required' => 'Email tidak boleh kosong',
-            'email.email' => 'Email tidak valid'
-        ]);
+            ], [
+                'name.required' => 'Nama tidak boleh kosong',
+                'name.string' => 'Nama hanya boleh mengandung huruf dan angka',
+                'email.required' => 'Email tidak boleh kosong',
+                'email.email' => 'Email tidak valid'
+            ]);
+        } else {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+                'email' => 'required|email|unique:karyawan,email,' . session('karyawan_id') . ',karyawan_id',
+
+            ], [
+                'name.required' => 'Nama tidak boleh kosong',
+                'name.string' => 'Nama hanya boleh mengandung huruf dan angka',
+                'email.required' => 'Email tidak boleh kosong',
+                'email.email' => 'Email tidak valid',
+                'email.unique' => 'Email telah digunakan'
+            ]);
+        }
+
 
         if ($validator->fails()) {
             return redirect()->route('adminProfile')->with('failed', $validator->errors()->first());
@@ -158,7 +183,12 @@ class AdminController extends Controller
                     return redirect()->route('adminProfile')->with('failed', $validatorPassword->errors()->first());
                 }
 
-                $validatePassword = Admin::where('admin_id', session('admin_id'))->first();
+                if (session('role') == 'admin') {
+                    $validatePassword = Admin::where('admin_id', session('admin_id'))->first();
+                } else {
+                    $validatePassword = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+                }
+
 
                 if ($validatePassword) {
                     if (Hash::check($request->input('old_password'), $validatePassword['password'])) {
@@ -169,7 +199,13 @@ class AdminController extends Controller
                                 'password' => Hash::make($request->input('new_password')),
                                 'updated_at' => date('Y-m-d H:i:s')
                             ];
-                            $update =  Admin::where('admin_id', session('admin_id'))->update($data);
+
+                            if (session('role') == 'admin') {
+                                $update =  Admin::where('admin_id', session('admin_id'))->update($data);
+                            } else {
+                                $update =  EmployeeModel::where('karyawan_id', session('karyawan_id'))->update($data);
+                            }
+
                             if ($update) {
                                 return redirect()->route('adminProfile')->with('success', 'Berhasil memperbaharui profil');
                             } else {
@@ -192,7 +228,12 @@ class AdminController extends Controller
                         'email' => $request->input('email'),
                         'updated_at' => date('Y-m-d H:i:s')
                     ];
-                    $update =  Admin::where('admin_id', session('admin_id'))->update($data);
+                    if (session('role') == 'admin') {
+                        $update =  Admin::where('admin_id', session('admin_id'))->update($data);
+                    } else {
+                        $update =  EmployeeModel::where('karyawan_id', session('karyawan_id'))->update($data);
+                    }
+
                     if ($update) {
                         return redirect()->route('adminProfile')->with('success', 'Berhasil memperbaharui profil');
                     } else {

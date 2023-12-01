@@ -264,7 +264,7 @@
                             <div class="user-menu d-flex">
                                 <div class="user-name text-end me-3">
                                     <h6 class="mb-0 text-gray-600">{{ $dataAdmin['name'] }}</h6>
-                                    @if (sesson('role') == 'admin')
+                                    @if (session('role') == 'admin')
                                         <p class="mb-0 text-sm text-gray-600">Administrator</p>
                                     @else
                                         <p class="mb-0 text-sm text-gray-600">Karyawan</p>

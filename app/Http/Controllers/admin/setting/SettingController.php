@@ -13,6 +13,9 @@ class SettingController extends Controller
 {
     function index()
     {
+        if (session('role') != 'admin') {
+            return redirect()->route('/');
+        }
         try {
             $dataApp = AppModel::first();
             $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();

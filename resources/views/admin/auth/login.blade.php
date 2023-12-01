@@ -9,8 +9,8 @@
     <div class="col-lg-5 col-12">
         <div id="auth-left">
 
-            <h1 class="auth-title">Masuk</h1>
-            <p class="auth-subtitle mb-5">Masuk dengan data yang Anda masukkan saat pendaftaran</p>
+            <h1 class="auth-title">Admin</h1>
+            <p class="auth-subtitle mb-5">Masukkan email dan kata sandi.</p>
 
             <form action="{{ route('loginAdmin') }}" method="POST">
                 @csrf

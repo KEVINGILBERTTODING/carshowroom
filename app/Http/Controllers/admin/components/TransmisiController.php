@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use App\Models\AppModel;
 use App\Models\CreditModel;
+use App\Models\EmployeeModel;
 use App\Models\TransactionModel;
 use App\Models\TransmisiModel;
 use Illuminate\Http\Request;
@@ -20,7 +21,11 @@ class TransmisiController extends Controller
     }
     function index()
     {
-        $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } else {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        }
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataTransmisi = TransmisiModel::get();
         $data = [

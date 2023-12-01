@@ -850,6 +850,14 @@
                                                 </option>
                                                 <option value="0">Tidak valid
                                                 </option>
+                                            @elseif ($dataTransaksi['status'] == 2)
+                                                <option value="{{ $dataTransaksi['status'] }}" selected>Sedang di
+                                                    proses
+                                                </option>
+                                                <option value="1">Selesai
+                                                </option>
+                                                <option value="0">Tidak valid
+                                                </option>
                                             @elseif ($dataTransaksi['status'] == 0)
                                                 <option value="{{ $dataTransaksi['status'] }}" selected>Tidak
                                                     valid
