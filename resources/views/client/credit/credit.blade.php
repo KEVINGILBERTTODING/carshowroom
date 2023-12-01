@@ -130,7 +130,7 @@
                         <tr>
 
                             <td style="text-align: center; vertical-align: middle; margin-right: 10px;">
-                                <h4>Rp</h4>
+                                <h4 style="margin-right: 10px;">Rp</h4>
                             </td>
                             <td>
                                 <div style="width: 300px;">
