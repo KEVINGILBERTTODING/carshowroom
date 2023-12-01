@@ -23,6 +23,7 @@ use App\Http\Controllers\employee\components\EmployeeWarnaController;
 use App\Http\Controllers\employee\EmployeeController;
 use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\owner\auth\OwnerAuthController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Middleware\ClientMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -52,6 +53,11 @@ Route::get('logOutAdmin', [AdminAuthController::class, 'logOutAdmin'])->name('lo
 Route::get('karyawan', [EmployeeAuthController::class, 'index'])->name('karyawan')->middleware('authAdmin');
 Route::post('loginEmployee', [EmployeeAuthController::class, 'login'])->name('loginEmployee')->middleware('authAdmin');
 Route::get('logOutEmployee', [EmployeeAuthController::class, 'logOutEmployee'])->name('logOutEmployee');
+
+// owner
+Route::get('owner', [OwnerAuthController::class, 'index'])->name('owner')->middleware('authAdmin');
+Route::post('loginOwner', [OwnerAuthController::class, 'login'])->name('loginOwner')->middleware('authAdmin');
+Route::get('logOutOwner', [OwnerAuthController::class, 'logOutOwner'])->name('logOutOwner');
 
 // warna mobil
 Route::get('warna', [WarnaController::class, 'index'])->name('warna')->middleware('admin');

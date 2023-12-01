@@ -96,7 +96,7 @@
                         <ul>
                             <li><a href="{{ route('admin') }}"><i class="fa fa-angle-right"></i> Admin</a></li>
                             <li><a href="{{ route('karyawan') }}"><i class="fa fa-angle-right"></i> Karyawan</a></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i> Owner</a></li>
+                            <li><a href="{{ route('owner') }}"><i class="fa fa-angle-right"></i> Owner</a></li>
                         </ul>
                     </div>
                 </div>

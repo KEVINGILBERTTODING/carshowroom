@@ -15,7 +15,7 @@ class AuthAdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (session('role') == 'admin' || session('role') == 'employee') {
+        if (session('role') == 'admin' || session('role') == 'employee' || session('role') == 'owner') {
             return redirect()->route('adminDashboard');
         }
 

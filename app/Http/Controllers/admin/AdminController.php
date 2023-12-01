@@ -9,6 +9,7 @@ use App\Models\EmployeeModel;
 use App\Models\FInanceModel;
 use App\Models\MobilModel;
 use App\Models\NotificationAdminModel;
+use App\Models\OwnerModel;
 use App\Models\PelangganModel;
 use App\Models\TransactionModel;
 use App\Models\User;
@@ -33,7 +34,10 @@ class AdminController extends Controller
             $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
         } elseif (session('role') == 'employee') {
             $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        } elseif (session('role') == 'owner') {
+            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
         }
+
         $dataApp = AppModel::where('app_id', 1)->first();
         $totalUser = User::count();
         $totalFinance = FInanceModel::count();

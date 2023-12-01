@@ -3,8 +3,10 @@
 @section('title')
     @if (session('role') == 'admin')
         <title>Admin - Dashboard</title>
-    @else
+    @elseif (session('role') == 'employee')
         <title>Karyawan - Dashboard</title>
+    @elseif (session('role') == 'owner')
+        <title>Pemilik - Dashboard</title>
     @endif
 @endsection
 
@@ -137,56 +139,58 @@
 
                     </li>
 
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-puzzle"></i>
-                            <span>Komponen Mobil</span>
-                        </a>
+                    @if (session('role') != 'owner')
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-puzzle"></i>
+                                <span>Komponen Mobil</span>
+                            </a>
 
-                        <ul class="submenu ">
-                            <li class="submenu-item  ">
-                                <a href="{{ route('bahanBakar') }}" class="submenu-link">Bahan bakar</a>
+                            <ul class="submenu ">
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('bahanBakar') }}" class="submenu-link">Bahan bakar</a>
 
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('body') }}" class="submenu-link">Body</a>
-                            </li>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('body') }}" class="submenu-link">Body</a>
+                                </li>
 
-                            <li class="submenu-item  ">
-                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
 
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas
+                                        penumpang</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
 
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('tangki') }}" class="submenu-link">Kapasitas Tangki</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('tangki') }}" class="submenu-link">Kapasitas Tangki</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
 
-                            </li>
+                                </li>
 
-                            <li class="submenu-item  ">
-                                <a href="{{ route('warna') }}" class="submenu-link">Warna</a>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('warna') }}" class="submenu-link">Warna</a>
 
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
 
 
-                    </li>
+                        </li>
 
-                    <li class="sidebar-item ">
-                        <a href="{{ route('finance') }}" class='sidebar-link'>
-                            <i class="bi bi-wallet2"></i>
-                            <span>Finance</span>
-                        </a>
-                    </li>
-
+                        <li class="sidebar-item ">
+                            <a href="{{ route('finance') }}" class='sidebar-link'>
+                                <i class="bi bi-wallet2"></i>
+                                <span>Finance</span>
+                            </a>
+                        </li>
+                    @endif
 
 
                     @if (session('role') == 'admin')
@@ -215,7 +219,6 @@
                         </li>
                     @endif
 
-                    </li>
 
                     @if (session('role') == 'admin')
                         <li class="sidebar-title">Utilitas</li>
@@ -261,20 +264,23 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-lg-0">
-                        <li class="nav-item dropdown me-3" id="btnNotification">
-                            <a class="nav-link active text-gray-600" href="#" data-bs-target="#modal_notification"
-                                data-bs-toggle="modal" data-bs-display="static" aria-expanded="false">
-                                <i class='bi bi-bell bi-sm bi-sub fs-4'>
+                        @if (session('role') != 'owner')
+                            <li class="nav-item dropdown me-3" id="btnNotification">
+                                <a class="nav-link active text-gray-600" href="#"
+                                    data-bs-target="#modal_notification" data-bs-toggle="modal" data-bs-display="static"
+                                    aria-expanded="false">
+                                    <i class='bi bi-bell bi-sm bi-sub fs-4'>
 
-                                    @if ($totalNotificationRead != 0)
-                                        <span class="badge bg-danger rounded-pill text-sm" id="ic_notification">
-                                            {{ $totalNotificationRead }}
-                                        </span>
-                                    @endif
-                                </i>
-                            </a>
+                                        @if ($totalNotificationRead != 0)
+                                            <span class="badge bg-danger rounded-pill text-sm" id="ic_notification">
+                                                {{ $totalNotificationRead }}
+                                            </span>
+                                        @endif
+                                    </i>
+                                </a>
 
-                        </li>
+                            </li>
+                        @endif
 
                     </ul>
                     <div class="dropdown">
@@ -285,8 +291,10 @@
                                     <p class="mb-0 text-sm text-gray-600">
                                         @if (session('role') == 'admin')
                                             Administrator
-                                        @else
+                                        @elseif (session('role') == 'employee')
                                             Karyawan
+                                        @elseif (session('role') == 'owner')
+                                            Pemilik
                                         @endif
                                     </p>
                                 </div>
@@ -310,8 +318,11 @@
                             @if (session('role') == 'admin')
                                 <li><a class="dropdown-item" href="{{ route('logOutAdmin') }}"><i
                                             class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</a></li>
-                            @else
+                            @elseif (session('role') == 'employee')
                                 <li><a class="dropdown-item" href="{{ route('logOutEmployee') }}"><i
+                                            class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</a></li>
+                            @elseif (session('role') == 'owner')
+                                <li><a class="dropdown-item" href="{{ route('logOutOwner') }}"><i
                                             class="icon-mid bi bi-box-arrow-left me-2"></i> Keluar</a></li>
                             @endif
                         </ul>
@@ -382,44 +393,51 @@
                             </div>
                         </div>
                     @endif
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <a href="{{ route('mobilTersedia') }}">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                            <div class="stats-icon green mb-2">
-                                                <i class="fa-solid fa-car fa-lg"></i>
+
+                    @if (session('role') != 'owner')
+                        <div class="col-6 col-lg-3 col-md-6">
+                            <div class="card">
+                                <a href="{{ route('mobilTersedia') }}">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div
+                                                class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                <div class="stats-icon green mb-2">
+                                                    <i class="fa-solid fa-car fa-lg"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">Total Mobil Tersedia</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $totalMobilTersedia }}</h6>
                                             </div>
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Total Mobil Tersedia</h6>
-                                            <h6 class="font-extrabold mb-0">{{ $totalMobilTersedia }}</h6>
-                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-6 col-lg-3 col-md-6">
-                        <div class="card">
-                            <a href="{{ route('finance') }}">
-                                <div class="card-body px-4 py-4-5">
-                                    <div class="row">
-                                        <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
-                                            <div class="stats-icon red mb-2">
-                                                <i class="fa-regular fa-credit-card fa-lg"></i>
+                        <div class="col-6 col-lg-3 col-md-6">
+                            <div class="card">
+                                <a href="{{ route('finance') }}">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div
+                                                class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                <div class="stats-icon red mb-2">
+                                                    <i class="fa-regular fa-credit-card fa-lg"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">Total Finance</h6>
+                                                <h6 class="font-extrabold mb-0">{{ $totalFinance }}</h6>
                                             </div>
                                         </div>
-                                        <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                            <h6 class="text-muted font-semibold">Total Finance</h6>
-                                            <h6 class="font-extrabold mb-0">{{ $totalFinance }}</h6>
-                                        </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    @endif
+
+
                 </div>
                 <div class="row">
 
