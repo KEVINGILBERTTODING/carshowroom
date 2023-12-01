@@ -1,7 +1,11 @@
 @extends('layouts.admin.main.t_main')
 
 @section('title')
-    <title>Admin - Riwayat Transaksi Pengguna</title>
+    @if (session('role') == 'admin')
+        <title>Admin - Riwayat Transaksi Pengguna</title>
+    @elseif (session('role') == 'employee')
+        <title>Karyawan - Riwayat Transaksi Pengguna</title>
+    @endif
 @endsection
 
 @section('sidebar')
@@ -53,7 +57,7 @@
                 <ul class="menu">
                     <li class="sidebar-title">Menu</li>
 
-                    <li class="sidebar-item  ">
+                    <li class="sidebar-item ">
                         <a href="{{ route('adminDashboard') }}" class='sidebar-link'>
                             <i class="bi bi-grid-fill"></i>
                             <span>Dashboard</span>
@@ -62,26 +66,25 @@
 
                     </li>
 
-
                     <li class="sidebar-title">Transaksi</li>
 
 
-                    <li class="sidebar-item  has-sub">
+                    <li class="sidebar-item  active  has-sub ">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-currency-dollar"></i>
                             <span>Data Transaksi</span>
                         </a>
 
                         <ul class="submenu ">
-                            <li class="submenu-item   ">
+                            <li class="submenu-item ">
                                 <a href="{{ route('allDataTransactions') }}" class="submenu-link">Semua Transaksi</a>
 
                             </li>
-                            <li class="submenu-item   ">
+                            <li class="submenu-item ">
                                 <a href="{{ route('allTransactionProcess') }}" class="submenu-link">Transaksi Proses</a>
                             </li>
 
-                            <li class="submenu-item">
+                            <li class="submenu-item   ">
                                 <a href="{{ route('allTransactionProcessFinance') }}" class="submenu-link">Transaksi Proses
                                     Finance</a>
                             </li>
@@ -91,10 +94,9 @@
                                 <a href="{{ route('allTransactionSuccess') }}" class="submenu-link">Transaksi Selesai</a>
                             </li>
 
-                            <li class="submenu-item ">
+                            <li class="submenu-item">
                                 <a href="{{ route('allTransactionFailed') }}" class="submenu-link">Transaksi Tidak Valid</a>
                             </li>
-
 
 
 
@@ -104,8 +106,7 @@
 
                     <li class="sidebar-title">Data Master</li>
 
-
-                    <li class="sidebar-item  has-sub ">
+                    <li class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
                             <i class="bi bi-car-front"></i>
                             <span>Data Mobil</span>
@@ -116,7 +117,7 @@
                                 <a href="{{ route('tambahMobilBaru') }}" class="submenu-link">Tambah Mobil Baru</a>
 
                             </li>
-                            <li class="submenu-item ">
+                            <li class="submenu-item  ">
                                 <a href="{{ route('seluruhMobil') }}" class="submenu-link">Seluruh Mobil</a>
                             </li>
 
@@ -134,84 +135,103 @@
                             </li>
 
                         </ul>
-                    </li>
-
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-puzzle"></i>
-                            <span>Komponen Mobil</span>
-                        </a>
-
-                        <ul class="submenu ">
-                            <li class="submenu-item  ">
-                                <a href="{{ route('bahanBakar') }}" class="submenu-link">Bahan bakar</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('body') }}" class="submenu-link">Body</a>
-                            </li>
-
-                            <li class="submenu-item ">
-                                <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
-
-                            </li>
-                            <li class="submenu-item ">
-                                <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas penumpang</a>
-                            </li>
-                            <li class="submenu-item   ">
-                                <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
-
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('tangki') }}" class="submenu-link">Kapasitas Tangki</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
-
-                            </li>
-
-                            <li class="submenu-item">
-                                <a href="{{ route('warna') }}" class="submenu-link">Warna</a>
-
-                            </li>
-                        </ul>
-
-                    <li class="sidebar-item ">
-                        <a href="{{ route('finance') }}" class='sidebar-link'>
-                            <i class="bi bi-wallet2"></i>
-                            <span>Finance</span>
-                        </a>
 
 
                     </li>
 
+                    @if (session('role') != 'owner')
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-puzzle"></i>
+                                <span>Komponen Mobil</span>
+                            </a>
+
+                            <ul class="submenu ">
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('bahanBakar') }}" class="submenu-link">Bahan bakar</a>
+
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('body') }}" class="submenu-link">Body</a>
+                                </li>
+
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('kapasitasMesin') }}" class="submenu-link">Kapasitas mesin</a>
+
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('kapasitasPenumpang') }}" class="submenu-link">Kapasitas
+                                        penumpang</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('merk') }}" class="submenu-link">Merk</a>
+
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('tangki') }}" class="submenu-link">Kapasitas Tangki</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('transmisi') }}" class="submenu-link">Transmisi</a>
+
+                                </li>
+
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('warna') }}" class="submenu-link">Warna</a>
+
+                                </li>
+                            </ul>
 
 
-                    </li>
-                    <li class="sidebar-title">Data Pengguna</li>
-                    <li class="sidebar-item  has-sub">
-                        <a href="#" class='sidebar-link'>
-                            <i class="bi bi-people"></i>
-                            <span>Pengguna</span>
-                        </a>
+                        </li>
 
-                        <ul class="submenu ">
-                            <li class="submenu-item  ">
-                                <a href="{{ route('dataPelanggan') }}" class="submenu-link">Pelanggan</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('dataPengguna') }}" class="submenu-link">Pengguna</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('dataPemilik') }}" class="submenu-link">Pemilik</a>
-                            </li>
-                            <li class="submenu-item  ">
-                                <a href="{{ route('dataKaryawan') }}" class="submenu-link">Karyawan</a>
-                            </li>
-                        </ul>
+                        <li class="sidebar-item ">
+                            <a href="{{ route('finance') }}" class='sidebar-link'>
+                                <i class="bi bi-wallet2"></i>
+                                <span>Finance</span>
+                            </a>
+                        </li>
+                    @endif
 
-                    </li>
 
-                    </li>
+                    @if (session('role') == 'admin')
+                        <li class="sidebar-title">Data Pengguna</li>
+                        <li class="sidebar-item  has-sub">
+                            <a href="#" class='sidebar-link'>
+                                <i class="bi bi-people"></i>
+                                <span>Pengguna</span>
+                            </a>
+
+                            <ul class="submenu ">
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('dataPelanggan') }}" class="submenu-link">Pelanggan</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('dataPengguna') }}" class="submenu-link">Pengguna</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('dataPemilik') }}" class="submenu-link">Pemilik</a>
+                                </li>
+                                <li class="submenu-item  ">
+                                    <a href="{{ route('dataKaryawan') }}" class="submenu-link">Karyawan</a>
+                                </li>
+                            </ul>
+
+                        </li>
+                    @endif
+
+
+                    @if (session('role') == 'admin')
+                        <li class="sidebar-title">Utilitas</li>
+                        <li class="sidebar-item ">
+                            <a href="{{ route('settings') }}" class='sidebar-link'>
+                                <i class="bi bi-tools"></i>
+                                <span>Pengaturan</span>
+                            </a>
+                        </li>
+                    @endif
+
+
+
                     <li class="sidebar-title">Profil Saya</li>
                     <li class="sidebar-item ">
                         <a href="{{ route('adminProfile') }}" class='sidebar-link'>
@@ -222,11 +242,13 @@
 
 
 
+
                 </ul>
             </div>
         </div>
     </div>
 @endsection
+
 
 @section('navbar')
     <header>
@@ -285,7 +307,7 @@
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
                 <h3>Daftar Riwayat Transaksi Pengguna</h3>
-                <p class="text-muted">{{ $nama_lengkap }}</p>
+                <h5 class="text-muted">{{ $dataUser['nama_lengkap'] }}</h5>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -298,11 +320,11 @@
             </div>
         </div>
     </div>
-    <section class="section">
+    <section class="section mt-4">
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Table Riwayat Transaksi Pengguna
+                    Table Riwayat Transaksi
                 </h5>
 
 

@@ -13,9 +13,11 @@ use App\Models\NotificationModel;
 use App\Models\OwnerModel;
 use App\Models\PelangganModel;
 use App\Models\TransactionModel;
+use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -1391,5 +1393,37 @@ class TransactionController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
+    }
+
+    function historyTransaction($userId)
+    {
+        $userId = Crypt::decrypt($userId);
+        if (session('role') == 'admin') {
+            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
+        } elseif (session('role') == 'employee') {
+            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+        } else {
+            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
+        }
+
+        $dataApp = AppModel::where('app_id', 1)->first();
+        $transactionModel = new TransactionModel();
+        $dataTransactions = $transactionModel->getClientAllTransactions($userId);
+        $dataUser = User::select('users.user_id', 'users.nama_lengkap')->where('user_id', $userId)->first();
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+            ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->where('status_mobil', 1)->get();
+        $dataFinance = FInanceModel::where('status', 1)->get();
+
+        $data = [
+            'dataApp' => $dataApp,
+            'dataAdmin' => $dataAdmin,
+            'dataTransactions' => $dataTransactions,
+            'dataMobil' => $dataMobil,
+            'dataFinance' => $dataFinance,
+            'dataUser' => $dataUser
+        ];
+
+        return view('admin.users.history_user_transaction', $data);
     }
 }

@@ -196,6 +196,7 @@ Route::get('totalProfitPerTahun', [TransactionController::class, 'totalProfitPer
 Route::get('total', [TransactionController::class, 'total'])->name('total')->middleware('admin');
 Route::get('downloadReportTransactionMonth', [TransactionController::class, 'downloadReportTransactionMonth'])->name('downloadReportTransactionMonth')->middleware('admin');
 Route::get('downloadReportProfit', [TransactionController::class, 'downloadReportProfit'])->name('downloadReportProfit')->middleware('admin');
+Route::get('historyTransaction/{userId}', [TransactionController::class, 'historyTransaction'])->name('historyTransaction')->middleware('admin');
 
 
 // landing page

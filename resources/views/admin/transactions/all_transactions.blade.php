@@ -396,7 +396,8 @@
                                     <td>{{ $dm->no_plat }}</td>
                                     <td>
                                         @if ($dm->nama_user != null)
-                                            {{ $dm->nama_user }}
+                                            <a
+                                                href="{{ route('historyTransaction', Crypt::encrypt($dm->user_id)) }}">{{ $dm->nama_user }}</a>
                                         @else
                                             {{ $dm->nama_pelanggan }}
                                         @endif
