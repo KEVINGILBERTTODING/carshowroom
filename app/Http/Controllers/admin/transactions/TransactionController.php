@@ -1103,8 +1103,10 @@ class TransactionController extends Controller
         try {
             if (session('role') == 'admin') {
                 $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-            } else {
+            } elseif (session('role') == 'employee') {
                 $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+            } else {
+                $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
             }
 
             $dataApp = AppModel::where('app_id', 1)->first();
@@ -1155,8 +1157,10 @@ class TransactionController extends Controller
         try {
             if (session('role') == 'admin') {
                 $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-            } else {
+            } elseif (session('role') == 'employee') {
                 $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+            } else {
+                $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
             }
 
             $dataApp = AppModel::where('app_id', 1)->first();
@@ -1212,8 +1216,10 @@ class TransactionController extends Controller
         try {
             if (session('role') == 'admin') {
                 $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-            } else {
+            } elseif (session('role') == 'employee') {
                 $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+            } else {
+                $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
             }
 
             $dataApp = AppModel::where('app_id', 1)->first();
