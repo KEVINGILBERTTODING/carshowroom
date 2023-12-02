@@ -48,6 +48,15 @@ Route::get('admin', [AdminAuthController::class, 'index'])->name('admin')->middl
 Route::post('loginAdmin', [AdminAuthController::class, 'login'])->name('loginAdmin')->middleware('authAdmin');
 Route::get('adminDashboard', [AdminController::class, 'index'])->name('adminDashboard')->middleware('admin');
 Route::get('logOutAdmin', [AdminAuthController::class, 'logOutAdmin'])->name('logOutAdmin');
+Route::get('adminForgotPassword', [AdminAuthController::class, 'forgotPassword'])->name('adminForgotPassword');
+Route::post('sendResetPasswordTokenAdmin', [AdminAuthController::class, 'sendResetPasswordToken'])->name('sendResetPasswordTokenAdmin');
+Route::get('tokenValidationAdmin', [AdminAuthController::class, 'tokenValidation'])->name('tokenValidationAdmin');
+Route::get('indexTokenAdmin/{adminId}', [AdminAuthController::class, 'indexToken'])->name('indexTokenAdmin');
+Route::get('indexNewPasswordAdmin/{adminId}', [AdminAuthController::class, 'indexNewPassword'])->name('indexNewPasswordAdmin');
+Route::post('updatePasswordAdmin', [AdminAuthController::class, 'updatePassword'])->name('updatePasswordAdmin');
+
+
+
 
 // employee
 Route::get('karyawan', [EmployeeAuthController::class, 'index'])->name('karyawan')->middleware('authAdmin');

@@ -375,7 +375,9 @@
 
                                 <div class="form-group col-md-6 col-12">
                                     @if ($dataTransaksi['nama_user'] != null)
-                                        <p class="text-sm fw-bold">{{ $dataTransaksi['nama_user'] }}</p>
+                                        <p class="text-sm fw-bold"><a
+                                                href="{{ route('historyTransaction', Crypt::encrypt($dataTransaksi['user_id'])) }}">{{ $dataTransaksi['nama_user'] }}</a>
+                                        </p>
                                     @else
                                         <p class="text-md fw-bold">{{ $dataTransaksi['nama_pelanggan'] }}</p>
                                     @endif
