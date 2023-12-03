@@ -40,10 +40,10 @@ class EmailNotification extends Notification
             ->greeting('Halo, ' . $this->dataUser['name'])
             ->subject('Reset Kata Sandi')
             ->line('Jika Anda menerima email ini, berarti Anda sedang berusaha untuk mengganti kata sandi akun Anda.')
-            ->line('Jangan bagikan token ini kepada siapa pun')
+            ->line('Jangan bagikan token ini kepada siapa pun.')
             ->line('Token: ' . $this->dataUser['token'])
             ->line('Abaikan jika Anda merasa tidak melakukan aksi ini.')
-            ->salutation('Terima kasih');
+            ->salutation('Terima kasih.');
     }
 
     /**

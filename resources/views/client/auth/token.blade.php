@@ -12,11 +12,11 @@
             <h1 class="auth-title">Lupa Kata Sandi</h1>
             <p class="auth-subtitle mb-5">Masukkan token reset password.</p>
 
-            <form action="{{ route('tokenValidationAdmin') }}" method="GET">
+            <form action="{{ route('tokenValidationUser') }}" method="GET">
                 @csrf
                 <div class="form-group position-relative has-icon-left mb-4">
-                    <input type="text" name="admin_id" required class="form-control form-control-xl"
-                        value="{{ $data['admin_id'] }}" hidden>
+                    <input type="text" name="user_id" required class="form-control form-control-xl"
+                        value="{{ $data['user_id'] }}" hidden>
                     <input type="text" name="token" required type="text" class="form-control form-control-xl"
                         placeholder="Token">
                     <div class="form-control-icon">

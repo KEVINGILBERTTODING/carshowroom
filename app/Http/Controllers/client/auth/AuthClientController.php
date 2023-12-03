@@ -4,11 +4,14 @@ namespace App\Http\Controllers\client\auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Notifications\EmailNotification;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Str;
+
 
 class AuthClientController extends Controller
 {
@@ -157,6 +160,7 @@ class AuthClientController extends Controller
             return redirect()->route('/')->with('failed', $th->getMessage());
         }
     }
+
 
     function updatePassword(Request $request)
     {
@@ -316,6 +320,134 @@ class AuthClientController extends Controller
             } catch (\Throwable $th) {
                 return redirect()->route('profile')->with('failed', 'Terjadi kesalahan');
             }
+        }
+    }
+
+    function forgotPassword()
+    {
+        return view('client.auth.forgot_password');
+    }
+
+    function sendResetPasswordToken(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email'
+        ], [
+            'email.required' => 'Email tidak boleh kosong',
+            'email.email' => 'Email tidak valid'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+
+        try {
+            $validateEmail = User::where('email', $request->input('email'))->where('sign_in', 'email')->first();
+            if ($validateEmail) {
+                $pwToken = Str::random(6);
+                $userId = $validateEmail['user_id'];
+                $dataUsr = [
+                    'token_password' => $pwToken,
+                ];
+                $update = User::where('user_id', $userId)->update($dataUsr);
+                if (!$update) {
+                    return redirect()->back()->with('failed', 'Gagal megirim token');
+                }
+
+
+
+                try {
+                    $dataUser = [
+                        'name' => $validateEmail['nama_lengkap'],
+                        'token' => $pwToken,
+                        'user_id' => $userId
+                    ];
+                    $validateEmail->notify(new EmailNotification($dataUser));
+                    return redirect()->route('indexTokenUser', Crypt::encrypt($userId))->with('success', 'Token berhasil dikirimkan pada email anda.');
+                } catch (\Exception $exception) {
+                    // Handle kegagalan pengiriman email
+                    $errorMessage = $exception->getMessage();
+                    return redirect()->back()->with('error', 'Gagal mengirim email. Kesalahan: ' . $errorMessage);
+                }
+            } else {
+                return redirect()->back()->with('failed', 'Email tidak terdaftar');
+            }
+        } catch (\Throwable $th) {
+            return redirect()->back()->with('failed', $th->getMessage());
+        }
+    }
+
+    function indexToken($userId)
+    {
+        $data = [
+            'user_id' => Crypt::decrypt($userId),
+        ];
+        return view('client.auth.token', ['data' => $data]);
+    }
+
+    function tokenValidation(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'token' => 'required|string',
+            'user_id' => 'required|integer'
+        ], [
+            'token.required' => 'Token tidak boleh kosong',
+            'token.string' => 'Token tidak valid',
+            'user_id.required' => 'Terjadi kesalahan',
+            'user_id.integer' => 'Terjadi kesalahan'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+
+        $validationToken = User::where('user_id', $request->user_id)->first();
+        if ($validationToken) {
+            if ($validationToken['token_password'] == $request->token) {
+                return redirect()->route('indexNewPasswordUser', Crypt::encrypt($request->user_id));
+            } else {
+                return redirect()->back()->with('failed', 'Token salah');
+            }
+        } else {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+        }
+    }
+
+    function indexNewPassword($userId)
+    {
+        $data = [
+            'user_id' => Crypt::decrypt($userId),
+        ];
+        return view('client.auth.new_password', ['data' => $data]);
+    }
+
+    function updatePasswordClient(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'user_id' => 'required|numeric',
+            'password' => 'required|string|min:8'
+        ], [
+            'user_id.required' => 'Terjadi kesalahan',
+            'user_id.numeric' => 'Terjadi kesalahan',
+            'password.required' => 'Kata sandi tidak boleh kosong',
+            'password.string' => 'Kata sandi hanya boleh berupa huruf dan angka',
+            'password.min' => 'Kata sandi tidak boleh mengandung kurang dari 8 karakter'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+
+        $dataUser = [
+            'password' => Hash::make($request->password),
+            'token_password' => null
+
+        ];
+        $update = User::where('user_id', $request->user_id)->update($dataUser);
+        if ($update) {
+            return redirect()->route('/')->with('success', 'Berhasil reset kata sandi');
+        } else {
+            return redirect()->back()->with('failed', 'Terjadi kesalahan');
         }
     }
 }

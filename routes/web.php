@@ -179,6 +179,13 @@ Route::post('updateKaryawan', [UsersController::class, 'updateKaryawan'])->name(
 Route::get('hapusKaryawan/{karyawanId}', [UsersController::class, 'hapusKaryawan'])->name('hapusKaryawan')->middleware('admin');
 
 
+// reset password
+Route::get('userForgotPassword', [AuthClientController::class, 'forgotPassword'])->name('userForgotPassword');
+Route::post('sendResetPasswordTokenUser', [AuthClientController::class, 'sendResetPasswordToken'])->name('sendResetPasswordTokenUser');
+Route::get('tokenValidationUser', [AuthClientController::class, 'tokenValidation'])->name('tokenValidationUser');
+Route::get('indexTokenUser/{userId}', [AuthClientController::class, 'indexToken'])->name('indexTokenUser');
+Route::get('indexNewPasswordUser/{userId}', [AuthClientController::class, 'indexNewPassword'])->name('indexNewPasswordUser');
+Route::post('updatePasswordUser', [AuthClientController::class, 'updatePasswordClient'])->name('updatePasswordUser');
 
 
 

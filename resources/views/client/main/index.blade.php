@@ -129,7 +129,7 @@
                                     <div class="hero__tab__form" style="border-radius: 20px;">
                                         <h2>Masuk</h2>
 
-                                        <p class="text-sm text-muted">Baru bergabung? <a data-toggle="tab"
+                                        <p class="text-sm text-muted">Baru bergabung ? <a data-toggle="tab"
                                                 style="text-decoration: none; color: #3e6ae1 ;" href="#tabs-2"
                                                 role="tab">
                                                 Buat akun baru</a></p>
@@ -157,6 +157,12 @@
                                             <i class="fa fa-google" aria-hidden="true" style="margin-right: 10px;"></i>
                                             Masuk dengan akun google
                                         </button>
+                                        <br>
+
+                                        <a href="{{ route('userForgotPassword') }}" class="text text-primary"
+                                            style="text-align: center">Lupa
+                                            Kata
+                                            Sandi ?</a>
 
 
                                     </div>
