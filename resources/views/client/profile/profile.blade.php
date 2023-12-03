@@ -161,7 +161,7 @@
                                         </div>
                                     @elseif ($dataUser['sign_in'] == 'google')
                                         <div class="avatar avatar-md">
-                                            <img src="{{ session('profile_photo') }}">
+                                            <img src="{{ $dataUser['profile_photo'] }}">
                                         </div>
                                     @endif
                                 </div>

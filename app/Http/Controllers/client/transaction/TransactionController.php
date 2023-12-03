@@ -143,7 +143,7 @@ class TransactionController extends Controller
             AdminNotificationModel::insert($dataNotifAdmin);
             MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
             DB::commit();
-            return redirect()->route('detailTransaksi', Crypt::encrypt($transaksiId))->with('success', 'Selamat transaksi Anda sedang kami proses');
+            return redirect()->route('detailTransaksi', Crypt::encrypt($transaksiId))->with('success', 'Transaksi anda sedang kami proses, anda akan menerima notifikasi jika proses pengecekan telah selesai.');
         } catch (\Throwable $th) {
             DB::rollBack();
             return redirect()->back()->with('failed', 'Terjadi kesalahan')->withInput();
@@ -231,7 +231,7 @@ class TransactionController extends Controller
 
 
         // validasi inputan file kredit
-        if (!$request->hasFile('ktp_suami') && !$$request->hasFile('ktp_istri')) {
+        if (!$request->hasFile('ktp_suami') && !$request->hasFile('ktp_istri')) {
             return redirect()->back()->withInput()->with('failed', 'File KTP tidak boleh kosong');
         }
 

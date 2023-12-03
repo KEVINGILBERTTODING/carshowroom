@@ -44,7 +44,8 @@
                                     @elseif ($dn->type == 2)
                                         Transaksi Anda sedang kami proses.
                                     @elseif ($dn->type == 3)
-                                        Selamat Pengajuan kredit Anda telah disetujui pihak finance.
+                                        Pengajuan kredit anda telah direview oleh pihak finance. Anda akan segera
+                                        dihubungi oleh finance yang bersangkutan.
                                     @elseif ($dn->type == 0)
                                         Transaksi Anda tidak valid.
                                     @endif

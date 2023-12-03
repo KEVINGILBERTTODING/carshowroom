@@ -163,7 +163,7 @@
                                         </div>
                                     @elseif ($dataUser['sign_in'] == 'google')
                                         <div class="avatar avatar-md">
-                                            <img src="{{ session('profile_photo') }}">
+                                            <img src="{{ $dataUser['profile_photo'] }}">
                                         </div>
                                     @endif
                                 </div>
@@ -308,7 +308,7 @@
                                     @if ($dataTransaksi['merk'] != null)
                                         <p class="text-md">
                                             <a href="{{ route('detailMobil', Crypt::encrypt($dataTransaksi['mobil_id'])) }}"
-                                                target="_blank" rel="noopener noreferrer">
+                                                rel="noopener noreferrer">
                                                 {{ $dataTransaksi['merk'] . ' - ' . $dataTransaksi['nama_model'] }}</a>
 
                                         </p>
