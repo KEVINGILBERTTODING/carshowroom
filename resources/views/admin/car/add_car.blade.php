@@ -458,7 +458,7 @@
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Kilometer yang telah ditempuh</label>
-                                        <input name="km" type="number" required class="form-control" required>
+                                        <input name="km" required class="form-control decimalFormat" required>
 
                                     </div>
                                 </div>
@@ -476,7 +476,7 @@
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Harga Beli</label>
-                                        <input name="harga_beli" type="number" required class="form-control" required>
+                                        <input name="harga_beli" required class="form-control rupiahInput" required>
 
                                     </div>
                                 </div>
@@ -485,13 +485,12 @@
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Biaya Perbaikan</label>
-                                        <input name="biaya_perbaikan" type="number" required class="form-control"
-                                            required>
+                                        <input name="biaya_perbaikan" required class="form-control rupiahInput" required>
                                     </div>
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Harga Jual</label>
-                                        <input name="harga_jual" type="number" required class="form-control" required>
+                                        <input name="harga_jual" required class="form-control rupiahInput" required>
                                     </div>
                                 </div>
 
@@ -505,7 +504,7 @@
 
                                     <div class="form-group col-md-6 col-12">
                                         <label>Diskon</label>
-                                        <input name="diskon" type="number" required class="form-control">
+                                        <input name="diskon" required class="form-control rupiahInput">
                                     </div>
                                 </div>
 
@@ -623,6 +622,62 @@
                 minViewMode: "years",
                 autoclose: true //to close picker once year is selected
             });
+        });
+    </script>
+
+    {{-- Format rupiah --}}
+    <script>
+        $(document).ready(function() {
+            $('.rupiahInput').on('input', function() {
+                // Mengambil nilai tanpa tanda ribuan
+                var inputValue = $(this).val();
+
+                // Hapus karakter selain digit
+                var numericValue = inputValue.replace(/[^0-9]/g, '');
+
+                // Format sebagai rupiah
+                var formattedValue = formatRupiah(numericValue);
+
+                // Update nilai input
+                $(this).val(formattedValue);
+            });
+        });
+
+        function formatRupiah(angka) {
+            var reverse = angka.toString().split('').reverse().join('');
+            var ribuan = reverse.match(/\d{1,3}/g);
+            var formattedValue = ribuan.join('.').split('').reverse().join('');
+
+            return 'Rp ' + formattedValue;
+        }
+    </script>
+
+    {{-- format decimal --}}
+    <script>
+        $(document).ready(function() {
+
+            $('.decimalFormat').on('input', function() {
+                // Mengambil nilai tanpa tanda ribuan
+                var inputValue = $(this).val();
+
+                // Hapus karakter selain digit
+                var numericValue = inputValue.replace(/[^0-9]/g, '');
+
+                // Format sebagai rupiah
+                var decimalFormatted = formatAngka(numericValue);
+
+
+                // Update nilai input
+                $(this).val(decimalFormatted);
+            });
+
+            function formatAngka(angka) {
+                var reverse = angka.toString().split('').reverse().join('');
+                var ribuan = reverse.match(/\d{1,3}/g);
+                var formattedValue = ribuan.join('.').split('').reverse().join('');
+
+                return formattedValue;
+            }
         });
     </script>
 @endsection

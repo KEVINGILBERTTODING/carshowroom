@@ -449,7 +449,7 @@
                                     <div class="form-group col-md-6 col-12">
                                         <label>Kilometer yang telah ditempuh</label>
                                         <input type="text" name="nama_model" class="form-control" required
-                                            value="{{ $dataMobil['km'] }}" readonly>
+                                            value="{{ formatDecimal($dataMobil['km']) }} KM" readonly>
 
                                     </div>
                                 </div>
