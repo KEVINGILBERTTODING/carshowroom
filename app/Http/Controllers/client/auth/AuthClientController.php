@@ -342,7 +342,8 @@ class AuthClientController extends Controller
         }
 
         try {
-            $validateEmail = User::where('email', $request->input('email'))->where('sign_in', 'email')->first();
+            $validateEmail = User::where('email', $request->input('email'))->where('sign_in', 'email')
+                ->where('status', 1)->first();
             if ($validateEmail) {
                 $pwToken = Str::random(6);
                 $userId = $validateEmail['user_id'];

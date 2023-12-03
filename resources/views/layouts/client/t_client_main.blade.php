@@ -106,6 +106,8 @@
                         <ul>
                             <li><a href="{{ route('userGuide') }}"><i class="fa fa-angle-right"></i> Panduan
                                     Pengguna</a></li>
+                            <li><a href="{{ route('userForgotPassword') }}"><i class="fa fa-angle-right"></i> Lupa Kata
+                                    Sandi</a></li>
                         </ul>
                     </div>
                 </div>
