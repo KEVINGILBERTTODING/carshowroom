@@ -1176,10 +1176,25 @@ class MobilController extends Controller
     function filterMobil(Request $request)
     {
 
+        $validator = Validator::make($request->all(), [
+            'merkId' => 'required|numeric',
+            'bodyId' => 'required|numeric',
+            'transmisiId' => 'required|numeric',
+        ], [
+            'required' => 'Terjadi kesalahan',
+            'numeric' => 'Terjadi kesalahan'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+
         $mobilModel = new MobilModel();
         $merk = $request->merkId;
         $body = $request->bodyId;
         $transmisi = $request->transmisiId;
+        $priceFrom = preg_replace('/[^0-9]/', '', $request->priceFrom);
+        $priceEnd = preg_replace('/[^0-9]/', '', $request->priceEnd);
 
 
         try {
@@ -1187,7 +1202,7 @@ class MobilController extends Controller
             $dataMerk = MerkModel::get();
             $dataTransmisi = TransmisiModel::get();
             $dataBody = BodyModel::get();
-            $dataMobil = $mobilModel->filterCar($merk, $body, $transmisi)->paginate(9);
+            $dataMobil = $mobilModel->filterCar($merk, $body, $transmisi, $priceFrom, $priceEnd)->paginate(9);
             $dataFinance = FInanceModel::first();
 
             if ($dataFinance != null) {

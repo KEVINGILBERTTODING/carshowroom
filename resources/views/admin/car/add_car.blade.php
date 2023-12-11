@@ -644,7 +644,15 @@
         });
 
         function formatRupiah(angka) {
-            var reverse = angka.toString().split('').reverse().join('');
+            // Hapus karakter selain digit
+            var numericValue = angka.replace(/[^0-9]/g, '');
+
+            // Pastikan angka tidak kosong
+            if (numericValue === '') {
+                return '';
+            }
+
+            var reverse = numericValue.toString().split('').reverse().join('');
             var ribuan = reverse.match(/\d{1,3}/g);
             var formattedValue = ribuan.join('.').split('').reverse().join('');
 

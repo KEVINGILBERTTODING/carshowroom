@@ -138,6 +138,7 @@
                                 @csrf
                                 <p class="text-sm">Merk</p>
                                 <select name="merkId">
+                                    <option value="0">Pilih Merk</option>
                                     @foreach ($dataMerk as $dam)
                                         <option value="{{ $dam->merk_id }}">{{ $dam->merk }}</option>
                                     @endforeach
@@ -145,6 +146,7 @@
 
                                 <p class="text-sm">Jenis</p>
                                 <select name="bodyId">
+                                    <option value="0">Pilih Jenis Body</option>
                                     @foreach ($dataBody as $db)
                                         <option value="{{ $db->body_id }}">{{ $db->body }}</option>
                                     @endforeach
@@ -153,13 +155,26 @@
 
                                 <p class="text-sm">Transmisi</p>
                                 <select name="transmisiId">
+                                    <option value="0">Pilih Transmisi</option>
                                     @foreach ($dataTransmisi as $tm)
                                         <option value="{{ $tm->transmisi_id }}">{{ $tm->transmisi }}</option>
                                     @endforeach
                                 </select>
 
+                                <div>
+                                    <p class="text-sm">Harga Mulai</p>
+                                    <input name="priceFrom" placeholder="Rp." class="form-control rupiahInput">
+                                </div>
+
+                                <div>
+                                    <p class="text-sm">Harga Akhir</p>
+                                    <input name="priceEnd" placeholder="Rp." type="text"
+                                        class="form-control rupiahInput">
+                                </div>
+
                                 <div class="car__filter__btn mt-3 ">
-                                    <button type="submit" class="site-btn text-dark"><i class="fa fa-filter"></i>
+                                    <button type="submit" type="text" class="site-btn text-dark"><i
+                                            class="fa fa-filter"></i>
                                         Filter</button>
                                 </div>
                             </form>
@@ -351,4 +366,38 @@
 @endsection
 
 @section('js')
+    {{-- Format rupiah --}}
+    <script>
+        $(document).ready(function() {
+            $('.rupiahInput').on('input', function() {
+                // Mengambil nilai tanpa tanda ribuan
+                var inputValue = $(this).val();
+
+                // Hapus karakter selain digit
+                var numericValue = inputValue.replace(/[^0-9]/g, '');
+
+                // Format sebagai rupiah
+                var formattedValue = formatRupiah(numericValue);
+
+                // Update nilai input
+                $(this).val(formattedValue);
+            });
+        });
+
+        function formatRupiah(angka) {
+            // Hapus karakter selain digit
+            var numericValue = angka.replace(/[^0-9]/g, '');
+
+            // Pastikan angka tidak kosong
+            if (numericValue === '') {
+                return '';
+            }
+
+            var reverse = numericValue.toString().split('').reverse().join('');
+            var ribuan = reverse.match(/\d{1,3}/g);
+            var formattedValue = ribuan.join('.').split('').reverse().join('');
+
+            return 'Rp ' + formattedValue;
+        }
+    </script>
 @endsection

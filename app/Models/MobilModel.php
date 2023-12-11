@@ -138,7 +138,7 @@ class MobilModel extends Model
 
 
 
-    function filterCar($merk, $jenis, $transmisi)
+    function filterCar($merk, $jenis, $transmisi, $hargaMulai, $hargaAkhir)
     {
         $query = MobilModel::select(
             'mobil.nama_model',
@@ -161,9 +161,25 @@ class MobilModel extends Model
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
-            ->where('merk.merk_id', $merk)
-            ->where('mobil.body_id', $jenis)
-            ->where('mobil.transmisi_id', $transmisi)
+            ->where(function ($query) use ($merk, $jenis, $transmisi, $hargaMulai, $hargaAkhir) {
+                if ($merk != 0) {
+                    $query->where('merk.merk_id', $merk);
+                }
+
+                if ($jenis != 0) {
+                    $query->where('mobil.body_id', $jenis);
+                }
+
+                if ($transmisi != 0) {
+                    $query->where('mobil.transmisi_id', $transmisi);
+                }
+
+                if ($hargaAkhir > 0) {
+                    $query->whereBetween('mobil.harga_jual', [$hargaMulai, $hargaAkhir]);
+                } else {
+                    $query->where('mobil.harga_jual', '>=', $hargaMulai);
+                }
+            })
             ->orderBy('mobil.mobil_id', 'desc');
 
         return $query;
