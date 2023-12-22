@@ -131,7 +131,7 @@
                         <div class="car-thumbs">
                             <div class="car-thumbs-track car__thumb__slider owl-carousel">
 
-                                @for ($i = 2; $i < 5; $i++)
+                                @for ($i = 1; $i <= 6; $i++)
                                     <div class="ct"
                                         data-imgbigurl="{{ asset('data/cars/' . $dataMobil['gambar' . $i]) }}">
                                         <img src="{{ asset('data/cars/' . $dataMobil['gambar' . $i]) }}" alt="">
