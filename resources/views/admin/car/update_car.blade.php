@@ -591,7 +591,7 @@
 
                                 <div class="form-group ">
                                     <label>Link Youtube</label>
-                                    <textarea name="url_youtube" type="text" rows="4" required class="form-control" required>{{ $dataMobil['url_youtube'] }}</textarea>
+                                    <textarea name="url_youtube" type="text" rows="4" class="form-control">{{ $dataMobil['url_youtube'] }}</textarea>
                                 </div>
 
                                 <div class="form-group ">
