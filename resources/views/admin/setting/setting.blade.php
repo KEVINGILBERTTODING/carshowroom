@@ -457,6 +457,15 @@
                                             class="form-control">
 
                                     </div>
+
+                                    <div class="form-group col-md-6 col-12">
+                                        <label class="mb-3">Gambar Stempel</label>
+                                        <br>
+                                        <img class="w-50 img-fluid mb-3"
+                                            src="{{ asset('data/stempel/' . $dataApp['img_stempel']) }}" alt="">
+                                        <input type="file" accept=".png" name="img_stempel" class="form-control">
+
+                                    </div>
                                 </div>
 
 

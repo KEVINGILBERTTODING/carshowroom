@@ -123,9 +123,24 @@ class SettingController extends Controller
             $messages['img_about_u2' . '.max'] = 'Ukuran gambar  gambar tentang kami 1 tidak boleh lebih dari 3 MB';
         }
 
+
+        if ($request->hasFile('img_stempel')) {
+            $rules['img_stempel'] = 'image|mimes:png|max:2000';
+            $messages['img_stempel' . '.image'] = 'File  gambar tentang kami 1 harus berupa gambar';
+            $messages['img_stempel' . '.mimes'] = 'Format gambar  gambar tentang kami 1 tidak valid, pastikan file memiliki format .png';
+            $messages['img_stempel' . '.max'] = 'Ukuran gambar  gambar tentang kami 1 tidak boleh lebih dari 3 MB';
+        }
+
         $validator = Validator::make($request->all(), $rules, $messages);
         if ($validator->fails()) {
             return redirect()->back()->with('failed', $validator->errors()->first());
+        }
+
+        if ($request->hasFile('img_stempel')) {
+            $imgStempel = $request->file('img_stempel');
+            $fileNameStempel = 'stempel-' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $imgStempel->getClientOriginalExtension();
+            $imgStempel->move('data/stempel/', $fileNameStempel);
+            $dataApp['img_stempel'] = $fileNameStempel;
         }
 
         if ($request->hasFile('logo')) {
