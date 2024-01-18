@@ -111,26 +111,53 @@
     <!-- Header Section End -->
 
     <!-- Hero Section Begin -->
-    <section class="hero spad set-bg" data-setbg="{{ asset('template/client/img/main/' . $dataApp['img_hero']) }}">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-7">
+    <div id="carouselExample" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            <li data-target="#carouselExample" data-slide-to="0" class="active"></li>
+            <li data-target="#carouselExample" data-slide-to="1"></li>
+        </ol>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" style="max-height: 100;"
+                    src="{{ asset('template/client/img/main/' . $dataApp['img_hero']) }}" alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
                     <div class="hero__text">
                         <div class="hero__text__title">
                             <h3 class="text-white">Temukan Mobil Impian Anda</h3>
                             <h2>Rizki Motor</h2>
                         </div>
-
-                        <a href="{{ route('mobil') }}" class="primary-btn" style="color: black">
-                            Temukan Sekarang</a>
+                        <a href="{{ route('mobil') }}" class="primary-btn" style="color: black">Temukan Sekarang</a>
                         <a href="{{ route('aboutUs') }}" class="primary-btn more-btn">Tentang Kami</a>
                     </div>
                 </div>
+            </div>
 
+            <div class="carousel-item">
+                <img class="d-block w-100" src="{{ asset('template/client/img/main/' . $dataApp['img_hero2']) }}"
+                    alt="Second slide">
+                <div class="carousel-caption d-none d-md-block">
+                    <div class="hero__text">
+                        <div class="hero__text__title">
+                            <h3 class="text-white">Bergabung Bersama Kami</h3>
+                            <h2>Rizki Motor</h2>
+                        </div>
+                        <a href="{{ route('client.register') }}" class="primary-btn" style="color: black">
+                            Daftar Sekarang
+                        </a>
 
+                    </div>
+                </div>
             </div>
         </div>
-    </section>
+        <a class="carousel-control-prev" href="#carouselExample" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExample" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
     <!-- Hero Section End -->
 
     <!-- Services Section Begin -->
