@@ -198,6 +198,11 @@
                 </h3>
                 <p class="text-muted">{{ $dataTransaksi['transaksi_id'] }}</p>
 
+                <a class="btn btn-success"
+                    href="{{ route('client.invoice.download', $dataTransaksi['transaksi_id']) }}"><i
+                        class="bi bi-download"></i>
+                    Download Invoice</a>
+
 
 
             </div>

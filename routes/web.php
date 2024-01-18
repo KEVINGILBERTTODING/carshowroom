@@ -15,6 +15,7 @@ use App\Http\Controllers\admin\setting\SettingController;
 use App\Http\Controllers\admin\transactions\TransactionController;
 use App\Http\Controllers\admin\users\UsersController;
 use App\Http\Controllers\client\auth\AuthClientController;
+use App\Http\Controllers\client\invoice\InvoiceController;
 use App\Http\Controllers\client\main\MainController;
 use App\Http\Controllers\client\transaction\TransactionController as TransactionTransactionController;
 use App\Http\Controllers\CreditController;
@@ -239,6 +240,8 @@ Route::post('countCredit', [CreditController::class, 'countCredit'])->name('coun
 // user guide
 Route::get('userGuide', [MainController::class, 'userGuide'])->name('userGuide');
 
+
+
 // transaction
 Route::get('createNewTransaction/{mobilId}', [TransactionTransactionController::class, 'createNewTransaction'])->name('createNewTransaction');
 Route::post('insertTransaction', [TransactionTransactionController::class, 'insertTransaction'])->name('insertTransaction')->middleware('authClient');
@@ -269,6 +272,7 @@ Route::get('transaksiTidakValid', [TransactionTransactionController::class, 'get
 
 // transaksi client
 Route::get('detailTransaksi/{transactionId}', [TransactionTransactionController::class, 'detailTransaction'])->name('detailTransaksi')->middleware('authClient');
+Route::get('invoice/{transactionId}', [InvoiceController::class, 'download'])->name('client.invoice.download')->middleware('authClient');
 Route::get('downloadFileCreditClient/{fileName}', [TransactionTransactionController::class, 'downloadFileCredit'])->name('downloadFileCreditClient')->middleware('authClient');
 Route::get('downloadBuktiPembayaranClient/{fileName}', [TransactionTransactionController::class, 'downloadBuktiPembayaran'])->name('downloadBuktiPembayaranClient')->middleware('authClient');
 
