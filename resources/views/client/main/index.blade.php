@@ -119,7 +119,7 @@
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img class="d-block w-100" style="max-height: 100;"
-                    src="{{ asset('template/client/img/main/' . $dataApp['img_hero']) }}" alt="First slide">
+                    src="{{ asset('template/client/img/main/' . $dataApp['img_hero1']) }}" alt="First slide">
                 <div class="carousel-caption d-none d-md-block">
                     <div class="hero__text">
                         <div class="hero__text__title">

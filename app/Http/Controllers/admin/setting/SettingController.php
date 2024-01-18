@@ -100,11 +100,13 @@ class SettingController extends Controller
             $messages['logo' . '.max'] = 'Ukuran gambar logo tidak boleh lebih dari 3 MB';
         }
 
-        if ($request->hasFile('img_hero')) {
-            $rules['img_hero'] = 'image|mimes:jpeg,png,jpg|max:5000';
-            $messages['img_hero' . '.image'] = 'File banner utama harus berupa gambar';
-            $messages['img_hero' . '.mimes'] = 'Format gambar banner utama tidak valid, pastikan file memiliki format .jpg, .png atau .jpeg';
-            $messages['img_hero' . '.max'] = 'Ukuran gambar banner utama tidak boleh lebih dari 3 MB';
+        for ($i = 1; $i <= 2; $i++) {
+            if ($request->hasFile('img_hero' . $i)) {
+                $rules['img_hero' . $i] = 'image|mimes:jpeg,png,jpg|max:5000';
+                $messages['img_hero' . $i . '.image'] = 'File banner utama harus berupa gambar';
+                $messages['img_hero' . $i . '.mimes'] = 'Format gambar banner utama tidak valid, pastikan file memiliki format .jpg, .png atau .jpeg';
+                $messages['img_hero' . $i . '.max'] = 'Ukuran gambar banner utama tidak boleh lebih dari 3 MB';
+            }
         }
 
         if ($request->hasFile('img_about_us')) {
@@ -128,18 +130,19 @@ class SettingController extends Controller
 
         if ($request->hasFile('logo')) {
             $logo = $request->file('logo');
-            $fileNameLogo = 'AboutUs2-' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $logo->getClientOriginalExtension();
+            $fileNameLogo = 'logo-' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $logo->getClientOriginalExtension();
             $logo->move('data/app/img', $fileNameLogo);
             $dataApp['logo'] = $fileNameLogo;
         }
 
-        if ($request->hasFile('img_hero')) {
-            $fileHero = $request->file('img_hero');
-            $fileNameHero = 'Hero-' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileHero->getClientOriginalExtension();
-            $fileHero->move('template/client/img/main', $fileNameHero);
-            $dataApp['img_hero'] = $fileNameHero;
+        for ($i = 1; $i <= 2; $i++) {
+            if ($request->hasFile('img_hero' . $i)) {
+                $fileHero = $request->file('img_hero' . $i);
+                $fileNameHero = 'Hero-' . $i . '-' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileHero->getClientOriginalExtension();
+                $fileHero->move('template/client/img/main', $fileNameHero);
+                $dataApp['img_hero' . $i] = $fileNameHero;
+            }
         }
-
         if ($request->hasFile('img_about_us')) {
             $fileAboutUs1 = $request->file('img_about_us');
             $fileNameAboutUs1 = 'AboutUs1-' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileAboutUs1->getClientOriginalExtension();
