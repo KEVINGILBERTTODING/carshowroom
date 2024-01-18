@@ -135,7 +135,7 @@
                             <td>
                                 <div style="width: 300px;">
 
-                                    <input type="text" readonly id="dp" class="form-control">
+                                    <input type="text" id="dp" class="form-control">
                                 </div>
                             </td>
                         </tr>
@@ -380,6 +380,21 @@
         }
         $(document).ready(function() {
 
+            $('#dp').on('input', function() {
+                // Mengambil nilai input
+                let inputValue = $(this).val();
+
+
+                // Menghapus karakter selain angka
+                inputValue = inputValue.replace(/[^0-9]/g, '');
+
+                // Menambahkan titik setiap tiga digit dari belakang
+                inputValue = inputValue.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+                // Menetapkan nilai input yang sudah diformat
+                $(this).val(inputValue);
+            });
+
 
 
             // sett default nilai
@@ -393,6 +408,9 @@
 
             $('#btn_hitung').click(function(e) {
                 e.preventDefault();
+                var initialMinValue = {{ $totalMinDp }};
+                let totalMaxVal = "{{ $totalMaxDp }}";
+
 
 
                 // Dapatkan nilai radio yang dipilih
@@ -402,61 +420,83 @@
                 var totalPembayaran = {{ $dataMobil['harga_jual'] - $dataMobil['diskon'] }};
                 var financeId = {{ $dataFinance['finance_id'] }}
 
-                // Cek apakah nilai ada
-                if (selectedValue == undefined) {
-
+                if (initialMinValue > valueDpFormatted) {
                     Swal.fire({
                         icon: "error",
                         title: "Gagal",
-                        text: "Anda belum memilih durasi pinjaman.",
+                        text: "Jumlah uang muka tidak boleh kurang dari minimum DP.",
                     });
+                    $('#dp').val(initialMinValue.toLocaleString('id-ID'));
 
+                } else if (totalMaxVal < valueDpFormatted) {
+                    Swal.fire({
+                        icon: "error",
+                        title: "Gagal",
+                        text: "Jumlah uang muka tidak boleh lebih dari miximum DP.",
+                    });
+                    $('#dp').val(initialMinValue.toLocaleString('id-ID'));
                 } else {
+                    // Cek apakah nilai ada
+                    if (selectedValue == undefined) {
 
-                    $.ajax({
-                        type: "POST",
-                        url: "/countCredit",
-                        data: {
-                            finance_id: financeId,
-                            total_pembayaran: totalPembayaran,
-                            total_dp: valueDpFormatted,
-                            durasi: selectedValue,
-                            _token: $('meta[name="csrf-token"]').attr('content')
-                        },
-                        dataType: "json",
-                        success: function(data) {
-                            var biayaTambahan = data.biaya_admin + data
-                                .biaya_asuransi + data.biaya_provisi;
-                            var totalTdp = biayaTambahan + valueDpFormatted;
+                        Swal.fire({
+                            icon: "error",
+                            title: "Gagal",
+                            text: "Anda belum memilih durasi pinjaman.",
+                        });
 
-                            $('#biaya_administrasi').text("Rp. " + formatDecimal(data
-                                .biaya_admin));
-                            $('#biaya_provisi').text("Rp. " + formatDecimal(data
-                                .biaya_asuransi));
-                            $('#biaya_asuransi').text("Rp. " + formatDecimal(data
-                                .biaya_provisi));
-                            $('#biaya_tambahan').text("Rp. " + formatDecimal(biayaTambahan));
-                            $('#total_tdp').text("Rp. " + formatDecimal(totalTdp));
-                            $('#total_cicilan').text("Rp. " + formatDecimal(data.totalCicilan) +
-                                ' / bulan');
-                            $('#total_cicilan2').text( "Rp. " +  formatDecimal(data.totalCicilan) +
-                                ' / bulan');
+                    } else {
 
+                        $.ajax({
+                            type: "POST",
+                            url: "/countCredit",
+                            data: {
+                                finance_id: financeId,
+                                total_pembayaran: totalPembayaran,
+                                total_dp: valueDpFormatted,
+                                durasi: selectedValue,
+                                _token: $('meta[name="csrf-token"]').attr('content')
+                            },
+                            dataType: "json",
+                            success: function(data) {
+                                var biayaTambahan = data.biaya_admin + data
+                                    .biaya_asuransi + data.biaya_provisi;
+                                var totalTdp = biayaTambahan + valueDpFormatted;
 
-                        },
-                        error: function(error) {
-                            Swal.fire({
-                                icon: "error",
-                                title: "Gagal",
-                                text: "Terjadi kesalahan.",
-                            });
-                        }
-                    });
-
-
+                                $('#biaya_administrasi').text("Rp. " + formatDecimal(data
+                                    .biaya_admin));
+                                $('#biaya_provisi').text("Rp. " + formatDecimal(data
+                                    .biaya_asuransi));
+                                $('#biaya_asuransi').text("Rp. " + formatDecimal(data
+                                    .biaya_provisi));
+                                $('#biaya_tambahan').text("Rp. " + formatDecimal(
+                                    biayaTambahan));
+                                $('#total_tdp').text("Rp. " + formatDecimal(totalTdp));
+                                $('#total_cicilan').text("Rp. " + formatDecimal(data
+                                        .totalCicilan) +
+                                    ' / bulan');
+                                $('#total_cicilan2').text("Rp. " + formatDecimal(data
+                                        .totalCicilan) +
+                                    ' / bulan');
 
 
+                            },
+                            error: function(error) {
+                                Swal.fire({
+                                    icon: "error",
+                                    title: "Gagal",
+                                    text: "Terjadi kesalahan.",
+                                });
+                            }
+                        });
+
+
+
+
+                    }
                 }
+
+
 
 
 
