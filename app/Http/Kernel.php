@@ -67,7 +67,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\AdminAuthMiddleware::class,
         'authAdmin' => \App\Http\Middleware\AuthAdminMiddleware::class,
         'authClient' => \App\Http\Middleware\ClientMiddleware::class,
-        'authEmployee' => \App\Http\Middleware\AuthEmployee::class,
-        'employeeAuth' => \App\Http\Middleware\EmployeeAuth::class,
+        'client.auth.middleware' => \App\Http\Middleware\AuthClientMiddleware::class
+
     ];
 }

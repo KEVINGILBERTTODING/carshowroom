@@ -153,7 +153,7 @@ class TransactionController extends Controller
     function pengajuanKredit($mobilId, $financeId)
     {
         if (session('client') != true) {
-            return redirect()->route('/')->with('failed', 'Anda harus login terlebih dahulu');
+            return redirect()->route('client.sign-in')->with('failed', 'Anda harus login terlebih dahulu');
         }
 
         if ($mobilId == 0 || $financeId == 0) {

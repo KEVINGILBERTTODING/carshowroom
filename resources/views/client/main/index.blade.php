@@ -13,7 +13,10 @@
             <a href="#" class="search-switch"><i class="fa fa-search"></i></a>
             @if (session('client') == true)
                 <a href="{{ route('dashboardClient') }}" class="primary-btn text-dark btnDashboard">Dashboard</a>
+            @else
+                <a href="{{ route('client.sign-in') }}" class="primary-btn text-dark btnDashboard">Login</a>
             @endif
+
         </div>
         <div class="offcanvas__logo">
             <a href="{{ route('/') }}"><img width="10%;" src="{{ asset('data/app/img/' . $dataApp['logo']) }}"
@@ -91,6 +94,9 @@
                             @if (session('client') == true)
                                 <a href="{{ route('dashboardClient') }}"
                                     class="primary-btn text-dark btnDashboard">Dashboard</a>
+                            @else
+                                <a href="{{ route('client.sign-in') }}"
+                                    class="primary-btn text-dark btnDashboard">Login</a>
                             @endif
 
                         </div>
@@ -120,93 +126,8 @@
                         <a href="{{ route('aboutUs') }}" class="primary-btn more-btn">Tentang Kami</a>
                     </div>
                 </div>
-                <div class="col-lg-5">
-                    <div class="hero__tab">
-
-                        @if (session('client') != true)
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="tabs-1" role="tabpanel">
-                                    <div class="hero__tab__form" style="border-radius: 20px;">
-                                        <h2>Masuk</h2>
-
-                                        <p class="text-sm text-muted">Baru bergabung ? <a data-toggle="tab"
-                                                style="text-decoration: none; color: #3e6ae1 ;" href="#tabs-2"
-                                                role="tab">
-                                                Buat akun baru</a></p>
-
-                                        <form method="POST" action="{{ route('login') }}">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input type="text" id="email" placeholder="Email"
-                                                    class="form-control" name="email" required>
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label>Kata Sandi</label>
-                                                <input type="password" id="password" placeholder="Kata sandi"
-                                                    class="form-control" name="password" required>
-                                            </div>
-                                            <button type="submit" style="width: 100%;"
-                                                class="site-btn full-width-btn text-dark">Masuk</button>
-                                        </form>
-                                        <div class="divider d-flex justify-content-center my-4">
-                                            <p class="text-center fw-bold mx-3 mb-0 text-muted">ATAU</p>
-                                        </div>
-                                        <button id="btn-google" class="site-btn mt-4"
-                                            style="width: 100%; background-color: #3e6ae1; display: flex; align-items: center; justify-content: center; text-align: left;">
-                                            <i class="fa fa-google" aria-hidden="true" style="margin-right: 10px;"></i>
-                                            Masuk dengan akun google
-                                        </button>
-                                        <br>
-
-                                        <a href="{{ route('userForgotPassword') }}" class="text text-primary"
-                                            style="text-align: center">Lupa
-                                            Kata
-                                            Sandi ?</a>
 
 
-                                    </div>
-                                </div>
-
-                                <div class="tab-pane" id="tabs-2" role="tabpanel">
-                                    <div class="hero__tab__form" style="border-radius: 20px;">
-                                        <h2>Daftar</h2>
-
-                                        <p class="text-sm text-muted">Telah memiliki akun? <a data-toggle="tab"
-                                                style="text-decoration: none; color: #3e6ae1 ;" href="#tabs-1"
-                                                role="tab">
-                                                Masuk</a></p>
-
-                                        <form method="POST" action="{{ route('register') }}">
-                                            @csrf
-                                            <div class="form-group">
-                                                <label>Email</label>
-                                                <input type="text" id="email" placeholder="Email"
-                                                    class="form-control" name="email" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Nama Lengkap</label>
-                                                <input type="text" id="email" placeholder="Nama Lengkap"
-                                                    class="form-control" name="nama_lengkap" required>
-                                            </div>
-                                            <div class="form-group mb-4">
-                                                <label>Kata Sandi</label>
-                                                <input type="password" id="password" placeholder="Kata sandi"
-                                                    class="form-control" name="password" required>
-                                            </div>
-                                            <button type="submit" style="width: 100%;"
-                                                class="site-btn full-width-btn text-dark">Daftar</button>
-                                        </form>
-
-
-
-                                    </div>
-                                </div>
-
-                            </div>
-                        @endif
-                    </div>
-                </div>
             </div>
         </div>
     </section>
@@ -446,124 +367,4 @@
 @endsection
 
 @section('js')
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import {
-            initializeApp
-        } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
-        import {
-            getAnalytics
-        } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-analytics.js";
-
-        import {
-            GoogleAuthProvider,
-            getAuth,
-            signInWithPopup
-        } from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js"
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-            apiKey: "AIzaSyC7RG6qHRqNyPoGrffer4fUIGIYR1xpNzQ",
-            authDomain: "rizqi-motor-32f51.firebaseapp.com",
-            projectId: "rizqi-motor-32f51",
-            storageBucket: "rizqi-motor-32f51.appspot.com",
-            messagingSenderId: "463365809602",
-            appId: "1:463365809602:web:97177ca8bc54dea2dbe25b",
-            measurementId: "G-9YVGX5MPHC"
-        };
-
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-
-
-        const provider = new GoogleAuthProvider();
-        const auth = getAuth();
-
-        document.querySelector('#btn-google').addEventListener('click', function(e) {
-            signInWithPopup(auth, provider)
-                .then((result) => {
-                    // This gives you a Google Access Token. You can use it to access the Google API.
-                    const credential = GoogleAuthProvider.credentialFromResult(result);
-                    const token = credential.accessToken;
-                    // The signed-in user info.
-                    const user = result.user;
-                    const email = result.user.email;
-                    const namaLengkap = result.user.displayName;
-                    const profilePhoto = result.user.photoURL;
-
-
-
-                    // simpan login
-                    $.ajax({
-                        type: "post",
-                        url: "/loginWithGoogle",
-                        data: {
-                            _token: "{{ csrf_token() }}",
-                            email: email,
-                            nama_lengkap: namaLengkap,
-                            profile_photo: profilePhoto
-                        },
-                        dataType: "json",
-                        success: function(response) {
-
-
-                            // Tanggapan berhasil
-                            if (response.status === "success") {
-
-
-
-                                Swal.fire({
-                                    icon: "success",
-                                    title: "Berhasil",
-                                    text: "Berhasil login.",
-                                });
-                                // Lakukan tindakan lain seperti mengarahkan pengguna atau memperbarui UI
-                                window.location.href = '/';
-                            } else {
-                                // Tanggapan gagal
-
-                                Swal.fire({
-                                    icon: "error",
-                                    title: "Gagal",
-                                    text: "Terjadi kesalahan.",
-                                });
-                                // Handle kesalahan sesuai kebutuhan
-                            }
-                        },
-                        error: function(xhr, status, error) {
-                            // Tanggapan error dari server
-                            // console.error("Terjadi kesalahan3: " + error);
-                            // console.error("Respons: " + xhr.responseText);
-                            Swal.fire({
-                                icon: "error",
-                                title: "Gagal",
-                                text: "Terjadi kesalahan.",
-                            });
-                        }
-                    });
-
-                }).catch((error) => {
-                    // Handle Errors here.
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    // The email of the user's account used.
-                    const email = error.customData.email;
-                    // The AuthCredential type that was used.
-                    const credential = GoogleAuthProvider.credentialFromError(error);
-                    $(document).ready(function() {
-
-                        Swal.fire({
-                            icon: "error",
-                            title: "Gagal",
-                            text: "Terjadi kesalahan.",
-                        });
-
-
-                    });
-                });
-        });
-    </script>
 @endsection

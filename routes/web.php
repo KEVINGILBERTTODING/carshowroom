@@ -41,6 +41,8 @@ use Illuminate\Support\Facades\Route;
 
 // main route
 Route::get('/', [MainController::class, 'index'])->name('/');
+Route::get('sign-in', [AuthClientController::class, 'index'])->name('client.sign-in')->middleware('client.auth.middleware');
+Route::get('register', [AuthClientController::class, 'daftar'])->name('client.register')->middleware('client.auth.middleware');
 
 
 // admin

@@ -15,6 +15,18 @@ use Illuminate\Support\Str;
 
 class AuthClientController extends Controller
 {
+
+    function index()
+    {
+        return view('client.auth.sign-in');
+    }
+
+
+    function daftar()
+    {
+        return view('client.auth.register');
+    }
+
     function loginWithGoogle(Request $request)
     {
         $email = $request->input('email');
@@ -101,7 +113,7 @@ class AuthClientController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('/')->with('failed', $validator->errors()->first());
+            return redirect()->back()->with('failed', $validator->errors()->first());
         }
 
         try {
@@ -117,10 +129,10 @@ class AuthClientController extends Controller
             if ($insert) {
                 return redirect()->route('/')->with('success', 'Berhasil mendaftar');
             } else {
-                return redirect()->route('/')->with('failed', 'Gagal registrasi');
+                return redirect()->back()->with('failed', 'Gagal registrasi');
             }
         } catch (\Throwable $th) {
-            return redirect()->route('/')->with('failed', 'Gagal registrasi');
+            return redirect()->back()->with('failed', 'Gagal registrasi');
         }
     }
 
@@ -138,7 +150,7 @@ class AuthClientController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return redirect()->route('/')->with('failed', $validator->errors()->first());
+            return redirect()->back()->with('failed', $validator->errors()->first());
         }
 
         $email = $request->input('email');
@@ -151,13 +163,13 @@ class AuthClientController extends Controller
                     $request = session()->put('user_id', $validateEmail['user_id']);
                     return redirect()->route('/')->with('success', 'Berhasil login');
                 } else {
-                    return redirect()->route('/')->with('failed', 'Kata sandi salah');
+                    return redirect()->back()->with('failed', 'Kata sandi salah');
                 }
             } else {
-                return redirect()->route('/')->with('failed', 'Email belum terdaftar');
+                return redirect()->back()->with('failed', 'Email belum terdaftar');
             }
         } catch (\Throwable $th) {
-            return redirect()->route('/')->with('failed', $th->getMessage());
+            return redirect()->back()->with('failed', $th->getMessage());
         }
     }
 

@@ -185,7 +185,6 @@
     <script src="{{ asset('template/client/js/main.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.10.0/sweetalert2.min.js"></script>
 
-
     {{-- script sweetalert --}}
     @if (session('failed'))
         <script>
