@@ -418,7 +418,7 @@
                         @if ($dataFinance != null)
                             <button data-toggle="modal" data-target="#finance_chooser"
                                 class="btn btn-warning w-100 mt-3"><i class="fa fa-credit-card"></i>
-                                <b> Ajukan Kredit</b></button>
+                                <b> Simulasi Kredit</b></button>
                         @endif
                         <a href="https://api.whatsapp.com/send?phone={{ str_replace('08', '628', $dataApp['no_hp']) }}&text=Halo,%20saya%20ingin%20bertanya%20tentang%20mobil%20{{ $dataMobil['merk'] }}%20{{ $dataMobil['nama_model'] }}%20{{ $dataMobil['tahun'] }}"
                             target="_blank" rel="noopener noreferrer" class="btn btn-success sidebar-btn w-100 mt-3"><i

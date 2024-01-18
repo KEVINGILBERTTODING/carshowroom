@@ -429,14 +429,17 @@
                                 .biaya_asuransi + data.biaya_provisi;
                             var totalTdp = biayaTambahan + valueDpFormatted;
 
-                            $('#biaya_administrasi').text(formatDecimal(data.biaya_admin));
-                            $('#biaya_provisi').text(formatDecimal(data.biaya_asuransi));
-                            $('#biaya_asuransi').text(formatDecimal(data.biaya_provisi));
-                            $('#biaya_tambahan').text(formatDecimal(biayaTambahan));
-                            $('#total_tdp').text(formatDecimal(totalTdp));
-                            $('#total_cicilan').text(formatDecimal(data.totalCicilan) +
+                            $('#biaya_administrasi').text("Rp. " + formatDecimal(data
+                                .biaya_admin));
+                            $('#biaya_provisi').text("Rp. " + formatDecimal(data
+                                .biaya_asuransi));
+                            $('#biaya_asuransi').text("Rp. " + formatDecimal(data
+                                .biaya_provisi));
+                            $('#biaya_tambahan').text("Rp. " + formatDecimal(biayaTambahan));
+                            $('#total_tdp').text("Rp. " + formatDecimal(totalTdp));
+                            $('#total_cicilan').text("Rp. " + formatDecimal(data.totalCicilan) +
                                 ' / bulan');
-                            $('#total_cicilan2').text(formatDecimal(data.totalCicilan) +
+                            $('#total_cicilan2').text( "Rp. " +  formatDecimal(data.totalCicilan) +
                                 ' / bulan');
 
 
