@@ -170,7 +170,7 @@ Route::get('downloadReportCars/{status}', [MobilController::class, 'downloadRepo
 Route::get('dataPemilik', [UsersController::class, 'owner'])->name('dataPemilik')->middleware('admin');
 Route::post('tambahPemilik', [UsersController::class, 'tambahPemilik'])->name('tambahPemilik')->middleware('admin');
 Route::post('updatePemilik', [UsersController::class, 'updatePemilik'])->name('updatePemilik')->middleware('admin');
-Route::get('hapusPemilik/{ownerId}', [UsersController::class, 'hapusPelanggan'])->name('hapusPemilik')->middleware('admin');
+Route::get('hapusPemilik/{ownerId}', [UsersController::class, 'hapusPemilik'])->name('hapusPemilik')->middleware('admin');
 Route::get('hapusPelanggan/{pelangganId}', [UsersController::class, 'hapusPelanggan'])->name('hapusPelanggan')->middleware('admin');
 Route::get('dataPelanggan', [UsersController::class, 'pelanggan'])->name('dataPelanggan')->middleware('admin');
 Route::post('updatePelanggan', [UsersController::class, 'updatePelanggan'])->name('updatePelanggan')->middleware('admin');
