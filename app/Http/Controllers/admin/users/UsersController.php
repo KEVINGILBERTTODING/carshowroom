@@ -234,9 +234,9 @@ class UsersController extends Controller
         try {
             $delete = PelangganModel::where('pelanggan_id', $pelangganId)->delete();
             if ($delete) {
-                return redirect()->back()->with('success', 'Berhasil menghapus pelanggan');
+                return redirect()->back()->with('success', 'Berhasil menghapus pemilik');
             } else {
-                return redirect()->back()->with('failed', 'Gagal menghapus pelanggan');
+                return redirect()->back()->with('failed', 'Gagal menghapus pemilik');
             }
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
