@@ -37,7 +37,7 @@ class InvoiceController extends Controller
                 $pdf = FacadePdf::loadView('client.dashboard.invoice.invoice', $data);
                 $pdf->setPaper('A4', 'potrait');
 
-                return $pdf->download('Laporan_mobil_' . date('F_Y') . '.pdf');
+                return $pdf->download('Invoice_' . date('F_Y') . '.pdf');
             } else {
                 return redirect()->back()->with('failed', 'Tidak ada data mobil');
             }

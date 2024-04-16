@@ -26,6 +26,7 @@ use App\Http\Controllers\FinanceController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\owner\auth\OwnerAuthController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\VersiController;
 use App\Http\Middleware\ClientMiddleware;
 use Illuminate\Support\Facades\Route;
 
@@ -147,7 +148,7 @@ Route::get('adminProfile', [AdminController::class, 'profil'])->name('adminProfi
 Route::post('ubahFotoProfilAdmin', [AdminController::class, 'ubahFotoProfil'])->name('ubahFotoProfilAdmin')->middleware('admin');
 Route::post('ubahProfilAdmin', [AdminController::class, 'ubahProfile'])->name('ubahProfilAdmin')->middleware('admin');
 
-// mobil
+// mobil Admin
 Route::get('tambahMobilBaru', [MobilController::class, 'tambahMobil'])->name('tambahMobilBaru')->middleware('admin');
 Route::post('insertMobil', [MobilController::class, 'insertMobil'])->name('insertMobil')->middleware('admin');
 Route::get('seluruhMobil', [MobilController::class, 'seluruhMobil'])->name('seluruhMobil')->middleware('admin');
@@ -170,7 +171,7 @@ Route::get('downloadReportCars/{status}', [MobilController::class, 'downloadRepo
 Route::get('dataPemilik', [UsersController::class, 'owner'])->name('dataPemilik')->middleware('admin');
 Route::post('tambahPemilik', [UsersController::class, 'tambahPemilik'])->name('tambahPemilik')->middleware('admin');
 Route::post('updatePemilik', [UsersController::class, 'updatePemilik'])->name('updatePemilik')->middleware('admin');
-Route::get('hapusPemilik/{ownerId}', [UsersController::class, 'hapusPelanggan'])->name('hapusPemilik')->middleware('admin');
+Route::get('hapusPemilik/{ownerId}', [UsersController::class, 'hapusPemilik'])->name('hapusPemilik')->middleware('admin');
 Route::get('hapusPelanggan/{pelangganId}', [UsersController::class, 'hapusPelanggan'])->name('hapusPelanggan')->middleware('admin');
 Route::get('dataPelanggan', [UsersController::class, 'pelanggan'])->name('dataPelanggan')->middleware('admin');
 Route::post('updatePelanggan', [UsersController::class, 'updatePelanggan'])->name('updatePelanggan')->middleware('admin');
@@ -224,7 +225,7 @@ Route::get('detailDataFinance/{financeId}', [MainController::class, 'detailFinan
 Route::get('aboutUs', [MainController::class, 'aboutUs'])->name('aboutUs');
 Route::get('review', [MainController::class, 'review'])->name('review');
 
-// mobil
+// mobil client
 Route::get('mobil', [MobilController::class, 'tampilMobil'])->name('mobil');
 Route::get('detailMobil/{mobilId}', [MobilController::class, 'detailMobilClient'])->name('detailMobil');
 Route::get('cariMobil', [MobilController::class, 'cariMobil'])->name('cariMobil');
@@ -233,7 +234,7 @@ Route::get('filterMobil', [MobilController::class, 'filterMobil'])->name('filter
 
 
 
-// credit
+// credit 
 Route::get('credit/{mobilId}/{financeId}', [CreditController::class, 'credit'])->name('credit');
 Route::post('countCredit', [CreditController::class, 'countCredit'])->name('countCredit');
 
@@ -242,7 +243,7 @@ Route::get('userGuide', [MainController::class, 'userGuide'])->name('userGuide')
 
 
 
-// transaction
+// transaction client
 Route::get('createNewTransaction/{mobilId}', [TransactionTransactionController::class, 'createNewTransaction'])->name('createNewTransaction');
 Route::post('insertTransaction', [TransactionTransactionController::class, 'insertTransaction'])->name('insertTransaction')->middleware('authClient');
 Route::get('pengajuanKredit/{mobilId}/{financeId}', [TransactionTransactionController::class, 'pengajuanKredit'])->name('pengajuanKredit');
@@ -294,3 +295,4 @@ Route::get('deleteNotifAdmin', [NotificationController::class, 'deleteNotifAdmin
 Route::get('settings', [SettingController::class, 'index'])->name('settings')->middleware('admin');
 Route::post('updateDataShowroom', [SettingController::class, 'updateDataShowroom'])->name('updateDataShowroom')->middleware('admin');
 Route::post('updateContent', [SettingController::class, 'updateContent'])->name('updateContent')->middleware('admin');
+

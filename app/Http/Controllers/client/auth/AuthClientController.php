@@ -226,6 +226,8 @@ class AuthClientController extends Controller
                 'email' => 'required|string|unique:users,email,' . session('user_id') . ',user_id',
                 'no_hp' => 'required|numeric',
                 'alamat' => 'required|string',
+                'kota' => 'required|string',
+                'provinsi' => 'required|string'
             ], [
                 'required' => ':attribute tidak boleh kosong',
                 'string' => ':attribute hanya boleh berupa huruf dan angka',
@@ -235,7 +237,9 @@ class AuthClientController extends Controller
                 'nama_lengkap' => 'Nama lengkap',
                 'email' => 'Email',
                 'no_hp' => 'No handphone',
-                'alamat' => 'Alamat'
+                'alamat' => 'Alamat',
+                'kota' => 'Kota',
+                'provinsi' => 'Provinsi'
             ]);
 
             if ($validator->fails()) {
@@ -248,6 +252,8 @@ class AuthClientController extends Controller
                     'no_hp' => $request->no_hp,
                     'email' => $request->email,
                     'alamat' => $request->alamat,
+                    'kota' => $request->kota,
+                    'provinsi' => $request->provinsi,
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ];
 
@@ -265,6 +271,8 @@ class AuthClientController extends Controller
                 'nama_lengkap' => 'required|string',
                 'no_hp' => 'required|numeric',
                 'alamat' => 'required|string',
+                'kota' => 'required|string',
+                'provinsi' => 'required|string'
             ], [
                 'required' => ':attribute tidak boleh kosong',
                 'string' => ':attribute hanya boleh berupa huruf dan angka',
@@ -272,7 +280,9 @@ class AuthClientController extends Controller
             ], [
                 'nama_lengkap' => 'Nama lengkap',
                 'no_hp' => 'No handphone',
-                'alamat' => 'Alamat'
+                'alamat' => 'Alamat',
+                'kota' => 'Kota',
+                'provinsi' => 'Provinsi'
             ]);
 
             if ($validator->fails()) {
@@ -284,6 +294,8 @@ class AuthClientController extends Controller
                     'nama_lengkap' => $request->nama_lengkap,
                     'no_hp' => $request->no_hp,
                     'alamat' => $request->alamat,
+                    'kota'=> $request->kota,
+                    'provinsi' => $request->provinsi,
                     'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
                 ];
 

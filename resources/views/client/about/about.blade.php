@@ -147,14 +147,7 @@
                             alt="{{ $dataApp['app_name'] }}">
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="about__item">
-                        <h5>Misi Kami</h5>
-                        <p>
-                            {{ $dataApp['misi'] }}
-                        </p>
-                    </div>
-                </div>
+               
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="about__item">
                         <h5>Visi Kami</h5>
@@ -164,6 +157,16 @@
                         </p>
                     </div>
                 </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="about__item">
+                        <h5>Misi Kami</h5>
+                        <p>
+                            {{ $dataApp['misi'] }}
+                        </p>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>

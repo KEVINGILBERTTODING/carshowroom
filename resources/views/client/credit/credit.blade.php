@@ -161,7 +161,7 @@
                             <label class="btn btn-secondary"
                                 style="border-radius: 50%; width: 40px; height: 40px; padding: 6px; text-align: center; font-size: 16px; color: black; background-color: #fff; margin-right: 5px; border: 2px solid black;">
                                 <input type="radio" name="loanTenure" value="13" onclick="getSelectedValue(this)">
-                                13
+                                12
                             </label>
                             <label class="btn btn-secondary"
                                 style="border-radius: 50%; width: 40px; height: 40px; padding: 6px; text-align: center; font-size: 16px; color: black; background-color: #fff; margin-right: 5px; border: 2px solid black;">

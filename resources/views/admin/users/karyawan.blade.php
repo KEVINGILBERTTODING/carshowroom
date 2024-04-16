@@ -271,7 +271,7 @@
     <div class="page-title">
         <div class="row">
             <div class="col-12 col-md-6 order-md-1 order-last">
-                <h3>Daftar Pengguna</h3>
+                <h3>Daftar Karyawan</h3>
 
             </div>
             <div class="col-12 col-md-6 order-md-2 order-first">
@@ -288,7 +288,7 @@
         <div class="card">
             <div class="card-header">
                 <h5 class="card-title">
-                    Table Daftar Pengguna
+                    Table Daftar Karywan
                 </h5>
                 <div class="d-flex justify-content-end">
                     <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal_insert">Tambah
@@ -305,6 +305,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                {{-- <th>Foto Profile</th> --}}
                                 <th>Nama Lengkap</th>
                                 <th>Email</th>
                                 <th>No Handphone</th>
@@ -321,6 +322,11 @@
                             @foreach ($dataKaryawan as $dw)
                                 <tr>
                                     <td>{{ $no++ }}</td>
+                                    {{-- <td >
+                                        <div class="avatar avatar-md">
+                                            <img src="{{ asset('data/profile_photo/' . $dw['photo_profile']) }}">
+                                        </div>
+                                        </td> --}}
                                     <td>{{ $dw->name }}</td>
                                     <td>{{ $dw->email }}</td>
                                     <td> <a target="_blank"
@@ -328,7 +334,7 @@
                                             {{ $dw->no_hp }}
                                         </a></td>
                                     <td>{{ $dw->alamat }}</td>
-                                    <td>
+                                                    <td>
                                         @if ($dw->status == 1)
                                             <span class="badge bg-success">Aktif</span>
                                         @else
@@ -395,6 +401,7 @@
                                                         <label for="basicInput">Alamat</label>
                                                         <textarea class="form-control mt-2" name="alamat" required id="basicInput" placeholder="Alamat karyawan...">{{ $dw->alamat }}</textarea>
                                                     </div>
+                                                    
 
                                                     <div class="form-group">
                                                         <label for="basicInput">Status</label>
@@ -458,7 +465,7 @@
                             <i data-feather="x"></i>
                         </button>
                     </div>
-                    <form action="{{ route('tambahKaryawan') }}" method="post">
+                    <form action="{{ route('tambahKaryawan') }}" method="post" enctype="multipart/form-data">
                         @csrf
                         <div class="modal-body">
 
@@ -488,6 +495,13 @@
                                 <input type="text" class="form-control mt-2" name="password" required
                                     id="basicInput">
                             </div>
+
+                            {{-- <div class="form-group">
+                                <label for="basicInput">Foto Profile</label>
+                                <input type="file" class="form-control mt-2" name="foto_profile" 
+                                accept=".jpg,.png,.jpeg"
+                                id="basicInput">
+                            </div> --}}
 
 
                         </div>

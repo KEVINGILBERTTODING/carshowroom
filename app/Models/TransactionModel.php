@@ -537,6 +537,7 @@ class TransactionModel extends Model
 
     function getClientTransactionStatus($status, $userId)
     {
+
         $data = TransactionModel::select(
             'transaksi.*',
             'users.nama_lengkap as nama_user',
@@ -548,15 +549,18 @@ class TransactionModel extends Model
             'mobil.mobil_id',
             'mobil.tahun',
             'mobil.gambar1',
-            'merk.merk'
+            'merk.merk',
+            'review.review_text'
 
         )
+
             ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
             ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
             ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
             ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
             ->leftJoin('finance', 'pk.finance_id', '=', 'finance.finance_id')
             ->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->leftJoin('review', 'mobil.mobil_id', '=', 'review.mobil_id')
             ->where('transaksi.user_id', $userId)
             ->where('transaksi.status', $status)
             ->orderBy('transaksi.created_at', 'desc')

@@ -165,6 +165,14 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
+
+                    {{-- PELIHAT WEBSITE --}}
+                    <div class="section-title">
+                        <span>Pengunjung Website</span>
+                        <h2>Total Pengunjung Website</h2>
+                        <h5>{{ $jumlah_visitor }} Pengunjung</h5>
+                    </div>
+
                     <div class="section-title">
                         <span>Pelayanan Kami</span>
                         <h2>Apa Yang Kami Tawarkan</h2>

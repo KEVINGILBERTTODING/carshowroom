@@ -278,8 +278,18 @@
                                     <label>Alamat</label>
                                     <textarea type="text" rows="4" placeholder="Alamat lengkap anda..." name="alamat" class="form-control"
                                         required="Alamat tidak boleh kosong">{{ $dataUser['alamat'] }}</textarea>
+                                </div>
 
+                                <div class="form-group">
+                                    <label>Kota</label>
+                                    <textarea type="text" rows="1" placeholder="Kota lengkap anda..." name="kota" class="form-control"
+                                        required="Kota tidak boleh kosong">{{ $dataUser['kota'] }}</textarea>
+                                </div>
 
+                                <div class="form-group">
+                                    <label>Provinsi</label>
+                                    <textarea type="text" rows="1" placeholder="Provinsi lengkap anda..." name="provinsi" class="form-control"
+                                        required="provinsi tidak boleh kosong">{{ $dataUser['provinsi'] }}</textarea>
                                 </div>
 
                             </div>

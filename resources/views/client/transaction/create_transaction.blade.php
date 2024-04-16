@@ -160,6 +160,24 @@
 
                             <div class="col-md-6 mb-3">
                                 <div class="from-group">
+                                    <label>Kota</label>
+                                    <textarea type="text" rows="1" class="form-control" name="kota" value="{{ $dataUser['kota'] }}"
+                                        placeholder="Kota lengkap anda" required>{{ $dataUser['kota'] }}</textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="from-group">
+                                    <label>Provinsi</label>
+                                    <textarea type="text" rows="1" class="form-control" name="provinsi" value="{{ $dataUser['provinsi'] }}"
+                                        placeholder="Provinsi lengkap anda" required>{{ $dataUser['provinsi'] }}</textarea>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <div class="from-group">
                                     <label>Bukti Pembayaran</label>
                                     <span style="font-size: 12px;" class="text text-sm text-danger">(Format jpg, png, dan
                                         jpeg

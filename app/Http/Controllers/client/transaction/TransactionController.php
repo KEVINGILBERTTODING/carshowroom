@@ -81,6 +81,8 @@ class TransactionController extends Controller
             'nama_lengkap' => 'required|string',
             'no_hp' => 'required|numeric',
             'alamat' => 'required|string',
+            'kota' => 'required|string',
+            'provinsi' => 'required|string',
             'total_pembayaran' => 'required|numeric',
 
 
@@ -95,6 +97,8 @@ class TransactionController extends Controller
             'nama_lengkap' => 'nama lengkap',
             'no_hp' => 'no Handphone',
             'alamat' => 'alamat',
+            'kota' => 'kota',
+            'provinsi' => 'provinsi',
             'evidence' => 'Bukti pembayaran'
         ]);
         if ($validator->fails()) {
@@ -114,6 +118,8 @@ class TransactionController extends Controller
             'nama_lengkap' => $request->input('nama_lengkap'),
             'alamat' => $request->input('alamat'),
             'no_hp' => $request->input('no_hp'),
+            'kota' => $request->input('kota'),
+            'provinsi' => $request->input('provinsi'),
             'updated_at' => date('Y-m-d H:i:s')
         ];
 

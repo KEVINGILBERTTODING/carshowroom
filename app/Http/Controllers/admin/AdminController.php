@@ -56,6 +56,7 @@ class AdminController extends Controller
         $totalNotificationRead = NotificationAdminModel::select('notif_id')->where('status', 0)->count();
         $totalNotification = NotificationAdminModel::select('notif_id')->count();
 
+        //return $dataPemasukanPerTahun;
         $data = [
             'dataAdmin' => $dataAdmin,
             'dataApp' => $dataApp,

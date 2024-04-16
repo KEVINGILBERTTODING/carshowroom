@@ -305,6 +305,7 @@
                                 <th>No</th>
                                 <th>Nama Pemilik</th>
                                 <th>Email</th>
+                                {{-- <th>Almat</th> --}}
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>
@@ -319,6 +320,7 @@
                                     <td>{{ $no++ }}</td>
                                     <td>{{ $dw->name }}</td>
                                     <td>{{ $dw->email }}</td>
+                                    {{-- <td>{{ $dw->alamat }}</td> --}}
                                     <td>
                                         @if ($dw->is_active == 1)
                                             <span class="badge bg-success">Aktif</span>
@@ -402,6 +404,14 @@
                                                             name="password" id="basicInput">
                                                     </div>
 
+                                                    {{-- <div class="form-group">
+                                                        <label for="basicInput">Alamat</label>
+
+                                                        <input type="text" class="form-control mt-2" value="{{$dw->alamat}}"
+                                                            name="alamat" id="basicInput">
+                                                    </div> --}}
+
+
 
 
 
@@ -459,6 +469,12 @@
                                         <input type="text" class="form-control mt-2" name="password" required
                                             id="basicInput">
                                     </div>
+
+                                    {{-- <div class="form-group">
+                                        <label for="basicInput">alamat</label>
+                                        <input type="text" class="form-control mt-2" name="alamat" required
+                                            id="basicInput">
+                                    </div> --}}
 
 
                                 </div>

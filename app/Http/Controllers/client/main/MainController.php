@@ -9,12 +9,15 @@ use App\Models\NotificationModel;
 use App\Models\ReviewModel;
 use App\Models\TransactionModel;
 use App\Models\User;
+use App\Models\VisitorModel;
+use App\Models\Visitors;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
 class MainController extends Controller
 {
-    function index()
+    function index(Request $request)
     {
         if (session('login') == true && session('role') == 'admin') {
             return redirect()->route('adminDashboard');
@@ -25,6 +28,20 @@ class MainController extends Controller
         }
 
         $dataApp =  AppModel::where('app_id', 1)->first();
+        //mendapatkan alamat ip pengunjung
+        $clientIpAddress = $request->ip();
+
+        //minyampan data alamat ip pengunjung
+        $dataIp = [
+            'ip_address' => $clientIpAddress,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ];
+
+        $insert = VisitorModel::insert($dataIp);
+
+        //Menghitung Jumlah Pengunjung:
+        $jumlahVisitor = VisitorModel::count();
+
         $dataReview  = ReviewModel::select(
             'review.review_text',
             'review.star',
@@ -45,7 +62,8 @@ class MainController extends Controller
 
         $data = [
             'dataApp' => $dataApp,
-            'dataReview' => $dataReview
+            'dataReview' => $dataReview,
+            'jumlah_visitor' => $jumlahVisitor
         ];
         return view('client.main.index', $data);
     }
@@ -190,6 +208,6 @@ class MainController extends Controller
             return view('client.profile.profile', $data);
         } catch (\Throwable $th) {
             return redirect()->back()->with('failed', 'Terjadi kesalahan');
-        }
-    }
+ }
+}
 }

@@ -79,8 +79,6 @@ class MobilController extends Controller
         $rules = [];
         $messages = [];
 
-
-
         $validatorData = Validator::make($request->all(), [
             'merk_id' => 'required|numeric',
             'body_id' => 'required|numeric',
@@ -1014,6 +1012,7 @@ class MobilController extends Controller
             $dataMerk = MerkModel::get();
             $dataTransmisi = TransmisiModel::get();
             $dataBody = BodyModel::get();
+            $dataBahanBakar = BahanBakarModel::get();
             $dataMobil = $mobilModel->clientGetCar()->paginate(9);
             $dataFinance = FInanceModel::first();
 
@@ -1043,6 +1042,7 @@ class MobilController extends Controller
                 'dataMerk' => $dataMerk,
                 'dataTransmisi' => $dataTransmisi,
                 'dataBody' => $dataBody,
+                'dataBahanBakar' => $dataBahanBakar,
 
             ];
 
@@ -1134,6 +1134,7 @@ class MobilController extends Controller
             $dataMerk = MerkModel::get();
             $dataTransmisi = TransmisiModel::get();
             $dataBody = BodyModel::get();
+           // $dataBahanBakar = BahanBakarModel::get();
             $dataMobil = $mobilModel->searchCar($keyword)->paginate(9);
             $dataFinance = FInanceModel::first();
 
@@ -1163,6 +1164,7 @@ class MobilController extends Controller
                 'dataMerk' => $dataMerk,
                 'dataTransmisi' => $dataTransmisi,
                 'dataBody' => $dataBody,
+                //'dataBahanBakar' => $dataBahanBakar,
 
             ];
 
@@ -1180,6 +1182,7 @@ class MobilController extends Controller
             'merkId' => 'required|numeric',
             'bodyId' => 'required|numeric',
             'transmisiId' => 'required|numeric',
+            //'bahanBakarId' => 'required|numeric',
         ], [
             'required' => 'Terjadi kesalahan',
             'numeric' => 'Terjadi kesalahan'
@@ -1192,6 +1195,7 @@ class MobilController extends Controller
         $mobilModel = new MobilModel();
         $merk = $request->merkId;
         $body = $request->bodyId;
+        //$bahanBakarId = $request->bahanBakarId; //kiri penamaan biasa beba (buat isi line 1212) knan ambil name di view
         $transmisi = $request->transmisiId;
         $priceFrom = preg_replace('/[^0-9]/', '', $request->priceFrom);
         $priceEnd = preg_replace('/[^0-9]/', '', $request->priceEnd);
@@ -1202,7 +1206,8 @@ class MobilController extends Controller
             $dataMerk = MerkModel::get();
             $dataTransmisi = TransmisiModel::get();
             $dataBody = BodyModel::get();
-            $dataMobil = $mobilModel->filterCar($merk, $body, $transmisi, $priceFrom, $priceEnd)->paginate(9);
+            //$dataBahanBakar = BahanBakarModel::get();
+            $dataMobil = $mobilModel->filterCar($merk, $body, $transmisi, $priceFrom, $priceEnd)->paginate(9); //tambah $bahanBakarId
             $dataFinance = FInanceModel::first();
 
             if ($dataFinance != null) {
@@ -1231,6 +1236,8 @@ class MobilController extends Controller
                 'dataMerk' => $dataMerk,
                 'dataTransmisi' => $dataTransmisi,
                 'dataBody' => $dataBody,
+                //'dataBahanBakar' => $dataBahanBakar,
+                
 
             ];
 

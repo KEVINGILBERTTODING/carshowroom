@@ -84,6 +84,8 @@ class MobilModel extends Model
             'tangki.tangki',
             'review.review_text',
             'review.star',
+            'users.profile_photo as photo_customer',
+            'review.created_at as tgl_review',
             'review.image1 as image_review1',
             'review.image2 as image_review2',
             'review.image3 as image_review3',
@@ -138,7 +140,7 @@ class MobilModel extends Model
 
 
 
-    function filterCar($merk, $jenis, $transmisi, $hargaMulai, $hargaAkhir)
+    function filterCar($merk, $jenis, $transmisi, $hargaMulai, $hargaAkhir) //tambah $bahanBakarId
     {
         $query = MobilModel::select(
             'mobil.nama_model',
@@ -146,6 +148,7 @@ class MobilModel extends Model
             'mobil.no_plat',
             'mobil.tahun',
             'mobil.km',
+            //'mobil.bahan_bakar_id',
             'mobil.harga_jual',
             'mobil.diskon',
             'mobil.status_mobil',
@@ -161,7 +164,7 @@ class MobilModel extends Model
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
-            ->where(function ($query) use ($merk, $jenis, $transmisi, $hargaMulai, $hargaAkhir) {
+            ->where(function ($query) use ($merk, $jenis, $transmisi, $hargaMulai, $hargaAkhir) { //tambah $bahanBakarId
                 if ($merk != 0) {
                     $query->where('merk.merk_id', $merk);
                 }
@@ -173,6 +176,10 @@ class MobilModel extends Model
                 if ($transmisi != 0) {
                     $query->where('mobil.transmisi_id', $transmisi);
                 }
+
+                // if ($bahanBakarId != 0) {
+                //     $query->where('mobil.bahan_bakar_id', $bahanBakarId);
+                // }
 
                 if ($hargaAkhir > 0) {
                     $query->whereBetween('mobil.harga_jual', [$hargaMulai, $hargaAkhir]);

@@ -165,6 +165,14 @@
                                     @endforeach
                                 </select>
 
+                                {{-- <p class="text-sm">Jenis Bahan Bakar</p>
+                                <select name="bahanBakarId">
+                                    <option value="0">Pilih Jenis Bahan Bakar</option>
+                                     @foreach ($dataBahanBakar as $bb)
+                                        <option value="{{ $bb->bahan_bakar_id }}"> {{ $bb->bahan_bakar }}</option>
+                                    @endforeach 
+                                </select> --}}
+
                                 <div>
                                     <p class="text-sm">Harga Mulai</p>
                                     <input name="priceFrom" placeholder="Rp." class="form-control rupiahInput">

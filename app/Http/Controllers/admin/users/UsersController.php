@@ -40,7 +40,8 @@ class UsersController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
             'email' => 'required|email|unique:owner,email',
-            'password' => 'required|string|min:8'
+            'password' => 'required|string|min:8',
+            //'alamat' => 'required|string',
         ], [
             'required' => 'Kolom :attribute tidak boleh kosong',
             'string' => 'Kolom :attribute hanya boleh berupa text',
@@ -50,7 +51,8 @@ class UsersController extends Controller
         ], [
             'name' => 'Nama',
             'email' => 'Email',
-            'password' => 'Kata sandi'
+            'password' => 'Kata sandi',
+            //'alamat' => 'Alamat'
         ]);
 
         if ($validator->fails()) {
@@ -63,6 +65,7 @@ class UsersController extends Controller
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'password' => Hash::make($request->input('password')),
+                //'alamat' => $request->input('alamat'),
                 'created_at' => date('Y-m-d H:i:s')
             ];
 
@@ -103,7 +106,8 @@ class UsersController extends Controller
             'owner_id' => 'required|numeric',
             'name' => 'required|string',
             'email' => 'required|email|unique:owner,email,' . $request->input('owner_id') . ',owner_id',
-            'status' => 'required|numeric'
+            'status' => 'required|numeric',
+            //'alamat' => 'required|string'
         ], [
             'required' => 'Kolom :attribute tidak boleh kosong',
             'string' => 'Kolom :attribute hanya boleh berupa text',
@@ -113,7 +117,8 @@ class UsersController extends Controller
         ], [
             'name' => 'Nama',
             'email' => 'Email',
-            'status' => 'Status'
+            'status' => 'Status',
+            //'alamat' => 'alamat'
         ]);
 
         if ($validator->fails()) {
@@ -127,6 +132,7 @@ class UsersController extends Controller
                     'name' => $request->input('name'),
                     'email' => $request->input('email'),
                     'is_active' => $request->input('status'),
+                    //'alamat' => $request->input('alamat'),
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
             } else {
@@ -145,6 +151,7 @@ class UsersController extends Controller
                     'name' => $request->input('name'),
                     'email' => $request->input('email'),
                     'is_active' => $request->input('status'),
+                    //'alamat' => $request->input('alamat'),
                     'password' => Hash::make($request->input('password')),
                     'updated_at' => date('Y-m-d H:i:s')
                 ];
@@ -310,6 +317,7 @@ class UsersController extends Controller
 
         $validator = Validator::make($request->all(), [
             'name' => 'required|string',
+            //'foto_profile' => 'nullable|mimes:png,jpg,jpeg|max:5000',
             'email' => 'required|email|unique:owner,email',
             'password' => 'required|string|min:8',
             'no_hp' => 'required|numeric',
@@ -320,13 +328,15 @@ class UsersController extends Controller
             'email' => 'Kolom :attribute tidak valid',
             'unique' => 'Email telah terdaftar',
             'numeric' => 'No handphone hanya boleh berupa angka',
-            'min' => 'Kata sandi tidak boleh kurang dari 8 karakter'
+            'min' => 'Kata sandi tidak boleh kurang dari 8 karakter',
+            //'mimes' =>':attribut format tidak valid'
         ], [
             'name' => 'Nama',
             'email' => 'Email',
             'password' => 'Kata sandi',
             'no_hp' => 'No handphone',
             'alamat' => 'Alamat',
+            //'foto_profile' => 'Foto Profile' 
         ]);
 
         if ($validator->fails()) {
@@ -335,11 +345,19 @@ class UsersController extends Controller
 
         try {
 
+            //Foto profile harus menambahkan ini
+            // if($request->hasFile('foto_profile')){
+            //     $fotoProfile = $request->file('foto_profile');
+            //     $fileName = 'KRY-' . Carbon::now()->format('Y-m-d-H:i:s') .'.'. $fotoProfile->getClientOriginalExtension();
+            //     $fotoProfile->move('data/profile_foto', $fotoProfile);
+            // }
+
             $dataKaryawan = [
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
                 'no_hp' => $request->input('no_hp'),
                 'alamat' => $request->input('alamat'),
+                //'photo_profile' => $fileName, //photo_profile ambil nama field dari database, $fileName ambil dari atas untuk penggunaan namanya
                 'password' => Hash::make($request->input('password')),
                 'created_at' => date('Y-m-d H:i:s')
             ];
@@ -351,7 +369,7 @@ class UsersController extends Controller
                 return redirect()->back()->with('failed', 'Gagal menambahkan karyawan baru');
             }
         } catch (\Throwable $th) {
-            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+            return redirect()->back()->with('failed', $th->getMessage());
         }
     }
 

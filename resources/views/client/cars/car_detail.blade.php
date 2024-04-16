@@ -183,6 +183,8 @@
                                                         {{ $dataMobil['tahun'] }}</li>
                                                     <li> <i class="fa fa-check"></i><strong>Warna:</strong>
                                                         {{ $dataMobil['warna'] }}</li>
+                                                        {{-- <li> <i class="fa fa-check"></i><strong>Bahan Bakar:</strong>
+                                                            {{ $dataMobil['bahan_bakar'] }}</li> --}}
                                                     <li> <i class="fa fa-check"></i><strong>Kilometer:</strong>
                                                         {{ formatDecimal($dataMobil['km']) }}</li>
 

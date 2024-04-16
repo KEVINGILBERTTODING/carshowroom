@@ -300,6 +300,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
+                                {{-- <th>Foto Profile</th> --}}
                                 <th>Nama Lengkap</th>
                                 <th>Email</th>
                                 <th>No Handphone</th>
@@ -317,6 +318,12 @@
                             @foreach ($dataPengguna as $dw)
                                 <tr>
                                     <td>{{ $no++ }}</td>
+                                    {{-- <td >
+                                        <div class="avatar avatar-md">
+                                            <img src="{{ asset('data/profile_photo/' . $dw['profile_photo']) }}">
+                                        </div>
+                                        </td> --}}
+
                                     <td>{{ $dw->nama_lengkap }}</td>
                                     <td>{{ $dw->email }}</td>
                                     <td> <a target="_blank"
