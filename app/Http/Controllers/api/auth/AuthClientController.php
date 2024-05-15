@@ -204,7 +204,7 @@ class AuthClientController extends Controller
                         'message' => 'succes',
                         'data' => [
                             'email' => $validateAdmin['email'],
-                            'admin_id' => $validateAdmin['admin_id'],
+                            'user_id' => $validateAdmin['admin_id'],
                             'profile_photo' => $validateAdmin['photo_profile'],
                             'nama_lengkap' => $validateAdmin['name'],
                             'role' => 2 // admin
@@ -221,7 +221,7 @@ class AuthClientController extends Controller
                         'message' => 'succes',
                         'data' => [
                             'email' => $validateOwner['email'],
-                            'owner_id' => $validateOwner['owner_id'],
+                            'user_id' => $validateOwner['owner_id'],
                             'profile_photo' => $validateOwner['photo_profile'],
                             'nama_lengkap' => $validateOwner['name'],
                             'role' => 3 // owner
@@ -248,15 +248,18 @@ class AuthClientController extends Controller
     function updatePassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'role' => 'required|numeric',
             'old_password' => 'required|string|min:8',
             'new_password' => 'required|string|min:8'
         ], [
             'required' => ':attribute tidak boleh kosong',
             'string' => ':attribute hanya boleh berupa huruf dan angka',
-            'min' => ':attribute tidak boleh kurang dari 8 karakter'
+            'min' => ':attribute tidak boleh kurang dari 8 karakter',
+            'numeric' => ':attribute tidak valid',
         ], [
             'old_password' => 'Password lama',
-            'new_password' => 'Password baru'
+            'new_password' => 'Password baru',
+            'role' => 'Role'
         ]);
 
         if ($validator->fails()) {
@@ -265,31 +268,58 @@ class AuthClientController extends Controller
             ], 400);
         }
         $userId = $request->user_id;
+        $role = $request->role;
 
         try {
 
-            // check password
-            $validationPassword = User::select('password')->where('user_id', $userId)->first();
-            if ($validationPassword && Hash::check($request->old_password, $validationPassword['password'])) {
-                $dataUser = [
-                    'password' => Hash::make($request->new_password),
-                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-                ];
+            if ($role == 1) { // user
+                // check password
+                $validationPassword = User::select('password')->where('user_id', $userId)->first();
+                if ($validationPassword && Hash::check($request->old_password, $validationPassword['password'])) {
+                    $dataUser = [
+                        'password' => Hash::make($request->new_password),
+                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ];
 
-                $update = User::where('user_id', $request->user_id)->update($dataUser);
-                if ($update) {
-                    return response([
-                        'message' =>  'Berhasil mengubah kata sandi'
-                    ], 200);
+                    $update = User::where('user_id', $request->user_id)->update($dataUser);
+                    if ($update) {
+                        return response([
+                            'message' =>  'Berhasil mengubah kata sandi'
+                        ], 200);
+                    } else {
+                        return response([
+                            'message' =>  'Gagal mengubah kata sandi'
+                        ], 400);
+                    }
                 } else {
                     return response([
-                        'message' =>  'Gagal mengubah kata sandi'
+                        'message' =>  'Kata sandi lama tidak sesuai'
                     ], 400);
                 }
-            } else {
-                return response([
-                    'message' =>  'Kata sandi lama tidak sesuai'
-                ], 400);
+            } else if ($role == 2) {
+                // check password
+                $validationPassword = Admin::select('password')->where('admin_id', $userId)->first();
+                if ($validationPassword && Hash::check($request->old_password, $validationPassword['password'])) {
+                    $dataUser = [
+                        'password' => Hash::make($request->new_password),
+                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ];
+
+                    $update = Admin::where('admin_id', $request->user_id)->update($dataUser);
+                    if ($update) {
+                        return response([
+                            'message' =>  'Berhasil mengubah kata sandi'
+                        ], 200);
+                    } else {
+                        return response([
+                            'message' =>  'Gagal mengubah kata sandi'
+                        ], 400);
+                    }
+                } else {
+                    return response([
+                        'message' =>  'Kata sandi lama tidak sesuai'
+                    ], 400);
+                }
             }
         } catch (\Throwable $th) {
             return response([
@@ -302,29 +332,130 @@ class AuthClientController extends Controller
     {
 
         $userId = $request->user_id;
+        $role = $request->role;
 
+        if ($role == 1) { // user
+            if ($request->sign_in == 'email') {
+                $validator = Validator::make($request->all(), [
+                    'nama_lengkap' => 'required|string',
+                    'email' => 'required|string|unique:users,email,' . $request->user_id . ',user_id',
+                    'no_hp' => 'required|numeric',
+                    'alamat' => 'required|string',
+                    'kota' => 'required|string',
+                    'provinsi' => 'required|string'
+                ], [
+                    'required' => ':attribute tidak boleh kosong',
+                    'string' => ':attribute hanya boleh berupa huruf dan angka',
+                    'unique' => ':attribute telah digunakan',
+                    'numeric' => ':attribute hanya boleh berupa angka'
+                ], [
+                    'nama_lengkap' => 'Nama lengkap',
+                    'email' => 'Email',
+                    'no_hp' => 'No handphone',
+                    'alamat' => 'Alamat',
+                    'kota' => 'Kota',
+                    'provinsi' => 'Provinsi'
+                ]);
 
-        // jika user sign in via email
-        if ($request->sign_in == 'email') {
+                if ($validator->fails()) {
+                    return response([
+                        'message' => $validator->errors()->first()
+                    ], 404);
+                }
+
+                try {
+                    $data = [
+                        'nama_lengkap' => $request->nama_lengkap,
+                        'no_hp' => $request->no_hp,
+                        'email' => $request->email,
+                        'alamat' => $request->alamat,
+                        'kota' => $request->kota,
+                        'provinsi' => $request->provinsi,
+                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ];
+
+                    $update = User::where('user_id', $userId)->update($data);
+                    if ($update) {
+                        return response([
+                            'message' => 'Berhasil mengubah profile'
+                        ], 200);
+                    } else {
+                        return response([
+                            'message' => 'Gagal mengubah profile'
+                        ], 404);
+                    }
+                } catch (\Throwable $th) {
+                    return response([
+                        'message' => $validator->errors()->first()
+                    ], 404);
+                }
+            } else {
+                $validator = Validator::make($request->all(), [
+                    'nama_lengkap' => 'required|string',
+                    'no_hp' => 'required|numeric',
+                    'alamat' => 'required|string',
+                    'kota' => 'required|string',
+                    'provinsi' => 'required|string'
+                ], [
+                    'required' => ':attribute tidak boleh kosong',
+                    'string' => ':attribute hanya boleh berupa huruf dan angka',
+                    'numeric' => ':attribute hanya boleh berupa angka'
+                ], [
+                    'nama_lengkap' => 'Nama lengkap',
+                    'no_hp' => 'No handphone',
+                    'alamat' => 'Alamat',
+                    'kota' => 'Kota',
+                    'provinsi' => 'Provinsi'
+                ]);
+
+                if ($validator->fails()) {
+                    return response([
+                        'message' => $validator->errors()->first()
+                    ], 404);
+                }
+
+                try {
+                    $data = [
+                        'nama_lengkap' => $request->nama_lengkap,
+                        'no_hp' => $request->no_hp,
+                        'alamat' => $request->alamat,
+                        'kota' => $request->kota,
+                        'provinsi' => $request->provinsi,
+                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ];
+
+                    $update = User::where('user_id', $userId)->update($data);
+                    if ($update) {
+                        return response([
+                            'message' => 'Berhasil mengubah profile'
+                        ], 200);
+                    } else {
+                        return response([
+                            'message' => 'Gagal mengubah profile'
+                        ], 404);
+                    }
+                } catch (\Throwable $th) {
+                    return response([
+                        'message' => 'Terjadi kesalahan server'
+                    ], 500);
+                }
+            }
+        } else if ($role == 2) { // admin
             $validator = Validator::make($request->all(), [
                 'nama_lengkap' => 'required|string',
-                'email' => 'required|string|unique:users,email,' . $request->user_id . ',user_id',
-                'no_hp' => 'required|numeric',
-                'alamat' => 'required|string',
-                'kota' => 'required|string',
-                'provinsi' => 'required|string'
+                'email' => 'required|unique:admin,email,' . $userId . ',admin_id',
+                'user_id' => 'required|exists:admin,admin_id'
             ], [
                 'required' => ':attribute tidak boleh kosong',
                 'string' => ':attribute hanya boleh berupa huruf dan angka',
-                'unique' => ':attribute telah digunakan',
-                'numeric' => ':attribute hanya boleh berupa angka'
+                'numeric' => ':attribute hanya boleh berupa angka',
+                'unique' => ':attribute telah terdaftar',
+                'exists' => 'User tidak ditemukan'
             ], [
                 'nama_lengkap' => 'Nama lengkap',
                 'email' => 'Email',
-                'no_hp' => 'No handphone',
-                'alamat' => 'Alamat',
-                'kota' => 'Kota',
-                'provinsi' => 'Provinsi'
+
+
             ]);
 
             if ($validator->fails()) {
@@ -335,70 +466,15 @@ class AuthClientController extends Controller
 
             try {
                 $data = [
-                    'nama_lengkap' => $request->nama_lengkap,
-                    'no_hp' => $request->no_hp,
-                    'email' => $request->email,
-                    'alamat' => $request->alamat,
-                    'kota' => $request->kota,
-                    'provinsi' => $request->provinsi,
-                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    'name' => $request->nama_lengkap,
+                    'email' => $request->email
                 ];
 
-                $update = User::where('user_id', $userId)->update($data);
+                $update = Admin::where('admin_id', $userId)->update($data);
                 if ($update) {
                     return response([
                         'message' => 'Berhasil mengubah profile'
                     ], 200);
-                } else {
-                    return response([
-                        'message' => 'Gagal mengubah profile'
-                    ], 404);
-                }
-            } catch (\Throwable $th) {
-                return response([
-                    'message' => $validator->errors()->first()
-                ], 404);
-            }
-        } else {
-            $validator = Validator::make($request->all(), [
-                'nama_lengkap' => 'required|string',
-                'no_hp' => 'required|numeric',
-                'alamat' => 'required|string',
-                'kota' => 'required|string',
-                'provinsi' => 'required|string'
-            ], [
-                'required' => ':attribute tidak boleh kosong',
-                'string' => ':attribute hanya boleh berupa huruf dan angka',
-                'numeric' => ':attribute hanya boleh berupa angka'
-            ], [
-                'nama_lengkap' => 'Nama lengkap',
-                'no_hp' => 'No handphone',
-                'alamat' => 'Alamat',
-                'kota' => 'Kota',
-                'provinsi' => 'Provinsi'
-            ]);
-
-            if ($validator->fails()) {
-                return response([
-                    'message' => $validator->errors()->first()
-                ], 404);
-            }
-
-            try {
-                $data = [
-                    'nama_lengkap' => $request->nama_lengkap,
-                    'no_hp' => $request->no_hp,
-                    'alamat' => $request->alamat,
-                    'kota' => $request->kota,
-                    'provinsi' => $request->provinsi,
-                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-                ];
-
-                $update = User::where('user_id', $userId)->update($data);
-                if ($update) {
-                    return response([
-                        'message' => 'Berhasil mengubah profile'
-                    ], 404);
                 } else {
                     return response([
                         'message' => 'Gagal mengubah profile'
@@ -416,7 +492,7 @@ class AuthClientController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'photo' => 'required|image|mimes:png,jpg,jpeg|max:5000',
-            'user_id' => 'required|numeric|exists:users,user_id'
+            'role' => 'required|numeric',
         ], [
             'photo.required' => 'Gambar tidak boleh kosong',
             'photo.image' => 'Gambar tidak valid',
@@ -424,8 +500,10 @@ class AuthClientController extends Controller
             'photo.max' => 'Ukuran gambar tidak boleh lebih dari 5 MB',
             'user_id.required' => 'Pengguna tidak valid',
             'user_id.exists' => 'Pengguna tidak ditemukan',
+            'role.required' => 'Role tidak ditemukan'
 
         ]);
+
 
         if ($validator->fails()) {
             return response([
@@ -433,17 +511,38 @@ class AuthClientController extends Controller
             ], 400);
         }
 
+        $role = $request->role;
+
+
         if ($request->hasFile('photo')) {
             $userId = $request->user_id;
             $file = $request->file('photo');
-            $fileName = 'USR-' . $userId . '.' . $file->getClientOriginalExtension();
+
+            if ($role == 1) { // user
+                $fileName = 'USR-' . $userId . '.' . $file->getClientOriginalExtension();
+            } else if ($role == 2) { // admin
+                $fileName = 'ADM-' . $userId . '.' . $file->getClientOriginalExtension();
+            }
+
             $file->move('data/profile_photo/', $fileName);
             try {
-                $data = [
-                    'profile_photo' => $fileName,
-                    'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
-                ];
-                $update  = User::where('user_id', $userId)->update($data);
+                if ($role == 1) {
+                    $data = [
+                        'profile_photo' => $fileName,
+                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ];
+
+
+                    $update  = User::where('user_id', $userId)->update($data);
+                } else if ($role == 2) {
+                    $data = [
+                        'photo_profile' => $fileName,
+                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ];
+
+
+                    $update  = Admin::where('admin_id', $userId)->update($data);
+                }
                 if ($update) {
                     return response([
                         'message' => 'success'
@@ -455,8 +554,8 @@ class AuthClientController extends Controller
                 }
             } catch (\Throwable $th) {
                 return response([
-                    'message' => 'Terjadi kesalahan server'
-                ], 404);
+                    'message' => $th->getMessage()
+                ], 500);
             }
         }
     }
@@ -552,11 +651,15 @@ class AuthClientController extends Controller
         }
     }
 
-    function getUserById($userId)
+    function getUserById($userId, $role)
     {
         try {
+            if ($role == 1) { /// user
+                $dataUser = User::where('user_id', $userId)->first();
+            } else if ($role == 2) { // admmin
+                $dataUser = Admin::where('admin_id', $userId)->first();
+            }
 
-            $dataUser = User::where('user_id', $userId)->first();
 
 
             return response([

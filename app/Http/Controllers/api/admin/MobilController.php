@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\api\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
@@ -35,39 +35,40 @@ class MobilController extends Controller
         date_default_timezone_set('Asia/Jakarta');
     }
 
-    function tambahMobil()
+    function getDataTambahMobil()
     {
-        if (session('role') == 'admin') {
-            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-        } elseif (session('role') == 'employee') {
-            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
-        } else {
-            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
+
+        try {
+
+            $dataMerk = MerkModel::get();
+            $dataBody = BodyModel::get();
+            $dataWarna = WarnaModel::get();
+            $dataKapasitasMesin = KapasitasMesinModel::get();
+            $dataBahanBakar = BahanBakarModel::get();
+            $dataTransmisi  = TransmisiModel::get();
+            $dataKapasitasPenumpang = KapasitasPenumpangModel::get();
+            $dataTangki = TangkiModel::get();
+
+            $data = [
+                'dataMerk' => $dataMerk,
+                'dataBody' => $dataBody,
+                'dataWarna' => $dataWarna,
+                'dataKapasitasMesin' => $dataKapasitasMesin,
+                'dataBahanBakar' => $dataBahanBakar,
+                'dataTransmisi' => $dataTransmisi,
+                'dataKapasitasPenumpang' => $dataKapasitasPenumpang,
+                'dataTangki' => $dataTangki
+            ];
+            return response([
+                'message' => 'success',
+                'data' => $data
+            ], 200);
+        } catch (\Throwable $th) {
+            return response([
+                'message' => 'Server error',
+
+            ], 500);
         }
-
-        $dataApp = AppModel::where('app_id', 1)->first();
-        $dataMerk = MerkModel::get();
-        $dataBody = BodyModel::get();
-        $dataWarna = WarnaModel::get();
-        $dataKapasitasMesin = KapasitasMesinModel::get();
-        $dataBahanBakar = BahanBakarModel::get();
-        $dataTransmisi  = TransmisiModel::get();
-        $dataKapasitasPenumpang = KapasitasPenumpangModel::get();
-        $dataTangki = TangkiModel::get();
-
-        $data = [
-            'dataAdmin' => $dataAdmin,
-            'dataApp' => $dataApp,
-            'dataMerk' => $dataMerk,
-            'dataBody' => $dataBody,
-            'dataWarna' => $dataWarna,
-            'dataKapasitasMesin' => $dataKapasitasMesin,
-            'dataBahanBakar' => $dataBahanBakar,
-            'dataTransmisi' => $dataTransmisi,
-            'dataKapasitasPenumpang' => $dataKapasitasPenumpang,
-            'dataTangki' => $dataTangki
-        ];
-        return view('admin.car.add_car', $data);
     }
 
     public function insertMobil(Request $request)
@@ -132,7 +133,9 @@ class MobilController extends Controller
         ]);
 
         if ($validatorData->fails()) {
-            return redirect()->back()->with('failed', $validatorData->errors()->first())->withInput();
+            return response([
+                'message' => $validatorData->errors()->first()
+            ], 400);
         }
 
         for ($i = 1; $i <= 6; $i++) {
@@ -150,7 +153,9 @@ class MobilController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('failed', $validator->errors()->first())->withInput();
+            return response([
+                'message' => $validator->errors()->first()
+            ], 400);
         }
 
 
@@ -195,12 +200,18 @@ class MobilController extends Controller
         try {
             $insertMobil = MobilModel::insert($data);
             if ($insertMobil) {
-                return redirect()->back()->with('success', 'Berhasil menambahkan mobil baru');
+                return response([
+                    'message' => 'success',
+                ], 200);
             } else {
-                return redirect()->back()->with('failed', 'Gagal menambahkan mobil baru')->withInput();
+                return response([
+                    'message' => 'Gagal menambahkan mobil baru',
+                ], 400);
             }
         } catch (\Throwable $th) {
-            return redirect()->back()->with('failed', $th->getMessage())->withInput();
+            return response([
+                'message' => 'Terjadi kesalahan server',
+            ], 500);
         }
     }
 
@@ -306,17 +317,25 @@ class MobilController extends Controller
     function hapus($mobilId)
     {
         if ($mobilId == null && $mobilId == 0) {
-            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+            return response([
+                'message' => 'Terjadi kesalahan'
+            ], 400);
         }
         try {
             $delete = MobilModel::where('mobil_id', $mobilId)->delete();
             if ($delete) {
-                return redirect()->back()->with('success', 'Berhasil menghapus data mobil');
+                return response([
+                    'message' => 'success', 'Berhasil menghapus data mobil'
+                ], 200);
             } else {
-                return redirect()->back()->with('failed', 'Gagal menghapus data mobil');
+                return response([
+                    'message' => 'Gagal menghapus data mobil'
+                ], 400);
             }
         } catch (\Throwable $th) {
-            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+            return response([
+                'message' => 'Terjadi kesalahan'
+            ], 500);
         }
     }
 
@@ -328,26 +347,19 @@ class MobilController extends Controller
 
     function adminDetailMobil($mobil_id)
     {
-        $mobilModel = new MobilModel();
-        $dataMobil = $mobilModel->getDetailMobil($mobil_id);
-        if (session('role') == 'admin') {
-            $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-        } elseif (session('role') == 'employee') {
-            $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
-        } else {
-            $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
+        try {
+            $mobilModel = new MobilModel();
+            $dataMobil = $mobilModel->getDetailMobil($mobil_id);
+            return response([
+                'message' => 'success',
+                'data' => $dataMobil
+            ], 200);
+        } catch (\Throwable $th) {
+            return response([
+                'message' => 'Server error'
+            ], 500);
         }
-
-        $dataApp = AppModel::where('app_id', 1)->first();
-        $data = [
-            'dataApp' => $dataApp,
-            'dataAdmin' => $dataAdmin,
-            'dataMobil' => $dataMobil
-        ];
-
-        return view('admin.car.detail_mobil', $data);
     }
-
     function ubahMobil($mobil_id)
     {
         $mobilModel = new MobilModel();
@@ -454,7 +466,9 @@ class MobilController extends Controller
         ]);
 
         if ($validatorData->fails()) {
-            return redirect()->back()->with('failed', $validatorData->errors()->first())->withInput();
+            return response([
+                'message' => $validatorData->errors()->first()
+            ], 400);
         }
 
         for ($i = 1; $i <= 6; $i++) {
@@ -472,7 +486,9 @@ class MobilController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages);
 
         if ($validator->fails()) {
-            return redirect()->back()->with('failed', $validator->errors()->first())->withInput();
+            return response([
+                'message' => $validator->errors()->first()
+            ], 400);
         }
 
 
@@ -495,6 +511,7 @@ class MobilController extends Controller
         $data['no_mesin'] = $request->input('no_mesin');
         $data['no_rangka'] = $request->input('no_rangka');
         $data['tahun'] = $request->input('tahun');
+        $data['tgl_masuk'] = $request->input('tgl_masuk');
         $data['warna_id'] = $request->input('warna_id');
         $data['km_id'] = $request->input('km_id');
         $data['bahan_bakar_id'] = $request->input('bahan_bakar_id');
@@ -506,7 +523,7 @@ class MobilController extends Controller
         $data['harga_beli'] = preg_replace('/[^0-9]/', '', $request->harga_beli);
         $data['biaya_perbaikan'] =  preg_replace('/[^0-9]/', '', $request->biaya_perbaikan);
         $data['harga_jual'] =  preg_replace('/[^0-9]/', '', $request->harga_jual);
-        $data['tgl_masuk'] = $request->input('tanggal_masuk');
+
         $data['diskon'] =  preg_replace('/[^0-9]/', '', $request->diskon);
         $data['deskripsi'] = $request->input('deskripsi');
         $data['url_youtube'] = $request->input('url_youtube');
@@ -517,12 +534,19 @@ class MobilController extends Controller
         try {
             $updateMobil = MobilModel::where('mobil_id', $request->input('mobil_id'))->update($data);
             if ($updateMobil) {
-                return redirect()->back()->with('success', 'Berhasil mengubah data mobil ');
+                return response([
+                    'message' => 'success'
+                ], 200);
             } else {
-                return redirect()->back()->with('failed', 'Gagal mengubah data mobil ')->withInput();
+                return response([
+                    'message' => 'Gagal mengubah data mobil'
+                ], 400);
             }
         } catch (\Throwable $th) {
-            return redirect()->back()->with('failed', $th->getMessage())->withInput();
+            return response([
+                'message' => 'Server error'
+            ], 500);
+            // return redirect()->back()->with('failed', $th->getMessage())->withInput();
         }
     }
 
@@ -954,17 +978,18 @@ class MobilController extends Controller
         }
     }
 
-    function downloadReportCars($status)
+    function downloadReportCars(Request $request)
     {
 
         try {
+            $role = $request->role;
+            $status = $request->status;
+            $userId = $request->user_id;
 
-            if (session('role') == 'admin') {
-                $dataAdmin = Admin::where('admin_id', session('admin_id'))->first();
-            } elseif (session('role') == 'employee') {
-                $dataAdmin = EmployeeModel::where('karyawan_id', session('karyawan_id'))->first();
+            if ($role == 2) { // admin
+                $dataAdmin = Admin::where('admin_id', $userId)->first();
             } else {
-                $dataAdmin = OwnerModel::where('owner_id', session('owner_id'))->first();
+                $dataAdmin = OwnerModel::where('owner_id', $userId)->first();
             }
 
             $dataApp = AppModel::where('app_id', 1)->first();
@@ -996,10 +1021,14 @@ class MobilController extends Controller
                 $pdf->setPaper('A4', 'landscape');
                 return $pdf->download('Laporan_mobil_' . date('F_Y') . '.pdf');
             } else {
-                return redirect()->back()->with('failed', 'Tidak ada data mobil');
+                return response([
+                    'message' => 'Tidak ada data mobil'
+                ], 404);
             }
         } catch (\Throwable $th) {
-            return redirect()->back()->with('failed', 'Terjadi kesalahan');
+            return response([
+                'message' => 'Server error'
+            ], 500);
         }
     }
     function tampilMobil()

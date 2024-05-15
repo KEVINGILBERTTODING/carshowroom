@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\admin\transactions\TransactionController as TransactionsTransactionController;
+use App\Http\Controllers\api\admin\AdminController;
+use App\Http\Controllers\api\admin\MobilController as AdminMobilController;
+use App\Http\Controllers\api\admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\api\auth\AuthClientController;
 use App\Http\Controllers\api\client\AppController;
 use App\Http\Controllers\api\client\CreditController;
@@ -46,7 +50,7 @@ Route::prefix('client')->group(function () {
     Route::post('/profile/updatephoto', [AuthClientController::class, 'updateProfilePhoto']);
     Route::post('/profile/update', [AuthClientController::class, 'updateProfile']);
     Route::post('/profile/update/password', [AuthClientController::class, 'updatePassword']);
-    Route::get('/profile/{id}', [AuthClientController::class, 'getUserById']);
+    Route::get('/profile/{id}/{role}', [AuthClientController::class, 'getUserById']);
     Route::post('/credit/insertPengajuanKredit', [TransactionController::class, 'insertPengajuanKredit']);
     Route::post('/transaction/store', [TransactionController::class, 'insertTransaction']);
     Route::get('/bankaccount', [TransactionController::class, 'getAllBankAcc']);
@@ -54,4 +58,22 @@ Route::prefix('client')->group(function () {
     Route::get('/transaction/{userId}/{status}', [TransactionController::class, 'getHistoryTransaction']);
     Route::get('/transaction/{transactionId}', [TransactionController::class, 'detailTransaction']);
     Route::get('/invoice/download/{transactionId}', [InvoiceController::class, 'download']);
+});
+
+Route::get('downloadfile/{type}/{filename}', [AdminTransactionController::class, 'downloadFile']);
+
+Route::prefix('admin/')->group(function () {
+    Route::get('main', [AdminController::class, 'index']);
+    Route::get('transaction/profit/download', [AdminTransactionController::class, 'downloadReportProfit']);
+    Route::get('transaction/all/{status}', [AdminTransactionController::class, 'allTransactions']);
+    Route::get('car/getDataCarComponents', [AdminMobilController::class, 'getDataTambahMobil']);
+    Route::post('car/store', [AdminMobilController::class, 'insertMobil']);
+    Route::delete('car/destroy/{id}', [AdminMobilController::class, 'hapus']);
+    Route::get('car/{id}', [AdminMobilController::class, 'adminDetailMobil']);
+    Route::get('car/report/{id}', [AdminMobilController::class, 'downloadReportCars']);
+    Route::post('car/update/{id}', [AdminMobilController::class, 'updateMobil']);
+    Route::delete('transaction/destroy/{id}/{payment}', [AdminTransactionController::class, 'hapusTrasaksi']);
+    Route::post('transaction/update/{transId}', [AdminTransactionController::class, 'updateStatusTransaksi']);
+    Route::get('transaction/filter', [AdminTransactionController::class, 'filterTransaksi']);
+    Route::get('transaction/filter/download', [AdminTransactionController::class, 'downloadReportPdf']);
 });
