@@ -1458,6 +1458,30 @@ class TransactionController extends Controller
 
             $dataApp = AppModel::where('app_id', 1)->first();
             $transactionModel = new TransactionModel();
+
+            if ($request->is_filter == 1) {
+                $dataPemasukanPerBulan = $transactionModel->totalPemasukanMonth($request->month);
+                $dataKeuntunganPerBulan = $transactionModel->totalProfitMonth($request->month);
+
+                $main_logo = public_path('data/app/img/' . $dataApp['logo']);
+
+                $data = [
+                    'dataAdmin' => $dataAdmin,
+                    'dataApp' => $dataApp,
+                    'month' => $request->month,
+                    'dataPemasukan' => $dataPemasukanPerBulan,
+                    'dataKeuntungan' => $dataKeuntunganPerBulan,
+                    'logo' => $main_logo,
+                    'dateNow' => Carbon::now()->format('Y-m-d H:i:s')
+                ];
+
+
+                $pdf = FacadePdf::loadView('admin.transactions.report.report_transaction_profit_month', $data);
+                $pdf->setPaper('A4', 'landscape');
+                return $pdf->download('Laporan_pemasukan_keuntungan_' . $request->month . '.pdf');
+            }
+
+            // jika bukan filter
             $dataPemasukanPerTahun = $transactionModel->totalPemasukanYear($yearNow);
             $dataKeuntunganPerTahun = $transactionModel->totalKeuntunganYear($yearNow);
 
@@ -1466,6 +1490,7 @@ class TransactionController extends Controller
             $data = [
                 'dataAdmin' => $dataAdmin,
                 'dataApp' => $dataApp,
+                'month' => $request->month,
                 'dataPemasukan' => $dataPemasukanPerTahun,
                 'dataKeuntungan' => $dataKeuntunganPerTahun,
                 'logo' => $main_logo,

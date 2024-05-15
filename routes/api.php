@@ -64,6 +64,7 @@ Route::get('downloadfile/{type}/{filename}', [AdminTransactionController::class,
 
 Route::prefix('admin/')->group(function () {
     Route::get('main', [AdminController::class, 'index']);
+    Route::get('profit/filter/{month}', [AdminController::class, 'filterProfitIncome']);
     Route::get('transaction/profit/download', [AdminTransactionController::class, 'downloadReportProfit']);
     Route::get('transaction/all/{status}', [AdminTransactionController::class, 'allTransactions']);
     Route::get('car/getDataCarComponents', [AdminMobilController::class, 'getDataTambahMobil']);

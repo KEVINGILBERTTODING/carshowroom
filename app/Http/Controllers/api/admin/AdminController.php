@@ -45,9 +45,6 @@ class AdminController extends Controller
             $jumlaTransaksiTidakValid = $transaksiModel->totalTransaksiYear($yearNow, 0);
 
 
-
-
-
             return response(
                 [
                     'message' => 'success',
@@ -61,6 +58,38 @@ class AdminController extends Controller
                         'data_trans_tidak_valid' => $jumlaTransaksiTidakValid,
                         'year_now'  => $yearNow,
                         'month_now' => $monthNow
+                    ]
+                ],
+                200
+            );
+        } catch (\Throwable $th) {
+            return response([
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    function filterProfitIncome($monthYear)
+    {
+
+        try {
+
+            $transaksiModel = new TransactionModel();
+
+
+
+            $dataPemasukanPerTahun = $transaksiModel->totalPemasukanMonth($monthYear);
+            $dataKeuntunganPerTahun = $transaksiModel->totalProfitMonth($monthYear);
+
+
+
+            return response(
+                [
+                    'message' => 'success',
+                    'data' => [
+
+                        'data_pemasukan' => $dataPemasukanPerTahun,
+                        'data_keuntungan' => $dataKeuntunganPerTahun,
                     ]
                 ],
                 200

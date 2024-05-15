@@ -524,6 +524,71 @@ class TransactionModel extends Model
         return $data;
     }
 
+    function totalPemasukanMonth($monthYear)
+    {
+        // Parse the month and year from the input string
+        list($month, $year) = explode('-', $monthYear);
+
+        // Create the start and end date for the given month
+        $dateFromMonth = "{$year}-{$month}-01";
+        $dateToMonth = date("Y-m-t", strtotime($dateFromMonth)); // t gives the last day of the month
+
+        // Query the transactions within the date range and with status 1
+        $data = TransactionModel::select('transaksi.total_pembayaran')
+            ->where('transaksi.status', 1)
+            ->whereBetween('transaksi.created_at', [$dateFromMonth, $dateToMonth])
+            ->get();
+
+        // Calculate the total income for the month
+        $totalProfit = 0;
+        foreach ($data as $transaction) {
+            $totalProfit += $transaction->total_pembayaran;
+        }
+
+        return $totalProfit;
+    }
+
+    function totalProfitMonth($monthYear)
+    {
+        // Query untuk mendapatkan data transaksi per bulan
+        // Parse the month and year from the input string
+        list($month, $year) = explode('-', $monthYear);
+
+        // Create the start and end date for the given month
+        $dateFromMonth = "{$year}-{$month}-01";
+        $dateToMonth = date("Y-m-t", strtotime($dateFromMonth)); // t gives
+        $data = TransactionModel::select(
+            'mobil.harga_jual',
+            'mobil.biaya_perbaikan',
+            'mobil.harga_beli',
+            'mobil.diskon'
+        )
+            ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
+            ->where('transaksi.status', 1)
+            ->whereBetween('transaksi.created_at', [$dateFromMonth, $dateToMonth])
+            ->get();
+
+        // Hitung total keuntungan per bulan
+        $totalProfit = 0;
+
+        foreach ($data as $transaction) {
+            $sellingPrice = $transaction->harga_jual;
+            $purchasePrice = $transaction->harga_beli;
+            $repairCost = $transaction->biaya_perbaikan;
+            $discount = $transaction->diskon;
+
+            // Kurangi diskon dari harga jual
+            $sellingPriceAfterDiscount = $sellingPrice - $discount;
+
+            // Hitung keuntungan
+            $profit = ($sellingPriceAfterDiscount - $purchasePrice - $repairCost);
+
+            // Tambahkan keuntungan ke total keuntungan
+            $totalProfit += $profit;
+        }
+        return $totalProfit;
+    }
+
     function countTotalTransactionCustomer($userId, $status)
     {
         $data = TransactionModel::select(
