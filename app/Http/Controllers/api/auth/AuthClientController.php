@@ -37,10 +37,14 @@ class AuthClientController extends Controller
         try {
             $validateEmail = User::where('email', $email)->first();
             if ($validateEmail) { // jika ada maka simpan ke session
-                $request = session()->put('client', true);
-                $request = session()->put('user_id', $validateEmail['user_id']);
-                $request =  session()->put('profile_photo', $profilePhoto);
 
+                $dataUser = [
+                    'email' => $validateEmail['email'],
+                    'user_id' => $validateEmail['user_id'],
+                    'profile_photo' => $validateEmail['profile_photo'],
+                    'nama_lengkap' => $validateEmail['nama_lengkap'],
+                    'role' => 1 // user
+                ];
                 $data = [
 
                     'nama_lengkap' => $namaLengkap,
@@ -53,7 +57,7 @@ class AuthClientController extends Controller
                 return response()->json([
                     'status' => 'success',
                     'message' => 'User registered, session updated',
-                    'user_id' => $validateEmail['user_id'],
+                    'data' => $dataUser
                 ]);
             } else { // jika tidak ada daftarkan
                 $data = [
@@ -67,17 +71,22 @@ class AuthClientController extends Controller
                     $insert = User::insert($data);
                     if ($insert) {
                         $validateEmail2 = User::where('email', $email)->first();
-                        $request = session()->put('client', true);
-                        $request = session()->put('user_id', $validateEmail2['user_id']);
+
                         return response()->json([
                             'status' => 'success',
                             'message' => 'User registered, session updated',
-                            'user_id' => $validateEmail2['user_id'],
+                            'data' =>  [
+                                'email' => $validateEmail2['email'],
+                                'user_id' => $validateEmail2['user_id'],
+                                'profile_photo' => $validateEmail2['profile_photo'],
+                                'nama_lengkap' => $validateEmail2['nama_lengkap'],
+                                'role' => 1 // user
+                            ]
                         ]);
                     } else {
                         return response([
                             'status' => 'error',
-                            'message' => 'Terjadi kesalahan1'
+                            'message' => 'Terjadi kesalahan'
                         ], 500);
                     }
                 } catch (\Throwable $th) {

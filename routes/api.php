@@ -33,6 +33,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('auth')->group(function () {
     Route::post('/login', [AuthClientController::class, 'login']);
+    Route::post('/login/google', [AuthClientController::class, 'loginWithGoogle']);
+
     Route::post('/register', [AuthClientController::class, 'register']);
 });
 
