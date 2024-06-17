@@ -600,6 +600,8 @@ class AuthClientController extends Controller
                 $fileName = 'USR-' . $userId . '.' . $file->getClientOriginalExtension();
             } else if ($role == 2) { // admin
                 $fileName = 'ADM-' . $userId . '.' . $file->getClientOriginalExtension();
+            } else if ($role == 3) { // admin
+                $fileName = 'OWN-' . $userId . '.' . $file->getClientOriginalExtension();
             }
 
             $file->move('data/profile_photo/', $fileName);
@@ -620,6 +622,14 @@ class AuthClientController extends Controller
 
 
                     $update  = Admin::where('admin_id', $userId)->update($data);
+                } else if ($role == 3) {
+                    $data = [
+                        'photo_profile' => $fileName,
+                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ];
+
+
+                    $update  = OwnerModel::where('owner_id', $userId)->update($data);
                 }
                 if ($update) {
                     return response([
