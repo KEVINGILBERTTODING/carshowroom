@@ -329,6 +329,30 @@ class AuthClientController extends Controller
                         'message' =>  'Kata sandi lama tidak sesuai'
                     ], 400);
                 }
+            } else if ($role == 3) { // owner
+                // check password
+                $validationPassword = OwnerModel::select('password')->where('owner_id', $userId)->first();
+                if ($validationPassword && Hash::check($request->old_password, $validationPassword['password'])) {
+                    $dataUser = [
+                        'password' => Hash::make($request->new_password),
+                        'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+                    ];
+
+                    $update = OwnerModel::where('owner_id', $request->user_id)->update($dataUser);
+                    if ($update) {
+                        return response([
+                            'message' =>  'Berhasil mengubah kata sandi'
+                        ], 200);
+                    } else {
+                        return response([
+                            'message' =>  'Gagal mengubah kata sandi'
+                        ], 400);
+                    }
+                } else {
+                    return response([
+                        'message' =>  'Kata sandi lama tidak sesuai'
+                    ], 400);
+                }
             }
         } catch (\Throwable $th) {
             return response([
@@ -480,6 +504,51 @@ class AuthClientController extends Controller
                 ];
 
                 $update = Admin::where('admin_id', $userId)->update($data);
+                if ($update) {
+                    return response([
+                        'message' => 'Berhasil mengubah profile'
+                    ], 200);
+                } else {
+                    return response([
+                        'message' => 'Gagal mengubah profile'
+                    ], 404);
+                }
+            } catch (\Throwable $th) {
+                return response([
+                    'message' => 'Terjadi kesalahan server'
+                ], 500);
+            }
+        } else if ($role == 3) { // owner
+            $validator = Validator::make($request->all(), [
+                'nama_lengkap' => 'required|string',
+                'email' => 'required|unique:owner,email,' . $userId . ',owner_id',
+                'user_id' => 'required|exists:owner,owner_id'
+            ], [
+                'required' => ':attribute tidak boleh kosong',
+                'string' => ':attribute hanya boleh berupa huruf dan angka',
+                'numeric' => ':attribute hanya boleh berupa angka',
+                'unique' => ':attribute telah terdaftar',
+                'exists' => 'User tidak ditemukan'
+            ], [
+                'nama_lengkap' => 'Nama lengkap',
+                'email' => 'Email',
+
+
+            ]);
+
+            if ($validator->fails()) {
+                return response([
+                    'message' => $validator->errors()->first()
+                ], 404);
+            }
+
+            try {
+                $data = [
+                    'name' => $request->nama_lengkap,
+                    'email' => $request->email
+                ];
+
+                $update = OwnerModel::where('owner_id', $userId)->update($data);
                 if ($update) {
                     return response([
                         'message' => 'Berhasil mengubah profile'
@@ -667,6 +736,8 @@ class AuthClientController extends Controller
                 $dataUser = User::where('user_id', $userId)->first();
             } else if ($role == 2) { // admmin
                 $dataUser = Admin::where('admin_id', $userId)->first();
+            } else if ($role == 3) { //owner
+                $dataUser = OwnerModel::where('owner_id', $userId)->first();
             }
 
 
