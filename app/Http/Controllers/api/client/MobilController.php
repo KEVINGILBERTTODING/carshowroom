@@ -50,7 +50,17 @@ class MobilController extends Controller
 
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->select('mobil.*', 'merk.merk')
+            ->join('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
+            ->select(
+                'mobil.*',
+                'merk.merk',
+                'detail_gambar.gambar1',
+                'detail_gambar.gambar2',
+                'detail_gambar.gambar3',
+                'detail_gambar.gambar4',
+                'detail_gambar.gambar5',
+                'detail_gambar.gambar6'
+            )
             ->orderBy('mobil.mobil_id', 'desc')
             ->get();
         $data = [

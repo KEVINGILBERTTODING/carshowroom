@@ -10,7 +10,40 @@ use Illuminate\Pagination\Paginator;
 class MobilModel extends Model
 {
     use HasFactory;
+
     protected $table = 'mobil';
+    protected $primaryKey = 'mobil_id';
+    protected $fillable = [
+        'merk_id',
+        'body_id',
+        'nama_model',
+        'no_plat',
+        'no_mesin',
+        'no_rangka',
+        'tahun',
+        'warna_id',
+        'km_id',
+        'bahan_bakar_id',
+        'transmisi_id',
+        'kp_id',
+        'km',
+        'tangki_id',
+        'harga_beli',
+        'biaya_perbaikan',
+        'harga_jual',
+        'tgl_masuk',
+        'diskon',
+        'nama_pemilik',
+        'status_mobil',
+        'status_post',
+        'url_youtube',
+        'url_instagram',
+        'url_facebook',
+        'deskripsi',
+        'created_at',
+        'updated_at'
+    ];
+
 
     function getDetailMobil($mobilId)
     {
@@ -23,12 +56,15 @@ class MobilModel extends Model
             'bahan_bakar.bahan_bakar',
             'transmisi.transmisi',
             'kapasitas_penumpang.kapasitas as kapasitas_penumpang',
-            'tangki.tangki'
+            'tangki.tangki',
+            'detail_gambar.*',
+
 
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->leftJoin('body', 'mobil.body_id', '=', 'body.body_id')
             ->leftJoin('warna', 'mobil.warna_id', '=', 'warna.warna_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
+            ->leftJoin('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('bahan_bakar', 'mobil.bahan_bakar_id', '=', 'bahan_bakar.bahan_bakar_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
             ->leftJoin('kapasitas_penumpang', 'mobil.kp_id', '=', 'kapasitas_penumpang.kp_id')
@@ -51,21 +87,17 @@ class MobilModel extends Model
             'mobil.harga_jual',
             'mobil.diskon',
             'mobil.status_mobil',
-            'mobil.gambar1',
-            'mobil.gambar2',
-            'mobil.gambar3',
-            'mobil.gambar4',
-            'mobil.gambar5',
-            'mobil.gambar6',
+            'detail_gambar.*',
             'merk.merk',
             'transmisi.transmisi',
             'kapasitas_mesin.kapasitas as kapasitas_mesin'
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
+            ->leftJoin('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id');
 
 
-        $query->orderBy('mobil_id', 'desc');
+        $query->orderBy('mobil.mobil_id', 'desc');
 
         return $query;
     }
@@ -90,11 +122,13 @@ class MobilModel extends Model
             'review.image2 as image_review2',
             'review.image3 as image_review3',
             'review.image4 as image_review4',
-            'users.nama_lengkap'
+            'users.nama_lengkap',
+            'detail_gambar.*'
 
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->leftJoin('body', 'mobil.body_id', '=', 'body.body_id')
             ->leftJoin('warna', 'mobil.warna_id', '=', 'warna.warna_id')
+            ->leftJoin('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
             ->leftJoin('bahan_bakar', 'mobil.bahan_bakar_id', '=', 'bahan_bakar.bahan_bakar_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
@@ -119,17 +153,14 @@ class MobilModel extends Model
             'mobil.harga_jual',
             'mobil.diskon',
             'mobil.status_mobil',
-            'mobil.gambar1',
-            'mobil.gambar2',
-            'mobil.gambar3',
-            'mobil.gambar4',
-            'mobil.gambar5',
-            'mobil.gambar6',
+
             'merk.merk',
             'transmisi.transmisi',
+            'detail_gambar.*',
             'kapasitas_mesin.kapasitas as kapasitas_mesin'
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
+            ->leftJoin('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
             ->where('mobil.nama_model', 'like', '%' . $keyword . '%')
             ->orWhere('merk.merk', 'like', '%' . $keyword . '%')
@@ -151,18 +182,15 @@ class MobilModel extends Model
             //'mobil.bahan_bakar_id',
             'mobil.harga_jual',
             'mobil.diskon',
+            'detail_gambar.*',
             'mobil.status_mobil',
-            'mobil.gambar1',
-            'mobil.gambar2',
-            'mobil.gambar3',
-            'mobil.gambar4',
-            'mobil.gambar5',
-            'mobil.gambar6',
+
             'merk.merk',
             'transmisi.transmisi',
             'kapasitas_mesin.kapasitas as kapasitas_mesin'
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
+            ->leftJoin('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
             ->where(function ($query) use ($merk, $jenis, $transmisi, $hargaMulai, $hargaAkhir) { //tambah $bahanBakarId
                 if ($merk != 0) {

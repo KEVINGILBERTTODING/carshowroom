@@ -8,6 +8,7 @@ use App\Models\AppModel;
 use App\Models\BahanBakarModel;
 use App\Models\BodyModel;
 use App\Models\CreditModel;
+use App\Models\DetailGambar;
 use App\Models\EmployeeModel;
 use App\Models\FInanceModel;
 use App\Models\KapasitasMesinModel;
@@ -152,6 +153,7 @@ class MobilController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->with('failed', $validator->errors()->first())->withInput();
         }
+        $dataGambar = [];
 
 
         // // Proses penyimpanan gambar
@@ -162,7 +164,8 @@ class MobilController extends Controller
                 $fileGambar = $request->file($field);
                 $fileName = $field . '_' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileGambar->getClientOriginalExtension();
                 $fileGambar->move('data/cars', $fileName);
-                $data[$field] = $fileName;
+
+                $dataGambar[$field] = $fileName;
             }
         }
 
@@ -193,8 +196,11 @@ class MobilController extends Controller
         $data['created_at'] = date('Y-m-d H:i:s');
 
         try {
-            $insertMobil = MobilModel::insert($data);
-            if ($insertMobil) {
+            $insertMobil = MobilModel::create($data);
+            $mobilId = $insertMobil->mobil_id;
+            $dataGambar['mobil_id'] = $mobilId;
+            $insertGambar = DetailGambar::insert($dataGambar);
+            if ($insertMobil && $insertGambar) {
                 return redirect()->back()->with('success', 'Berhasil menambahkan mobil baru');
             } else {
                 return redirect()->back()->with('failed', 'Gagal menambahkan mobil baru')->withInput();
@@ -216,7 +222,8 @@ class MobilController extends Controller
 
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->select('mobil.*', 'merk.merk')
+            ->select('mobil.*', 'merk.merk', 'detail_gambar.*')
+            ->join('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
             ->orderBy('mobil.mobil_id', 'desc')
             ->get();
         $data = [
@@ -240,7 +247,8 @@ class MobilController extends Controller
 
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->select('mobil.*', 'merk.merk')
+            ->select('mobil.*', 'merk.merk', 'detail_gambar.*')
+            ->join('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
             ->where('mobil.status_mobil', 2)
             ->orderBy('mobil.mobil_id', 'desc')
             ->get();
@@ -265,7 +273,8 @@ class MobilController extends Controller
 
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->select('mobil.*', 'merk.merk')
+            ->select('mobil.*', 'merk.merk', 'detail_gambar.*')
+            ->join('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
             ->where('mobil.status_mobil', 0)
             ->orderBy('mobil.mobil_id', 'desc')
             ->get();
@@ -290,7 +299,8 @@ class MobilController extends Controller
 
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->select('mobil.*', 'merk.merk')
+            ->select('mobil.*', 'merk.merk', 'detail_gambar.*')
+            ->join('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
             ->where('mobil.status_mobil', 1)
             ->orderBy('mobil.mobil_id', 'desc')
             ->get();
@@ -310,7 +320,8 @@ class MobilController extends Controller
         }
         try {
             $delete = MobilModel::where('mobil_id', $mobilId)->delete();
-            if ($delete) {
+            $deleteGambar =  DetailGambar::where('mobil_id', $mobilId)->delete();
+            if ($delete && $deleteGambar) {
                 return redirect()->back()->with('success', 'Berhasil menghapus data mobil');
             } else {
                 return redirect()->back()->with('failed', 'Gagal menghapus data mobil');
@@ -369,7 +380,13 @@ class MobilController extends Controller
         $dataTransmisi  = TransmisiModel::get();
         $dataKapasitasPenumpang = KapasitasPenumpangModel::get();
         $dataTangki = TangkiModel::get();
-        $dataMobil = MobilModel::where('mobil_id', $mobil_id)->first();
+
+        $dataMobil = MobilModel::from('mobil as m')
+            ->join('detail_gambar as dg', 'm.mobil_id', '=', 'dg.mobil_id')
+            ->where('m.mobil_id', $mobil_id)
+            ->select('m.*', 'dg.*')
+            ->first();
+
         $dataFinance = FInanceModel::where('status', 1)->get();
 
         $data = [
@@ -475,6 +492,8 @@ class MobilController extends Controller
             return redirect()->back()->with('failed', $validator->errors()->first())->withInput();
         }
 
+        $dataGambar = [];
+
 
         // // Proses penyimpanan gambar
         for ($i = 1; $i <= 6; $i++) {
@@ -485,8 +504,10 @@ class MobilController extends Controller
                 $fileName = $field . '_' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileGambar->getClientOriginalExtension();
                 $fileGambar->move('data/cars', $fileName);
                 $data[$field] = $fileName;
+                $dataGambar[$field] = $fileName;
             }
         }
+        $dataGambar['mobil_id'] = $request->mobil_id;
 
         $data['merk_id'] = $request->input('merk_id');
         $data['body_id'] = $request->input('body_id');
@@ -516,7 +537,8 @@ class MobilController extends Controller
 
         try {
             $updateMobil = MobilModel::where('mobil_id', $request->input('mobil_id'))->update($data);
-            if ($updateMobil) {
+            $updateGambar = DetailGambar::where('mobil_id', $request->input('mobil_id'))->update($dataGambar);
+            if ($updateMobil && $updateGambar) {
                 return redirect()->back()->with('success', 'Berhasil mengubah data mobil ');
             } else {
                 return redirect()->back()->with('failed', 'Gagal mengubah data mobil ')->withInput();

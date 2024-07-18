@@ -28,7 +28,7 @@ class TransactionModel extends Model
                 'mobil.no_plat',
                 'mobil.mobil_id',
                 'mobil.tahun',
-                'mobil.gambar1',
+                'detail_gambar.gambar1',
                 'mobil.harga_jual',
                 'mobil.harga_beli',
                 'mobil.biaya_perbaikan',
@@ -37,6 +37,7 @@ class TransactionModel extends Model
 
             )
                 ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
+                ->leftJoin('detail_gambar', 'transaksi.mobil_id', '=', 'detail_gambar.mobil_id')
                 ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
                 ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
                 ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
@@ -61,7 +62,7 @@ class TransactionModel extends Model
                 'mobil.no_plat',
                 'mobil.mobil_id',
                 'mobil.tahun',
-                'mobil.gambar1',
+                'detail_gambar.gambar1',
                 'mobil.harga_jual',
                 'mobil.harga_beli',
                 'mobil.biaya_perbaikan',
@@ -71,6 +72,7 @@ class TransactionModel extends Model
             )
                 ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
                 ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
+                ->leftJoin('detail_gambar', 'transaksi.mobil_id', '=', 'detail_gambar.mobil_id')
                 ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
                 ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
                 ->leftJoin('finance', 'pk.finance_id', '=', 'finance.finance_id')
@@ -101,7 +103,7 @@ class TransactionModel extends Model
             'mobil.no_plat',
             'mobil.mobil_id',
             'mobil.tahun',
-            'mobil.gambar1',
+            'detail_gambar.gambar1',
             'mobil.harga_jual',
             'mobil.harga_beli',
             'mobil.biaya_perbaikan',
@@ -117,6 +119,7 @@ class TransactionModel extends Model
         )
             ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
             ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
+            ->leftJoin('detail_gambar', 'transaksi.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
             ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
             ->leftJoin('finance', 'pk.finance_id', '=', 'finance.finance_id')
@@ -147,7 +150,7 @@ class TransactionModel extends Model
             'mobil.no_plat',
             'mobil.mobil_id',
             'mobil.tahun',
-            'mobil.gambar1',
+            'detail_gambar.gambar1',
             'mobil.harga_jual',
             'mobil.harga_beli',
             'mobil.biaya_perbaikan',
@@ -161,6 +164,7 @@ class TransactionModel extends Model
 
         )
             ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
+            ->leftJoin('detail_gambar', 'transaksi.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
             ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
             ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
@@ -196,7 +200,7 @@ class TransactionModel extends Model
                 'mobil.no_plat',
                 'mobil.mobil_id',
                 'mobil.tahun',
-                'mobil.gambar1',
+                'detail_gambar.gambar1',
                 'mobil.harga_jual',
                 'mobil.harga_beli',
                 'mobil.biaya_perbaikan',
@@ -206,6 +210,7 @@ class TransactionModel extends Model
             )
                 ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
                 ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
+                ->leftJoin('detail_gambar', 'transaksi.mobil_id', '=', 'detail_gambar.mobil_id')
                 ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
                 ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
                 ->leftJoin('finance', 'pk.finance_id', '=', 'finance.finance_id')
@@ -230,7 +235,7 @@ class TransactionModel extends Model
                 'mobil.no_plat',
                 'mobil.mobil_id',
                 'mobil.tahun',
-                'mobil.gambar1',
+                'detail_gambar.gambar1',
                 'mobil.harga_jual',
                 'mobil.harga_beli',
                 'mobil.biaya_perbaikan',
@@ -240,6 +245,7 @@ class TransactionModel extends Model
             )
                 ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
                 ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
+                ->leftJoin('detail_gambar', 'transaksi.mobil_id', '=', 'detail_gambar.mobil_id')
                 ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
                 ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
                 ->leftJoin('finance', 'pk.finance_id', '=', 'finance.finance_id')
@@ -270,7 +276,7 @@ class TransactionModel extends Model
             'mobil.no_plat',
             'mobil.mobil_id',
             'mobil.tahun',
-            'mobil.gambar1',
+            'detail_gambar.gambar1',
             'mobil.harga_jual',
             'mobil.harga_beli',
             'mobil.biaya_perbaikan',
@@ -280,6 +286,7 @@ class TransactionModel extends Model
         )
             ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
             ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
+            ->leftJoin('detail_gambar', 'transaksi.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
             ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
             ->leftJoin('finance', 'pk.finance_id', '=', 'finance.finance_id')
@@ -309,7 +316,7 @@ class TransactionModel extends Model
             'mobil.no_plat',
             'mobil.mobil_id',
             'mobil.tahun',
-            'mobil.gambar1',
+            'detail_gambar.gambar1',
             'mobil.harga_jual',
             'mobil.harga_beli',
             'mobil.biaya_perbaikan',
@@ -319,6 +326,7 @@ class TransactionModel extends Model
         )
             ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
             ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
+            ->leftJoin('detail_gambar', 'transaksi.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
             ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
             ->leftJoin('finance', 'pk.finance_id', '=', 'finance.finance_id')
@@ -502,7 +510,7 @@ class TransactionModel extends Model
             'mobil.no_plat',
             'mobil.mobil_id',
             'mobil.tahun',
-            'mobil.gambar1',
+            'detail_gambar.gambar1',
             'mobil.harga_jual',
             'mobil.harga_beli',
             'mobil.biaya_perbaikan',
@@ -512,6 +520,7 @@ class TransactionModel extends Model
         )
             ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
             ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
+            ->leftJoin('detail_gambar', 'transaksi.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
             ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
             ->leftJoin('finance', 'pk.finance_id', '=', 'finance.finance_id')
@@ -613,7 +622,7 @@ class TransactionModel extends Model
             'mobil.nama_model',
             'mobil.mobil_id',
             'mobil.tahun',
-            'mobil.gambar1',
+            'detail_gambar.gambar1',
             'merk.merk',
             'review.review_text'
 
@@ -621,6 +630,7 @@ class TransactionModel extends Model
 
             ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
             ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
+            ->leftJoin('detail_gambar', 'transaksi.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
             ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
             ->leftJoin('finance', 'pk.finance_id', '=', 'finance.finance_id')
@@ -646,12 +656,13 @@ class TransactionModel extends Model
             'mobil.nama_model',
             'mobil.mobil_id',
             'mobil.tahun',
-            'mobil.gambar1',
+            'detail_gambar.gambar1',
             'merk.merk'
 
         )
             ->leftJoin('mobil', 'transaksi.mobil_id', '=', 'mobil.mobil_id')
             ->leftJoin('users', 'transaksi.user_id', '=', 'users.user_id')
+            ->leftJoin('detail_gambar', 'transaksi.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('pelanggan', 'transaksi.pelanggan_id', '=', 'pelanggan.pelanggan_id')
             ->leftJoin('pengajuan_kredit as pk', 'transaksi.transaksi_id', '=', 'pk.transaksi_id')
             ->leftJoin('finance', 'pk.finance_id', '=', 'finance.finance_id')
