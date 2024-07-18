@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\DetailGambar;
+use App\Models\DetailMobil;
 use App\Models\AppModel;
 use App\Models\BahanBakarModel;
 use App\Models\BodyModel;
@@ -159,6 +161,8 @@ class MobilController extends Controller
         }
 
 
+        $dataGambar = [];
+
         // // Proses penyimpanan gambar
         for ($i = 1; $i <= 6; $i++) {
             $field = 'gambar' . $i;
@@ -167,9 +171,10 @@ class MobilController extends Controller
                 $fileGambar = $request->file($field);
                 $fileName = $field . '_' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileGambar->getClientOriginalExtension();
                 $fileGambar->move('data/cars', $fileName);
-                $data[$field] = $fileName;
+                $dataGambar[$field] = $fileName;
             }
         }
+
 
         $data['merk_id'] = $request->input('merk_id');
         $data['body_id'] = $request->input('body_id');
@@ -186,32 +191,38 @@ class MobilController extends Controller
         $data['km'] = preg_replace('/[^0-9]/', '', $request->km);
         $data['nama_pemilik'] = $request->input('nama_pemilik');
         $data['tangki_id'] = $request->input('tangki_id');
-        $data['harga_beli'] = preg_replace('/[^0-9]/', '', $request->harga_beli);
-        $data['biaya_perbaikan'] =  preg_replace('/[^0-9]/', '', $request->biaya_perbaikan);
-        $data['harga_jual'] =  preg_replace('/[^0-9]/', '', $request->harga_jual);
-        $data['tgl_masuk'] = $request->input('tanggal_masuk');
-        $data['diskon'] =  preg_replace('/[^0-9]/', '', $request->diskon);
-        $data['deskripsi'] = $request->input('deskripsi');
-        $data['url_youtube'] = $request->input('url_youtube');
-        $data['url_facebook'] = $request->input('url_facebook');
-        $data['url_instagram'] = $request->input('url_instagram');
+
         $data['created_at'] = date('Y-m-d H:i:s');
 
+        $dataDetailMobil['harga_beli'] = preg_replace('/[^0-9]/', '', $request->harga_beli);
+        $dataDetailMobil['biaya_perbaikan'] =  preg_replace('/[^0-9]/', '', $request->biaya_perbaikan);
+        $dataDetailMobil['harga_jual'] =  preg_replace('/[^0-9]/', '', $request->harga_jual);
+        $dataDetailMobil['tgl_masuk'] = $request->input('tanggal_masuk');
+        $dataDetailMobil['diskon'] =  preg_replace('/[^0-9]/', '', $request->diskon);
+        $dataDetailMobil['deskripsi'] = $request->input('deskripsi');
+        $dataDetailMobil['url_youtube'] = $request->input('url_youtube');
+        $dataDetailMobil['url_facebook'] = $request->input('url_facebook');
+        $dataDetailMobil['url_instagram'] = $request->input('url_instagram');
+
         try {
-            $insertMobil = MobilModel::insert($data);
-            if ($insertMobil) {
-                return response([
-                    'message' => 'success',
-                ], 200);
-            } else {
-                return response([
-                    'message' => 'Gagal menambahkan mobil baru',
-                ], 400);
-            }
+            DB::beginTransaction();
+            $insertMobil = MobilModel::create($data);
+            $mobilId = $insertMobil->mobil_id;
+            $dataGambar['mobil_id'] = $mobilId;
+            $dataDetailMobil['mobil_id'] = $mobilId;
+
+            DetailGambar::create($dataGambar);
+            DetailMobil::create($dataDetailMobil);
+
+
+            DB::commit();
+            return response([
+                'message' => 'success',
+            ], 200);
         } catch (\Throwable $th) {
             return response([
-                'message' => 'Terjadi kesalahan server',
-            ], 500);
+                'message' => 'Gagal menambahkan mobil baru',
+            ], 400);
         }
     }
 
@@ -227,7 +238,9 @@ class MobilController extends Controller
 
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->select('mobil.*', 'merk.merk')
+            ->select('mobil.*', 'merk.merk', 'detail_gambar.*', 'detail_mobil.*')
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->join('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
             ->orderBy('mobil.mobil_id', 'desc')
             ->get();
         $data = [
@@ -323,7 +336,9 @@ class MobilController extends Controller
         }
         try {
             $delete = MobilModel::where('mobil_id', $mobilId)->delete();
-            if ($delete) {
+            $deleteGambar =  DetailGambar::where('mobil_id', $mobilId)->delete();
+            $deleteDetailMobil =  DetailMobil::where('mobil_id', $mobilId)->delete();
+            if ($delete && $deleteGambar && $deleteDetailMobil) {
                 return response([
                     'message' => 'success', 'Berhasil menghapus data mobil'
                 ], 200);
@@ -491,6 +506,9 @@ class MobilController extends Controller
             ], 400);
         }
 
+        $dataGambar = [];
+        $dataDetailMobil = [];
+
 
         // // Proses penyimpanan gambar
         for ($i = 1; $i <= 6; $i++) {
@@ -500,7 +518,7 @@ class MobilController extends Controller
                 $fileGambar = $request->file($field);
                 $fileName = $field . '_' . Carbon::now()->format('Y-m-d-H-i-s') . '.' . $fileGambar->getClientOriginalExtension();
                 $fileGambar->move('data/cars', $fileName);
-                $data[$field] = $fileName;
+                $dataGambar[$field] = $fileName;
             }
         }
 
@@ -520,19 +538,29 @@ class MobilController extends Controller
         $data['km'] = preg_replace('/[^0-9]/', '', $request->km);
         $data['nama_pemilik'] = $request->input('nama_pemilik');
         $data['tangki_id'] = $request->input('tangki_id');
-        $data['harga_beli'] = preg_replace('/[^0-9]/', '', $request->harga_beli);
-        $data['biaya_perbaikan'] =  preg_replace('/[^0-9]/', '', $request->biaya_perbaikan);
-        $data['harga_jual'] =  preg_replace('/[^0-9]/', '', $request->harga_jual);
 
-        $data['diskon'] =  preg_replace('/[^0-9]/', '', $request->diskon);
-        $data['deskripsi'] = $request->input('deskripsi');
-        $data['url_youtube'] = $request->input('url_youtube');
-        $data['url_facebook'] = $request->input('url_facebook');
-        $data['url_instagram'] = $request->input('url_instagram');
         $data['updated_at'] = date('Y-m-d H:i:s');
+
+
+
+        $dataDetailMobil['harga_beli'] = preg_replace('/[^0-9]/', '', $request->harga_beli);
+        $dataDetailMobil['biaya_perbaikan'] =  preg_replace('/[^0-9]/', '', $request->biaya_perbaikan);
+        $dataDetailMobil['harga_jual'] =  preg_replace('/[^0-9]/', '', $request->harga_jual);
+        $dataDetailMobil['tgl_masuk'] = $request->input('tanggal_masuk');
+        $dataDetailMobil['diskon'] =  preg_replace('/[^0-9]/', '', $request->diskon);
+        $dataDetailMobil['deskripsi'] = $request->input('deskripsi');
+        $dataDetailMobil['url_youtube'] = $request->input('url_youtube');
+        $dataDetailMobil['url_facebook'] = $request->input('url_facebook');
+        $dataDetailMobil['url_instagram'] = $request->input('url_instagram');
+        $dataDetailMobil['updated_at'] = date('Y-m-d H:i:s');
+
+
+
 
         try {
             $updateMobil = MobilModel::where('mobil_id', $request->input('mobil_id'))->update($data);
+            $updateGambar = DetailGambar::where('mobil_id', $request->input('mobil_id'))->update($dataGambar);
+            $updateDetailMobil = DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataDetailMobil);
             if ($updateMobil) {
                 return response([
                     'message' => 'success'
@@ -995,13 +1023,15 @@ class MobilController extends Controller
             $dataApp = AppModel::where('app_id', 1)->first();
             if ($status == 3) { // semua mobil
                 $dataMobil  = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-                    ->select('mobil.*', 'merk.merk')
+                    ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+                    ->select('mobil.*', 'merk.merk', 'detail_mobil.*')
                     ->orderBy('mobil.mobil_id', 'desc')
                     ->get();
             } else {
                 $dataMobil  = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-                    ->select('mobil.*', 'merk.merk')
-                    ->where('mobil.status_mobil', $status)
+                    ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+                    ->select('mobil.*', 'merk.merk', 'detail_mobil.*')
+                    ->where('detail_mobil.status_mobil', $status)
                     ->orderBy('mobil.mobil_id', 'desc')
                     ->get();
             }

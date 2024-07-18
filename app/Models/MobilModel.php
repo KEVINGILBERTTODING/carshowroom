@@ -156,9 +156,7 @@ class MobilModel extends Model
             'mobil.no_plat',
             'mobil.tahun',
             'mobil.km',
-            'mobil.harga_jual',
-            'mobil.diskon',
-            'mobil.status_mobil',
+
 
             'merk.merk',
             'transmisi.transmisi',
@@ -188,11 +186,10 @@ class MobilModel extends Model
             'mobil.tahun',
             'mobil.km',
             //'mobil.bahan_bakar_id',
-            'mobil.harga_jual',
-            'mobil.diskon',
+
             'detail_gambar.*',
             'detail_mobil.*',
-            'mobil.status_mobil',
+
 
             'merk.merk',
             'transmisi.transmisi',
@@ -220,9 +217,9 @@ class MobilModel extends Model
                 // }
 
                 if ($hargaAkhir > 0) {
-                    $query->whereBetween('mobil.harga_jual', [$hargaMulai, $hargaAkhir]);
+                    $query->whereBetween('detail_mobil.harga_jual', [$hargaMulai, $hargaAkhir]);
                 } else {
-                    $query->where('mobil.harga_jual', '>=', $hargaMulai);
+                    $query->where('detail_mobil.harga_jual', '>=', $hargaMulai);
                 }
             })
             ->orderBy('mobil.mobil_id', 'desc');
