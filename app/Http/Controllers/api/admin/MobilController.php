@@ -529,7 +529,6 @@ class MobilController extends Controller
         $data['no_mesin'] = $request->input('no_mesin');
         $data['no_rangka'] = $request->input('no_rangka');
         $data['tahun'] = $request->input('tahun');
-        $data['tgl_masuk'] = $request->input('tgl_masuk');
         $data['warna_id'] = $request->input('warna_id');
         $data['km_id'] = $request->input('km_id');
         $data['bahan_bakar_id'] = $request->input('bahan_bakar_id');
@@ -572,7 +571,7 @@ class MobilController extends Controller
             }
         } catch (\Throwable $th) {
             return response([
-                'message' => 'Server error'
+                'message' => $th->getMessage()
             ], 500);
             // return redirect()->back()->with('failed', $th->getMessage())->withInput();
         }

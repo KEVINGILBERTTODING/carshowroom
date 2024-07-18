@@ -210,7 +210,8 @@ class TransactionController extends Controller
 
         // cek ketersediaan mobil
         $checkMobil = MobilModel::where('mobil_id', $request->input('mobil_id'))->first();
-        if ($checkMobil && $checkMobil['status_mobil'] != 1) {
+        $checkDetailMobil = DetailMobil::where('mobil_id', $request->mobil_id)->first();
+        if ($checkMobil && $checkDetailMobil['status_mobil'] != 1) {
             return response([
                 'message' =>  'Mobil tidak tersedia'
             ], 400);
