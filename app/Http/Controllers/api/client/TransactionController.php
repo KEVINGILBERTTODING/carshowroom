@@ -8,6 +8,8 @@ use App\Models\AppModel;
 use App\Models\BankAccountModel;
 use App\Models\CreditModel;
 use App\Models\FInanceModel;
+use App\Models\DetailMobil;
+
 use App\Models\MobilModel;
 use App\Models\NotificationAdminModel;
 use App\Models\TransactionModel;
@@ -155,7 +157,7 @@ class TransactionController extends Controller
 
             TransactionModel::insert($dataTransaksi);
             AdminNotificationModel::insert($dataNotifAdmin);
-            MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+            DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
             DB::commit();
 
             return response([
@@ -302,7 +304,7 @@ class TransactionController extends Controller
         try {
             TransactionModel::insert($dataTransaksi);
             CreditModel::insert($dataKredit);
-            MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+            DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
             NotificationAdminModel::insert($dataNotifAdmin);
 
             DB::commit();

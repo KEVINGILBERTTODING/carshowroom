@@ -51,8 +51,10 @@ class MobilController extends Controller
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->join('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
             ->select(
                 'mobil.*',
+                'detail_mobil.*',
                 'merk.merk',
                 'detail_gambar.gambar1',
                 'detail_gambar.gambar2',
@@ -84,8 +86,9 @@ class MobilController extends Controller
 
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->select('mobil.*', 'merk.merk')
-            ->where('mobil.status_mobil', 2)
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->select('mobil.*', 'merk.merk', 'detail_mobil.*')
+            ->where('detail_mobil.status_mobil', 2)
             ->orderBy('mobil.mobil_id', 'desc')
             ->get();
         $data = [
@@ -108,9 +111,11 @@ class MobilController extends Controller
         }
 
         $dataApp = AppModel::where('app_id', 1)->first();
+
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->select('mobil.*', 'merk.merk')
-            ->where('mobil.status_mobil', 0)
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->select('mobil.*', 'merk.merk', 'detail_mobil.*')
+            ->where('detail_mobil.status_mobil', 0)
             ->orderBy('mobil.mobil_id', 'desc')
             ->get();
         $data = [
@@ -134,8 +139,9 @@ class MobilController extends Controller
 
         $dataApp = AppModel::where('app_id', 1)->first();
         $dataMobil = MobilModel::join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->select('mobil.*', 'merk.merk')
-            ->where('mobil.status_mobil', 1)
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->select('mobil.*', 'merk.merk', 'detail_mobil.*')
+            ->where('detail_mobil.status_mobil', 1)
             ->orderBy('mobil.mobil_id', 'desc')
             ->get();
         $data = [

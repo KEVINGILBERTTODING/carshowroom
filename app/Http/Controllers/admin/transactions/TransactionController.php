@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin\transactions;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailMobil;
+
 use App\Models\Admin;
 use App\Models\AppModel;
 use App\Models\CreditModel;
@@ -37,9 +39,10 @@ class TransactionController extends Controller
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getAllTransactionByStatus(4);
-        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk', 'detail_mobil.*')
             ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->where('status_mobil', 1)->get();
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->where('detail_mobil.status_mobil', 1)->get();
         $dataFinance = FInanceModel::where('status', 1)->get();
 
         $data = [
@@ -67,9 +70,10 @@ class TransactionController extends Controller
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getAllTransactionByStatus(1);
-        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk', 'detail_mobil.*')
             ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->where('status_mobil', 1)->get();
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->where('detail_mobil.status_mobil', 1)->get();
         $dataFinance = FInanceModel::where('status', 1)->get();
 
         $data = [
@@ -98,9 +102,10 @@ class TransactionController extends Controller
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getAllTransactionByStatus(2);
-        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk', 'detail_mobil.*')
             ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->where('status_mobil', 1)->get();
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->where('detail_mobil.status_mobil', 1)->get();
         $dataFinance = FInanceModel::where('status', 1)->get();
 
         $data = [
@@ -128,9 +133,10 @@ class TransactionController extends Controller
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getAllTransactionByStatus(3);
-        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk', 'detail_mobil.*')
             ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->where('status_mobil', 1)->get();
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->where('detail_mobil.status_mobil', 1)->get();
         $dataFinance = FInanceModel::where('status', 1)->get();
 
         $data = [
@@ -157,9 +163,10 @@ class TransactionController extends Controller
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getAllTransactionByStatus(0);
-        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk', 'detail_mobil.*')
             ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->where('status_mobil', 1)->get();
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->where('detail_mobil.status_mobil', 1)->get();
         $dataFinance = FInanceModel::where('status', 1)->get();
 
         $data = [
@@ -308,7 +315,8 @@ class TransactionController extends Controller
                     PelangganModel::insert($dataPelanggan);
                     TransactionModel::insert($dataTransaksi);
                     CreditModel::insert($dataKredit);
-                    MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                    DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
 
                     DB::commit();
                     return redirect()->back()->with('success', 'Berhasil menambahkan transaksi baru');
@@ -349,7 +357,8 @@ class TransactionController extends Controller
                 try {
                     PelangganModel::insert($dataPelanggan);
                     TransactionModel::insert($dataTransaksi);
-                    MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                    DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                     DB::commit();
                     return redirect()->back()->with('success', 'Berhasil menambahkan transaksi baru');
                 } catch (\Throwable $th) {
@@ -468,7 +477,8 @@ class TransactionController extends Controller
                     TransactionModel::where('mobil_id', $request->input('mobil_id'))
                         ->where('status', 2)
                         ->update($dataTransaksi2);
-                    MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                    DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
 
 
                     DB::commit();
@@ -519,7 +529,8 @@ class TransactionController extends Controller
                         ->where('status', 2)
                         ->update($dataTransaksi2);
 
-                    MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                    DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
 
                     DB::commit();
                     return redirect()->back()->with('success', 'Berhasil menambahkan transaksi baru');
@@ -688,7 +699,8 @@ class TransactionController extends Controller
                 if ($checkTransaction != null) {
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         NotificationModel::insert($datNotif);
                         TransactionModel::where('mobil_id', $request->input('mobil_id'))
                             ->where('status', '<>', 0)
@@ -705,7 +717,8 @@ class TransactionController extends Controller
                     // jika transaksi tidak ada
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         NotificationModel::insert($datNotif);
                         TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
                         DB::commit();
@@ -726,7 +739,8 @@ class TransactionController extends Controller
                 if ($checkTransaction != null) {
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         TransactionModel::where('mobil_id', $request->input('mobil_id'))
                             ->where('status', '<>', 0)
                             ->where('transaksi_id', '<>', $request->input('transaksi_id'))
@@ -742,7 +756,8 @@ class TransactionController extends Controller
                     // jika transaksi tidak ada
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
                         DB::commit();
                         return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
@@ -793,7 +808,8 @@ class TransactionController extends Controller
                 if ($checkTransaction != null) {
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         NotificationModel::insert($datNotif);
                         TransactionModel::where('mobil_id', $request->input('mobil_id'))
                             ->where('status', '<>', 0)
@@ -810,7 +826,8 @@ class TransactionController extends Controller
                     // jika transaksi tidak ada
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         NotificationModel::insert($datNotif);
                         TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
                         DB::commit();
@@ -831,7 +848,8 @@ class TransactionController extends Controller
                 if ($checkTransaction != null) {
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         TransactionModel::where('mobil_id', $request->input('mobil_id'))
                             ->where('status', '<>', 0)
                             ->where('transaksi_id', '<>', $request->input('transaksi_id'))
@@ -847,7 +865,8 @@ class TransactionController extends Controller
                     // jika transaksi tidak ada
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
                         DB::commit();
                         return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
@@ -896,7 +915,8 @@ class TransactionController extends Controller
                 if ($checkTransaction != null) {
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         NotificationModel::insert($datNotif);
                         TransactionModel::where('mobil_id', $request->input('mobil_id'))
                             ->where('status', '<>', 0)
@@ -913,7 +933,8 @@ class TransactionController extends Controller
                     // jika transaksi tidak ada
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         NotificationModel::insert($datNotif);
                         TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
                         DB::commit();
@@ -934,7 +955,8 @@ class TransactionController extends Controller
                 if ($checkTransaction != null) {
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         TransactionModel::where('mobil_id', $request->input('mobil_id'))
                             ->where('status', '<>', 0)
                             ->where('transaksi_id', '<>', $request->input('transaksi_id'))
@@ -950,7 +972,8 @@ class TransactionController extends Controller
                     // jika transaksi tidak ada
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
                         DB::commit();
                         return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
@@ -996,7 +1019,8 @@ class TransactionController extends Controller
                 if ($checkTransaction != null) {
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         NotificationModel::insert($datNotif);
 
                         TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
@@ -1010,7 +1034,8 @@ class TransactionController extends Controller
                     // jika transaksi tidak ada
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         NotificationModel::insert($datNotif);
                         TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
                         DB::commit();
@@ -1031,7 +1056,8 @@ class TransactionController extends Controller
                 if ($checkTransaction != null) {
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
 
                         TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
                         DB::commit();
@@ -1044,7 +1070,8 @@ class TransactionController extends Controller
                     // jika transaksi tidak ada
                     DB::beginTransaction();
                     try {
-                        MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+                        DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+
                         TransactionModel::where('transaksi_id', $request->input('transaksi_id'))->update($dataMainTransaksi);
                         DB::commit();
                         return redirect()->back()->with('success', 'Berhasil mengubah status transaksi');
@@ -1272,9 +1299,10 @@ class TransactionController extends Controller
         $transactionModel = new TransactionModel();
         $namaLengkap = $namaLengkap;
         $dataTransactions = $transactionModel->getTransactionByUser($userId);
-        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk', 'detail_mobil.*')
             ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->where('status_mobil', 1)->get();
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->where('detail_mobil.status_mobil', 1)->get();
         $dataFinance = FInanceModel::where('status', 1)->get();
 
         $data = [
@@ -1302,9 +1330,10 @@ class TransactionController extends Controller
         $dataApp = AppModel::where('app_id', 1)->first();
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getTransactionByPelanggan($pelangganId);
-        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk', 'detail_mobil.*')
             ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->where('status_mobil', 1)->get();
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->where('detail_mobil.status_mobil', 1)->get();
         $dataFinance = FInanceModel::where('status', 1)->get();
 
         $data = [
@@ -1410,9 +1439,10 @@ class TransactionController extends Controller
         $transactionModel = new TransactionModel();
         $dataTransactions = $transactionModel->getClientAllTransactions($userId);
         $dataUser = User::select('users.user_id', 'users.nama_lengkap')->where('user_id', $userId)->first();
-        $dataMobil = MobilModel::select('mobil.*', 'merk.merk')
+        $dataMobil = MobilModel::select('mobil.*', 'merk.merk', 'detail_mobil.*')
             ->join('merk', 'mobil.merk_id', '=', 'merk.merk_id')
-            ->where('status_mobil', 1)->get();
+            ->join('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
+            ->where('detail_mobil.status_mobil', 1)->get();
         $dataFinance = FInanceModel::where('status', 1)->get();
 
         $data = [

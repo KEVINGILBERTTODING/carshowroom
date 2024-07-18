@@ -57,7 +57,10 @@ class MobilModel extends Model
             'transmisi.transmisi',
             'kapasitas_penumpang.kapasitas as kapasitas_penumpang',
             'tangki.tangki',
+            'detail_mobil.*',
             'detail_gambar.*',
+            'detail_mobil.*',
+
 
 
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
@@ -65,6 +68,7 @@ class MobilModel extends Model
             ->leftJoin('warna', 'mobil.warna_id', '=', 'warna.warna_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
             ->leftJoin('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
+            ->leftJoin('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
             ->leftJoin('bahan_bakar', 'mobil.bahan_bakar_id', '=', 'bahan_bakar.bahan_bakar_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
             ->leftJoin('kapasitas_penumpang', 'mobil.kp_id', '=', 'kapasitas_penumpang.kp_id')
@@ -84,15 +88,15 @@ class MobilModel extends Model
             'mobil.no_plat',
             'mobil.tahun',
             'mobil.km',
-            'mobil.harga_jual',
-            'mobil.diskon',
-            'mobil.status_mobil',
+
             'detail_gambar.*',
+            'detail_mobil.*',
             'merk.merk',
             'transmisi.transmisi',
             'kapasitas_mesin.kapasitas as kapasitas_mesin'
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->leftJoin('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
+            ->leftJoin('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id');
 
@@ -123,12 +127,14 @@ class MobilModel extends Model
             'review.image3 as image_review3',
             'review.image4 as image_review4',
             'users.nama_lengkap',
-            'detail_gambar.*'
+            'detail_gambar.*',
+            'detail_mobil.*',
 
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->leftJoin('body', 'mobil.body_id', '=', 'body.body_id')
             ->leftJoin('warna', 'mobil.warna_id', '=', 'warna.warna_id')
             ->leftJoin('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
+            ->leftJoin('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
             ->leftJoin('bahan_bakar', 'mobil.bahan_bakar_id', '=', 'bahan_bakar.bahan_bakar_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
@@ -157,9 +163,11 @@ class MobilModel extends Model
             'merk.merk',
             'transmisi.transmisi',
             'detail_gambar.*',
+            'detail_mobil.*',
             'kapasitas_mesin.kapasitas as kapasitas_mesin'
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
+            ->leftJoin('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
             ->leftJoin('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
             ->where('mobil.nama_model', 'like', '%' . $keyword . '%')
@@ -183,6 +191,7 @@ class MobilModel extends Model
             'mobil.harga_jual',
             'mobil.diskon',
             'detail_gambar.*',
+            'detail_mobil.*',
             'mobil.status_mobil',
 
             'merk.merk',
@@ -191,6 +200,7 @@ class MobilModel extends Model
         )->leftJoin('merk', 'mobil.merk_id', '=', 'merk.merk_id')
             ->leftJoin('transmisi', 'mobil.transmisi_id', '=', 'transmisi.transmisi_id')
             ->leftJoin('detail_gambar', 'mobil.mobil_id', '=', 'detail_gambar.mobil_id')
+            ->leftJoin('detail_mobil', 'mobil.mobil_id', '=', 'detail_mobil.mobil_id')
             ->leftJoin('kapasitas_mesin', 'mobil.km_id', '=', 'kapasitas_mesin.km_id')
             ->where(function ($query) use ($merk, $jenis, $transmisi, $hargaMulai, $hargaAkhir) { //tambah $bahanBakarId
                 if ($merk != 0) {

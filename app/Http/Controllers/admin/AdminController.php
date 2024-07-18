@@ -8,6 +8,7 @@ use App\Models\AppModel;
 use App\Models\EmployeeModel;
 use App\Models\FInanceModel;
 use App\Models\MobilModel;
+use App\Models\DetailMobil;
 use App\Models\NotificationAdminModel;
 use App\Models\OwnerModel;
 use App\Models\PelangganModel;
@@ -48,7 +49,8 @@ class AdminController extends Controller
         $jumlaTransaksiProsesFinance = $transaksiModel->totalTransaksiYear($yearNow, 3);
         $jumlaTransaksiTidakValid = $transaksiModel->totalTransaksiYear($yearNow, 0);
         $totalPelanggan = PelangganModel::count();
-        $totalMobilTersedia = MobilModel::where('status_mobil', 1)->count();
+        $totalMobilTersedia = DetailMobil::where('status_mobil', 1)->count();
+
         $userModel = new User();
         $totalPengguna = $userModel->getTotalUserYear($yearNow);
         $dataTransactions = $transaksiModel->getTransactionsMonth($yearNow, $monthNow);

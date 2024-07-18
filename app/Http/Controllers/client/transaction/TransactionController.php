@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\AdminNotificationModel;
 use App\Models\AppModel;
 use App\Models\BankAccountModel;
+use App\Models\DetailMobil;
 use App\Models\CreditModel;
 use App\Models\FInanceModel;
 use App\Models\MobilModel;
@@ -147,7 +148,7 @@ class TransactionController extends Controller
             User::where('user_id', session('user_id'))->update($dataUsers);
             TransactionModel::insert($dataTransaksi);
             AdminNotificationModel::insert($dataNotifAdmin);
-            MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+            DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
             DB::commit();
             return redirect()->route('detailTransaksi', Crypt::encrypt($transaksiId))->with('success', 'Transaksi anda sedang kami proses, anda akan menerima notifikasi jika proses pengecekan telah selesai.');
         } catch (\Throwable $th) {
@@ -321,7 +322,7 @@ class TransactionController extends Controller
         try {
             TransactionModel::insert($dataTransaksi);
             CreditModel::insert($dataKredit);
-            MobilModel::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
+            DetailMobil::where('mobil_id', $request->input('mobil_id'))->update($dataMobil);
             NotificationAdminModel::insert($dataNotifAdmin);
             User::where('user_id', session('user_id'))->update($dataUser);
             DB::commit();
